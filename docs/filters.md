@@ -45,8 +45,11 @@ Each field has a `type`: `text`, `number`, `select`, `multiselect`, `boolean` or
 The component lives in a `GET` form. Each active filter submits its value as `<field>` (`<field>[]` for `multiselect`) and its operator as `<field>__op`, so a request looks like `?status=open&status__op=eq&tags[]=bug&tags__op=in`. Read these from the query and pass the same list back through `values` to restore the chips.
 
 ```twig
-{# GET /issues?status=open&status__op=eq #}
-<twig:Filters :fields="fields" :values="[{field: 'status', operator: 'eq', value: app.request.query.get('status')}]" />
+<twig:Filters
+    :autoSubmit="false"
+    :fields="[{name: 'status', label: 'Status', type: 'select', options: {open: 'Open', closed: 'Closed'}}]"
+    :values="[{field: 'status', operator: 'eq', value: 'open'}]"
+/>
 ```
 
 ### Without auto-submit
