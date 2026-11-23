@@ -39,7 +39,7 @@
     'data-rich-text-editor-label-value': label,
     'data-rich-text-editor-id-value': id ?? '',
 } -%}
-<div class="{{ ('grid overflow-hidden rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring' ~ (disabled ? ' opacity-50' : '') ~ ' ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+<div class="{{ ('relative grid overflow-hidden rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring data-invalid:border-destructive' ~ (disabled ? ' opacity-50' : '') ~ ' ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
     {%- if not inactive %}
         <div role="toolbar" aria-label="{{ toolbarLabel }}" class="flex flex-wrap items-center gap-0.5 border-b border-border bg-muted/40 p-1" data-rich-text-editor-target="toolbar" data-action="keydown->rich-text-editor#toolbarKey">
             {%- for tool in tools %}

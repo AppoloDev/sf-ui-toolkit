@@ -38,7 +38,7 @@ The link button opens a small field under the toolbar to set or remove the link 
 
 ### Required, with a form
 
-`required` blocks the submission while the editor is empty, and a form `reset` restores the initial value.
+`required` blocks the submission while the editor is empty (the editor is focused and outlined), and a form `reset` restores the initial value.
 
 ```twig
 <form class="grid gap-3" onsubmit="event.preventDefault(); this.querySelector('output').textContent = this.body.value">

@@ -40,6 +40,7 @@ export default class extends Controller {
                 attributes: {
                     role: 'textbox',
                     'aria-multiline': 'true',
+                    ...(this.fieldTarget.required ? { 'aria-required': 'true' } : {}),
                     'aria-label': this.labelValue,
                     ...(this.idValue ? { id: this.idValue } : {}),
                 },
@@ -47,6 +48,12 @@ export default class extends Controller {
             onUpdate: () => this.changed(true),
             onTransaction: () => this.refresh(),
         });
+        // The hidden field carries the native validation: send the user to the editor instead of a 1px input.
+        this.onInvalid = () => {
+            this.element.dataset.invalid = '';
+            this.editor.commands.focus();
+        };
+        this.fieldTarget.addEventListener('invalid', this.onInvalid);
         this.form = this.element.closest('form');
         this.onReset = () => requestAnimationFrame(() => {
             this.editor.commands.setContent(this.valueValue, { emitUpdate: false });
@@ -59,6 +66,7 @@ export default class extends Controller {
 
     disconnect() {
         this.form?.removeEventListener('reset', this.onReset);
+        this.fieldTarget.removeEventListener('invalid', this.onInvalid);
         this.editor?.destroy();
     }
 
@@ -140,6 +148,7 @@ export default class extends Controller {
         const empty = this.editor.isEmpty;
         const html = empty ? '' : this.editor.getHTML();
         this.fieldTarget.value = html;
+        if (!empty) delete this.element.dataset.invalid;
         if (this.hasPlaceholderTarget) this.placeholderTarget.hidden = !empty;
         if (notify) {
             this.fieldTarget.dispatchEvent(new Event('change', { bubbles: true }));
