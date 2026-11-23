@@ -40,6 +40,10 @@ The trigger shows the chosen emoji. Search ranks by name, tag and shortcode; `â†
 
 ### Wider grid and disabled
 
+`columns` sets the number of emojis per row.
+
+<!-- height: 460 -->
+
 ```twig
 <div class="flex gap-3">
     <twig:EmojiPicker name="wide" :columns="10" />
