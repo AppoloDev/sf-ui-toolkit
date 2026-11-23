@@ -95,15 +95,15 @@ The accessible names of the tools come from `toolLabels` (the tool names, plus `
 
 ## Extending
 
-The editor announces itself with a `rich-text-editor:configure` event before TipTap creates it. The event bubbles from the editor element and carries a `detail` object that listeners fill in: `detail.extensions` (TipTap extensions to add), `detail.tools` (toolbar behaviors, keyed by tool name) and `detail.starterKit` (options merged into `StarterKit.configure()`). Register the listener before the controller connects, for example at the top of `assets/app.js`. Use `event.target` to target a given editor (a `data-` attribute works well).
+There are two ways to extend the editor, and every example below shows both. With **Vanilla** JavaScript, the editor announces itself with a `rich-text-editor:configure` event before TipTap creates it; the event bubbles from the editor element and carries a `detail` object that listeners fill in: `detail.extensions` (TipTap extensions to add), `detail.tools` (toolbar behaviors, keyed by tool name) and `detail.starterKit` (options merged into `StarterKit.configure()`). Register the listener before the controller connects, for example at the top of `assets/app.js`, and use `event.target` to target a given editor. With **Stimulus**, you subclass the controller in your app, register it under its own name and point the component at it with the `controller` prop: targets, values and actions are inherited, and the component writes its `data-*` attributes with the identifier you give.
 
 A tool is an object with `run(chain, editor)`, which receives a focused TipTap command chain and returns it, plus the optional `active(editor)` (drives `aria-pressed`) and `can(editor)` (disables the button when it returns `false`). The toolbar entry is a mapping in the `tools` prop: `{name, icon, label}`, where `icon` is any Symfony UX Icons name. Entries without a registered tool render disabled.
 
 ### Adding a TipTap extension
 
-Install the extension (`php bin/console importmap:require @tiptap/extension-highlight@3.35.0`), then register the extension and its tool:
+Install the extension (`php bin/console importmap:require @tiptap/extension-highlight@3.35.0`), then register the extension and its tool. In the Stimulus version, the file is `assets/controllers/rich_text_highlight_controller.js`, registered as `rich-text-highlight`.
 
-```js
+```js Vanilla
 import Highlight from '@tiptap/extension-highlight';
 
 document.addEventListener('rich-text-editor:configure', (event) => {
@@ -116,8 +116,37 @@ document.addEventListener('rich-text-editor:configure', (event) => {
 });
 ```
 
-```twig
+```twig Vanilla
 <twig:RichTextEditor name="body" :tools="['bold', 'italic', {name: 'highlight', icon: 'lucide:highlighter', label: 'Highlight'}]" />
+```
+
+```js Stimulus
+import Highlight from '@tiptap/extension-highlight';
+import RichTextEditor from './rich_text_editor_controller.js';
+
+export default class extends RichTextEditor {
+    defineTools(extra) {
+        return {
+            ...super.defineTools(extra),
+            highlight: {
+                run: (chain) => chain.toggleHighlight(),
+                active: (editor) => editor.isActive('highlight'),
+                can: (editor) => editor.can().toggleHighlight(),
+            },
+        };
+    }
+
+    editorOptions(StarterKit, config) {
+        const options = super.editorOptions(StarterKit, config);
+        options.extensions.push(Highlight);
+
+        return options;
+    }
+}
+```
+
+```twig Stimulus
+<twig:RichTextEditor name="body" controller="rich-text-highlight" :tools="['bold', 'italic', {name: 'highlight', icon: 'lucide:highlighter', label: 'Highlight'}]" />
 ```
 
 Extensions add their own HTML (here `<mark>`): style it in your CSS, and allow it in your server-side HTML sanitizer.
@@ -126,7 +155,7 @@ Extensions add their own HTML (here `<mark>`): style it in your CSS, and allow i
 
 Same pattern with `@tiptap/extension-image` (`php bin/console importmap:require @tiptap/extension-image@3.35.0`). The tool below asks for a URL with a native prompt to stay short; swap it for your own dialog, or for an upload that returns the stored file URL. The prompt text is user-visible, so translate it like any other text.
 
-```js
+```js Vanilla
 import Image from '@tiptap/extension-image';
 
 document.addEventListener('rich-text-editor:configure', (event) => {
@@ -142,17 +171,71 @@ document.addEventListener('rich-text-editor:configure', (event) => {
 });
 ```
 
-```twig
+```twig Vanilla
 <twig:RichTextEditor name="body" :tools="['bold', 'italic', '|', {name: 'image', icon: 'lucide:image', label: 'Image'}]" />
+```
+
+```js Stimulus
+import Image from '@tiptap/extension-image';
+import RichTextEditor from './rich_text_editor_controller.js';
+
+export default class extends RichTextEditor {
+    defineTools(extra) {
+        return {
+            ...super.defineTools(extra),
+            image: {
+                run: (chain) => {
+                    const src = window.prompt('Image URL');
+
+                    return src ? chain.setImage({ src }) : chain;
+                },
+                can: (editor) => editor.can().setImage({ src: 'https://' }),
+            },
+        };
+    }
+
+    editorOptions(StarterKit, config) {
+        const options = super.editorOptions(StarterKit, config);
+        options.extensions.push(Image.configure({ inline: false }));
+
+        return options;
+    }
+}
+```
+
+```twig Stimulus
+<twig:RichTextEditor name="body" controller="rich-text-image" :tools="['bold', 'italic', '|', {name: 'image', icon: 'lucide:image', label: 'Image'}]" />
 ```
 
 Style the images in your CSS (for example `max-width: 100%`) and allow `img` with `src` and `alt` in your server-side HTML sanitizer. Do not enable `allowBase64` unless you accept large inline data in the stored HTML.
 
-### Extending the Stimulus controller
+### Changing the built-in behavior
 
-For behavior that is more than a tool, subclass the controller in your app. Create `assets/controllers/rich_text_counter_controller.js` (it is registered as `rich-text-counter` by the Stimulus bundle) and point the component at it with the `controller` prop. Targets, values and actions are inherited, and the component writes its `data-*` attributes with the identifier you give.
+StarterKit options can tune or switch off built-in features, for example headings limited to one level, or code blocks removed. Removing a feature does not remove its toolbar button: drop it from the `tools` prop too. To replace a built-in tool, register a tool with the same name.
 
-The controller exports `TOOLS` (the built-in tools) and exposes two hooks, `defineTools(extra)` and `editorOptions(StarterKit, config)`, plus the methods `changed(notify)` and `refresh()`; override them and call `super` to keep the default behavior. This example adds a live word counter and a tool of its own:
+```js Vanilla
+document.addEventListener('rich-text-editor:configure', (event) => {
+    event.detail.starterKit.heading = { levels: [2] };
+    event.detail.starterKit.codeBlock = false;
+});
+```
+
+```js Stimulus
+import RichTextEditor from './rich_text_editor_controller.js';
+
+export default class extends RichTextEditor {
+    editorOptions(StarterKit, config) {
+        config.starterKit.heading = { levels: [2] };
+        config.starterKit.codeBlock = false;
+
+        return super.editorOptions(StarterKit, config);
+    }
+}
+```
+
+### Beyond tools: controller behavior
+
+Behavior that is not a tool, such as a counter or autosave, is a Stimulus-only extension. The controller exports `TOOLS` (the built-in tools) and exposes the hooks `defineTools(extra)` and `editorOptions(StarterKit, config)`, plus the methods `changed(notify)` and `refresh()`; override them and call `super` to keep the default behavior. This example adds a live word counter.
 
 ```js
 import RichTextEditor from './rich_text_editor_controller.js';
@@ -166,10 +249,6 @@ export default class extends RichTextEditor {
         this.counter.className = 'px-3 pb-2 text-xs text-muted-foreground';
         this.element.append(this.counter);
         this.count();
-    }
-
-    defineTools(extra) {
-        return { ...super.defineTools(extra), clearFormat: { run: (chain) => chain.unsetAllMarks().clearNodes() } };
     }
 
     changed(notify) {
@@ -186,24 +265,10 @@ export default class extends RichTextEditor {
 ```
 
 ```twig
-<twig:RichTextEditor name="body" controller="rich-text-counter" data-rich-text-counter-words-label-value="{count} mots"
-    :tools="['bold', 'italic', {name: 'clearFormat', icon: 'lucide:remove-formatting', label: 'Clear formatting'}]" />
+<twig:RichTextEditor name="body" controller="rich-text-counter" data-rich-text-counter-words-label-value="{count} mots" />
 ```
 
-The events are named after the controller identifier: with the example above they are `rich-text-counter:change` and `rich-text-counter:configure`.
-
-### Changing the built-in behavior
-
-`detail.starterKit` is passed to `StarterKit.configure()`, so built-in features can be tuned or switched off, for example headings limited to one level, or code blocks removed:
-
-```js
-document.addEventListener('rich-text-editor:configure', (event) => {
-    event.detail.starterKit.heading = { levels: [2] };
-    event.detail.starterKit.codeBlock = false;
-});
-```
-
-Removing a feature does not remove its toolbar button: drop it from the `tools` prop too. To replace a built-in tool, register a tool with the same name in `detail.tools`.
+The events are named after the controller identifier: with a controller registered as `rich-text-counter`, they are `rich-text-counter:change` and `rich-text-counter:configure`.
 
 ## Accessibility
 

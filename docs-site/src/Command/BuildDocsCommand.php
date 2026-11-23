@@ -224,18 +224,35 @@ final class BuildDocsCommand extends Command
     }
 
     /**
-     * Paragraphs and fenced code blocks (any language) of a free-form section.
+     * Paragraphs and fenced code blocks (any language) of a free-form section. A fence info string such as
+     * "js Vanilla" labels the block: consecutive labeled blocks are grouped into tabs, one tab per label.
      *
-     * @return array{paragraphs: list<string>, blocks: list<array{lang: string, code: string}>}
+     * @return array{paragraphs: list<string>, items: list<array<string, mixed>>}
      */
     private function section(string $body): array
     {
-        preg_match_all('/```(\w*)\n(.*?)```/s', $body, $fences, PREG_SET_ORDER);
-        $text = trim((string) preg_replace('/```\w*\n.*?```/s', '', $body));
+        preg_match_all('/```(\w*)[ \t]*([^\n]*)\n(.*?)```/s', $body, $fences, PREG_SET_ORDER);
+        $text = trim((string) preg_replace('/```\w*[^\n]*\n.*?```/s', '', $body));
+
+        $items = [];
+        foreach ($fences as $fence) {
+            $block = ['lang' => $fence[1], 'code' => rtrim($fence[3])];
+            $label = trim($fence[2]);
+            if ('' === $label) {
+                $items[] = ['tabs' => null, 'block' => $block];
+                continue;
+            }
+            $last = count($items) - 1;
+            if ($last < 0 || null === $items[$last]['tabs']) {
+                $items[] = ['tabs' => [], 'block' => null];
+                ++$last;
+            }
+            $items[$last]['tabs'][$label][] = $block;
+        }
 
         return [
             'paragraphs' => array_values(array_map($this->inline(...), array_filter(array_map('trim', preg_split('/\n\s*\n/', $text) ?: [])))),
-            'blocks' => array_map(static fn (array $fence): array => ['lang' => $fence[1], 'code' => rtrim($fence[2])], $fences),
+            'items' => $items,
         ];
     }
 
