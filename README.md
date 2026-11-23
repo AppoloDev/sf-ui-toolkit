@@ -34,6 +34,7 @@ The props of each component are listed in its documentation.
 | `cascader` | Pick a value in a hierarchy through columns or one level at a time, with search, single or multiple choice. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/cascader.html) |
 | `color-picker` | Color field with a popover: saturation/brightness area, hue and opacity sliders, typed CSS colors, swatches and eye dropper. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/color-picker.html) |
 | `emoji-picker` | Searchable emoji grid in a popover or inline, with categories, skin tones and recents. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/emoji-picker.html) |
+| `empty-state` | Centered or left-aligned empty state with media, title, description and actions, plain or in a dashed container. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/empty-state.html) |
 | `file-type` | File icon with a colored extension label for documents, spreadsheets, images, archives and code, in four variants and six sizes. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/file-type.html) |
 | `filters` | Schema-driven filter bar: chips with operator and value editors, add and clear, state carried in the URL query. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/filters.html) |
 | `frame` | Bounded container that groups page regions into bordered panels: settings pages, dashboard sections, status lists. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/frame.html) |

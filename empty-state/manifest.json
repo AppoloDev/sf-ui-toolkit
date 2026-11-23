@@ -1,0 +1,13 @@
+{
+    "type": "component",
+    "name": "EmptyState",
+    "description": "Centered or left-aligned empty state with media, title, description and actions, plain or in a dashed container.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-icons"
+        ]
+    }
+}
