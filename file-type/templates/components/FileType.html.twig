@@ -1,0 +1,68 @@
+{#
+  FileType: file icon (page with a colored extension label) for documents, spreadsheets, images,
+  archives, code... Pure Twig, no JavaScript.
+
+  Props
+    type        extension (`pdf`, `.docx`), file name (`report.pdf`) or `folder`; case-insensitive
+    size        mini (18px) | xs (24px) | sm (32px) | md (40px) | lg (48px) | xl (56px)
+    variant     outline | solid | light | mono
+    label       custom label instead of the extension
+    decorative  hides the icon from assistive technology (use it when the file name is displayed beside it)
+
+  Other sizes: pass a Tailwind size class (`class="size-20"`). Recolor the type with a text color class.
+#}
+{%- props type = '', size = 'md', variant = 'outline', label = null, decorative = false -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set ext = (type|trim|lower|split('.')|last) -%}
+{%- set families = {
+    pdf: 'pdf',
+    doc: 'document', docx: 'document', odt: 'document', rtf: 'document', pages: 'document',
+    xls: 'spreadsheet', xlsx: 'spreadsheet', ods: 'spreadsheet', csv: 'spreadsheet', numbers: 'spreadsheet',
+    ppt: 'presentation', pptx: 'presentation', odp: 'presentation', key: 'presentation',
+    jpg: 'jpg', jpeg: 'jpg', png: 'png', gif: 'image', webp: 'image', svg: 'image', bmp: 'image', ico: 'image', heic: 'image', avif: 'image',
+    mp3: 'audio', wav: 'audio', flac: 'audio', ogg: 'audio', m4a: 'audio', aac: 'audio',
+    mp4: 'video', mov: 'video', avi: 'video', mkv: 'video', webm: 'video',
+    zip: 'archive', rar: 'archive', tar: 'archive', gz: 'archive', '7z': 'archive', bz2: 'archive',
+    txt: 'text', md: 'text', log: 'text',
+    js: 'code', ts: 'code', jsx: 'code', tsx: 'code', php: 'code', py: 'code', rb: 'code', go: 'code', rs: 'code', java: 'code', c: 'code', cpp: 'code', cs: 'code', html: 'code', css: 'code', scss: 'code', twig: 'code', sh: 'code', sql: 'code', vue: 'code',
+    json: 'config', yaml: 'config', yml: 'config', xml: 'config', toml: 'config', ini: 'config', env: 'config', lock: 'config',
+    psd: 'design', ai: 'design', fig: 'design', sketch: 'design', xd: 'design',
+    exe: 'application', dmg: 'application', apk: 'application', msi: 'application',
+    ttf: 'font', otf: 'font', woff: 'font', woff2: 'font',
+} -%}
+{%- set colors = {
+    pdf: 'text-orange-600', document: 'text-blue-600', spreadsheet: 'text-green-600', presentation: 'text-red-600',
+    jpg: 'text-violet-600', png: 'text-yellow-600', image: 'text-violet-600', audio: 'text-pink-600', video: 'text-rose-600',
+    archive: 'text-gray-600', text: 'text-gray-600', code: 'text-sky-600', config: 'text-teal-600', design: 'text-fuchsia-600',
+    application: 'text-indigo-600', font: 'text-gray-600', folder: 'text-amber-600', unknown: 'text-gray-600',
+} -%}
+{%- set names = {
+    pdf: 'PDF', document: 'Document', spreadsheet: 'Spreadsheet', presentation: 'Presentation', jpg: 'Image', png: 'Image', image: 'Image',
+    audio: 'Audio', video: 'Video', archive: 'Archive', text: 'Text', code: 'Code', config: 'Configuration', design: 'Design',
+    application: 'Application', font: 'Font', folder: 'Folder', unknown: 'File',
+} -%}
+{%- set sizes = {mini: 'size-[18px]', xs: 'size-6', sm: 'size-8', md: 'size-10', lg: 'size-12', xl: 'size-14'} -%}
+{%- set family = ext == 'folder' ? 'folder' : (families[ext] ?? 'unknown') -%}
+{%- set text = (label ?? ext)|upper -%}
+{%- set tone = variant == 'mono' ? 'text-muted-foreground' : colors[family] -%}
+{%- set font_size = text|length <= 3 ? 5.5 : (text|length == 4 ? 4.6 : 3.8) -%}
+{%- set aria = decorative ? 'aria-hidden="true"' : 'role="img" aria-label="' ~ ((label ? label ~ ' ' : '') ~ names[family] ~ (family == 'folder' ? '' : ' file'))|e('html_attr') ~ '"' -%}
+<span class="{{ ('inline-flex shrink-0 ' ~ (sizes[size] ?? sizes.md) ~ ' ' ~ tone ~ ' ' ~ extra_class)|trim }}" {{ aria|raw }} {{ attributes }}>
+    {%- if family == 'folder' -%}
+        <svg viewBox="0 0 24 24" class="size-full" aria-hidden="true">
+            <path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" {% if variant == 'solid' %}fill="currentColor"{% elseif variant == 'light' %}fill="currentColor" fill-opacity="0.15"{% else %}fill="none"{% endif %} stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+        </svg>
+    {%- else -%}
+        <svg viewBox="0 0 24 24" class="size-full" aria-hidden="true">
+            <path d="M6 2h8l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"
+                  {% if variant == 'solid' %}fill="currentColor" stroke="currentColor"{% elseif variant == 'light' %}class="fill-muted stroke-muted-foreground/40" {% else %}class="fill-none stroke-muted-foreground/50" {% endif %}stroke-width="1.25" stroke-linejoin="round"/>
+            <path d="M14 2v5h5" fill="none" stroke-width="1.25" stroke-linejoin="round" {% if variant == 'solid' %}stroke="#fff" stroke-opacity="0.6"{% else %}class="stroke-muted-foreground/50"{% endif %}/>
+            {%- if variant == 'solid' -%}
+                <text x="12" y="17.2" text-anchor="middle" font-size="{{ font_size }}" font-weight="700" font-family="ui-sans-serif, system-ui, sans-serif" fill="#fff">{{ text }}</text>
+            {%- else -%}
+                <rect x="1.5" y="12.5" width="17" height="7" rx="1.5" fill="currentColor"/>
+                <text x="10" y="17.6" text-anchor="middle" font-size="{{ font_size }}" font-weight="700" font-family="ui-sans-serif, system-ui, sans-serif" fill="#fff">{{ text }}</text>
+            {%- endif -%}
+        </svg>
+    {%- endif -%}
+</span>

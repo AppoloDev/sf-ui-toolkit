@@ -1,0 +1,11 @@
+{
+    "type": "component",
+    "name": "FileType",
+    "description": "File icon with a colored extension label for documents, spreadsheets, images, archives and code, in four variants and six sizes.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}
