@@ -18,6 +18,8 @@
 
 ## Documentation
 
+- `README.md` is for end users only: what the kit is, how to install a component, and the components table with links to their docs page. Contributor and CI details go in `CONTRIBUTING.md`. Keep the README components table up to date when adding a recipe.
+
 - `docs-site/` is a small Symfony app; `php bin/console app:build-docs` generates `dist/` (published to GitHub Pages by `.github/workflows/docs.yml`).
 - Kit components are resolved as after a `ux:install`: each `<recipe>/templates` is added to the Twig paths (`docs-site/config/packages/twig.php`).
 - Stimulus controllers of recipes (`<recipe>/assets/controllers/*_controller.js`) are copied to `dist/controllers/` and registered by a generated `controllers.js`.
