@@ -1,0 +1,13 @@
+{
+    "type": "component",
+    "name": "Faq",
+    "description": "Frequently asked questions as a native accordion: single or split layout, multiple or exclusive answers, optional FAQPage structured data.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-icons"
+        ]
+    }
+}
