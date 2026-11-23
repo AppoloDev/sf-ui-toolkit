@@ -1,0 +1,11 @@
+{
+    "type": "component",
+    "name": "Timeline",
+    "description": "Chronological list of events (activity feed, milestones, roadmap), vertical or horizontal, with completed and active states.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}
