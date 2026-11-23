@@ -1,0 +1,12 @@
+{
+    "type": "component",
+    "name": "NumberField",
+    "description": "Numeric input with decrement and increment buttons, keyboard steps, press-and-hold repeat and min/max clamping.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}
