@@ -1,0 +1,14 @@
+{
+    "type": "component",
+    "name": "SignaturePad",
+    "description": "Handwritten signature captured with a mouse, a finger or a stylus, exported as PNG, JPEG, SVG or JSON.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-icons"
+        ]
+    }
+}

@@ -1,0 +1,64 @@
+{#
+  SignaturePad: handwritten signature captured with a mouse, a finger or a stylus.
+
+  Props
+    name          field name; the submitted value depends on `format`
+    format        png | jpeg | svg | json (png/jpeg: data URL, svg: markup, json: stroke data to redraw later)
+    value         stored value to display (a `json` export; other formats cannot be edited again)
+    background    fill of image exports (default transparent for png/svg, white for jpeg)
+    color         ink color of the exports (the on-screen ink follows the text color)
+    minWidth, maxWidth   stroke width bounds in px; the width follows pen pressure or drawing speed
+    pointerTypes  all | pen | touch | mouse
+    required      the form cannot be submitted while the pad is empty
+    readonly      shows the signature, no more input
+    disabled      dims the pad and removes it from the tab order
+    label         accessible name of the drawing area
+    placeholder   hint shown on an empty pad
+    undoLabel, redoLabel, clearLabel   accessible names of the toolbar buttons
+#}
+{%- props name = null, format = 'png', value = '', background = null, color = '#000000', minWidth = 0.8, maxWidth = 2.6, pointerTypes = 'all', required = false, readonly = false, disabled = false, label = 'Signature', placeholder = 'Sign here', undoLabel = 'Undo', redoLabel = 'Redo', clearLabel = 'Clear' -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set inactive = readonly or disabled -%}
+{%- set data = {
+    'data-controller': 'signature-pad',
+    'data-signature-pad-format-value': format,
+    'data-signature-pad-value-value': value,
+    'data-signature-pad-background-value': background ?? (format == 'jpeg' ? '#ffffff' : ''),
+    'data-signature-pad-color-value': color,
+    'data-signature-pad-min-width-value': minWidth,
+    'data-signature-pad-max-width-value': maxWidth,
+    'data-signature-pad-pointer-types-value': pointerTypes,
+    'data-signature-pad-inactive-value': inactive ? 'true' : 'false',
+} -%}
+<div class="{{ ('grid gap-2 ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+    <div class="relative h-40 w-full overflow-hidden rounded-md border border-border bg-muted/40{{ disabled ? ' opacity-50' }}{{ readonly ? ' bg-background' }}"
+         data-signature-pad-target="frame">
+        <canvas role="application" aria-roledescription="signature pad" aria-label="{{ label }}"{% if not inactive %} tabindex="0"{% endif %}
+                class="absolute inset-0 size-full touch-none text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring{{ inactive ? '' : ' cursor-crosshair' }}"
+                data-signature-pad-target="canvas"
+                data-action="pointerdown->signature-pad#down pointermove->signature-pad#move pointerup->signature-pad#up pointercancel->signature-pad#up keydown->signature-pad#keydown"></canvas>
+        {%- if not inactive %}
+            <span class="pointer-events-none absolute inset-0 flex items-center justify-center text-sm text-muted-foreground" data-signature-pad-target="placeholder">{{ placeholder }}</span>
+            <span class="pointer-events-none absolute inset-x-6 bottom-8 border-b border-dashed border-border" aria-hidden="true"></span>
+        {%- endif %}
+    </div>
+    {%- if not inactive %}
+        <div class="flex items-center gap-1" role="toolbar" aria-label="{{ label }}">
+            <button type="button" aria-label="{{ undoLabel }}" title="{{ undoLabel }}" class="flex size-8 items-center justify-center rounded-md border border-border outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    data-signature-pad-target="undo" data-action="signature-pad#undo">
+                <twig:ux:icon name="lucide:undo-2" class="size-4" aria-hidden="true" />
+            </button>
+            <button type="button" aria-label="{{ redoLabel }}" title="{{ redoLabel }}" class="flex size-8 items-center justify-center rounded-md border border-border outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    data-signature-pad-target="redo" data-action="signature-pad#redo">
+                <twig:ux:icon name="lucide:redo-2" class="size-4" aria-hidden="true" />
+            </button>
+            <button type="button" class="ml-auto inline-flex h-8 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                    data-signature-pad-target="clear" data-action="signature-pad#clear">
+                <twig:ux:icon name="lucide:eraser" class="size-4" aria-hidden="true" />
+                {{ clearLabel }}
+            </button>
+        </div>
+    {%- endif %}
+    <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" {% if name %}name="{{ name }}" {% endif %}{{ required ? 'required' }}
+           data-signature-pad-target="field">
+</div>
