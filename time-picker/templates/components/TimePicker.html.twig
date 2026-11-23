@@ -1,0 +1,53 @@
+{#
+  TimePicker: typed time field with a popover of scrollable columns (hours, minutes, seconds, AM/PM).
+
+  Props
+    name            field name; the submitted value is always 24h: HH:mm or HH:mm:ss
+    value           initial value (HH:mm or HH:mm:ss)
+    hourCycle       24 | 12 (display only; the value stays 24h)
+    hourStep        step of the hours column
+    minuteStep      step of the minutes column
+    secondStep      step of the seconds column
+    seconds         show the seconds column
+    min, max        inclusive bounds (HH:mm[:ss]); the window wraps overnight when min > max
+    requireConfirm  hold changes as a draft until OK is pressed
+    placeholder     placeholder of the typed field
+    disabled        disables the field
+    label           accessible label of the typed field
+    id              id of the typed field (for an external <label for>)
+#}
+{%- props name = null, value = null, hourCycle = 24, hourStep = 1, minuteStep = 1, secondStep = 1, seconds = false, min = null, max = null, requireConfirm = false, placeholder = '', disabled = false, label = null, id = null -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set data = {
+    'data-controller': 'time-picker',
+    'data-time-picker-value-value': value ?? '',
+    'data-time-picker-hour-cycle-value': hourCycle,
+    'data-time-picker-hour-step-value': hourStep,
+    'data-time-picker-minute-step-value': minuteStep,
+    'data-time-picker-second-step-value': secondStep,
+    'data-time-picker-seconds-value': seconds ? 'true' : 'false',
+    'data-time-picker-require-confirm-value': requireConfirm ? 'true' : 'false',
+    'data-time-picker-min-value': min ?? '',
+    'data-time-picker-max-value': max ?? '',
+} -%}
+<div class="{{ ('relative inline-block ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+    <div class="inline-flex h-9 items-center rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring{{ disabled ? ' opacity-50' }}">
+        <input type="text" inputmode="numeric" autocomplete="off" class="h-full w-24 bg-transparent px-3 text-sm tabular-nums outline-none"
+               {% if id %}id="{{ id }}" {% endif %}{% if label %}aria-label="{{ label }}" {% endif %}placeholder="{{ placeholder }}" {{ disabled ? 'disabled' }}
+               data-time-picker-target="input" data-action="keydown->time-picker#inputKeydown blur->time-picker#parseInput">
+        <button type="button" class="flex h-full w-9 items-center justify-center border-l border-border text-muted-foreground hover:bg-muted disabled:pointer-events-none" aria-label="Open the time picker" aria-haspopup="dialog" aria-expanded="false" {{ disabled ? 'disabled' }}
+                data-time-picker-target="trigger" data-action="time-picker#toggle">
+            <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </button>
+    </div>
+    <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-time-picker-target="hidden">
+    <div role="dialog" aria-label="Choose a time" hidden class="absolute left-0 top-full z-50 mt-1 rounded-md border border-border bg-background p-2 shadow-md"
+         data-time-picker-target="panel" data-action="keydown->time-picker#panelKeydown">
+        <div class="flex gap-1" data-time-picker-target="columns"></div>
+        <div class="mt-2 flex items-center justify-between gap-2 border-t border-border pt-2 text-sm">
+            <button type="button" class="rounded px-2 py-1 hover:bg-muted" data-action="time-picker#now">Now</button>
+            <button type="button" class="rounded px-2 py-1 hover:bg-muted" data-action="time-picker#clear">Clear</button>
+            <button type="button" class="rounded bg-primary px-3 py-1 text-primary-foreground" data-action="time-picker#confirm">OK</button>
+        </div>
+    </div>
+</div>

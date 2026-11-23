@@ -1,0 +1,12 @@
+{
+    "type": "component",
+    "name": "TimePicker",
+    "description": "Typed time field with a popover of scrollable columns (hours, minutes, seconds, AM/PM), steps, min/max and 12/24h display.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}
