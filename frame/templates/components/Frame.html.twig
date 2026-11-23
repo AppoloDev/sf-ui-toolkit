@@ -1,0 +1,18 @@
+{#
+  Frame: bounded container that groups page regions into bordered panels (settings pages,
+  dashboard sections, status lists).
+
+  Props
+    dense    removes the padding and gap: panels sit on the outer border, separated by rules
+    stacked  joins adjacent panels into one column (a single rounded block)
+    spacing  xs | sm | default | lg: padding and gap around the panels (ignored when dense)
+
+  The slot holds Frame:Panel elements.
+#}
+{%- props dense = false, stacked = false, spacing = 'default' -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set pad = {xs: 'p-0.5 gap-0.5', sm: 'p-1 gap-1', default: 'p-1.5 gap-1.5', lg: 'p-3 gap-3'}[spacing] ?? 'p-1.5 gap-1.5' -%}
+{%- set layout = dense ? 'overflow-hidden border border-border bg-background' : 'bg-muted/50 ' ~ pad ~ (stacked ? ' [&>*+*]:-mt-1.5' : '') -%}
+<div class="{{ ('group/frame flex flex-col rounded-xl ' ~ layout ~ ' ' ~ extra_class)|trim }}" data-dense="{{ dense ? 'true' : 'false' }}" data-stacked="{{ stacked ? 'true' : 'false' }}" {{ attributes }}>
+    {%- block content %}{% endblock -%}
+</div>

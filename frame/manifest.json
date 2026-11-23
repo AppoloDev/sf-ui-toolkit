@@ -1,0 +1,11 @@
+{
+    "type": "component",
+    "name": "Frame",
+    "description": "Bounded container that groups page regions into bordered panels: settings pages, dashboard sections, status lists.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}
