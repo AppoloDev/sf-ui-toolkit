@@ -1,3 +1,7 @@
 /dist/
 /docs-site/vendor/
 /docs-site/var/
+
+# Local notes and IDE files
+/CLAUDE.local.md
+/.idea/
