@@ -1,0 +1,12 @@
+{
+    "type": "component",
+    "name": "ColorPicker",
+    "description": "Color field with a popover: saturation/brightness area, hue and opacity sliders, typed CSS colors, swatches and eye dropper.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}
