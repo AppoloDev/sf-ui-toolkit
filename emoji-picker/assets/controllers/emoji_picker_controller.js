@@ -64,13 +64,18 @@ export default class extends Controller {
             const groups = (messages.groups ?? []).filter((group) => 'component' !== group.key).sort((a, b) => a.order - b.order);
             this.groups = groups.map((group) => ({ key: group.key, name: group.message.charAt(0).toUpperCase() + group.message.slice(1), order: group.order }));
             const known = new Set(this.groups.map((group) => group.order));
-            this.emojis = compact.filter((item) => known.has(item.group)).map((item) => ({
-                emoji: item.emoji,
-                name: item.annotation ?? item.label ?? '',
-                group: item.group,
-                search: [item.annotation ?? item.label, ...(item.tags ?? []), ...(item.shortcodes ?? [])].join(' ').toLowerCase().normalize('NFD').replace(/[̀-ͯ:_-]/g, ' '),
-                skins: item.skins?.map((skin) => skin.emoji) ?? null,
-            }));
+            // emojibase 16 names the fields `label` and `unicode` (older releases: `annotation` and `emoji`).
+            this.emojis = compact.filter((item) => known.has(item.group)).map((item) => {
+                const name = item.label ?? item.annotation ?? '';
+
+                return {
+                    emoji: item.unicode ?? item.emoji,
+                    name,
+                    group: item.group,
+                    search: [name, ...(item.tags ?? []), ...(item.shortcodes ?? [])].join(' ').toLowerCase().normalize('NFD').replace(/[̀-ͯ:_-]/g, ' '),
+                    skins: item.skins?.map((skin) => skin.unicode ?? skin.emoji) ?? null,
+                };
+            });
             this.recent = this.recentKeyValue ? JSON.parse(localStorage.getItem(this.recentKeyValue) ?? '[]') : [];
             this.category = this.recent.length ? 'recent' : String(this.groups[0]?.order ?? 0);
             this.renderTabs();
