@@ -1,0 +1,10 @@
+{#
+  Props
+    value  identifier of the item (reported in the order and submitted with `name[]`)
+    label  spoken name of the item for keyboard announcements (defaults to its text)
+#}
+{%- props value, label = null -%}
+{%- set extra_class = attributes.render('class') -%}
+<div role="listitem" class="{{ ('flex items-center gap-2 rounded-md border border-border bg-background p-2 text-sm data-[dragging=true]:opacity-40 data-[picked=true]:ring-2 data-[picked=true]:ring-ring ' ~ extra_class)|trim }}" data-sortable-target="item" data-value="{{ value }}"{% if label %} data-label="{{ label }}"{% endif %} {{ attributes }}>
+    {%- block content %}{% endblock -%}
+</div>

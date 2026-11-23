@@ -1,0 +1,15 @@
+{#
+  Sortable: reorderable list (vertical or grid) with drag and drop on a handle and full keyboard support.
+
+  Props
+    name  when set, the order is submitted as hidden inputs `name[]` (values of the items)
+
+  Layout is up to you: a vertical list is `class="flex flex-col gap-2"`, a grid is
+  `class="grid grid-cols-3 gap-2"`: the drag logic is the same.
+  Use Sortable:Item (with a `value`) and a Sortable:Handle inside each item.
+#}
+{%- props name = null -%}
+{%- set extra_class = attributes.render('class') -%}
+<div role="list" class="{{ extra_class }}" data-controller="sortable"{% if name %} data-sortable-name-value="{{ name }}"{% endif %} {{ attributes }}>
+    {%- block content %}{% endblock -%}
+</div>

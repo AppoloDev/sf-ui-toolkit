@@ -1,0 +1,9 @@
+{#
+  Drag handle: only this element starts a drag. Pass `label` to translate the accessible name.
+  Keyboard: Space or Enter picks the item up, arrows move it, Space or Enter drops it, Escape cancels.
+#}
+{%- props label = 'Reorder' -%}
+{%- set extra_class = attributes.render('class') -%}
+<button type="button" aria-label="{{ label }}" aria-pressed="false" class="{{ ('flex size-6 shrink-0 cursor-grab items-center justify-center rounded text-muted-foreground outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring active:cursor-grabbing ' ~ extra_class)|trim }}" data-sortable-handle {{ attributes }}>
+    <svg viewBox="0 0 24 24" class="size-4" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg>
+</button>

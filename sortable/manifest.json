@@ -1,0 +1,12 @@
+{
+    "type": "component",
+    "name": "Sortable",
+    "description": "Reorderable list or grid: drag and drop on a handle, full keyboard reordering, and the order submitted with the form.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}
