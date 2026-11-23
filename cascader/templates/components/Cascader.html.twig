@@ -1,0 +1,51 @@
+{#
+  Cascader: pick a value in a hierarchy through columns (or one level at a time), with search.
+
+  Props
+    options        nested list of { value, label, children?, disabled? }; every value must be unique
+    name           field name; multiple: `name[]`
+    value          selected value (multiple: list of values)
+    multiple       checkboxes instead of a single choice; the popover stays open
+    max            maximum number of selections (multiple)
+    selectable     leaf | any: `any` lets branches be chosen too
+    cascade        multiple only: choosing a branch chooses all of its leaves (partial branches show as mixed)
+    mode           columns | drill (drill replaces the level as you go deeper)
+    separator      text between the levels of a displayed path
+    required, disabled
+    placeholder, searchLabel, emptyLabel, backLabel, selectedLabel ({count}), label   texts
+    id             id of the trigger (for an external <label for>)
+#}
+{%- props options = [], name = null, value = null, multiple = false, max = null, selectable = 'leaf', cascade = false, mode = 'columns', separator = ' / ', required = false, disabled = false, placeholder = 'Select…', searchLabel = 'Search', emptyLabel = 'No results.', backLabel = 'Back', selectedLabel = '{count} selected', label = 'Options', id = null -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set data = {
+    'data-controller': 'cascader',
+    'data-cascader-options-value': options|json_encode,
+    'data-cascader-selected-value': (multiple ? (value ?? []) : (value is null or value == '' ? [] : [value]))|json_encode,
+    'data-cascader-name-value': name ?? '',
+    'data-cascader-multiple-value': multiple ? 'true' : 'false',
+    'data-cascader-max-value': max ?? 0,
+    'data-cascader-selectable-value': selectable,
+    'data-cascader-cascade-value': cascade ? 'true' : 'false',
+    'data-cascader-mode-value': mode,
+    'data-cascader-separator-value': separator,
+    'data-cascader-placeholder-value': placeholder,
+    'data-cascader-empty-label-value': emptyLabel,
+    'data-cascader-back-label-value': backLabel,
+    'data-cascader-selected-label-value': selectedLabel,
+} -%}
+<div class="{{ ('relative inline-block w-64 ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+    <button type="button" aria-haspopup="dialog" aria-expanded="false" {% if id %}id="{{ id }}" {% endif %}{{ disabled ? 'disabled' }}
+            class="flex h-9 w-full items-center justify-between gap-2 rounded-md border border-border bg-background px-3 text-left text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
+            data-cascader-target="trigger" data-action="cascader#toggle keydown->cascader#triggerKey">
+        <span class="truncate" data-cascader-target="display"></span>
+        <twig:ux:icon name="lucide:chevrons-up-down" class="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+    </button>
+    <div role="dialog" aria-label="{{ label }}" hidden class="absolute left-0 top-full z-50 mt-1 min-w-full rounded-md border border-border bg-background shadow-md" data-cascader-target="panel" data-action="keydown->cascader#panelKey">
+        <input type="search" role="searchbox" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off"
+               class="h-9 w-full rounded-t-md border-b border-border bg-transparent px-3 text-sm outline-none" data-cascader-target="search" data-action="input->cascader#search">
+        <div class="flex max-h-64 divide-x divide-border overflow-x-auto" data-cascader-target="columns"></div>
+        <p class="sr-only" role="status" aria-live="polite" data-cascader-target="status"></p>
+    </div>
+    <span data-cascader-target="inputs" hidden></span>
+    <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" data-cascader-target="validity" {{ required ? 'required' }}>
+</div>

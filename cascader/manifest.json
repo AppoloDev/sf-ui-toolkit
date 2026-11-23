@@ -1,0 +1,14 @@
+{
+    "type": "component",
+    "name": "Cascader",
+    "description": "Pick a value in a hierarchy through columns or one level at a time, with search, single or multiple choice.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-icons"
+        ]
+    }
+}
