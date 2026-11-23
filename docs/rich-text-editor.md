@@ -4,13 +4,7 @@
 
 ## Usage
 
-The editor needs two JavaScript packages. With AssetMapper:
-
-```bash
-php bin/console importmap:require @tiptap/core@3.35.0 @tiptap/starter-kit@3.35.0
-```
-
-Then use it like any form field. The submitted value is the HTML of the document: sanitize it on the server (for example with `symfony/html-sanitizer`) before storing or displaying it.
+The editor needs two JavaScript packages: with AssetMapper, run `php bin/console importmap:require @tiptap/core@3.35.0 @tiptap/starter-kit@3.35.0`. Then use it like any form field. The submitted value is the HTML of the document: sanitize it on the server (for example with `symfony/html-sanitizer`) before storing or displaying it.
 
 ```twig
 <twig:RichTextEditor name="body" value="<p>Hello</p>" />
@@ -95,7 +89,7 @@ The accessible names of the tools come from `toolLabels` (the tool names, plus `
 |---|---|---|---|
 | `name` | string | `null` | Field name. The value is the HTML of the document (empty when the editor is empty). |
 | `value` | string | `''` | Initial HTML. |
-| `tools` | array | bold, italic, underline, strike, heading2, heading3, lists, blockquote, codeBlock, link, undo, redo | Toolbar, in order; `\|` separates groups. |
+| `tools` | array | bold, italic, underline, strike, heading2, heading3, lists, blockquote, codeBlock, link, undo, redo | Toolbar, in order. A vertical bar entry splits the groups (see the examples). |
 | `placeholder` | string | `''` | Text shown while the editor is empty. |
 | `required` | bool | `false` | The form cannot be submitted while the editor is empty. |
 | `readonly` | bool | `false` | Shows the content without editing or toolbar. |
