@@ -1,0 +1,22 @@
+{#
+  Scrollspy: table-of-contents navigation that highlights the section currently in view.
+
+  Props
+    root     CSS selector of the scrolling element (default: the page). Use it for a fixed-height scroll area.
+    offset   px kept above the active section (fixed header height, for example)
+    history  keep the URL hash in sync with the active section (replaceState)
+    label    accessible name of the navigation
+
+  The slot holds Scrollspy:Link elements whose `href` is `#<section id>`.
+#}
+{%- props root = null, offset = 0, history = true, label = 'On this page' -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set data = {
+    'data-controller': 'scrollspy',
+    'data-scrollspy-root-value': root ?? '',
+    'data-scrollspy-offset-value': offset,
+    'data-scrollspy-history-value': history ? 'true' : 'false',
+} -%}
+<nav aria-label="{{ label }}" class="{{ ('flex flex-col text-sm ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+    {%- block content %}{% endblock -%}
+</nav>

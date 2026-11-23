@@ -1,0 +1,12 @@
+{
+    "type": "component",
+    "name": "Scrollspy",
+    "description": "Table-of-contents navigation that highlights the section currently in view.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}

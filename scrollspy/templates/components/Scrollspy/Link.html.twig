@@ -1,0 +1,12 @@
+{#
+  Scrollspy:Link: link to a section. Active when the section is in view (`data-active="true"`, `aria-current="location"`).
+
+  Props
+    href  `#<section id>`
+#}
+{%- props href -%}
+{%- set extra_class = attributes.render('class') -%}
+<a href="{{ href }}" class="{{ ('-ml-px border-l-2 border-transparent py-1 pl-3 text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring data-[active=true]:border-primary data-[active=true]:font-medium data-[active=true]:text-foreground ' ~ extra_class)|trim }}"
+   data-scrollspy-target="link" data-action="scrollspy#go" {{ attributes }}>
+    {%- block content %}{% endblock -%}
+</a>
