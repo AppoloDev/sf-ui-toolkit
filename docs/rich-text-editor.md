@@ -122,6 +122,32 @@ document.addEventListener('rich-text-editor:configure', (event) => {
 
 Extensions add their own HTML (here `<mark>`): style it in your CSS, and allow it in your server-side HTML sanitizer.
 
+### Adding an image
+
+Same pattern with `@tiptap/extension-image` (`php bin/console importmap:require @tiptap/extension-image@3.35.0`). The tool below asks for a URL with a native prompt to stay short; swap it for your own dialog, or for an upload that returns the stored file URL. The prompt text is user-visible, so translate it like any other text.
+
+```js
+import Image from '@tiptap/extension-image';
+
+document.addEventListener('rich-text-editor:configure', (event) => {
+    event.detail.extensions.push(Image.configure({ inline: false }));
+    event.detail.tools.image = {
+        run: (chain) => {
+            const src = window.prompt('Image URL');
+
+            return src ? chain.setImage({ src }) : chain;
+        },
+        can: (editor) => editor.can().setImage({ src: 'https://' }),
+    };
+});
+```
+
+```twig
+<twig:RichTextEditor name="body" :tools="['bold', 'italic', '|', {name: 'image', icon: 'lucide:image', label: 'Image'}]" />
+```
+
+Style the images in your CSS (for example `max-width: 100%`) and allow `img` with `src` and `alt` in your server-side HTML sanitizer. Do not enable `allowBase64` unless you accept large inline data in the stored HTML.
+
 ### Changing the built-in behavior
 
 `detail.starterKit` is passed to `StarterKit.configure()`, so built-in features can be tuned or switched off, for example headings limited to one level, or code blocks removed:
