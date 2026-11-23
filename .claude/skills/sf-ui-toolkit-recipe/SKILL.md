@@ -26,6 +26,8 @@ Same as a component, plus `--block` on `readme-row.py` and `<!-- kind: block -->
 
 Pin them with `--npm @scope/pkg@x.y.z`; the docs build adds them to the preview import map and prints the `importmap:require` command. Document the extension points (event, subclassable controller through a `controller` prop) in an `## Extending` section; labeled fences (```` ```js Vanilla ````, ```` ```js Stimulus ````) become tabs.
 
+The model is `rich-text-editor`, which depends on TipTap (`@tiptap/core` and `@tiptap/starter-kit`, pinned in its manifest): the controller loads TipTap with a lazy `import()`, and `docs/rich-text-editor.md` shows how to add TipTap extensions and tools either with the `rich-text-editor:configure` event or by subclassing the controller. Any new dependency of that kind is named in the recipe's docs and manifest only.
+
 ## Change the docs site
 
 `docs-site/` is a Symfony app: `src/Command/BuildDocsCommand.php` parses the Markdown, `templates/` renders it, `assets/docs.js` handles tabs, copy, widths and the theme switch. Twig 3 rules apply (no `for ... if`, use `|filter`). After the deploy, check https://appolodev.github.io/sf-ui-toolkit/<slug>.html and `preview/<slug>-<n>.html` (a minute after the push the cache can still serve the old page).
