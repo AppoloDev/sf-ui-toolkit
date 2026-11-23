@@ -1,0 +1,49 @@
+{#
+  Pricing:Plan: one plan card.
+
+  Props
+    name              plan name
+    price             price, already formatted (e.g. `$29`, `Free`, `Contact us`)
+    period            text after the price (e.g. `/month`)
+    description       short pitch under the name
+    features          list of strings, or of {label, included}: `included: false` shows a "not included" row
+    badge             label straddling the top edge (e.g. `Best value`); also spoken after the plan name
+    highlighted       emphasized border and ring (the recommended plan)
+    includedLabel     spoken for an included feature
+    notIncludedLabel  spoken for a feature that is not included
+    nameTag           h2 | h3 | h4 (default h3)
+
+  The slot is the call-to-action at the bottom of the card (a button or a link).
+#}
+{%- props name, price, period = null, description = null, features = [], badge = null, highlighted = false, includedLabel = 'Included', notIncludedLabel = 'Not included', nameTag = 'h3' -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set tag = nameTag in ['h2', 'h3', 'h4'] ? nameTag : 'h3' -%}
+{%- set action -%}{% block content %}{% endblock %}{%- endset -%}
+<div class="{{ ('relative flex flex-col gap-6 rounded-xl border bg-background p-6 ' ~ (highlighted ? 'border-primary ring-1 ring-primary' : 'border-border') ~ ' ' ~ extra_class)|trim }}" {{ attributes }}>
+    {%- if badge %}
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground" aria-hidden="true">{{ badge }}</span>
+    {%- endif %}
+    <div class="grid gap-1.5">
+        <{{ tag }} class="text-base font-semibold text-foreground">{{ name }}{% if badge %}<span class="sr-only"> ({{ badge }})</span>{% endif %}</{{ tag }}>
+        {%- if description %}<p class="text-sm text-muted-foreground">{{ description }}</p>{% endif %}
+    </div>
+    <p class="flex items-baseline gap-1">
+        <span class="text-4xl font-semibold tracking-tight text-foreground">{{ price }}</span>
+        {%- if period %}<span class="text-sm text-muted-foreground">{{ period }}</span>{% endif %}
+    </p>
+    {%- if features %}
+        <ul class="grid gap-2.5 text-sm">
+            {%- for feature in features %}
+                {%- set label = feature is iterable ? feature.label : feature -%}
+                {%- set included = feature is iterable ? (feature.included ?? true) : true -%}
+                <li class="flex items-start gap-2 {{ included ? 'text-foreground' : 'text-muted-foreground' }}">
+                    <twig:ux:icon :name="included ? 'lucide:check' : 'lucide:minus'" class="mt-0.5 size-4 shrink-0 {{ included ? 'text-primary' : '' }}" aria-hidden="true" />
+                    <span><span class="sr-only">{{ included ? includedLabel : notIncludedLabel }}: </span>{{ label }}</span>
+                </li>
+            {%- endfor %}
+        </ul>
+    {%- endif %}
+    {%- if action|trim is not empty %}
+        <div class="mt-auto grid pt-2 [&>*]:w-full">{{ action }}</div>
+    {%- endif %}
+</div>
