@@ -62,7 +62,7 @@ export default class extends Controller {
         if (this.loaded) return this.loaded;
         this.loaded = load(this.dataUrlValue, this.localeValue).then(([compact, messages]) => {
             const groups = (messages.groups ?? []).filter((group) => 'component' !== group.key).sort((a, b) => a.order - b.order);
-            this.groups = groups.map((group) => ({ key: group.key, name: group.message, order: group.order }));
+            this.groups = groups.map((group) => ({ key: group.key, name: group.message.charAt(0).toUpperCase() + group.message.slice(1), order: group.order }));
             const known = new Set(this.groups.map((group) => group.order));
             this.emojis = compact.filter((item) => known.has(item.group)).map((item) => ({
                 emoji: item.emoji,
