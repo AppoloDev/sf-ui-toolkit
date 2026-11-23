@@ -4,19 +4,26 @@
   Props
     name          field name; the submitted value depends on `format`
     format        png | jpeg | svg | json (png/jpeg: data URL, svg: markup, json: stroke data to redraw later)
-    value         stored value to display (a `json` export; other formats cannot be edited again)
+    value         stored `json` export to display (other formats cannot be edited again)
     background    fill of image exports (default transparent for png/svg, white for jpeg)
-    color         ink color of the exports (the on-screen ink follows the text color)
+    colors        ink colors offered in the toolbar (CSS colors); empty: one ink, the text color on screen and black in exports
+    weights       show the line weight buttons (thin, regular, bold)
+    toolbar       show the undo, redo and clear buttons
     minWidth, maxWidth   stroke width bounds in px; the width follows pen pressure or drawing speed
     pointerTypes  all | pen | touch | mouse
     required      the form cannot be submitted while the pad is empty
     readonly      shows the signature, no more input
     disabled      dims the pad and removes it from the tab order
-    label         accessible name of the drawing area
+    label         accessible name of the drawing area and the toolbar
     placeholder   hint shown on an empty pad
-    undoLabel, redoLabel, clearLabel   accessible names of the toolbar buttons
+    undoLabel, redoLabel, clearLabel, colorLabel, weightLabel, thinLabel, regularLabel, boldLabel   texts of the toolbar
+
+  The slot is rendered under the toolbar, inside the component: put your own controls there and wire
+  them with the actions `signature-pad#replay`, `#clear`, `#undo`, `#redo`, `#lock`, `#download`
+  (`data-signature-pad-format-param`) and `#typeName` (an input), and readouts with the targets
+  `data-signature-pad-target="preview"` (an <img>) and `"size"`.
 #}
-{%- props name = null, format = 'png', value = '', background = null, color = '#000000', minWidth = 0.8, maxWidth = 2.6, pointerTypes = 'all', required = false, readonly = false, disabled = false, label = 'Signature', placeholder = 'Sign here', undoLabel = 'Undo', redoLabel = 'Redo', clearLabel = 'Clear' -%}
+{%- props name = null, format = 'png', value = '', background = null, colors = [], weights = false, toolbar = true, minWidth = 0.8, maxWidth = 2.6, pointerTypes = 'all', required = false, readonly = false, disabled = false, label = 'Signature', placeholder = 'Sign here', undoLabel = 'Undo', redoLabel = 'Redo', clearLabel = 'Clear', colorLabel = 'Ink color', weightLabel = 'Line weight', thinLabel = 'Thin', regularLabel = 'Regular', boldLabel = 'Bold' -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set inactive = readonly or disabled -%}
 {%- set data = {
@@ -24,12 +31,13 @@
     'data-signature-pad-format-value': format,
     'data-signature-pad-value-value': value,
     'data-signature-pad-background-value': background ?? (format == 'jpeg' ? '#ffffff' : ''),
-    'data-signature-pad-color-value': color,
+    'data-signature-pad-color-value': colors ? colors|first : '',
     'data-signature-pad-min-width-value': minWidth,
     'data-signature-pad-max-width-value': maxWidth,
     'data-signature-pad-pointer-types-value': pointerTypes,
     'data-signature-pad-inactive-value': inactive ? 'true' : 'false',
 } -%}
+{%- set button = 'flex size-8 items-center justify-center rounded-md border border-border outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50' -%}
 <div class="{{ ('grid gap-2 ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
     <div class="relative h-40 w-full overflow-hidden rounded-md border border-border bg-muted/40{{ disabled ? ' opacity-50' }}{{ readonly ? ' bg-background' }}"
          data-signature-pad-target="frame">
@@ -38,27 +46,52 @@
                 data-signature-pad-target="canvas"
                 data-action="pointerdown->signature-pad#down pointermove->signature-pad#move pointerup->signature-pad#up pointercancel->signature-pad#up keydown->signature-pad#keydown"></canvas>
         {%- if not inactive %}
-            <span class="pointer-events-none absolute inset-0 flex items-center justify-center text-sm text-muted-foreground" data-signature-pad-target="placeholder">{{ placeholder }}</span>
+            <span class="pointer-events-none absolute inset-0 flex items-center justify-center text-sm text-muted-foreground transition-opacity" data-signature-pad-target="placeholder">{{ placeholder }}</span>
             <span class="pointer-events-none absolute inset-x-6 bottom-8 border-b border-dashed border-border" aria-hidden="true"></span>
         {%- endif %}
     </div>
-    {%- if not inactive %}
-        <div class="flex items-center gap-1" role="toolbar" aria-label="{{ label }}">
-            <button type="button" aria-label="{{ undoLabel }}" title="{{ undoLabel }}" class="flex size-8 items-center justify-center rounded-md border border-border outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                    data-signature-pad-target="undo" data-action="signature-pad#undo">
-                <twig:ux:icon name="lucide:undo-2" class="size-4" aria-hidden="true" />
-            </button>
-            <button type="button" aria-label="{{ redoLabel }}" title="{{ redoLabel }}" class="flex size-8 items-center justify-center rounded-md border border-border outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                    data-signature-pad-target="redo" data-action="signature-pad#redo">
-                <twig:ux:icon name="lucide:redo-2" class="size-4" aria-hidden="true" />
-            </button>
-            <button type="button" class="ml-auto inline-flex h-8 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                    data-signature-pad-target="clear" data-action="signature-pad#clear">
-                <twig:ux:icon name="lucide:eraser" class="size-4" aria-hidden="true" />
-                {{ clearLabel }}
-            </button>
+    {%- if not inactive and (toolbar or colors or weights) %}
+        <div class="flex flex-wrap items-center gap-1" role="toolbar" aria-label="{{ label }}">
+            {%- if toolbar %}
+                <button type="button" aria-label="{{ undoLabel }}" title="{{ undoLabel }}" class="{{ button }}" data-signature-pad-target="undo" data-action="signature-pad#undo">
+                    <twig:ux:icon name="lucide:undo-2" class="size-4" aria-hidden="true" />
+                </button>
+                <button type="button" aria-label="{{ redoLabel }}" title="{{ redoLabel }}" class="{{ button }}" data-signature-pad-target="redo" data-action="signature-pad#redo">
+                    <twig:ux:icon name="lucide:redo-2" class="size-4" aria-hidden="true" />
+                </button>
+            {%- endif %}
+            {%- if colors %}
+                <span class="mx-1 h-5 w-px bg-border" aria-hidden="true"></span>
+                <div role="group" aria-label="{{ colorLabel }}" class="flex items-center gap-1">
+                    {%- for color in colors %}
+                        <button type="button" aria-label="{{ color }}" title="{{ color }}" aria-pressed="{{ loop.first ? 'true' : 'false' }}" style="background: {{ color }}"
+                                class="size-6 rounded-full border border-black/10 outline-none focus-visible:ring-2 focus-visible:ring-ring aria-pressed:ring-2 aria-pressed:ring-ring aria-pressed:ring-offset-2"
+                                data-signature-pad-target="color" data-action="signature-pad#setColor" data-signature-pad-color-param="{{ color }}"></button>
+                    {%- endfor %}
+                </div>
+            {%- endif %}
+            {%- if weights %}
+                <span class="mx-1 h-5 w-px bg-border" aria-hidden="true"></span>
+                <div role="group" aria-label="{{ weightLabel }}" class="flex items-center gap-1">
+                    {%- for item in [{label: thinLabel, weight: 0.6, size: 'h-px'}, {label: regularLabel, weight: 1, size: 'h-0.5'}, {label: boldLabel, weight: 1.8, size: 'h-1'}] %}
+                        <button type="button" aria-label="{{ item.label }}" title="{{ item.label }}" aria-pressed="{{ item.weight == 1 ? 'true' : 'false' }}"
+                                class="flex size-8 items-center justify-center rounded-md border border-border outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-pressed:bg-muted"
+                                data-signature-pad-target="weight" data-action="signature-pad#setWeight" data-signature-pad-weight-param="{{ item.weight }}">
+                            <span class="w-4 rounded-full bg-foreground {{ item.size }}"></span>
+                        </button>
+                    {%- endfor %}
+                </div>
+            {%- endif %}
+            {%- if toolbar %}
+                <button type="button" class="ml-auto inline-flex h-8 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                        data-signature-pad-target="clear" data-action="signature-pad#clear">
+                    <twig:ux:icon name="lucide:eraser" class="size-4" aria-hidden="true" />
+                    {{ clearLabel }}
+                </button>
+            {%- endif %}
         </div>
     {%- endif %}
+    {%- block content %}{% endblock %}
     <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" {% if name %}name="{{ name }}" {% endif %}{{ required ? 'required' }}
            data-signature-pad-target="field">
 </div>

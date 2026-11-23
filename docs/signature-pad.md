@@ -12,27 +12,96 @@
 
 ### Basic
 
-Draw in the area. The stroke width follows pen pressure on a stylus and the drawing speed on a mouse or a finger. `Ctrl`/`Cmd` + `Z` undoes and `Ctrl`/`Cmd` + `Shift` + `Z` redoes.
+Draw in the area. The stroke width follows pen pressure on a stylus and the drawing speed on a mouse or a finger. `Ctrl`/`Cmd` + `Z` undoes and `Ctrl`/`Cmd` + `Shift` + `Z` redoes; the toolbar has undo, redo and clear.
 
 ```twig
 <twig:SignaturePad name="signature" class="max-w-md" />
 ```
 
-### Export format
+### Without toolbar
 
-`format` sets what the form field submits: `png` (default) and `jpeg` are data URLs, `svg` is the markup, `json` is the stroke data, which can be loaded back through `value`. `jpeg` is always filled with a background (white by default).
+`:toolbar="false"` hides the buttons; the keyboard shortcuts still work.
 
 ```twig
-<twig:SignaturePad name="signature_svg" format="svg" color="#1d4ed8" class="max-w-md" />
+<twig:SignaturePad name="signature" :toolbar="false" class="max-w-md" />
 ```
 
-### Stored signature
+### Form field with SVG
 
-Pass a stored `json` export as `value` to show or continue a signature.
+The pad submits its value through `name`. With `required` the browser blocks the submission while the pad is empty, and resetting the form clears the signature.
 
 ```twig
-<twig:SignaturePad name="signature" format="json" class="max-w-md"
-    value='{"version":1,"strokes":[[[0.08,0.62,0,0],[0.14,0.35,60,0],[0.2,0.6,120,0],[0.26,0.38,180,0],[0.32,0.62,240,0]],[[0.38,0.55,400,0],[0.55,0.52,460,0],[0.75,0.4,520,0],[0.9,0.6,580,0]]]}' />
+<form class="grid max-w-md gap-3" onsubmit="event.preventDefault(); this.querySelector('output').textContent = this.signature.value ? this.signature.value.length + ' characters of SVG submitted' : ''">
+    <twig:SignaturePad name="signature" format="svg" required />
+    <div class="flex items-center gap-2">
+        <button type="submit" class="h-9 rounded-md bg-primary px-4 text-sm text-primary-foreground">Sign</button>
+        <button type="reset" class="h-9 rounded-md border border-border px-4 text-sm">Reset</button>
+        <output class="text-sm text-muted-foreground"></output>
+    </div>
+</form>
+```
+
+### Ink colors, line weights and replay
+
+`colors` adds ink color buttons and `weights` adds thin, regular and bold. Each stroke keeps its own color and weight. The content of the component is rendered under the toolbar: use it for your own controls, wired with Stimulus actions such as `signature-pad#replay` and `signature-pad#download`.
+
+```twig
+<twig:SignaturePad name="signature" :colors="['#111827', '#1d4ed8', '#dc2626']" weights class="max-w-md">
+    <div class="flex gap-2">
+        <button type="button" class="h-8 rounded-md border border-border px-2.5 text-sm hover:bg-muted" data-action="signature-pad#replay">Replay</button>
+        <button type="button" class="h-8 rounded-md border border-border px-2.5 text-sm hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="png">Download PNG</button>
+        <button type="button" class="h-8 rounded-md border border-border px-2.5 text-sm hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="svg">Download SVG</button>
+    </div>
+</twig:SignaturePad>
+```
+
+### Formats, preview and payload size
+
+`format` is `png` (default), `jpeg`, `svg` or `json`. Inside the component, a `preview` target (an `img`) shows the export and a `size` target shows the payload size. The download actions can export any format, whatever the one submitted.
+
+```twig
+<twig:SignaturePad name="signature" class="max-w-md">
+    <div class="flex items-center gap-3 rounded-md border border-border p-2">
+        <img alt="Signature preview" hidden class="h-12 rounded bg-muted object-contain" data-signature-pad-target="preview">
+        <span class="text-sm text-muted-foreground">Payload: <span data-signature-pad-target="size">0 B</span></span>
+        <span class="ml-auto flex gap-1">
+            <button type="button" class="h-7 rounded-md border border-border px-2 text-xs hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="png">PNG</button>
+            <button type="button" class="h-7 rounded-md border border-border px-2 text-xs hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="jpeg">JPEG</button>
+            <button type="button" class="h-7 rounded-md border border-border px-2 text-xs hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="svg">SVG</button>
+            <button type="button" class="h-7 rounded-md border border-border px-2 text-xs hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="json">JSON</button>
+        </span>
+    </div>
+</twig:SignaturePad>
+```
+
+### Draw or type
+
+Drawing needs a pointer. A text input wired to `signature-pad#typeName` renders the typed name in a handwriting font as the signature; drawing again replaces it.
+
+```twig
+<twig:SignaturePad name="signature" class="max-w-md">
+    <label class="grid gap-1.5 text-sm">
+        <span class="font-medium">Or type your name</span>
+        <input type="text" autocomplete="name" class="h-9 rounded-md border border-border bg-background px-3 outline-none focus-visible:ring-2 focus-visible:ring-ring" data-action="input->signature-pad#typeName">
+    </label>
+</twig:SignaturePad>
+```
+
+### Agreement card, locked once signed
+
+`signature-pad#lock` freezes the pad: no more input, every button disabled. The `signature-pad:lock` event carries the value, to send it to the server.
+
+```twig
+<div class="grid max-w-md gap-3 rounded-lg border border-border p-4">
+    <p class="text-sm">I have read and accept the terms of the agreement.</p>
+    <twig:SignaturePad name="agreement" format="svg">
+        <div class="flex items-center gap-3">
+            <button type="button" class="h-8 rounded-md bg-primary px-3 text-sm text-primary-foreground" data-action="signature-pad#lock"
+                    onclick="this.nextElementSibling.textContent = 'Signed on ' + new Date().toLocaleDateString()">Sign and date</button>
+            <span class="text-sm text-muted-foreground"></span>
+        </div>
+    </twig:SignaturePad>
+</div>
 ```
 
 ### Pen only
@@ -43,36 +112,72 @@ Pass a stored `json` export as `value` to show or continue a signature.
 <twig:SignaturePad name="signature" pointerTypes="pen" placeholder="Sign with the stylus" class="max-w-md" />
 ```
 
-### Read only and disabled
+### Initials per clause
 
-`readonly` keeps the ink at full strength and stops the input; `disabled` also dims the pad. Both remove the pad from the tab order.
+Several pads can live on one page; listen to `signature-pad:change` to count the completed ones.
+
+```twig
+<div class="grid max-w-md gap-3" onchange="">
+    <div id="clauses" class="grid gap-3">
+        {% for clause in ['Payment terms', 'Confidentiality', 'Termination'] %}
+            <div class="grid grid-cols-[1fr_8rem] items-center gap-3">
+                <span class="text-sm">{{ clause }}</span>
+                <twig:SignaturePad name="initials_{{ loop.index }}" :toolbar="false" placeholder="Initials" class="[&_div.relative]:h-14" />
+            </div>
+        {% endfor %}
+    </div>
+    <p class="text-sm text-muted-foreground"><span id="initialed">0</span> of 3 initialed</p>
+</div>
+<script>
+    const clauses = document.getElementById('clauses');
+    clauses.addEventListener('signature-pad:change', () => {
+        document.getElementById('initialed').textContent = [...clauses.querySelectorAll('input[name^=initials_]')].filter((input) => input.value).length;
+    });
+</script>
+```
+
+### Read an exported value from outside
+
+The submitted field is a plain input named `name`, so any script can read it. Here an external button attaches the PNG as a file.
+
+```twig
+<div class="grid max-w-md gap-3">
+    <twig:SignaturePad name="signature" id="sig" />
+    <div class="flex items-center gap-2">
+        <button type="button" id="attach" class="h-8 rounded-md border border-border px-3 text-sm hover:bg-muted">Attach as file</button>
+        <span id="attached" class="text-sm text-muted-foreground"></span>
+    </div>
+</div>
+<script>
+    document.getElementById('attach').addEventListener('click', async () => {
+        const value = document.querySelector('[name=signature]').value;
+        if (!value) return;
+        const blob = await (await fetch(value)).blob();
+        const file = new File([blob], 'signature.png', { type: 'image/png' });
+        document.getElementById('attached').textContent = file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)';
+    });
+</script>
+```
+
+### Stored signature, read only and disabled
+
+Pass a stored `json` export as `value` to show or continue a signature. `readonly` keeps the ink at full strength and stops the input; `disabled` also dims the pad. Both remove the pad from the tab order.
 
 ```twig
 <div class="grid max-w-md gap-4">
-    <twig:SignaturePad format="json" readonly value='{"version":1,"strokes":[[[0.1,0.6,0,0],[0.3,0.3,80,0],[0.5,0.6,160,0],[0.7,0.3,240,0],[0.9,0.6,320,0]]]}' />
+    <twig:SignaturePad format="json" readonly value='{"version":1,"strokes":[[[0.08,0.62,0,0],[0.14,0.35,60,0],[0.2,0.6,120,0],[0.26,0.38,180,0],[0.32,0.62,240,0]],[[0.38,0.55,400,0],[0.55,0.52,460,0],[0.75,0.4,520,0],[0.9,0.6,580,0]]]}' />
     <twig:SignaturePad disabled />
 </div>
 ```
 
-### Required
-
-With `required`, the browser blocks the form submission while the pad is empty.
-
-```twig
-<form class="grid max-w-md gap-3" onsubmit="return false">
-    <twig:SignaturePad name="signature" required />
-    <button type="submit" class="h-9 w-fit rounded-md bg-primary px-4 text-sm text-primary-foreground">Sign</button>
-</form>
-```
-
 ## Accessibility
 
-- The drawing area is a focusable `application` region with the accessible name `label` and a role description.
-- `Ctrl`/`Cmd` + `Z` undoes, `Ctrl`/`Cmd` + `Shift` + `Z` and `Ctrl`/`Cmd` + `Y` redo; the toolbar buttons have accessible names and disable themselves when there is nothing to do. When "Clear" disables itself, focus returns to the area.
-- Drawing needs a pointer. Offer an alternative for people who cannot use one, for example a typed-name field next to the pad.
-- `readonly` and `disabled` pads are not focusable.
-- Events: `signature-pad:change` fires once per finished stroke, undo, redo and clear, with `detail.empty` and `detail.value`.
-- The form is reset with the pad: a `reset` event clears the signature.
+- The drawing area is a focusable `application` region with the accessible name `label` and a role description. `readonly` and `disabled` pads are not focusable.
+- `Ctrl`/`Cmd` + `Z` undoes, `Ctrl`/`Cmd` + `Shift` + `Z` and `Ctrl`/`Cmd` + `Y` redo. The toolbar buttons have accessible names and disable themselves when there is nothing to do; when "Clear" disables itself, focus returns to the area.
+- Drawing needs a pointer: offer the typed-name alternative (`signature-pad#typeName`) to people who cannot use one.
+- The color and weight buttons are toggle buttons (`aria-pressed`).
+- Events: `signature-pad:change` fires once per finished stroke, undo, redo, clear and typed name, with `detail.empty` and `detail.value`; `signature-pad:lock` fires when the pad is locked.
+- A form `reset` clears the signature.
 
 ## API
 
@@ -81,10 +186,12 @@ With `required`, the browser blocks the form submission while the pad is empty.
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `name` | string | `null` | Field name. The value depends on `format`; it is empty while the pad is empty. |
-| `format` | `png`, `jpeg`, `svg`, `json` | `png` | Submitted format. `json` keeps the strokes so the signature can be redrawn. |
+| `format` | `png`, `jpeg`, `svg`, `json` | `png` | Submitted format. `json` keeps the strokes (color, weight, points) so the signature can be redrawn. |
 | `value` | string | `''` | A stored `json` export to display. |
 | `background` | string | `null` | Fill of exports (any CSS color). Transparent by default, white for `jpeg`. |
-| `color` | string | `#000000` | Ink color of the exports. The on-screen ink follows the text color. |
+| `colors` | array | `[]` | Ink colors offered in the toolbar. Without it there is one ink: the text color on screen, black in exports. |
+| `weights` | bool | `false` | Shows the thin, regular and bold buttons. |
+| `toolbar` | bool | `true` | Shows the undo, redo and clear buttons. |
 | `minWidth` | number | `0.8` | Thinnest stroke width, in px. |
 | `maxWidth` | number | `2.6` | Thickest stroke width, in px. |
 | `pointerTypes` | `all`, `pen`, `touch`, `mouse` | `all` | Accepted input devices. |
@@ -96,3 +203,12 @@ With `required`, the browser blocks the form submission while the pad is empty.
 | `undoLabel` | string | `Undo` | Accessible name of the undo button. |
 | `redoLabel` | string | `Redo` | Accessible name of the redo button. |
 | `clearLabel` | string | `Clear` | Text of the clear button. |
+| `colorLabel` | string | `Ink color` | Accessible name of the color group. |
+| `weightLabel` | string | `Line weight` | Accessible name of the weight group. |
+| `thinLabel` | string | `Thin` | Accessible name of the thin weight button. |
+| `regularLabel` | string | `Regular` | Accessible name of the regular weight button. |
+| `boldLabel` | string | `Bold` | Accessible name of the bold weight button. |
+
+### Content, actions and targets
+
+The content of the component is rendered under the toolbar. Controls placed there can use these Stimulus actions: `signature-pad#undo`, `#redo`, `#clear`, `#replay`, `#lock`, `#download` (with `data-signature-pad-format-param`), `#setColor` (`data-signature-pad-color-param`), `#setWeight` (`data-signature-pad-weight-param`) and `#typeName` (on an `input`). Two targets are filled for you: `data-signature-pad-target="preview"` (an `img`) and `data-signature-pad-target="size"` (payload size).
