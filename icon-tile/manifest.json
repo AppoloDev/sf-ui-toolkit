@@ -1,0 +1,11 @@
+{
+    "type": "component",
+    "name": "IconTile",
+    "description": "Square or circular tile giving an icon a fixed size, radius and surface: outline, elevated or frame.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}
