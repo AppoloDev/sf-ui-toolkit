@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 
 // Built-in tools. A tool is { run(chain, editor), active(editor), can(editor) }; `run` receives a focused chain and returns it.
 // TipTap is loaded on first use, so pages without an editor never download it.
-const TOOLS = {
+export const TOOLS = {
     bold: { run: (chain) => chain.toggleBold(), active: (editor) => editor.isActive('bold'), can: (editor) => editor.can().toggleBold() },
     italic: { run: (chain) => chain.toggleItalic(), active: (editor) => editor.isActive('italic'), can: (editor) => editor.can().toggleItalic() },
     underline: { run: (chain) => chain.toggleUnderline(), active: (editor) => editor.isActive('underline'), can: (editor) => editor.can().toggleUnderline() },
@@ -37,8 +37,34 @@ export default class extends Controller {
         // Extension point: listeners add TipTap extensions, tools and StarterKit options (see the docs, "Extending").
         const config = { extensions: [], tools: {}, starterKit: {} };
         this.dispatch('configure', { detail: config });
-        this.tools = { ...TOOLS, ...config.tools };
-        this.editor = new Editor({
+        this.tools = this.defineTools(config.tools);
+        this.editor = new Editor(this.editorOptions(StarterKit, config));
+        // The hidden field carries the native validation: send the user to the editor instead of a 1px input.
+        this.onInvalid = () => {
+            this.element.dataset.invalid = '';
+            this.editor.commands.focus();
+        };
+        this.fieldTarget.addEventListener('invalid', this.onInvalid);
+        this.form = this.element.closest('form');
+        this.onReset = () => requestAnimationFrame(() => {
+            this.editor.commands.setContent(this.valueValue, { emitUpdate: false });
+            this.changed(false);
+        });
+        this.form?.addEventListener('reset', this.onReset);
+        this.changed(false);
+        this.refresh();
+    }
+
+    // Hooks for subclasses: both can be overridden (call super to keep the defaults).
+
+    // Tools available to the toolbar, by name.
+    defineTools(extra) {
+        return { ...TOOLS, ...extra };
+    }
+
+    // Options passed to the TipTap Editor.
+    editorOptions(StarterKit, config) {
+        return {
             element: this.editorTarget,
             extensions: [StarterKit.configure({ link: { openOnClick: false, autolink: true }, ...config.starterKit }), ...config.extensions],
             content: this.valueValue,
@@ -54,21 +80,7 @@ export default class extends Controller {
             },
             onUpdate: () => this.changed(true),
             onTransaction: () => this.refresh(),
-        });
-        // The hidden field carries the native validation: send the user to the editor instead of a 1px input.
-        this.onInvalid = () => {
-            this.element.dataset.invalid = '';
-            this.editor.commands.focus();
         };
-        this.fieldTarget.addEventListener('invalid', this.onInvalid);
-        this.form = this.element.closest('form');
-        this.onReset = () => requestAnimationFrame(() => {
-            this.editor.commands.setContent(this.valueValue, { emitUpdate: false });
-            this.changed(false);
-        });
-        this.form?.addEventListener('reset', this.onReset);
-        this.changed(false);
-        this.refresh();
     }
 
     disconnect() {

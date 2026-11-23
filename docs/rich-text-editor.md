@@ -148,6 +148,50 @@ document.addEventListener('rich-text-editor:configure', (event) => {
 
 Style the images in your CSS (for example `max-width: 100%`) and allow `img` with `src` and `alt` in your server-side HTML sanitizer. Do not enable `allowBase64` unless you accept large inline data in the stored HTML.
 
+### Extending the Stimulus controller
+
+For behavior that is more than a tool, subclass the controller in your app. Create `assets/controllers/rich_text_counter_controller.js` (it is registered as `rich-text-counter` by the Stimulus bundle) and point the component at it with the `controller` prop. Targets, values and actions are inherited, and the component writes its `data-*` attributes with the identifier you give.
+
+The controller exports `TOOLS` (the built-in tools) and exposes two hooks, `defineTools(extra)` and `editorOptions(StarterKit, config)`, plus the methods `changed(notify)` and `refresh()`; override them and call `super` to keep the default behavior. This example adds a live word counter and a tool of its own:
+
+```js
+import RichTextEditor from './rich_text_editor_controller.js';
+
+export default class extends RichTextEditor {
+    static values = { wordsLabel: { type: String, default: '{count} words' } };
+
+    async connect() {
+        await super.connect();
+        this.counter = document.createElement('p');
+        this.counter.className = 'px-3 pb-2 text-xs text-muted-foreground';
+        this.element.append(this.counter);
+        this.count();
+    }
+
+    defineTools(extra) {
+        return { ...super.defineTools(extra), clearFormat: { run: (chain) => chain.unsetAllMarks().clearNodes() } };
+    }
+
+    changed(notify) {
+        super.changed(notify);
+        this.count();
+    }
+
+    count() {
+        if (!this.counter) return;
+        const words = this.editor.getText().split(/\s+/).filter(Boolean).length;
+        this.counter.textContent = this.wordsLabelValue.replace('{count}', words);
+    }
+}
+```
+
+```twig
+<twig:RichTextEditor name="body" controller="rich-text-counter" data-rich-text-counter-words-label-value="{count} mots"
+    :tools="['bold', 'italic', {name: 'clearFormat', icon: 'lucide:remove-formatting', label: 'Clear formatting'}]" />
+```
+
+The events are named after the controller identifier: with the example above they are `rich-text-counter:change` and `rich-text-counter:configure`.
+
 ### Changing the built-in behavior
 
 `detail.starterKit` is passed to `StarterKit.configure()`, so built-in features can be tuned or switched off, for example headings limited to one level, or code blocks removed:
@@ -188,3 +232,4 @@ Removing a feature does not remove its toolbar button: drop it from the `tools` 
 | `toolbarLabel` | string | `Formatting` | Accessible name of the toolbar. |
 | `toolLabels` | object | `{}` | Accessible names of the tools, keyed by tool name, plus `linkUrl`, `linkApply` and `linkRemove`. |
 | `id` | string | `null` | Id of the writing area, for an external `<label for>`. |
+| `controller` | string | `rich-text-editor` | Stimulus identifier. Set it to use a controller that extends this one (see Extending). |

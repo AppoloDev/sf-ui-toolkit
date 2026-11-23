@@ -18,8 +18,9 @@
     toolLabels   accessible names of the tools, keyed by tool name, plus linkUrl, linkApply and linkRemove
                  (defaults are English, e.g. {bold: 'Bold'})
     id           id of the writing area (for an external <label for>)
+    controller   Stimulus identifier; set it to the name of a controller that extends this one (see the docs, "Extending")
 #}
-{%- props name = null, value = '', tools = ['bold', 'italic', 'underline', 'strike', '|', 'heading2', 'heading3', '|', 'bulletList', 'orderedList', 'blockquote', 'codeBlock', '|', 'link', '|', 'undo', 'redo'], placeholder = '', required = false, readonly = false, disabled = false, minHeight = 'min-h-40', label = 'Content', toolbarLabel = 'Formatting', toolLabels = {}, id = null -%}
+{%- props name = null, value = '', tools = ['bold', 'italic', 'underline', 'strike', '|', 'heading2', 'heading3', '|', 'bulletList', 'orderedList', 'blockquote', 'codeBlock', '|', 'link', '|', 'undo', 'redo'], placeholder = '', required = false, readonly = false, disabled = false, minHeight = 'min-h-40', controller = 'rich-text-editor', label = 'Content', toolbarLabel = 'Formatting', toolLabels = {}, id = null -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set defaults = {
     bold: 'Bold', italic: 'Italic', underline: 'Underline', strike: 'Strikethrough', heading2: 'Heading 2', heading3: 'Heading 3',
@@ -34,15 +35,15 @@
 } -%}
 {%- set inactive = readonly or disabled -%}
 {%- set data = {
-    'data-controller': 'rich-text-editor',
-    'data-rich-text-editor-value-value': value,
-    'data-rich-text-editor-editable-value': inactive ? 'false' : 'true',
-    'data-rich-text-editor-label-value': label,
-    'data-rich-text-editor-id-value': id ?? '',
+    'data-controller': controller,
+    ('data-' ~ controller ~ '-value-value'): value,
+    ('data-' ~ controller ~ '-editable-value'): inactive ? 'false' : 'true',
+    ('data-' ~ controller ~ '-label-value'): label,
+    ('data-' ~ controller ~ '-id-value'): id ?? '',
 } -%}
 <div class="{{ ('relative grid overflow-hidden rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring data-invalid:border-destructive' ~ (disabled ? ' opacity-50' : '') ~ ' ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
     {%- if not inactive %}
-        <div role="toolbar" aria-label="{{ toolbarLabel }}" class="flex flex-wrap items-center gap-0.5 border-b border-border bg-muted/40 p-1" data-rich-text-editor-target="toolbar" data-action="keydown->rich-text-editor#toolbarKey">
+        <div role="toolbar" aria-label="{{ toolbarLabel }}" class="flex flex-wrap items-center gap-0.5 border-b border-border bg-muted/40 p-1" data-{{ controller }}-target="toolbar" data-action="keydown->{{ controller }}#toolbarKey">
             {%- for item in tools %}
                 {%- set tool = item is iterable ? item.name : item -%}
                 {%- set icon = item is iterable ? (item.icon ?? null) : (icons[item] ?? null) -%}
@@ -52,23 +53,23 @@
                     {%- set tool_label = item is iterable and item.label is defined ? item.label : (names[tool] ?? tool) %}
                     <button type="button" aria-label="{{ tool_label }}" title="{{ tool_label }}" aria-pressed="false" tabindex="-1" disabled
                             class="flex size-8 items-center justify-center rounded-md outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-40 aria-pressed:bg-muted aria-pressed:text-foreground"
-                            data-rich-text-editor-target="tool" data-tool="{{ tool }}" data-action="rich-text-editor#command" data-rich-text-editor-tool-param="{{ tool }}">
+                            data-{{ controller }}-target="tool" data-tool="{{ tool }}" data-action="{{ controller }}#command" data-{{ controller }}-tool-param="{{ tool }}">
                         <twig:ux:icon :name="icon" class="size-4" aria-hidden="true" />
                     </button>
                 {%- endif %}
             {%- endfor %}
         </div>
-        <form hidden class="flex items-center gap-1 border-b border-border p-1" data-rich-text-editor-target="linkForm" data-action="submit->rich-text-editor#applyLink keydown->rich-text-editor#linkKey">
-            <input type="url" aria-label="{{ names.linkUrl }}" placeholder="https://" class="h-8 min-w-0 flex-1 rounded-md border border-border bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" data-rich-text-editor-target="linkInput">
+        <form hidden class="flex items-center gap-1 border-b border-border p-1" data-{{ controller }}-target="linkForm" data-action="submit->{{ controller }}#applyLink keydown->{{ controller }}#linkKey">
+            <input type="url" aria-label="{{ names.linkUrl }}" placeholder="https://" class="h-8 min-w-0 flex-1 rounded-md border border-border bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" data-{{ controller }}-target="linkInput">
             <button type="submit" class="h-8 rounded-md bg-primary px-3 text-sm text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring">{{ names.linkApply }}</button>
-            <button type="button" class="h-8 rounded-md border border-border px-3 text-sm outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring" data-action="rich-text-editor#removeLink">{{ names.linkRemove }}</button>
+            <button type="button" class="h-8 rounded-md border border-border px-3 text-sm outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring" data-action="{{ controller }}#removeLink">{{ names.linkRemove }}</button>
         </form>
     {%- endif %}
     <div class="relative">
         {%- if placeholder %}
-            <span class="pointer-events-none absolute left-3 top-2.5 text-sm text-muted-foreground" data-rich-text-editor-target="placeholder" hidden>{{ placeholder }}</span>
+            <span class="pointer-events-none absolute left-3 top-2.5 text-sm text-muted-foreground" data-{{ controller }}-target="placeholder" hidden>{{ placeholder }}</span>
         {%- endif %}
-        <div class="{{ minHeight }} px-3 py-2 text-sm [&_.ProseMirror]:min-h-[inherit] [&_.ProseMirror]:outline-none [&_.ProseMirror_h2]:mt-3 [&_.ProseMirror_h2]:text-xl [&_.ProseMirror_h2]:font-semibold [&_.ProseMirror_h3]:mt-2 [&_.ProseMirror_h3]:text-lg [&_.ProseMirror_h3]:font-semibold [&_.ProseMirror_p]:my-1.5 [&_.ProseMirror_ul]:my-1.5 [&_.ProseMirror_ul]:list-disc [&_.ProseMirror_ul]:pl-6 [&_.ProseMirror_ol]:my-1.5 [&_.ProseMirror_ol]:list-decimal [&_.ProseMirror_ol]:pl-6 [&_.ProseMirror_blockquote]:my-2 [&_.ProseMirror_blockquote]:border-l-2 [&_.ProseMirror_blockquote]:border-border [&_.ProseMirror_blockquote]:pl-3 [&_.ProseMirror_blockquote]:text-muted-foreground [&_.ProseMirror_code]:rounded [&_.ProseMirror_code]:bg-muted [&_.ProseMirror_code]:px-1 [&_.ProseMirror_code]:font-mono [&_.ProseMirror_pre]:my-2 [&_.ProseMirror_pre]:overflow-x-auto [&_.ProseMirror_pre]:rounded-md [&_.ProseMirror_pre]:bg-muted [&_.ProseMirror_pre]:p-3 [&_.ProseMirror_pre_code]:bg-transparent [&_.ProseMirror_pre_code]:p-0 [&_.ProseMirror_a]:text-primary [&_.ProseMirror_a]:underline" data-rich-text-editor-target="editor"></div>
+        <div class="{{ minHeight }} px-3 py-2 text-sm [&_.ProseMirror]:min-h-[inherit] [&_.ProseMirror]:outline-none [&_.ProseMirror_h2]:mt-3 [&_.ProseMirror_h2]:text-xl [&_.ProseMirror_h2]:font-semibold [&_.ProseMirror_h3]:mt-2 [&_.ProseMirror_h3]:text-lg [&_.ProseMirror_h3]:font-semibold [&_.ProseMirror_p]:my-1.5 [&_.ProseMirror_ul]:my-1.5 [&_.ProseMirror_ul]:list-disc [&_.ProseMirror_ul]:pl-6 [&_.ProseMirror_ol]:my-1.5 [&_.ProseMirror_ol]:list-decimal [&_.ProseMirror_ol]:pl-6 [&_.ProseMirror_blockquote]:my-2 [&_.ProseMirror_blockquote]:border-l-2 [&_.ProseMirror_blockquote]:border-border [&_.ProseMirror_blockquote]:pl-3 [&_.ProseMirror_blockquote]:text-muted-foreground [&_.ProseMirror_code]:rounded [&_.ProseMirror_code]:bg-muted [&_.ProseMirror_code]:px-1 [&_.ProseMirror_code]:font-mono [&_.ProseMirror_pre]:my-2 [&_.ProseMirror_pre]:overflow-x-auto [&_.ProseMirror_pre]:rounded-md [&_.ProseMirror_pre]:bg-muted [&_.ProseMirror_pre]:p-3 [&_.ProseMirror_pre_code]:bg-transparent [&_.ProseMirror_pre_code]:p-0 [&_.ProseMirror_a]:text-primary [&_.ProseMirror_a]:underline" data-{{ controller }}-target="editor"></div>
     </div>
-    <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" {% if name %}name="{{ name }}" {% endif %}{{ required ? 'required' }} data-rich-text-editor-target="field">
+    <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" {% if name %}name="{{ name }}" {% endif %}{{ required ? 'required' }} data-{{ controller }}-target="field">
 </div>
