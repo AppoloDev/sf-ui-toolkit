@@ -36,3 +36,7 @@ Locally: `cd docs-site && composer install && php bin/console app:build-docs`, t
 - Tailwind is loaded from a CDN in the docs; replace it with a local build later.
 - `Rating` does not use `tailwind_merge` (the official kit does): a class passed as an attribute is appended without conflict resolution.
 - No syntax highlighting in the Code tab.
+
+## Components with JavaScript dependencies
+
+A recipe that needs a JavaScript package lists it, pinned, in `dependencies.npm` of its `manifest.json` (`"name@version"`). The docs build adds each of them to the import map of the previews (loaded from esm.sh) and shows the matching `importmap:require` command on the component page. Load such packages with a dynamic `import()` inside the Stimulus controller, so pages without the component never download them.

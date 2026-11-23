@@ -58,6 +58,7 @@ final class BuildDocsCommand extends Command
         ksort($pages);
 
         $this->buildControllers($root, $outDir);
+        $imports = $this->importMap($pages);
         copy($this->projectDir.'/assets/docs.js', $outDir.'/docs.js');
 
         foreach ($pages as $page) {
@@ -66,7 +67,7 @@ final class BuildDocsCommand extends Command
                 $example['preview'] = sprintf('preview/%s-%d.html', $page['slug'], $index + 1);
                 file_put_contents(
                     $outDir.'/'.$example['preview'],
-                    $this->twig->render('docs/preview.html.twig', ['html' => $example['html']]),
+                    $this->twig->render('docs/preview.html.twig', ['html' => $example['html'], 'imports' => $imports]),
                 );
             }
             unset($example);
@@ -108,7 +109,29 @@ final class BuildDocsCommand extends Command
     }
 
     /**
-     * @return array{command: string, composer: list<string>, files: list<string>}
+     * Import map of the previews: the JavaScript packages that recipes declare in `dependencies.npm`
+     * ("name@version") are loaded from esm.sh, and only when a controller actually imports them.
+     *
+     * @param array<string, array<string, mixed>> $pages
+     *
+     * @return array<string, string>
+     */
+    private function importMap(array $pages): array
+    {
+        $imports = ['@hotwired/stimulus' => 'https://esm.sh/@hotwired/stimulus@3.2.2'];
+        foreach ($pages as $page) {
+            foreach ($page['install']['npm'] as $package) {
+                $at = strrpos($package, '@');
+                $name = false === $at || 0 === $at ? $package : substr($package, 0, $at);
+                $imports[$name] = 'https://esm.sh/'.$package;
+            }
+        }
+
+        return $imports;
+    }
+
+    /**
+     * @return array{command: string, composer: list<string>, npm: list<string>, files: list<string>}
      */
     private function install(string $root, string $slug): array
     {
@@ -132,6 +155,7 @@ final class BuildDocsCommand extends Command
             'command' => sprintf('php bin/console ux:install %s --kit=github.com/AppoloDev/sf-ui-toolkit', $slug),
             'description' => $manifest['description'] ?? '',
             'composer' => $manifest['dependencies']['composer'] ?? [],
+            'npm' => $manifest['dependencies']['npm'] ?? [],
             'files' => $files,
         ];
     }

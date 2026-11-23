@@ -1,0 +1,18 @@
+{
+    "type": "component",
+    "name": "RichTextEditor",
+    "description": "Rich text field built on TipTap with a configurable toolbar, links and an HTML value for the form.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-icons"
+        ],
+        "npm": [
+            "@tiptap/core@3.35.0",
+            "@tiptap/starter-kit@3.35.0"
+        ]
+    }
+}

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     {% include '_head.html.twig' %}
-    <script type="importmap">{"imports": {"@hotwired/stimulus": "https://esm.sh/@hotwired/stimulus@3.2.2"}}</script>
+    <script type="importmap">{{ {imports: imports}|json_encode|raw }}</script>
     <script type="module" src="../controllers.js"></script>
 </head>
 <body class="bg-background p-6">

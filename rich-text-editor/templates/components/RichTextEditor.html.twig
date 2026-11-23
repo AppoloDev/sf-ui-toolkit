@@ -1,0 +1,70 @@
+{#
+  RichTextEditor: rich text field built on TipTap (ProseMirror). The submitted value is HTML:
+  always sanitize it on the server (for example with symfony/html-sanitizer) before storing or showing it.
+
+  Props
+    name         field name; the submitted value is the HTML of the document
+    value        initial HTML
+    tools        toolbar, in order; `|` separates groups. Available: bold, italic, underline, strike, heading2, heading3,
+                 bulletList, orderedList, blockquote, code, codeBlock, link, undo, redo
+    placeholder  text shown while the editor is empty
+    required     the form cannot be submitted while the editor is empty
+    readonly     shows the content without editing or toolbar
+    disabled     dims the editor and disables it
+    minHeight    CSS min-height of the writing area (a Tailwind class, e.g. `min-h-40`)
+    label        accessible name of the writing area
+    toolbarLabel accessible name of the toolbar
+    toolLabels   accessible names of the tools, keyed by tool name, plus linkUrl, linkApply and linkRemove
+                 (defaults are English, e.g. {bold: 'Bold'})
+    id           id of the writing area (for an external <label for>)
+#}
+{%- props name = null, value = '', tools = ['bold', 'italic', 'underline', 'strike', '|', 'heading2', 'heading3', '|', 'bulletList', 'orderedList', 'blockquote', 'codeBlock', '|', 'link', '|', 'undo', 'redo'], placeholder = '', required = false, readonly = false, disabled = false, minHeight = 'min-h-40', label = 'Content', toolbarLabel = 'Formatting', toolLabels = {}, id = null -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set defaults = {
+    bold: 'Bold', italic: 'Italic', underline: 'Underline', strike: 'Strikethrough', heading2: 'Heading 2', heading3: 'Heading 3',
+    bulletList: 'Bulleted list', orderedList: 'Numbered list', blockquote: 'Quote', code: 'Inline code', codeBlock: 'Code block',
+    link: 'Link', undo: 'Undo', redo: 'Redo', linkUrl: 'Link URL', linkApply: 'Apply', linkRemove: 'Remove link',
+} -%}
+{%- set names = defaults|merge(toolLabels) -%}
+{%- set icons = {
+    bold: 'lucide:bold', italic: 'lucide:italic', underline: 'lucide:underline', strike: 'lucide:strikethrough', heading2: 'lucide:heading-2', heading3: 'lucide:heading-3',
+    bulletList: 'lucide:list', orderedList: 'lucide:list-ordered', blockquote: 'lucide:quote', code: 'lucide:code', codeBlock: 'lucide:square-code',
+    link: 'lucide:link', undo: 'lucide:undo-2', redo: 'lucide:redo-2',
+} -%}
+{%- set inactive = readonly or disabled -%}
+{%- set data = {
+    'data-controller': 'rich-text-editor',
+    'data-rich-text-editor-value-value': value,
+    'data-rich-text-editor-editable-value': inactive ? 'false' : 'true',
+    'data-rich-text-editor-label-value': label,
+    'data-rich-text-editor-id-value': id ?? '',
+} -%}
+<div class="{{ ('grid overflow-hidden rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring' ~ (disabled ? ' opacity-50' : '') ~ ' ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+    {%- if not inactive %}
+        <div role="toolbar" aria-label="{{ toolbarLabel }}" class="flex flex-wrap items-center gap-0.5 border-b border-border bg-muted/40 p-1" data-rich-text-editor-target="toolbar" data-action="keydown->rich-text-editor#toolbarKey">
+            {%- for tool in tools %}
+                {%- if tool == '|' %}
+                    <span class="mx-1 h-5 w-px bg-border" aria-hidden="true"></span>
+                {%- elseif icons[tool] is defined %}
+                    <button type="button" aria-label="{{ names[tool] }}" title="{{ names[tool] }}" aria-pressed="false" tabindex="-1" disabled
+                            class="flex size-8 items-center justify-center rounded-md outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-40 aria-pressed:bg-muted aria-pressed:text-foreground"
+                            data-rich-text-editor-target="tool" data-tool="{{ tool }}" data-action="rich-text-editor#command" data-rich-text-editor-tool-param="{{ tool }}">
+                        <twig:ux:icon :name="icons[tool]" class="size-4" aria-hidden="true" />
+                    </button>
+                {%- endif %}
+            {%- endfor %}
+        </div>
+        <form hidden class="flex items-center gap-1 border-b border-border p-1" data-rich-text-editor-target="linkForm" data-action="submit->rich-text-editor#applyLink keydown->rich-text-editor#linkKey">
+            <input type="url" aria-label="{{ names.linkUrl }}" placeholder="https://" class="h-8 min-w-0 flex-1 rounded-md border border-border bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" data-rich-text-editor-target="linkInput">
+            <button type="submit" class="h-8 rounded-md bg-primary px-3 text-sm text-primary-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring">{{ names.linkApply }}</button>
+            <button type="button" class="h-8 rounded-md border border-border px-3 text-sm outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring" data-action="rich-text-editor#removeLink">{{ names.linkRemove }}</button>
+        </form>
+    {%- endif %}
+    <div class="relative">
+        {%- if placeholder %}
+            <span class="pointer-events-none absolute left-3 top-2.5 text-sm text-muted-foreground" data-rich-text-editor-target="placeholder" hidden>{{ placeholder }}</span>
+        {%- endif %}
+        <div class="{{ minHeight }} px-3 py-2 text-sm [&_.ProseMirror]:min-h-[inherit] [&_.ProseMirror]:outline-none [&_.ProseMirror_h2]:mt-3 [&_.ProseMirror_h2]:text-xl [&_.ProseMirror_h2]:font-semibold [&_.ProseMirror_h3]:mt-2 [&_.ProseMirror_h3]:text-lg [&_.ProseMirror_h3]:font-semibold [&_.ProseMirror_p]:my-1.5 [&_.ProseMirror_ul]:my-1.5 [&_.ProseMirror_ul]:list-disc [&_.ProseMirror_ul]:pl-6 [&_.ProseMirror_ol]:my-1.5 [&_.ProseMirror_ol]:list-decimal [&_.ProseMirror_ol]:pl-6 [&_.ProseMirror_blockquote]:my-2 [&_.ProseMirror_blockquote]:border-l-2 [&_.ProseMirror_blockquote]:border-border [&_.ProseMirror_blockquote]:pl-3 [&_.ProseMirror_blockquote]:text-muted-foreground [&_.ProseMirror_code]:rounded [&_.ProseMirror_code]:bg-muted [&_.ProseMirror_code]:px-1 [&_.ProseMirror_code]:font-mono [&_.ProseMirror_pre]:my-2 [&_.ProseMirror_pre]:overflow-x-auto [&_.ProseMirror_pre]:rounded-md [&_.ProseMirror_pre]:bg-muted [&_.ProseMirror_pre]:p-3 [&_.ProseMirror_pre_code]:bg-transparent [&_.ProseMirror_pre_code]:p-0 [&_.ProseMirror_a]:text-primary [&_.ProseMirror_a]:underline" data-rich-text-editor-target="editor"></div>
+    </div>
+    <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" {% if name %}name="{{ name }}" {% endif %}{{ required ? 'required' }} data-rich-text-editor-target="field">
+</div>
