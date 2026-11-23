@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blocks · Appolo UI{% endblock %}
+
+{% block body %}
+    <nav class="mb-4 text-sm text-muted-foreground"><a href="index.html" class="hover:text-foreground">Appolo UI</a> / Blocks</nav>
+    <h1 class="text-3xl font-bold tracking-tight">Blocks</h1>
+    <p class="mt-2 text-muted-foreground">Page sections built from a few props and slots: pricing, stats, FAQ, call to action. They are installed like any component.</p>
+
+    {% include 'docs/_list.html.twig' with {items: pages|filter(item => item.kind == 'block')} only %}
+{% endblock %}

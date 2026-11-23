@@ -5,23 +5,7 @@
 {% block body %}
     <nav class="mb-4 text-sm text-muted-foreground"><a href="index.html" class="hover:text-foreground">Appolo UI</a> / Components</nav>
     <h1 class="text-3xl font-bold tracking-tight">Components</h1>
-    <p class="mt-2 text-muted-foreground">The building blocks of the Appolo UI kit.</p>
+    <p class="mt-2 text-muted-foreground">The building blocks of the Appolo UI kit. Looking for page sections? See the <a href="blocks.html" class="underline underline-offset-4">blocks</a>.</p>
 
-    {% for kind, heading in {component: 'Components', block: 'Blocks'} %}
-        {% set items = pages|filter(item => item.kind == kind) %}
-        {% if items|length %}
-            <h2 id="{{ kind }}s" class="mt-10 text-xl font-semibold">{{ heading }}</h2>
-            {% if kind == 'block' %}<p class="mt-1 text-sm text-muted-foreground">Page sections built from a few props and slots: pricing, stats, FAQ, call to action. They are installed like any component.</p>{% endif %}
-            <ul class="mt-4 divide-y divide-border rounded-lg border border-border">
-                {% for slug, item in items %}
-                    <li>
-                        <a href="{{ slug }}.html" class="block px-4 py-4 hover:bg-muted">
-                            <span class="block font-medium">{{ item.title }}</span>
-                            <span class="mt-0.5 block text-sm text-muted-foreground">{{ item.description_html|raw }}</span>
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endfor %}
+    {% include 'docs/_list.html.twig' with {items: pages|filter(item => item.kind != 'block')} only %}
 {% endblock %}

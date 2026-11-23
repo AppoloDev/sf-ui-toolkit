@@ -81,6 +81,7 @@ final class BuildDocsCommand extends Command
 
         file_put_contents($outDir.'/index.html', $this->twig->render('docs/index.html.twig', ['pages' => $pages, 'kit' => $kit]));
         file_put_contents($outDir.'/components.html', $this->twig->render('docs/components.html.twig', ['pages' => $pages, 'kit' => $kit]));
+        file_put_contents($outDir.'/blocks.html', $this->twig->render('docs/blocks.html.twig', ['pages' => $pages, 'kit' => $kit]));
         $output->writeln(sprintf('<info>%d components documented in %s</info>', count($pages), $outDir));
 
         return Command::SUCCESS;

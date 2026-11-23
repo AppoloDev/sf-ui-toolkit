@@ -5,7 +5,7 @@
 {% block body %}
     <nav class="mb-4 text-sm text-muted-foreground">
         <a href="index.html" class="hover:text-foreground">Appolo UI</a> /
-        <a href="components.html#{{ page.kind }}s" class="hover:text-foreground">{{ page.kind == 'block' ? 'Blocks' : 'Components' }}</a> /
+        <a href="{{ page.kind == 'block' ? 'blocks' : 'components' }}.html" class="hover:text-foreground">{{ page.kind == 'block' ? 'Blocks' : 'Components' }}</a> /
         <span class="text-foreground">{{ page.title }}</span>
     </nav>
 

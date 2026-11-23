@@ -37,3 +37,10 @@ window.addEventListener('message', (event) => {
         }
     });
 });
+
+document.addEventListener('click', (event) => {
+    const theme = event.target.closest('[data-theme-set]');
+    if (!theme) return;
+    try { localStorage.setItem('docs-theme', theme.dataset.themeSet); } catch (error) { /* private mode: the choice lasts for this page only */ }
+    window.applyDocsTheme();
+});
