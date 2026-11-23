@@ -2,39 +2,38 @@
   Rating : note par étoiles.
 
   Props
-    name     nom du champ ; sans nom ou en lecture seule, simple affichage
-    value    note actuelle (décimales acceptées en lecture seule)
+    name     nom du champ ; sans nom (ou en lecture seule), simple affichage
+    value    note actuelle (décimales acceptées)
     max      nombre d'étoiles
+    step     1 ou 0.5 (demi-étoiles, en saisie)
     readonly affichage seul
     size     sm | md | lg
-    label    libellé accessible du groupe
+    label    libellé accessible
 
-  Aucun JavaScript : les étoiles de saisie sont des boutons radio masqués.
+  Le remplissage est rendu côté serveur (clip-path) ; le contrôleur Stimulus `rating`
+  n'ajoute que l'aperçu au survol. La saisie reste faite de boutons radio natifs.
 #}
-{%- props name = null, value = 0, max = 5, readonly = false, size = 'md', label = 'Note' -%}
+{%- props name = null, value = 0, max = 5, step = 1, readonly = false, size = 'md', label = 'Note' -%}
 {%- set size_class = {sm: 'size-4', md: 'size-5', lg: 'size-6'}[size] ?? 'size-5' -%}
 {%- set star_path = 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' -%}
 {%- set extra_class = attributes.render('class') -%}
-{%- if readonly or name is null -%}
-<div class="{{ ('inline-flex items-center gap-0.5 ' ~ extra_class)|trim }}" role="img" aria-label="{{ label }} : {{ value }} / {{ max }}" {{ attributes }}>
+{%- set editable = name is not null and not readonly -%}
+{%- set half = step == 0.5 -%}
+{%- set group_attrs = editable
+    ? 'role="radiogroup" aria-label="' ~ label|e('html_attr') ~ '" data-controller="rating" data-rating-value-value="' ~ value ~ '" data-action="mouseleave->rating#reset"'
+    : 'role="img" aria-label="' ~ (label ~ ' : ' ~ value ~ ' / ' ~ max)|e('html_attr') ~ '"' -%}
+<div class="{{ ('inline-flex items-center gap-0.5 ' ~ extra_class)|trim }}" {{ group_attrs|raw }} {{ attributes }}>
     {%- for i in 1..max -%}
         {%- set fill = max(0, min(100, (value - (i - 1)) * 100)) -%}
-        <span class="relative inline-flex shrink-0 {{ size_class }}">
-            <svg viewBox="0 0 24 24" class="{{ size_class }} text-muted-foreground/30" fill="currentColor" aria-hidden="true"><path d="{{ star_path }}"/></svg>
-            <span class="absolute inset-y-0 left-0 overflow-hidden" style="width: {{ fill }}%">
-                <svg viewBox="0 0 24 24" class="{{ size_class }} max-w-none shrink-0 text-amber-400" fill="currentColor" aria-hidden="true"><path d="{{ star_path }}"/></svg>
-            </span>
+        <span class="relative inline-flex shrink-0 rounded-sm {{ size_class }}{{ editable ? ' has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring' }}">
+            <svg viewBox="0 0 24 24" class="absolute inset-0 {{ size_class }} text-muted-foreground/30" fill="currentColor" aria-hidden="true"><path d="{{ star_path }}"/></svg>
+            <svg viewBox="0 0 24 24" class="absolute inset-0 {{ size_class }} text-amber-400" fill="currentColor" aria-hidden="true" style="clip-path: inset(0 {{ 100 - fill }}% 0 0)"{{ (editable ? ' data-rating-target="fill"')|raw }}><path d="{{ star_path }}"/></svg>
+            {%- if editable -%}
+                {%- if half -%}
+                    <input type="radio" name="{{ name }}" value="{{ i - 0.5 }}" aria-label="{{ i - 0.5 }} / {{ max }}" class="absolute inset-y-0 left-0 z-10 m-0 h-full w-1/2 cursor-pointer opacity-0" data-action="mouseenter->rating#preview change->rating#sync" {{ value == i - 0.5 ? 'checked' }}>
+                {%- endif -%}
+                <input type="radio" name="{{ name }}" value="{{ i }}" aria-label="{{ i }} / {{ max }}" class="absolute inset-y-0 z-10 m-0 h-full cursor-pointer opacity-0 {{ half ? 'right-0 w-1/2' : 'left-0 w-full' }}" data-action="mouseenter->rating#preview change->rating#sync" {{ value == i ? 'checked' }}>
+            {%- endif -%}
         </span>
     {%- endfor -%}
 </div>
-{%- else -%}
-<div class="{{ ('inline-flex flex-row-reverse gap-0.5 [&>input:checked~label]:text-amber-400 [&>label:hover]:text-amber-400 [&>label:hover~label]:text-amber-400 [&>input:focus-visible+label]:ring-2 [&>input:focus-visible+label]:ring-ring ' ~ extra_class)|trim }}" role="radiogroup" aria-label="{{ label }}" {{ attributes }}>
-    {%- for i in max..1 -%}
-        <input type="radio" class="sr-only" name="{{ name }}" id="{{ name }}-{{ i }}" value="{{ i }}" {{ value == i ? 'checked' }}>
-        <label for="{{ name }}-{{ i }}" class="cursor-pointer rounded-sm text-muted-foreground/30 transition-colors" title="{{ i }} / {{ max }}">
-            <span class="sr-only">{{ i }} / {{ max }}</span>
-            <svg viewBox="0 0 24 24" class="{{ size_class }}" fill="currentColor" aria-hidden="true"><path d="{{ star_path }}"/></svg>
-        </label>
-    {%- endfor -%}
-</div>
-{%- endif -%}

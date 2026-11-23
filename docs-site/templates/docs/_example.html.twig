@@ -1,0 +1,20 @@
+<div data-example data-tabs class="overflow-hidden rounded-lg border border-border">
+    <div class="flex items-center justify-between border-b border-border bg-muted/50 px-2 text-sm">
+        <div role="tablist" class="flex gap-1">
+            <button type="button" role="tab" data-tab="preview" aria-selected="true" class="-mb-px border-b-2 border-transparent px-3 py-2 aria-selected:border-foreground aria-selected:font-medium">Aperçu</button>
+            <button type="button" role="tab" data-tab="code" aria-selected="false" class="-mb-px border-b-2 border-transparent px-3 py-2 aria-selected:border-foreground aria-selected:font-medium">Code</button>
+        </div>
+        <div class="flex items-center gap-1" data-panel-controls>
+            <button type="button" data-width="375px" aria-pressed="false" class="rounded px-2 py-1 text-xs text-muted-foreground hover:bg-muted aria-pressed:bg-muted aria-pressed:text-foreground">Mobile</button>
+            <button type="button" data-width="768px" aria-pressed="false" class="rounded px-2 py-1 text-xs text-muted-foreground hover:bg-muted aria-pressed:bg-muted aria-pressed:text-foreground">Tablette</button>
+            <button type="button" data-width="100%" aria-pressed="true" class="rounded px-2 py-1 text-xs text-muted-foreground hover:bg-muted aria-pressed:bg-muted aria-pressed:text-foreground">100 %</button>
+        </div>
+    </div>
+    <div data-panel="preview" class="bg-muted/30 p-3">
+        <iframe data-preview src="{{ example.preview }}" title="Aperçu : {{ example.title }}" loading="lazy" class="mx-auto block max-w-full rounded border border-dashed border-border bg-background" style="width: 100%; height: 160px"></iframe>
+    </div>
+    <div data-panel="code" class="relative" hidden>
+        <button type="button" data-copy="code-{{ id }}" class="absolute right-2 top-2 rounded border border-border bg-background px-2 py-1 text-xs hover:bg-muted">Copier</button>
+        <pre class="overflow-x-auto p-4 text-sm"><code id="code-{{ id }}">{{ example.code }}</code></pre>
+    </div>
+</div>

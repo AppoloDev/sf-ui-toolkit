@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include '_head.html.twig' %}
     <title>{% block title %}Appolo UI{% endblock %}</title>
-    {# Tailwind v4 via CDN : suffisant pour un premier test, à remplacer par un build local ensuite. #}
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style type="text/tailwindcss">
-        @theme inline {
-            --color-background: #ffffff;
-            --color-foreground: #0a0a0a;
-            --color-muted: #f5f5f5;
-            --color-muted-foreground: #737373;
-            --color-border: #e5e5e5;
-            --color-ring: #a3a3a3;
-        }
-    </style>
+    <script src="docs.js" defer></script>
 </head>
 <body class="bg-background text-foreground antialiased">
-<div class="mx-auto flex min-h-screen max-w-5xl gap-10 px-6 py-10">
-    <nav class="w-48 shrink-0 text-sm">
-        <a href="index.html" class="mb-6 block text-base font-semibold">Appolo UI</a>
+<header class="border-b border-border">
+    <div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-6">
+        <a href="index.html" class="font-semibold">Appolo UI</a>
+        <a href="https://github.com/AppoloDev/sf-ui-toolkit" class="text-sm text-muted-foreground hover:text-foreground">GitHub</a>
+    </div>
+</header>
+<div class="mx-auto flex max-w-7xl gap-10 px-6 py-8">
+    <nav class="hidden w-52 shrink-0 text-sm md:block">
+        <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Kit</p>
+        <ul class="mb-6 space-y-1">
+            <li><a href="index.html" class="block rounded-md px-2 py-1 hover:bg-muted">Démarrage</a></li>
+            <li><a href="components.html" class="block rounded-md px-2 py-1 hover:bg-muted">Composants</a></li>
+        </ul>
         <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Composants</p>
         <ul class="space-y-1">
             {% for slug, item in pages %}
