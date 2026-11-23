@@ -15,7 +15,6 @@
 #}
 {%- props name = null, value = 0, max = 5, step = 1, readonly = false, size = 'md', label = 'Rating' -%}
 {%- set size_class = {sm: 'size-4', md: 'size-5', lg: 'size-6'}[size] ?? 'size-5' -%}
-{%- set star_path = 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set editable = name is not null and not readonly -%}
 {%- set half = step == 0.5 -%}
@@ -26,8 +25,8 @@
     {%- for i in 1..max -%}
         {%- set fill = max(0, min(100, (value - (i - 1)) * 100)) -%}
         <span class="relative inline-flex shrink-0 rounded-sm {{ size_class }}{{ editable ? ' has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring' }}">
-            <svg viewBox="0 0 24 24" class="absolute inset-0 {{ size_class }} text-muted-foreground/30" fill="currentColor" aria-hidden="true"><path d="{{ star_path }}"/></svg>
-            <svg viewBox="0 0 24 24" class="absolute inset-0 {{ size_class }} text-amber-400" fill="currentColor" aria-hidden="true" style="clip-path: inset(0 {{ 100 - fill }}% 0 0)"{{ (editable ? ' data-rating-target="fill"')|raw }}><path d="{{ star_path }}"/></svg>
+            {{ ux_icon('lucide:star', {class: 'absolute inset-0 ' ~ size_class ~ ' text-muted-foreground/30', fill: 'currentColor', 'aria-hidden': 'true'}) }}
+            {{ ux_icon('lucide:star', {class: 'absolute inset-0 ' ~ size_class ~ ' text-amber-400', fill: 'currentColor', 'aria-hidden': 'true', style: 'clip-path: inset(0 ' ~ (100 - fill) ~ '% 0 0)', 'data-rating-target': editable ? 'fill' : null}) }}
             {%- if editable -%}
                 {%- if half -%}
                     <input type="radio" name="{{ name }}" value="{{ i - 0.5 }}" aria-label="{{ i - 0.5 }} / {{ max }}" class="absolute inset-y-0 left-0 z-10 m-0 h-full w-1/2 cursor-pointer opacity-0" data-action="mouseenter->rating#preview change->rating#sync" {{ value == i - 0.5 ? 'checked' }}>

@@ -7,8 +7,10 @@
         "php": ">=8.2",
         "symfony/console": "^7.3",
         "symfony/framework-bundle": "^7.3",
+        "symfony/http-client": "^7.3",
         "symfony/runtime": "^7.3",
         "symfony/twig-bundle": "^7.3",
+        "symfony/ux-icons": "^2.20",
         "symfony/ux-twig-component": "^2.20",
         "symfony/yaml": "^7.3"
     },

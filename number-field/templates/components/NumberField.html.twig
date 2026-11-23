@@ -19,7 +19,7 @@
 {%- set button_class = 'flex w-9 shrink-0 items-center justify-center text-muted-foreground select-none hover:bg-muted disabled:pointer-events-none disabled:opacity-50' -%}
 <div class="{{ ('inline-flex h-9 items-stretch overflow-hidden rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring aria-disabled:opacity-50 ' ~ extra_class)|trim }}" {{ disabled ? 'aria-disabled=true' }} {{ attributes.defaults(data) }}>
     <button type="button" tabindex="-1" aria-label="Decrease" class="{{ button_class }} border-r border-border" data-number-field-target="decrement" data-action="pointerdown->number-field#holdDecrement" {{ disabled ? 'disabled' }}>
-        <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg>
+        <twig:ux:icon name="lucide:minus" class="size-4" aria-hidden="true" />
     </button>
     <input type="text" inputmode="decimal" autocomplete="off" role="spinbutton"
            class="w-20 min-w-0 flex-1 bg-transparent px-2 text-center text-sm tabular-nums outline-none"
@@ -27,6 +27,6 @@
            value="{{ value }}" placeholder="{{ placeholder }}" {{ disabled ? 'disabled' }}
            data-number-field-target="input" data-action="keydown->number-field#keydown input->number-field#sanitize blur->number-field#commit">
     <button type="button" tabindex="-1" aria-label="Increase" class="{{ button_class }} border-l border-border" data-number-field-target="increment" data-action="pointerdown->number-field#holdIncrement" {{ disabled ? 'disabled' }}>
-        <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>
+        <twig:ux:icon name="lucide:plus" class="size-4" aria-hidden="true" />
     </button>
 </div>

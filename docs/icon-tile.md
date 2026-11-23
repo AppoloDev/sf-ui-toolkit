@@ -6,7 +6,7 @@
 
 ```twig
 <twig:IconTile>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2 2 9.3l6.9-1z"/></svg>
+    <twig:ux:icon name="lucide:star" />
 </twig:IconTile>
 ```
 
@@ -18,9 +18,9 @@
 
 ```twig
 <div class="flex items-center gap-4">
-    <twig:IconTile variant="outline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></twig:IconTile>
-    <twig:IconTile variant="elevated"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></twig:IconTile>
-    <twig:IconTile variant="frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></twig:IconTile>
+    <twig:IconTile variant="outline"><twig:ux:icon name="lucide:house" /></twig:IconTile>
+    <twig:IconTile variant="elevated"><twig:ux:icon name="lucide:house" /></twig:IconTile>
+    <twig:IconTile variant="frame"><twig:ux:icon name="lucide:house" /></twig:IconTile>
 </div>
 ```
 
@@ -30,11 +30,11 @@ The glyph, the padding and the radius follow the size.
 
 ```twig
 <div class="flex items-end gap-4">
-    <twig:IconTile size="xs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5v14"/></svg></twig:IconTile>
-    <twig:IconTile size="sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5v14"/></svg></twig:IconTile>
-    <twig:IconTile><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5v14"/></svg></twig:IconTile>
-    <twig:IconTile size="lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5v14"/></svg></twig:IconTile>
-    <twig:IconTile size="xl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5v14"/></svg></twig:IconTile>
+    <twig:IconTile size="xs"><twig:ux:icon name="lucide:plus" /></twig:IconTile>
+    <twig:IconTile size="sm"><twig:ux:icon name="lucide:plus" /></twig:IconTile>
+    <twig:IconTile><twig:ux:icon name="lucide:plus" /></twig:IconTile>
+    <twig:IconTile size="lg"><twig:ux:icon name="lucide:plus" /></twig:IconTile>
+    <twig:IconTile size="xl"><twig:ux:icon name="lucide:plus" /></twig:IconTile>
 </div>
 ```
 
@@ -42,8 +42,8 @@ The glyph, the padding and the radius follow the size.
 
 ```twig
 <div class="flex items-center gap-4">
-    <twig:IconTile radius="full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></twig:IconTile>
-    <twig:IconTile radius="full" variant="frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></twig:IconTile>
+    <twig:IconTile radius="full"><twig:ux:icon name="lucide:user" /></twig:IconTile>
+    <twig:IconTile radius="full" variant="frame"><twig:ux:icon name="lucide:user" /></twig:IconTile>
 </div>
 ```
 
@@ -53,9 +53,9 @@ Override the colors with utility classes: soft, solid, or any palette color.
 
 ```twig
 <div class="flex items-center gap-4">
-    <twig:IconTile class="border-blue-200 bg-blue-50 text-blue-600"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2 2 9.3l6.9-1z"/></svg></twig:IconTile>
-    <twig:IconTile class="border-transparent bg-emerald-600 text-white"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></twig:IconTile>
-    <twig:IconTile variant="elevated" class="bg-amber-100 text-amber-700"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></twig:IconTile>
+    <twig:IconTile class="border-blue-200 bg-blue-50 text-blue-600"><twig:ux:icon name="lucide:star" /></twig:IconTile>
+    <twig:IconTile class="border-transparent bg-emerald-600 text-white"><twig:ux:icon name="lucide:check" /></twig:IconTile>
+    <twig:IconTile variant="elevated" class="bg-amber-100 text-amber-700"><twig:ux:icon name="lucide:triangle-alert" /></twig:IconTile>
 </div>
 ```
 
@@ -74,7 +74,7 @@ The tile accepts any content: initials, a number, a logo.
 
 ```twig
 <div class="flex max-w-sm items-center gap-3 rounded-lg border border-border p-3">
-    <twig:IconTile variant="elevated"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4zM4 9h16"/></svg></twig:IconTile>
+    <twig:IconTile variant="elevated"><twig:ux:icon name="lucide:file-text" /></twig:IconTile>
     <div class="text-sm">
         <p class="font-medium">Weekly report</p>
         <p class="text-muted-foreground">Updated 2 hours ago</p>

@@ -1,0 +1,5 @@
+ux_icons:
+    # Icons (lucide:*) are fetched from Iconify on first render and cached.
+    iconify:
+        enabled: true
+        on_demand: true
