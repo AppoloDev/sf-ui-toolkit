@@ -7,7 +7,13 @@ import { Controller } from '@hotwired/stimulus';
  */
 export default class extends Controller {
     static targets = ['item'];
-    static values = { name: String };
+    static values = {
+        name: String,
+        pickedUpLabel: String,
+        movedLabel: String,
+        droppedLabel: String,
+        cancelledLabel: String,
+    };
 
     connect() {
         this.live = document.createElement('div');
@@ -80,7 +86,7 @@ export default class extends Controller {
                 this.before = this.order();
                 item.dataset.picked = 'true';
                 handle.setAttribute('aria-pressed', 'true');
-                this.announce(`${this.nameOf(item)} picked up, position ${this.position(item)} of ${this.itemTargets.length}. Use the arrow keys to move it.`);
+                this.announce(this.message(this.pickedUpLabelValue, item));
             }
 
             return;
@@ -90,7 +96,7 @@ export default class extends Controller {
             event.preventDefault();
             this.restore();
             this.release(handle, item);
-            this.announce(`${this.nameOf(item)}: reordering cancelled.`);
+            this.announce(this.message(this.cancelledLabelValue, item));
 
             return;
         }
@@ -102,14 +108,14 @@ export default class extends Controller {
             if (sibling && sibling.matches('[data-sortable-target="item"]')) {
                 item.parentElement.insertBefore(item, previous ? sibling : sibling.nextSibling);
                 handle.focus();
-                this.announce(`${this.nameOf(item)} moved to position ${this.position(item)} of ${this.itemTargets.length}.`);
+                this.announce(this.message(this.movedLabelValue, item));
             }
         }
     }
 
     drop(handle, item) {
         this.release(handle, item);
-        this.announce(`${this.nameOf(item)} dropped at position ${this.position(item)} of ${this.itemTargets.length}.`);
+        this.announce(this.message(this.droppedLabelValue, item));
         this.finish(this.before);
     }
 
@@ -148,6 +154,13 @@ export default class extends Controller {
 
     nameOf(item) {
         return item.dataset.label ?? item.textContent.trim().replace(/\s+/g, ' ');
+    }
+
+    message(template, item) {
+        return template
+            .replaceAll('{item}', this.nameOf(item))
+            .replaceAll('{position}', this.position(item))
+            .replaceAll('{total}', this.itemTargets.length);
     }
 
     announce(message) {

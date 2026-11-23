@@ -72,3 +72,5 @@ An empty field stays empty until you type or press a button; the first press sta
 | `disabled` | bool | `false` | Disables the field and the buttons. |
 | `label` | string | `null` | Accessible label (`aria-label`). |
 | `id` | string | `null` | Id of the inner input, for an external `<label for>`. |
+| `decreaseLabel` | string | `Decrease` | Accessible name of the decrement button. |
+| `increaseLabel` | string | `Increase` | Accessible name of the increment button. |

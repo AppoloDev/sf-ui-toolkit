@@ -27,10 +27,16 @@ const flag = (iso) => String.fromCodePoint(...[...iso].map((char) => 127397 + ch
  */
 export default class extends Controller {
     static targets = ['trigger', 'flag', 'dial', 'national', 'hidden', 'panel', 'search', 'list', 'empty'];
-    static values = { value: String, defaultCountry: { type: String, default: 'FR' } };
+    static values = {
+        value: String,
+        defaultCountry: { type: String, default: 'FR' },
+        locale: String,
+        countryLabel: { type: String, default: 'Country' },
+    };
 
     connect() {
-        this.country = COUNTRIES.find(([iso]) => iso === this.defaultCountryValue.toUpperCase()) ?? COUNTRIES[0];
+        this.countries = this.localizedCountries();
+        this.country = this.countries.find(([iso]) => iso === this.defaultCountryValue.toUpperCase()) ?? this.countries[0];
         this.active = -1;
         this.onOutsideClick = (event) => {
             if (!this.element.contains(event.target)) this.close();
@@ -44,6 +50,20 @@ export default class extends Controller {
         document.removeEventListener('pointerdown', this.onOutsideClick);
     }
 
+    // Country names come from the browser (Intl.DisplayNames) in the page language, sorted for that language.
+    localizedCountries() {
+        const locale = this.localeValue || document.documentElement.lang || undefined;
+        let names = null;
+        try {
+            names = new Intl.DisplayNames(locale ? [locale] : undefined, { type: 'region' });
+        } catch {
+            // Unsupported locale or API: keep the English names below.
+        }
+        const collator = new Intl.Collator(locale || undefined);
+
+        return COUNTRIES.map(([iso, english, dial]) => [iso, names?.of(iso) ?? english, dial]).sort((a, b) => collator.compare(a[1], b[1]));
+    }
+
     // --- initial value ----------------------------------------------------------------------
 
     parseInitial() {
@@ -55,7 +75,7 @@ export default class extends Controller {
         }
         const digits = raw.slice(1);
         // Longest dial code wins (e.g. 351 before 35).
-        const match = [...COUNTRIES].sort((a, b) => b[2].length - a[2].length).find(([, , dial]) => digits.startsWith(dial));
+        const match = [...this.countries].sort((a, b) => b[2].length - a[2].length).find(([, , dial]) => digits.startsWith(dial));
         if (match) {
             // For a shared dial code (+1) keep the default country when it fits.
             this.country = match[2] === this.country[2] ? this.country : match;
@@ -111,7 +131,7 @@ export default class extends Controller {
 
     renderList(query) {
         const needle = query.trim().toLowerCase().replace(/^\+/, '');
-        const matches = COUNTRIES.filter(([iso, name, dial]) => !needle || name.toLowerCase().includes(needle) || iso.toLowerCase() === needle || dial.startsWith(needle));
+        const matches = this.countries.filter(([iso, name, dial]) => !needle || name.toLowerCase().includes(needle) || iso.toLowerCase() === needle || dial.startsWith(needle));
         this.listTarget.replaceChildren(...matches.map(([iso, name, dial]) => {
             const li = document.createElement('li');
             li.id = `${this.element.id || 'phone'}-opt-${iso}`;
@@ -149,7 +169,7 @@ export default class extends Controller {
     }
 
     select(iso) {
-        this.country = COUNTRIES.find(([code]) => code === iso) ?? this.country;
+        this.country = this.countries.find(([code]) => code === iso) ?? this.country;
         this.close(true);
         this.render();
         this.commit();
@@ -172,7 +192,7 @@ export default class extends Controller {
     render() {
         this.flagTarget.textContent = flag(this.country[0]);
         this.dialTarget.textContent = `+${this.country[2]}`;
-        this.triggerTarget.setAttribute('aria-label', `Country: ${this.country[1]} (+${this.country[2]})`);
+        this.triggerTarget.setAttribute('aria-label', `${this.countryLabelValue}: ${this.country[1]} (+${this.country[2]})`);
         let digits = this.nationalTarget.value.replace(/\D/g, '');
         // A leading national trunk 0 is dropped (06 12 34 56 78 -> +33612345678).
         if (digits.startsWith('0')) digits = digits.replace(/^0+/, '');

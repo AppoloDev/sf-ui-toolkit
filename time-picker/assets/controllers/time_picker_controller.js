@@ -9,6 +9,10 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
     static targets = ['input', 'hidden', 'trigger', 'panel', 'columns'];
     static values = {
+        hoursLabel: { type: String, default: 'Hours' },
+        minutesLabel: { type: String, default: 'Minutes' },
+        secondsLabel: { type: String, default: 'Seconds' },
+        periodLabel: { type: String, default: 'AM/PM' },
         value: String,
         hourCycle: { type: Number, default: 24 },
         hourStep: { type: Number, default: 1 },
@@ -230,25 +234,25 @@ export default class extends Controller {
         const hours = twelve ? [12, ...range(11, 1).map((hour) => hour + 1).filter((hour) => hour < 12)] : range(24, this.hourStepValue);
         columns.push({
             key: 'h',
-            label: 'Hours',
+            label: this.hoursLabelValue,
             options: hours.map((hour) => ({ value: hour, text: twelve ? String(hour) : String(hour).padStart(2, '0'), selected: current ? (twelve ? (current.h % 12 || 12) === hour : current.h === hour) : false, disabled: !this.hourAvailable(twelve ? this.to24(hour, current ? current.h >= 12 : false) : hour) })),
         });
         columns.push({
             key: 'm',
-            label: 'Minutes',
+            label: this.minutesLabelValue,
             options: range(60, this.minuteStepValue).map((minute) => ({ value: minute, text: String(minute).padStart(2, '0'), selected: current?.m === minute, disabled: !this.minuteAvailable(current?.h ?? 0, minute) })),
         });
         if (this.secondsValue) {
             columns.push({
                 key: 's',
-                label: 'Seconds',
+                label: this.secondsLabelValue,
                 options: range(60, this.secondStepValue).map((second) => ({ value: second, text: String(second).padStart(2, '0'), selected: (current?.s ?? 0) === second && current !== null, disabled: !this.allowed({ h: current?.h ?? 0, m: current?.m ?? 0, s: second }) })),
             });
         }
         if (twelve) {
             columns.push({
                 key: 'p',
-                label: 'AM/PM',
+                label: this.periodLabelValue,
                 options: ['AM', 'PM'].map((period) => ({ value: period, text: period, selected: current ? (current.h < 12) === ('AM' === period) : false, disabled: false })),
             });
         }

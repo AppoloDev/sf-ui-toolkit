@@ -82,3 +82,11 @@ The trigger shows the current color; the popover has the saturation/brightness a
 | `swatches` | array | `[]` | Preset colors (CSS colors). |
 | `disabled` | bool | `false` | Disables the picker. |
 | `label` | string | `Pick a color` | Accessible label of the trigger and the popover. |
+| `areaLabel` | string | `Saturation and brightness` | Accessible name of the color area. |
+| `saturationLabel` | string | `Saturation` | Word used in the area's spoken value. |
+| `brightnessLabel` | string | `Brightness` | Word used in the area's spoken value. |
+| `hueLabel` | string | `Hue` | Accessible name of the hue slider. |
+| `opacityLabel` | string | `Opacity` | Accessible name of the opacity slider. |
+| `fieldLabel` | string | `Color value` | Accessible name of the typed field. |
+| `eyedropperLabel` | string | `Pick a color from the screen` | Accessible name of the eye dropper button. |
+| `swatchesLabel` | string | `Preset colors` | Accessible name of the swatch list. |

@@ -8,7 +8,13 @@ import { Controller } from '@hotwired/stimulus';
  */
 export default class extends Controller {
     static targets = ['trigger', 'chip', 'text', 'hidden', 'panel', 'area', 'areaThumb', 'hue', 'opacity', 'field', 'eyedropper'];
-    static values = { value: String, format: { type: String, default: 'hex' }, alpha: Boolean };
+    static values = {
+        value: String,
+        format: { type: String, default: 'hex' },
+        alpha: Boolean,
+        saturationLabel: { type: String, default: 'Saturation' },
+        brightnessLabel: { type: String, default: 'Brightness' },
+    };
 
     connect() {
         this.state = this.toState(this.valueValue) ?? { h: 217, s: 0.76, v: 0.96, a: 1 };
@@ -161,7 +167,7 @@ export default class extends Controller {
         this.areaThumbTarget.style.left = `${s * 100}%`;
         this.areaThumbTarget.style.top = `${(1 - v) * 100}%`;
         this.areaThumbTarget.style.background = `rgb(${r} ${g} ${b})`;
-        this.areaTarget.setAttribute('aria-valuetext', `Saturation ${Math.round(s * 100)}%, brightness ${Math.round(v * 100)}%`);
+        this.areaTarget.setAttribute('aria-valuetext', `${this.saturationLabelValue} ${Math.round(s * 100)}%, ${this.brightnessLabelValue} ${Math.round(v * 100)}%`);
         this.hueTarget.value = Math.round(h);
         if (this.hasOpacityTarget) {
             this.opacityTarget.value = Math.round(a * 100);

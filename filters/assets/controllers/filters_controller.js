@@ -18,7 +18,7 @@ const CONTROL = 'h-full bg-transparent px-2 text-sm outline-none focus-visible:b
  */
 export default class extends Controller {
     static targets = ['chips', 'addButton', 'menu', 'clear', 'inputs', 'removeIcon'];
-    static values = { fields: Array, values: Array, autoSubmit: { type: Boolean, default: true } };
+    static values = { fields: Array, values: Array, labels: Object, autoSubmit: { type: Boolean, default: true } };
 
     connect() {
         this.filters = this.valuesValue
@@ -32,6 +32,20 @@ export default class extends Controller {
 
     disconnect() {
         document.removeEventListener('pointerdown', this.onOutsideClick);
+    }
+
+    // Texts come from the Twig props (English defaults); {placeholders} are replaced.
+    text(key, replacements = {}) {
+        const defaults = { empty: 'No more filters', select: 'Select…', yes: 'Yes', no: 'No', selected: '{count} selected', remove: 'Remove {field} filter', operator: '{field} operator', value: '{field} value' };
+
+        return Object.entries(replacements).reduce((text, [name, value]) => text.replaceAll(`{${name}}`, value), this.labelsValue[key] ?? defaults[key]);
+    }
+
+    operatorOptions(name) {
+        const type = this.field(name).type;
+        const custom = this.labelsValue.operators ?? {};
+
+        return this.operators(name).map(([value, text]) => ['number' === type ? text : (custom[value] ?? text), value]);
     }
 
     field(name) {
@@ -69,7 +83,7 @@ export default class extends Controller {
         if (!available.length) {
             const empty = document.createElement('p');
             empty.className = 'px-2 py-1.5 text-muted-foreground';
-            empty.textContent = 'No more filters';
+            empty.textContent = this.text('empty');
             this.menuTarget.replaceChildren(empty);
         }
         this.menuTarget.hidden = false;
@@ -142,9 +156,9 @@ export default class extends Controller {
 
         const operators = this.operators(filter.field);
         const operator = document.createElement('select');
-        operator.setAttribute('aria-label', `${field.label} operator`);
+        operator.setAttribute('aria-label', this.text('operator', { field: field.label }));
         operator.className = `${CONTROL} text-muted-foreground`;
-        operators.forEach(([value, text]) => operator.append(new Option(text, value, false, value === filter.operator)));
+        this.operatorOptions(filter.field).forEach(([text, value]) => operator.append(new Option(text, value, false, value === filter.operator)));
         operator.disabled = 1 === operators.length;
         operator.addEventListener('change', () => {
             filter.operator = operator.value;
@@ -154,7 +168,7 @@ export default class extends Controller {
 
         const remove = document.createElement('button');
         remove.type = 'button';
-        remove.setAttribute('aria-label', `Remove ${field.label} filter`);
+        remove.setAttribute('aria-label', this.text('remove', { field: field.label }));
         remove.className = 'flex w-7 items-center justify-center text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:bg-muted';
         remove.append(this.removeIconTarget.content.cloneNode(true));
         remove.addEventListener('click', () => this.remove(filter.field));
@@ -174,7 +188,7 @@ export default class extends Controller {
 
         if ('select' === field.type || 'boolean' === field.type) {
             control = document.createElement('select');
-            const list = 'boolean' === field.type ? [['1', 'Yes'], ['0', 'No']] : [['', 'Select…'], ...options];
+            const list = 'boolean' === field.type ? [['1', this.text('yes')], ['0', this.text('no')]] : [['', this.text('select')], ...options];
             list.forEach(([value, text]) => control.append(new Option(text, value, false, String(value) === String(filter.value))));
             control.addEventListener('change', () => {
                 commit(control.value);
@@ -198,7 +212,7 @@ export default class extends Controller {
             });
         }
         control.dataset.editor = '';
-        control.setAttribute('aria-label', `${field.label} value`);
+        control.setAttribute('aria-label', this.text('value', { field: field.label }));
         control.classList.add(...CONTROL.split(' '));
 
         return control;
@@ -212,7 +226,7 @@ export default class extends Controller {
         button.dataset.editor = '';
         button.setAttribute('aria-haspopup', 'listbox');
         button.setAttribute('aria-expanded', 'false');
-        button.setAttribute('aria-label', `${field.label} value`);
+        button.setAttribute('aria-label', this.text('value', { field: field.label }));
         button.className = `${CONTROL} max-w-48 truncate text-left`;
 
         const list = document.createElement('div');
@@ -224,7 +238,7 @@ export default class extends Controller {
 
         const summary = () => {
             const labels = filter.value.map((value) => field.options[value] ?? value);
-            button.textContent = 0 === labels.length ? 'Select…' : labels.length <= 2 ? labels.join(', ') : `${labels.length} selected`;
+            button.textContent = 0 === labels.length ? this.text('select') : labels.length <= 2 ? labels.join(', ') : this.text('selected', { count: labels.length });
         };
         const outside = (event) => {
             if (!wrapper.contains(event.target)) setOpen(false);

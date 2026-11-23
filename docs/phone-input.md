@@ -61,6 +61,7 @@ An E.164 `value` selects the country from its dial code and fills the national n
 - The search field drives the list like a combobox: `↓` / `↑` move the active option (`aria-activedescendant`), `Enter` selects it, `Esc` closes and returns focus to the button.
 - Search matches the country name, its ISO code or its dial code (`+44`).
 - The national number is a native `tel` input with an accessible name (`label`, or an external `<label for>` through `id`).
+- Country names are localized by the browser in the page language (or `locale`), and the list is sorted accordingly.
 - Flags are emoji and hidden from assistive technologies; Windows does not render flag emoji, it shows the ISO letters instead.
 - The number is not formatted or validated per country: validate the E.164 value on the server (for example with `giggsey/libphonenumber-for-php`).
 - Event: `phone-input:change` fires on blur and on country change, with `detail.value` and `detail.country`.
@@ -78,4 +79,9 @@ An E.164 `value` selects the country from its dial code and fills the national n
 | `size` | `sm`, `default`, `lg` | `default` | Field height. |
 | `label` | string | `Phone number` | Accessible label of the number field. |
 | `id` | string | `null` | Id of the national number input (for an external `<label for>`). |
+| `locale` | string | `''` | Language of the country names. Defaults to the page language (`<html lang>`), through the browser's `Intl.DisplayNames`. |
+| `countryLabel` | string | `Country` | Accessible name of the country button. |
+| `searchLabel` | string | `Search a country` | Label and placeholder of the search field. |
+| `listLabel` | string | `Countries` | Accessible name of the country list. |
+| `emptyLabel` | string | `No country found.` | Text shown when the search has no result. |
 | `disabled` | bool | `false` | Disables the field. |

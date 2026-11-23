@@ -17,6 +17,16 @@ Replace `rating` with the component you want. The command copies its Twig templa
 
 Components that display icons use [Symfony UX Icons](https://symfony.com/bundles/ux-icons/current/index.html) with the [Lucide](https://lucide.dev) set; `ux:install` prints the `composer require symfony/ux-icons` command to run, and you can import the icons locally with `php bin/console ux:icons:import lucide:star`.
 
+## Translations
+
+Components ship with English texts and no translation files. Every visible or spoken text is a prop (`addLabel`, `clearLabel`, ...) that you can translate where you use the component:
+
+```twig
+<twig:Filters :fields="fields" addLabel="{{ 'filters.add'|trans }}" clearLabel="{{ 'filters.clear'|trans }}" />
+```
+
+The props of each component are listed in its documentation.
+
 ## Components
 
 | Component | Description | Docs |

@@ -9,15 +9,18 @@
     alpha     enables the opacity slider (otherwise the output is always opaque)
     swatches  list of preset colors (CSS colors)
     disabled  disables the picker
-    label     accessible label of the trigger
+    label     accessible label of the trigger and the popover
+    areaLabel, saturationLabel, brightnessLabel, hueLabel, opacityLabel, fieldLabel, eyedropperLabel, swatchesLabel   accessible names inside the popover
 #}
-{%- props name = null, value = '#3b82f6', format = 'hex', alpha = false, swatches = [], disabled = false, label = 'Pick a color' -%}
+{%- props name = null, value = '#3b82f6', format = 'hex', alpha = false, swatches = [], disabled = false, label = 'Pick a color', areaLabel = 'Saturation and brightness', saturationLabel = 'Saturation', brightnessLabel = 'Brightness', hueLabel = 'Hue', opacityLabel = 'Opacity', fieldLabel = 'Color value', eyedropperLabel = 'Pick a color from the screen', swatchesLabel = 'Preset colors' -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set data = {
     'data-controller': 'color-picker',
     'data-color-picker-value-value': value,
     'data-color-picker-format-value': format,
     'data-color-picker-alpha-value': alpha ? 'true' : 'false',
+    'data-color-picker-saturation-label-value': saturationLabel,
+    'data-color-picker-brightness-label-value': brightnessLabel,
 } -%}
 {%- set thumb = '[&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:ring-1 [&::-webkit-slider-thumb]:ring-black/30 [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-white' -%}
 <div class="{{ ('relative inline-block ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
@@ -30,27 +33,27 @@
     <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-color-picker-target="hidden">
     <div role="dialog" aria-label="{{ label }}" hidden class="absolute left-0 top-full z-50 mt-1 w-64 space-y-3 rounded-md border border-border bg-background p-3 shadow-md"
          data-color-picker-target="panel" data-action="keydown->color-picker#panelKeydown">
-        <div role="slider" tabindex="0" aria-label="Saturation and brightness" class="relative h-36 w-full cursor-crosshair touch-none rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        <div role="slider" tabindex="0" aria-label="{{ areaLabel }}" class="relative h-36 w-full cursor-crosshair touch-none rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
              data-color-picker-target="area" data-action="pointerdown->color-picker#areaDown keydown->color-picker#areaKey">
             <span class="pointer-events-none absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow ring-1 ring-black/30" data-color-picker-target="areaThumb"></span>
         </div>
-        <input type="range" min="0" max="360" step="1" aria-label="Hue" data-color-picker-target="hue" data-action="input->color-picker#hueInput"
+        <input type="range" min="0" max="360" step="1" aria-label="{{ hueLabel }}" data-color-picker-target="hue" data-action="input->color-picker#hueInput"
                class="h-3 w-full cursor-pointer appearance-none rounded-full bg-transparent {{ thumb }}"
                style="background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00)">
         {%- if alpha %}
-            <input type="range" min="0" max="100" step="1" aria-label="Opacity" data-color-picker-target="opacity" data-action="input->color-picker#opacityInput"
+            <input type="range" min="0" max="100" step="1" aria-label="{{ opacityLabel }}" data-color-picker-target="opacity" data-action="input->color-picker#opacityInput"
                    class="h-3 w-full cursor-pointer appearance-none rounded-full bg-transparent {{ thumb }}">
         {%- endif %}
         <div class="flex items-center gap-2">
-            <input type="text" aria-label="Color value" spellcheck="false" autocomplete="off" class="h-8 min-w-0 flex-1 rounded-md border border-border bg-background px-2 font-mono text-xs outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            <input type="text" aria-label="{{ fieldLabel }}" spellcheck="false" autocomplete="off" class="h-8 min-w-0 flex-1 rounded-md border border-border bg-background px-2 font-mono text-xs outline-none focus-visible:ring-2 focus-visible:ring-ring"
                    data-color-picker-target="field" data-action="change->color-picker#fieldChange keydown->color-picker#fieldKey">
-            <button type="button" hidden aria-label="Pick a color from the screen" class="flex size-8 shrink-0 items-center justify-center rounded-md border border-border hover:bg-muted"
+            <button type="button" hidden aria-label="{{ eyedropperLabel }}" class="flex size-8 shrink-0 items-center justify-center rounded-md border border-border hover:bg-muted"
                     data-color-picker-target="eyedropper" data-action="color-picker#eyedrop">
                 <twig:ux:icon name="lucide:pipette" class="size-4" aria-hidden="true" />
             </button>
         </div>
         {%- if swatches %}
-            <div role="listbox" aria-label="Preset colors" class="flex flex-wrap gap-1.5">
+            <div role="listbox" aria-label="{{ swatchesLabel }}" class="flex flex-wrap gap-1.5">
                 {%- for swatch in swatches %}
                     <button type="button" role="option" aria-selected="false" aria-label="{{ swatch }}" title="{{ swatch }}" data-color="{{ swatch }}" style="background: {{ swatch }}"
                             class="size-6 rounded-md border border-black/10 outline-none focus-visible:ring-2 focus-visible:ring-ring" data-action="color-picker#swatch"></button>

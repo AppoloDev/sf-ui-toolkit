@@ -102,5 +102,14 @@ With `requireConfirm`, changes are held as a draft until OK is pressed; closing 
 | `disabled` | bool | `false` | Disables the field and the button. |
 | `label` | string | `null` | Accessible label of the typed field. |
 | `id` | string | `null` | Id of the typed field, for an external `<label for>`. |
+| `openLabel` | string | `Open the time picker` | Accessible name of the trigger button. |
+| `dialogLabel` | string | `Choose a time` | Accessible name of the popover. |
+| `nowLabel` | string | `Now` | Text of the "now" button. |
+| `clearLabel` | string | `Clear` | Text of the clear button. |
+| `confirmLabel` | string | `OK` | Text of the confirm button. |
+| `hoursLabel` | string | `Hours` | Accessible name of the hours column. |
+| `minutesLabel` | string | `Minutes` | Accessible name of the minutes column. |
+| `secondsLabel` | string | `Seconds` | Accessible name of the seconds column. |
+| `periodLabel` | string | `AM/PM` | Accessible name of the period column. |
 
 The controller dispatches a `time-picker:change` event with `detail.value` (`null` when cleared).

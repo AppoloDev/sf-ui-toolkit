@@ -79,5 +79,18 @@ With `:autoSubmit="false"`, changing a filter only updates the hidden inputs and
 | `action` | string | `null` | Form action (defaults to the current URL). |
 | `autoSubmit` | bool | `true` | Submit the form whenever a filter changes. |
 | `label` | string | `Filters` | Accessible label of the bar. |
+| `addLabel` | string | `Add filter` | Text of the add button. |
+| `clearLabel` | string | `Clear` | Text of the clear button. |
+| `applyLabel` | string | `Apply` | Text of the submit button shown without JavaScript. |
+| `emptyLabel` | string | `No more filters` | Text of the add menu when every filter is already active. |
+| `selectLabel` | string | `Select…` | Placeholder of the select and multiselect editors. |
+| `yesLabel`, `noLabel` | string | `Yes`, `No` | Options of `boolean` fields. |
+| `selectedLabel` | string | `{count} selected` | Summary of a multiselect with three or more values. |
+| `removeLabel` | string | `Remove {field} filter` | Accessible name of a chip's remove button. |
+| `operatorLabel` | string | `{field} operator` | Accessible name of a chip's operator select. |
+| `valueLabel` | string | `{field} value` | Accessible name of a chip's value editor. |
+| `operatorLabels` | object | `{}` | Operator texts keyed by operator, for example `{eq: 'is', contains: 'contains'}`. The `number` type always shows symbols. |
+
+`{count}` and `{field}` are replaced with the number of values and the field label.
 
 Operators by type: `text` (`contains`, `eq`, `neq`), `number` (`eq`, `neq`, `gt`, `lt`), `select` (`eq`, `neq`), `multiselect` (`in`, `nin`), `boolean` (`eq`), `date` (`eq`, `before`, `after`).

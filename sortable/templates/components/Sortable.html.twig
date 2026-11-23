@@ -3,13 +3,19 @@
 
   Props
     name  when set, the order is submitted as hidden inputs `name[]` (values of the items)
+    pickedUpLabel, movedLabel, droppedLabel, cancelledLabel   screen reader announcements of the keyboard flow;
+                  {item}, {position} and {total} are replaced
 
   Layout is up to you: a vertical list is `class="flex flex-col gap-2"`, a grid is
   `class="grid grid-cols-3 gap-2"`: the drag logic is the same.
   Use Sortable:Item (with a `value`) and a Sortable:Handle inside each item.
 #}
-{%- props name = null -%}
+{%- props name = null,
+    pickedUpLabel = '{item} picked up, position {position} of {total}. Use the arrow keys to move it.',
+    movedLabel = '{item} moved to position {position} of {total}.',
+    droppedLabel = '{item} dropped at position {position} of {total}.',
+    cancelledLabel = '{item}: reordering cancelled.' -%}
 {%- set extra_class = attributes.render('class') -%}
-<div role="list" class="{{ extra_class }}" data-controller="sortable"{% if name %} data-sortable-name-value="{{ name }}"{% endif %} {{ attributes }}>
+<div role="list" class="{{ extra_class }}" data-controller="sortable" data-sortable-picked-up-label-value="{{ pickedUpLabel }}" data-sortable-moved-label-value="{{ movedLabel }}" data-sortable-dropped-label-value="{{ droppedLabel }}" data-sortable-cancelled-label-value="{{ cancelledLabel }}"{% if name %} data-sortable-name-value="{{ name }}"{% endif %} {{ attributes }}>
     {%- block content %}{% endblock -%}
 </div>

@@ -82,6 +82,12 @@ With a `name`, the order is submitted as hidden inputs `priorities[]`, in the di
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `name` | string | `null` | When set, the order is submitted as hidden inputs `name[]`. |
+| `pickedUpLabel` | string | `{item} picked up, position {position} of {total}. Use the arrow keys to move it.` | Announced when an item is picked up with the keyboard. |
+| `movedLabel` | string | `{item} moved to position {position} of {total}.` | Announced after each keyboard move. |
+| `droppedLabel` | string | `{item} dropped at position {position} of {total}.` | Announced when the item is dropped. |
+| `cancelledLabel` | string | `{item}: reordering cancelled.` | Announced when `Esc` cancels the reorder. |
+
+`{item}`, `{position}` and `{total}` are replaced with the item name, its position and the item count.
 
 ### `<twig:Sortable:Item>`
 

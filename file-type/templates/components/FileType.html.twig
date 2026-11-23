@@ -7,11 +7,12 @@
     size        mini (18px) | xs (24px) | sm (32px) | md (40px) | lg (48px) | xl (56px)
     variant     outline | solid | light | mono
     label       custom label instead of the extension
+    description accessible name (default: the file kind in English, e.g. "PDF file")
     decorative  hides the icon from assistive technology (use it when the file name is displayed beside it)
 
   Other sizes: pass a Tailwind size class (`class="size-20"`). Recolor the type with a text color class.
 #}
-{%- props type = '', size = 'md', variant = 'outline', label = null, decorative = false -%}
+{%- props type = '', size = 'md', variant = 'outline', label = null, description = null, decorative = false -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set ext = (type|trim|lower|split('.')|last) -%}
 {%- set families = {
@@ -46,7 +47,7 @@
 {%- set text = (label ?? ext)|upper -%}
 {%- set tone = variant == 'mono' ? 'text-muted-foreground' : colors[family] -%}
 {%- set font_size = text|length <= 3 ? 5.5 : (text|length == 4 ? 4.6 : 3.8) -%}
-{%- set aria = decorative ? 'aria-hidden="true"' : 'role="img" aria-label="' ~ ((label ? label ~ ' ' : '') ~ names[family] ~ (family == 'folder' ? '' : ' file'))|e('html_attr') ~ '"' -%}
+{%- set aria = decorative ? 'aria-hidden="true"' : 'role="img" aria-label="' ~ (description ?? ((label ? label ~ ' ' : '') ~ names[family] ~ (family == 'folder' ? '' : ' file')))|e('html_attr') ~ '"' -%}
 <span class="{{ ('inline-flex shrink-0 ' ~ (sizes[size] ?? sizes.md) ~ ' ' ~ tone ~ ' ' ~ extra_class)|trim }}" {{ aria|raw }} {{ attributes }}>
     {%- if family == 'folder' -%}
         <svg viewBox="0 0 24 24" class="size-full" aria-hidden="true">

@@ -109,4 +109,5 @@ When the file name is displayed beside the icon, hide the icon from assistive te
 | `size` | `mini`, `xs`, `sm`, `md`, `lg`, `xl` | `md` | Preset size (18, 24, 32, 40, 48 and 56 px). Use a size class for other sizes. |
 | `variant` | `outline`, `solid`, `light`, `mono` | `outline` | Look of the icon. |
 | `label` | string | `null` | Replaces the extension in the label band. |
+| `description` | string | `null` | Accessible name. Defaults to the file kind in English ("PDF file"); pass a translated text for other languages. |
 | `decorative` | bool | `false` | Hides the icon from assistive technology. |

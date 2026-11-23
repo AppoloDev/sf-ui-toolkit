@@ -10,18 +10,31 @@
     action      form action (default: current URL)
     autoSubmit  submit the form whenever a filter changes (default true)
     label       accessible label of the filter bar
+    addLabel, clearLabel, applyLabel, emptyLabel, selectLabel, yesLabel, noLabel   texts of the bar
+    selectedLabel      summary of a multiselect with 3+ values ({count} is replaced)
+    removeLabel        accessible name of a chip's remove button ({field} is replaced)
+    operatorLabel      accessible name of a chip's operator select ({field} is replaced)
+    valueLabel         accessible name of a chip's value editor ({field} is replaced)
+    operatorLabels     operator texts, keyed by operator (eq, neq, contains, gt, lt, in, nin, before, after);
+                       the `number` type always shows symbols (=, ≠, >, <)
 
   Submitted names
     <field>            the value (<field>[] for multiselect)
     <field>__op        the operator (eq, neq, contains, gt, lt, in, before, after...)
 #}
-{%- props fields = [], values = [], action = null, autoSubmit = true, label = 'Filters' -%}
+{%- props fields = [], values = [], action = null, autoSubmit = true, label = 'Filters',
+    addLabel = 'Add filter', clearLabel = 'Clear', applyLabel = 'Apply', emptyLabel = 'No more filters', selectLabel = 'Select…', yesLabel = 'Yes', noLabel = 'No',
+    selectedLabel = '{count} selected', removeLabel = 'Remove {field} filter', operatorLabel = '{field} operator', valueLabel = '{field} value', operatorLabels = {} -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set data = {
     'data-controller': 'filters',
     'data-filters-fields-value': fields|json_encode,
     'data-filters-values-value': values|json_encode,
     'data-filters-auto-submit-value': autoSubmit ? 'true' : 'false',
+    'data-filters-labels-value': {
+        empty: emptyLabel, select: selectLabel, yes: yesLabel, no: noLabel, selected: selectedLabel,
+        remove: removeLabel, operator: operatorLabel, value: valueLabel, operators: operatorLabels,
+    }|json_encode,
 } -%}
 <form method="get" {% if action %}action="{{ action }}" {% endif %}role="group" aria-label="{{ label }}" class="{{ ('flex flex-wrap items-center gap-2 ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
     <div class="contents" data-filters-target="chips"></div>
@@ -29,16 +42,16 @@
         <button type="button" aria-haspopup="menu" aria-expanded="false" class="inline-flex h-8 items-center gap-1.5 rounded-md border border-dashed border-border px-2.5 text-sm text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
                 data-filters-target="addButton" data-action="filters#toggleMenu">
             <twig:ux:icon name="lucide:list-filter" class="size-3.5" aria-hidden="true" />
-            Add filter
+            {{ addLabel }}
         </button>
         <div role="menu" hidden class="absolute left-0 top-full z-50 mt-1 min-w-44 rounded-md border border-border bg-background p-1 text-sm shadow-md" data-filters-target="menu" data-action="keydown->filters#menuKey"></div>
     </div>
     <button type="button" hidden class="inline-flex h-8 items-center gap-1 rounded-md px-2 text-sm text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
             data-filters-target="clear" data-action="filters#clear">
         <twig:ux:icon name="lucide:x" class="size-3.5" aria-hidden="true" />
-        Clear
+        {{ clearLabel }}
     </button>
     <div hidden data-filters-target="inputs"></div>
     <template data-filters-target="removeIcon"><twig:ux:icon name="lucide:x" class="size-3.5" aria-hidden="true" /></template>
-    <noscript><button type="submit" class="h-8 rounded-md border border-border px-2.5 text-sm">Apply</button></noscript>
+    <noscript><button type="submit" class="h-8 rounded-md border border-border px-2.5 text-sm">{{ applyLabel }}</button></noscript>
 </form>

@@ -10,18 +10,22 @@
     size            sm | default | lg
     label           accessible label of the national number field
     id              id of the national number input (for an external <label for>)
+    locale          language of the country names (default: the page language, `<html lang>`)
+    countryLabel, searchLabel, listLabel, emptyLabel   texts of the country selector
 #}
-{%- props name = null, value = '', defaultCountry = 'FR', placeholder = '', disabled = false, size = 'default', label = 'Phone number', id = null -%}
+{%- props name = null, value = '', defaultCountry = 'FR', placeholder = '', disabled = false, size = 'default', label = 'Phone number', id = null, locale = '', countryLabel = 'Country', searchLabel = 'Search a country', listLabel = 'Countries', emptyLabel = 'No country found.' -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set height = {sm: 'h-8 text-xs', default: 'h-9 text-sm', lg: 'h-10 text-base'}[size] ?? 'h-9 text-sm' -%}
 {%- set data = {
     'data-controller': 'phone-input',
     'data-phone-input-value-value': value,
     'data-phone-input-default-country-value': defaultCountry,
+    'data-phone-input-locale-value': locale,
+    'data-phone-input-country-label-value': countryLabel,
 } -%}
 <div class="{{ ('relative inline-flex ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
     <div class="flex w-full items-stretch overflow-hidden rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring {{ height }} {{ disabled ? 'opacity-50' }}">
-        <button type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Country" {{ disabled ? 'disabled' }}
+        <button type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="{{ countryLabel }}" {{ disabled ? 'disabled' }}
                 class="flex shrink-0 items-center gap-1.5 border-r border-border px-2.5 outline-none hover:bg-muted"
                 data-phone-input-target="trigger" data-action="phone-input#toggle">
             <span class="text-base leading-none" aria-hidden="true" data-phone-input-target="flag"></span>
@@ -34,10 +38,10 @@
     </div>
     <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-phone-input-target="hidden">
     <div hidden class="absolute left-0 top-full z-50 mt-1 w-72 rounded-md border border-border bg-background p-1 shadow-md" data-phone-input-target="panel">
-        <input type="search" role="combobox" aria-expanded="true" aria-label="Search a country" placeholder="Search a country" autocomplete="off"
+        <input type="search" role="combobox" aria-expanded="true" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off"
                class="mb-1 h-8 w-full rounded-sm border-b border-border bg-transparent px-2 text-sm outline-none"
                data-phone-input-target="search" data-action="input->phone-input#filter keydown->phone-input#searchKey">
-        <ul role="listbox" aria-label="Countries" class="max-h-56 overflow-y-auto text-sm" data-phone-input-target="list"></ul>
-        <p hidden class="px-2 py-3 text-center text-sm text-muted-foreground" data-phone-input-target="empty">No country found.</p>
+        <ul role="listbox" aria-label="{{ listLabel }}" class="max-h-56 overflow-y-auto text-sm" data-phone-input-target="list"></ul>
+        <p hidden class="px-2 py-3 text-center text-sm text-muted-foreground" data-phone-input-target="empty">{{ emptyLabel }}</p>
     </div>
 </div>
