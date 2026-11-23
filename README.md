@@ -15,7 +15,7 @@ php bin/console ux:install rating --kit=github.com/AppoloDev/sf-ui-toolkit
 
 Replace `rating` with the component you want. The command copies its Twig templates (and Stimulus controller, if any) into your project.
 
-Components that display icons use [Symfony UX Icons](https://symfony.com/bundles/ux-icons/current/index.html) with the [Lucide](https://lucide.dev) set; the toolkit installs `symfony/ux-icons` for you, and you can import the icons locally with `php bin/console ux:icons:import lucide:star`.
+Components that display icons use [Symfony UX Icons](https://symfony.com/bundles/ux-icons/current/index.html) with the [Lucide](https://lucide.dev) set; `ux:install` prints the `composer require symfony/ux-icons` command to run, and you can import the icons locally with `php bin/console ux:icons:import lucide:star`.
 
 ## Components
 
