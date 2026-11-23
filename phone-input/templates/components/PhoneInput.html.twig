@@ -1,0 +1,43 @@
+{#
+  PhoneInput: international phone field with a searchable country selector.
+
+  Props
+    name            field name; the submitted value is the E.164 number (+33612345678)
+    value           initial E.164 number (the country is detected from its dial code)
+    defaultCountry  ISO 3166-1 alpha-2 code used when `value` is empty
+    placeholder     placeholder of the national number field
+    disabled        disables the field
+    size            sm | default | lg
+    label           accessible label of the national number field
+    id              id of the national number input (for an external <label for>)
+#}
+{%- props name = null, value = '', defaultCountry = 'FR', placeholder = '', disabled = false, size = 'default', label = 'Phone number', id = null -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set height = {sm: 'h-8 text-xs', default: 'h-9 text-sm', lg: 'h-10 text-base'}[size] ?? 'h-9 text-sm' -%}
+{%- set data = {
+    'data-controller': 'phone-input',
+    'data-phone-input-value-value': value,
+    'data-phone-input-default-country-value': defaultCountry,
+} -%}
+<div class="{{ ('relative inline-flex ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+    <div class="flex w-full items-stretch overflow-hidden rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring {{ height }} {{ disabled ? 'opacity-50' }}">
+        <button type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Country" {{ disabled ? 'disabled' }}
+                class="flex shrink-0 items-center gap-1.5 border-r border-border px-2.5 outline-none hover:bg-muted"
+                data-phone-input-target="trigger" data-action="phone-input#toggle">
+            <span class="text-base leading-none" aria-hidden="true" data-phone-input-target="flag"></span>
+            <span class="tabular-nums text-muted-foreground" data-phone-input-target="dial"></span>
+            <twig:ux:icon name="lucide:chevron-down" class="size-3.5 text-muted-foreground" aria-hidden="true" />
+        </button>
+        <input type="tel" inputmode="tel" autocomplete="tel-national" aria-label="{{ label }}" placeholder="{{ placeholder }}" {{ disabled ? 'disabled' }}
+               {% if id %}id="{{ id }}" {% endif %}class="min-w-0 flex-1 bg-transparent px-3 tabular-nums outline-none"
+               data-phone-input-target="national" data-action="input->phone-input#input blur->phone-input#commit">
+    </div>
+    <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-phone-input-target="hidden">
+    <div hidden class="absolute left-0 top-full z-50 mt-1 w-72 rounded-md border border-border bg-background p-1 shadow-md" data-phone-input-target="panel">
+        <input type="search" role="combobox" aria-expanded="true" aria-label="Search a country" placeholder="Search a country" autocomplete="off"
+               class="mb-1 h-8 w-full rounded-sm border-b border-border bg-transparent px-2 text-sm outline-none"
+               data-phone-input-target="search" data-action="input->phone-input#filter keydown->phone-input#searchKey">
+        <ul role="listbox" aria-label="Countries" class="max-h-56 overflow-y-auto text-sm" data-phone-input-target="list"></ul>
+        <p hidden class="px-2 py-3 text-center text-sm text-muted-foreground" data-phone-input-target="empty">No country found.</p>
+    </div>
+</div>

@@ -25,6 +25,7 @@ Components that display icons use [Symfony UX Icons](https://symfony.com/bundles
 | `file-type` | File icon with a colored extension label for documents, spreadsheets, images, archives and code, in four variants and six sizes. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/file-type.html) |
 | `icon-tile` | Square or circular tile giving an icon a fixed size, radius and surface: outline, elevated or frame. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/icon-tile.html) |
 | `number-field` | Numeric input with decrement and increment buttons, keyboard steps, press-and-hold repeat and min/max clamping. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/number-field.html) |
+| `phone-input` | International phone field with a searchable country selector and an E.164 value. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/phone-input.html) |
 | `rating` | Star rating: read-only display (partial stars) or input with radio buttons, half stars and hover preview. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/rating.html) |
 | `sortable` | Reorderable list or grid: drag and drop on a handle, full keyboard reordering, and the order submitted with the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/sortable.html) |
 | `stepper` | Multi-step navigation with indicators, states, vertical layout, panels and cancelable step changes (per-step validation). | [Documentation](https://appolodev.github.io/sf-ui-toolkit/stepper.html) |

@@ -1,0 +1,14 @@
+{
+    "type": "component",
+    "name": "PhoneInput",
+    "description": "International phone field with a searchable country selector and an E.164 value.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-icons"
+        ]
+    }
+}
