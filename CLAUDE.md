@@ -8,7 +8,7 @@
 
 - No mention of Claude or Anthropic in commits or pull requests: no `Co-Authored-By` line, no `Claude-Session`, no "Generated with".
 - Commit author: the Git identity configured by the repository owner (`Fredxd`); never invent an identity in Claude's name.
-- Commit messages: short, imperative or present tense, in French (unchanged unless the owner says otherwise).
+- Commit messages: short, imperative, in English. One commit per component (recipe + docs + README row together).
 
 ## Kit structure
 

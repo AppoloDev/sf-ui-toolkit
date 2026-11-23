@@ -17,7 +17,7 @@ docs-site/               # small Symfony app that renders the docs as static HTM
 2. `docs/<recipe>.md`, with these sections:
    - `# Title`, then a `> One-line description` (used on the components index)
    - `## Usage`: one ```twig block
-   - `## Examples`: one `### Title` per example, each with a ```twig block
+   - `## Examples`: one `### Title` per example, each with a ```twig block (add `<!-- height: 320 -->` in the section when the example opens a popover that overflows the preview)
    - `## Accessibility`: a bullet list
    - `## API`: one `### \`<twig:Name>\`` per component, with a `| Prop | Type | Default | Description |` table
 3. Add the component to the table in `README.md`.

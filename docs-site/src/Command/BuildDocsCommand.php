@@ -169,9 +169,10 @@ final class BuildDocsCommand extends Command
             }
 
             if ('examples' === $part) {
-                $block = $this->block($body);
+                $minHeight = preg_match('/<!--\s*height:\s*(\d+)\s*-->/', $body, $height) ? (int) $height[1] : 0;
+                $block = $this->block((string) preg_replace('/<!--.*?-->/s', '', $body));
                 if (null !== $block['code']) {
-                    $page['examples'][] = ['title' => $heading, 'description' => $block['text'], 'code' => $block['code']];
+                    $page['examples'][] = ['title' => $heading, 'description' => $block['text'], 'code' => $block['code'], 'min_height' => $minHeight];
                 }
             } elseif ('api' === $part) {
                 $props = [];
