@@ -117,7 +117,7 @@ Drawing needs a pointer. A text input wired to `signature-pad#typeName` renders 
 Several pads can live on one page; listen to `signature-pad:change` to count the completed ones.
 
 ```twig
-<div class="grid max-w-md gap-3" onchange="">
+<div class="grid max-w-md gap-3">
     <div id="clauses" class="grid gap-3">
         {% for clause in ['Payment terms', 'Confidentiality', 'Termination'] %}
             <div class="grid grid-cols-[1fr_8rem] items-center gap-3">

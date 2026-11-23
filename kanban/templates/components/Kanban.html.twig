@@ -1,0 +1,28 @@
+{#
+  Kanban: board of columns with draggable cards (pointer and keyboard).
+
+  Props
+    name   when set, the board is submitted as hidden inputs `name[<column>][]` (card values, in order)
+    pickedUpLabel, movedLabel, droppedLabel, cancelledLabel   screen reader announcements of the keyboard flow;
+           {item}, {column}, {position} and {total} are replaced
+    label  accessible name of the board
+
+  Use Kanban:Column (with a `value`) and Kanban:Card (with a `value`) in the slot.
+#}
+{%- props name = null, label = 'Board',
+    pickedUpLabel = '{item} picked up from {column}, position {position} of {total}. Use the arrow keys to move it.',
+    movedLabel = '{item} moved to {column}, position {position} of {total}.',
+    droppedLabel = '{item} dropped in {column}, position {position} of {total}.',
+    cancelledLabel = '{item}: move cancelled.' -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set data = {
+    'data-controller': 'kanban',
+    'data-kanban-name-value': name ?? '',
+    'data-kanban-picked-up-label-value': pickedUpLabel,
+    'data-kanban-moved-label-value': movedLabel,
+    'data-kanban-dropped-label-value': droppedLabel,
+    'data-kanban-cancelled-label-value': cancelledLabel,
+} -%}
+<div role="group" aria-label="{{ label }}" class="{{ ('flex items-start gap-3 overflow-x-auto ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+    {%- block content %}{% endblock -%}
+</div>

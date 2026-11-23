@@ -1,0 +1,12 @@
+{
+    "type": "component",
+    "name": "Kanban",
+    "description": "Board of columns with draggable cards, moved by pointer or keyboard, with the board carried by the form.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}

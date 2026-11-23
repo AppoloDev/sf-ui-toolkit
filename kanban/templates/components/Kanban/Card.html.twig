@@ -1,0 +1,13 @@
+{#
+  Kanban:Card: a draggable card. Focus it, then Space or Enter picks it up, arrows move it (up and down
+  in the column, left and right to the neighbor columns), Space or Enter drops it, Escape cancels.
+
+  Props
+    value  identifier of the card (submitted in `name[<column>][]`)
+    label  spoken name of the card (defaults to its text)
+#}
+{%- props value, label = null -%}
+{%- set extra_class = attributes.render('class') -%}
+<div role="listitem" tabindex="0" draggable="true" class="{{ ('cursor-grab rounded-lg border border-border bg-background p-3 text-sm shadow-xs outline-none focus-visible:ring-2 focus-visible:ring-ring active:cursor-grabbing data-[dragging=true]:opacity-40 data-[picked=true]:ring-2 data-[picked=true]:ring-ring ' ~ extra_class)|trim }}" data-kanban-target="card" data-value="{{ value }}"{% if label %} data-label="{{ label }}"{% endif %} {{ attributes }}>
+    {%- block content %}{% endblock -%}
+</div>

@@ -37,6 +37,7 @@ The props of each component are listed in its documentation.
 | `frame` | Bounded container that groups page regions into bordered panels: settings pages, dashboard sections, status lists. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/frame.html) |
 | `icon-stack` | Layered isometric tile that holds an icon, for empty states and feature highlights. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/icon-stack.html) |
 | `icon-tile` | Square or circular tile giving an icon a fixed size, radius and surface: outline, elevated or frame. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/icon-tile.html) |
+| `kanban` | Board of columns with draggable cards, moved by pointer or keyboard, with the board carried by the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/kanban.html) |
 | `number-field` | Numeric input with decrement and increment buttons, keyboard steps, press-and-hold repeat and min/max clamping. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/number-field.html) |
 | `phone-input` | International phone field with a searchable country selector and an E.164 value. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/phone-input.html) |
 | `rating` | Star rating: read-only display (partial stars) or input with radio buttons, half stars and hover preview. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/rating.html) |
