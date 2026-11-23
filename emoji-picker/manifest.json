@@ -1,0 +1,12 @@
+{
+    "type": "component",
+    "name": "EmojiPicker",
+    "description": "Searchable emoji grid in a popover or inline, with categories, skin tones and recents.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}

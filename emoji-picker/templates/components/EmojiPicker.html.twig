@@ -1,0 +1,61 @@
+{#
+  EmojiPicker: searchable emoji grid in a popover (or inline), with categories, skin tones and recents.
+
+  Data: the emojibase dataset (MIT), fetched once per page from `dataUrl` and shared by all pickers.
+  Serve it from your own origin to avoid the CDN: <dataUrl>/<locale>/compact.json and
+  <dataUrl>/<locale>/messages.json (npm package `emojibase-data`).
+
+  Props
+    name         field name; the submitted value is the emoji character
+    value        initial emoji
+    locale       language of names and search (emojibase locale: en, fr, de, es, ja...)
+    dataUrl      base URL of the emojibase-data files
+    inline       render the picker in place instead of a popover
+    columns      emojis per row
+    disabled
+    placeholder  trigger text without a value
+    label        accessible name of the trigger and the picker
+    searchLabel, emptyLabel, categoriesLabel, skinToneLabel, recentLabel, clearLabel   texts
+    recentKey    localStorage key of the recents (empty: no recents)
+#}
+{%- props name = null, value = '', locale = 'en', dataUrl = 'https://cdn.jsdelivr.net/npm/emojibase-data@16', inline = false, columns = 8, disabled = false, placeholder = 'Pick an emoji', label = 'Emoji picker', searchLabel = 'Search emoji', emptyLabel = 'No emoji found.', categoriesLabel = 'Categories', skinToneLabel = 'Skin tone', recentLabel = 'Recent', clearLabel = 'Remove', recentKey = 'emoji-picker-recent', id = null -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set data = {
+    'data-controller': 'emoji-picker',
+    'data-emoji-picker-value-value': value,
+    'data-emoji-picker-locale-value': locale,
+    'data-emoji-picker-data-url-value': dataUrl,
+    'data-emoji-picker-inline-value': inline ? 'true' : 'false',
+    'data-emoji-picker-columns-value': columns,
+    'data-emoji-picker-recent-key-value': recentKey,
+    'data-emoji-picker-recent-label-value': recentLabel,
+    'data-emoji-picker-empty-label-value': emptyLabel,
+    'data-emoji-picker-placeholder-value': placeholder,
+} -%}
+<div class="{{ ((inline ? 'inline-block ' : 'relative inline-block ') ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+    {%- if not inline %}
+        <button type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="{{ label }}" {% if id %}id="{{ id }}" {% endif %}{{ disabled ? 'disabled' }}
+                class="inline-flex h-9 min-w-9 items-center justify-center gap-2 rounded-md border border-border bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
+                data-emoji-picker-target="trigger" data-action="emoji-picker#toggle">
+            <span class="text-lg leading-none" data-emoji-picker-target="chosen"></span>
+        </button>
+    {%- endif %}
+    <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-emoji-picker-target="hidden">
+    <div role="{{ inline ? 'group' : 'dialog' }}" aria-label="{{ label }}" {{ inline ? '' : 'hidden' }}
+         class="{{ inline ? '' : 'absolute left-0 top-full z-50 mt-1 ' }}w-80 rounded-md border border-border bg-background shadow-md" data-emoji-picker-target="panel" data-action="keydown->emoji-picker#panelKey">
+        <div class="flex items-center gap-1 border-b border-border p-2">
+            <input type="search" role="combobox" aria-expanded="true" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off"
+                   class="h-8 min-w-0 flex-1 rounded-md bg-transparent px-2 text-sm outline-none" data-emoji-picker-target="search" data-action="input->emoji-picker#search">
+            <select aria-label="{{ skinToneLabel }}" class="h-8 rounded-md border border-border bg-background px-1 text-sm" data-emoji-picker-target="tone" data-action="emoji-picker#tone">
+                {%- for tone in ['✋', '✋🏻', '✋🏼', '✋🏽', '✋🏾', '✋🏿'] %}<option value="{{ loop.index0 }}">{{ tone }}</option>{% endfor -%}
+            </select>
+        </div>
+        <div role="tablist" aria-label="{{ categoriesLabel }}" class="flex gap-0.5 overflow-x-auto border-b border-border px-2 py-1" data-emoji-picker-target="tabs"></div>
+        <div class="h-64 overflow-y-auto p-2" data-emoji-picker-target="grid"></div>
+        <p class="sr-only" role="status" aria-live="polite" data-emoji-picker-target="status"></p>
+        <div class="flex items-center justify-between border-t border-border px-3 py-1.5 text-sm text-muted-foreground">
+            <span class="truncate" data-emoji-picker-target="preview">&nbsp;</span>
+            <button type="button" hidden class="rounded px-1.5 py-0.5 outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring" data-emoji-picker-target="remove" data-action="emoji-picker#remove">{{ clearLabel }}</button>
+        </div>
+    </div>
+</div>
