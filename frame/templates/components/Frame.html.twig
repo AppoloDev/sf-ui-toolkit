@@ -11,8 +11,9 @@
 #}
 {%- props dense = false, stacked = false, spacing = 'default' -%}
 {%- set extra_class = attributes.render('class') -%}
-{%- set pad = {xs: 'p-0.5 gap-0.5', sm: 'p-1 gap-1', default: 'p-1.5 gap-1.5', lg: 'p-3 gap-3'}[spacing] ?? 'p-1.5 gap-1.5' -%}
-{%- set layout = dense ? 'overflow-hidden border border-border bg-background' : 'bg-muted/50 ' ~ pad ~ (stacked ? ' [&>*+*]:-mt-1.5' : '') -%}
+{%- set pad = {xs: 'p-0.5', sm: 'p-1', default: 'p-1.5', lg: 'p-3'}[spacing] ?? 'p-1.5' -%}
+{%- set gap = {xs: 'gap-0.5', sm: 'gap-1', default: 'gap-1.5', lg: 'gap-3'}[spacing] ?? 'gap-1.5' -%}
+{%- set layout = dense ? 'overflow-hidden border border-border bg-background' : 'bg-muted/50 ' ~ pad ~ ' ' ~ (stacked ? '' : gap) -%}
 <div class="{{ ('group/frame flex flex-col rounded-xl ' ~ layout ~ ' ' ~ extra_class)|trim }}" data-dense="{{ dense ? 'true' : 'false' }}" data-stacked="{{ stacked ? 'true' : 'false' }}" {{ attributes }}>
     {%- block content %}{% endblock -%}
 </div>
