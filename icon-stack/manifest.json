@@ -1,0 +1,13 @@
+{
+    "type": "component",
+    "name": "IconStack",
+    "description": "Layered isometric tile that holds an icon, for empty states and feature highlights.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-icons"
+        ]
+    }
+}
