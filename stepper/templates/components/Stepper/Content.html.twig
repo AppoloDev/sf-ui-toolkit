@@ -1,0 +1,8 @@
+{#
+  Panel of a step. Props: step (1-based, required). Hidden by the controller unless active.
+#}
+{%- props step -%}
+{%- set extra_class = attributes.render('class') -%}
+<div role="tabpanel" data-step="{{ step }}" data-stepper-target="content" class="{{ extra_class }}" {{ attributes }}>
+    {%- block content %}{% endblock -%}
+</div>

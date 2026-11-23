@@ -1,0 +1,12 @@
+{#
+  Props
+    step       step number (1-based, required)
+    completed  force the completed state (non-linear flows)
+    disabled   step not reachable yet
+    loading    shows a spinner while the step is active
+#}
+{%- props step, completed = false, disabled = false, loading = false -%}
+{%- set extra_class = attributes.render('class') -%}
+<div class="{{ ('group/step relative flex flex-1 items-center gap-3 last:flex-none group-data-[orientation=vertical]/stepper:flex-none group-data-[orientation=vertical]/stepper:flex-col group-data-[orientation=vertical]/stepper:items-start ' ~ extra_class)|trim }}" data-state="inactive" data-step="{{ step }}" data-stepper-target="item" {{ (completed ? 'data-completed="true"')|raw }} {{ (disabled ? 'data-disabled="true"')|raw }} {{ (loading ? 'data-loading="true"')|raw }} {{ attributes }}>
+    {%- block content %}{% endblock -%}
+</div>

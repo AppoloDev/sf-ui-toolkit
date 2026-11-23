@@ -1,0 +1,4 @@
+{%- set extra_class = attributes.render('class') -%}
+<button type="button" role="tab" tabindex="-1" aria-selected="false" class="{{ ('inline-flex items-center gap-3 rounded-md text-left outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 ' ~ extra_class)|trim }}" data-stepper-target="trigger" data-action="click->stepper#select keydown->stepper#keydown" {{ attributes }}>
+    {%- block content %}{% endblock -%}
+</button>

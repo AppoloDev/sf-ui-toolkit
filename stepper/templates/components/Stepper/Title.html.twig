@@ -1,0 +1,2 @@
+{%- set extra_class = attributes.render('class') -%}
+<span class="{{ ('block text-sm font-medium group-data-[state=inactive]/step:text-muted-foreground ' ~ extra_class)|trim }}" {{ attributes }}>{% block content %}{% endblock %}</span>

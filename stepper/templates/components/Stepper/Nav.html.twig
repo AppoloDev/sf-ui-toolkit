@@ -1,0 +1,4 @@
+{%- set extra_class = attributes.render('class') -%}
+<div role="tablist" class="{{ ('flex items-center group-data-[orientation=vertical]/stepper:flex-col group-data-[orientation=vertical]/stepper:items-start ' ~ extra_class)|trim }}" {{ attributes }}>
+    {%- block content %}{% endblock -%}
+</div>

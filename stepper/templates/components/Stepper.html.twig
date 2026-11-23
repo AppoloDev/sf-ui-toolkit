@@ -1,0 +1,19 @@
+{#
+  Stepper: multi-step navigation (tab list) with step panels.
+
+  Props
+    value        current step (1-based)
+    orientation  horizontal | vertical
+
+  Parts: Stepper:Nav, Stepper:Item, Stepper:Trigger, Stepper:Indicator, Stepper:Title,
+  Stepper:Description, Stepper:Separator, Stepper:Content.
+
+  Step states are computed by the `stepper` Stimulus controller: steps before the current one
+  are completed, the current one is active, the others are inactive. Panels (Stepper:Content)
+  stay in the DOM, so form values survive step changes.
+#}
+{%- props value = 1, orientation = 'horizontal' -%}
+{%- set extra_class = attributes.render('class') -%}
+<div class="{{ ('group/stepper flex w-full flex-col gap-6 ' ~ extra_class)|trim }}" data-orientation="{{ orientation }}" {{ attributes.defaults({'data-controller': 'stepper', 'data-stepper-value-value': value, 'data-stepper-orientation-value': orientation}) }}>
+    {%- block content %}{% endblock -%}
+</div>

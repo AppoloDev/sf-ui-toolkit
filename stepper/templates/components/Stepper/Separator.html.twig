@@ -1,0 +1,2 @@
+{%- set extra_class = attributes.render('class') -%}
+<div aria-hidden="true" class="{{ ('h-px min-w-6 flex-1 bg-border group-last/step:hidden group-data-[state=completed]/step:bg-primary group-data-[orientation=vertical]/stepper:ml-4 group-data-[orientation=vertical]/stepper:h-8 group-data-[orientation=vertical]/stepper:min-w-0 group-data-[orientation=vertical]/stepper:w-px group-data-[orientation=vertical]/stepper:flex-none ' ~ extra_class)|trim }}" {{ attributes }}></div>

@@ -1,0 +1,12 @@
+{
+    "type": "component",
+    "name": "Stepper",
+    "description": "Multi-step navigation with indicators, states, vertical layout, panels and cancelable step changes (per-step validation).",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}
