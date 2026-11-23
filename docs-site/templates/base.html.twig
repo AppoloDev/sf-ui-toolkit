@@ -21,10 +21,18 @@
         </ul>
         <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Components</p>
         <ul class="space-y-1">
-            {% for slug, item in pages %}
+            {% for slug, item in pages|filter(item => item.kind != 'block') %}
                 <li><a href="{{ slug }}.html" class="block rounded-md px-2 py-1 hover:bg-muted">{{ item.title }}</a></li>
             {% endfor %}
         </ul>
+        {% if pages|filter(item => item.kind == 'block')|length %}
+            <p class="mb-2 mt-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Blocks</p>
+            <ul class="space-y-1">
+                {% for slug, item in pages|filter(item => item.kind == 'block') %}
+                    <li><a href="{{ slug }}.html" class="block rounded-md px-2 py-1 hover:bg-muted">{{ item.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </nav>
     <main class="min-w-0 flex-1">
         {% block body %}{% endblock %}

@@ -2,6 +2,8 @@
 
 > Pricing plan cards in a responsive grid: price, period, included and excluded features, badge, highlighted plan and a call-to-action slot.
 
+<!-- kind: block -->
+
 ## Usage
 
 Prices are passed already formatted, so the component never guesses a currency or a locale. The call-to-action is the slot of each plan: use your own `Button` components (the examples use plain links so they work anywhere).

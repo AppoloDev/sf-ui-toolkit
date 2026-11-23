@@ -33,9 +33,7 @@ The props of each component are listed in its documentation.
 |---|---|---|
 | `cascader` | Pick a value in a hierarchy through columns or one level at a time, with search, single or multiple choice. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/cascader.html) |
 | `color-picker` | Color field with a popover: saturation/brightness area, hue and opacity sliders, typed CSS colors, swatches and eye dropper. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/color-picker.html) |
-| `cta` | Call-to-action section with eyebrow, title, description, actions and optional media: centered, split or inline, in four tones. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/cta.html) |
 | `emoji-picker` | Searchable emoji grid in a popover or inline, with categories, skin tones and recents. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/emoji-picker.html) |
-| `faq` | Frequently asked questions as a native accordion: single or split layout, multiple or exclusive answers, optional FAQPage structured data. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/faq.html) |
 | `file-type` | File icon with a colored extension label for documents, spreadsheets, images, archives and code, in four variants and six sizes. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/file-type.html) |
 | `filters` | Schema-driven filter bar: chips with operator and value editors, add and clear, state carried in the URL query. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/filters.html) |
 | `frame` | Bounded container that groups page regions into bordered panels: settings pages, dashboard sections, status lists. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/frame.html) |
@@ -44,17 +42,26 @@ The props of each component are listed in its documentation.
 | `kanban` | Board of columns with draggable cards, moved by pointer or keyboard, with the board carried by the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/kanban.html) |
 | `number-field` | Numeric input with decrement and increment buttons, keyboard steps, press-and-hold repeat and min/max clamping. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/number-field.html) |
 | `phone-input` | International phone field with a searchable country selector and an E.164 value. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/phone-input.html) |
-| `pricing` | Pricing plan cards in a responsive grid: price, period, included and excluded features, badge, highlighted plan and a call-to-action slot. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/pricing.html) |
 | `rating` | Star rating: read-only display (partial stars) or input with radio buttons, half stars and hover preview. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/rating.html) |
 | `rich-text-editor` | Rich text field built on TipTap with a configurable toolbar, links and an HTML value for the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/rich-text-editor.html) |
 | `scrollspy` | Table-of-contents navigation that highlights the section currently in view. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/scrollspy.html) |
 | `signature-pad` | Handwritten signature captured with a mouse, a finger or a stylus, exported as PNG, JPEG, SVG or JSON. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/signature-pad.html) |
 | `sortable` | Reorderable list or grid: drag and drop on a handle, full keyboard reordering, and the order submitted with the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/sortable.html) |
-| `stats` | KPI cards in a responsive grid: label, value, trend badge, comparison line, optional icon and progress meter. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/stats.html) |
 | `stepper` | Multi-step navigation with indicators, states, vertical layout, panels and cancelable step changes (per-step validation). | [Documentation](https://appolodev.github.io/sf-ui-toolkit/stepper.html) |
 | `time-picker` | Typed time field with a popover of scrollable columns (hours, minutes, seconds, AM/PM), steps, min/max and 12/24h display. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/time-picker.html) |
 | `timeline` | Chronological list of events (activity feed, milestones, roadmap), vertical or horizontal, with completed and active states. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/timeline.html) |
 | `tree` | Expandable hierarchy with WAI-ARIA tree keyboard navigation (arrows, Home/End, typeahead), selection and optional guide lines. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/tree.html) |
+
+## Blocks
+
+Page sections built from a few props and slots. They are installed like any component.
+
+| Block | Description | Docs |
+|---|---|---|
+| `cta` | Call-to-action section with eyebrow, title, description, actions and optional media: centered, split or inline, in four tones. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/cta.html) |
+| `faq` | Frequently asked questions as a native accordion: single or split layout, multiple or exclusive answers, optional FAQPage structured data. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/faq.html) |
+| `pricing` | Pricing plan cards in a responsive grid: price, period, included and excluded features, badge, highlighted plan and a call-to-action slot. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/pricing.html) |
+| `stats` | KPI cards in a responsive grid: label, value, trend badge, comparison line, optional icon and progress meter. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/stats.html) |
 
 ## License
 

@@ -165,7 +165,7 @@ final class BuildDocsCommand extends Command
      */
     private function parse(string $markdown): array
     {
-        $page = ['title' => 'Untitled', 'description' => '', 'usage' => null, 'examples' => [], 'extending' => [], 'accessibility' => [], 'api' => []];
+        $page = ['title' => 'Untitled', 'kind' => preg_match('/<!--\s*kind:\s*block\s*-->/', $markdown) ? 'block' : 'component', 'description' => '', 'usage' => null, 'examples' => [], 'extending' => [], 'accessibility' => [], 'api' => []];
 
         $tokens = preg_split('/^(#{1,3}) +(.+)$/m', $markdown, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
         $part = null;
