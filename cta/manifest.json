@@ -1,0 +1,11 @@
+{
+    "type": "component",
+    "name": "Cta",
+    "description": "Call-to-action section with eyebrow, title, description, actions and optional media: centered, split or inline, in four tones.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}

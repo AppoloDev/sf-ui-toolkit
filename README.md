@@ -33,6 +33,7 @@ The props of each component are listed in its documentation.
 |---|---|---|
 | `cascader` | Pick a value in a hierarchy through columns or one level at a time, with search, single or multiple choice. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/cascader.html) |
 | `color-picker` | Color field with a popover: saturation/brightness area, hue and opacity sliders, typed CSS colors, swatches and eye dropper. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/color-picker.html) |
+| `cta` | Call-to-action section with eyebrow, title, description, actions and optional media: centered, split or inline, in four tones. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/cta.html) |
 | `emoji-picker` | Searchable emoji grid in a popover or inline, with categories, skin tones and recents. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/emoji-picker.html) |
 | `faq` | Frequently asked questions as a native accordion: single or split layout, multiple or exclusive answers, optional FAQPage structured data. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/faq.html) |
 | `file-type` | File icon with a colored extension label for documents, spreadsheets, images, archives and code, in four variants and six sizes. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/file-type.html) |
