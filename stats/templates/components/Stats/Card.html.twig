@@ -1,0 +1,59 @@
+{#
+  Stats:Card: one metric.
+
+  Props
+    label            what is measured
+    value            the figure, already formatted (e.g. `$48,200`)
+    delta            change, already formatted (e.g. `+12.5%`); a leading `-` means a decrease
+    trend            up | down | neutral: overrides the direction guessed from `delta`
+    invert           a decrease is good news (churn, errors): swaps the colors
+    comparison       text next to the delta (e.g. `vs last month`)
+    icon             Symfony UX Icons name shown in a tile
+    progress         0 to 100: shows a meter under the figure
+    progressLabel    accessible name of the meter
+    increaseLabel    spoken before the delta when it is an increase
+    decreaseLabel    spoken before the delta when it is a decrease
+    neutralLabel     spoken before the delta when nothing changed
+
+  The slot is extra content under the figure (a list, a sparkline, a footer).
+#}
+{%- props label, value, delta = null, trend = null, invert = false, comparison = null, icon = null, progress = null, progressLabel = 'Progress', increaseLabel = 'Increase', decreaseLabel = 'Decrease', neutralLabel = 'No change' -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set text = delta is null ? '' : (delta|trim) -%}
+{%- set direction = trend ?? (text == '' ? 'neutral' : (text starts with '-' or text starts with '−' ? 'down' : 'up')) -%}
+{%- set good = (direction == 'up') != invert -%}
+{%- set tones = direction == 'neutral' ? 'bg-muted text-muted-foreground' : (good ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400' : 'bg-red-50 text-red-700 dark:bg-red-950/50 dark:text-red-400') -%}
+{%- set trend_icon = {up: 'lucide:trending-up', down: 'lucide:trending-down', neutral: 'lucide:minus'}[direction] ?? 'lucide:minus' -%}
+{%- set direction_label = direction == 'up' ? increaseLabel : (direction == 'down' ? decreaseLabel : neutralLabel) -%}
+{%- set meter = progress is null ? null : max(0, min(100, progress)) -%}
+{%- set extra -%}{% block content %}{% endblock %}{%- endset -%}
+<div class="{{ ('flex flex-col gap-3 rounded-xl border border-border bg-background p-5 group-data-[divided=true]/stats:rounded-none group-data-[divided=true]/stats:border-0 ' ~ extra_class)|trim }}" {{ attributes }}>
+    <div class="flex items-start justify-between gap-3">
+        <dl class="grid gap-1">
+            <dt class="text-sm text-muted-foreground">{{ label }}</dt>
+            <dd class="text-2xl font-semibold tabular-nums text-foreground">{{ value }}</dd>
+        </dl>
+        {%- if icon %}
+            <span class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                <twig:ux:icon :name="icon" class="size-5" aria-hidden="true" />
+            </span>
+        {%- endif %}
+    </div>
+    {%- if text != '' or comparison %}
+        <p class="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+            {%- if text != '' %}
+                <span class="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 font-medium {{ tones }}">
+                    <twig:ux:icon :name="trend_icon" class="size-3.5" aria-hidden="true" />
+                    <span class="sr-only">{{ direction_label }}:</span>{{ delta }}
+                </span>
+            {%- endif %}
+            {%- if comparison %}<span>{{ comparison }}</span>{% endif %}
+        </p>
+    {%- endif %}
+    {%- if meter is not null %}
+        <div role="progressbar" aria-label="{{ progressLabel }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ meter }}" class="h-1.5 overflow-hidden rounded-full bg-muted">
+            <div class="h-full rounded-full bg-primary" style="width: {{ meter }}%"></div>
+        </div>
+    {%- endif %}
+    {%- if extra|trim is not empty %}{{ extra }}{% endif %}
+</div>

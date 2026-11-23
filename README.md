@@ -48,6 +48,7 @@ The props of each component are listed in its documentation.
 | `scrollspy` | Table-of-contents navigation that highlights the section currently in view. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/scrollspy.html) |
 | `signature-pad` | Handwritten signature captured with a mouse, a finger or a stylus, exported as PNG, JPEG, SVG or JSON. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/signature-pad.html) |
 | `sortable` | Reorderable list or grid: drag and drop on a handle, full keyboard reordering, and the order submitted with the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/sortable.html) |
+| `stats` | KPI cards in a responsive grid: label, value, trend badge, comparison line, optional icon and progress meter. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/stats.html) |
 | `stepper` | Multi-step navigation with indicators, states, vertical layout, panels and cancelable step changes (per-step validation). | [Documentation](https://appolodev.github.io/sf-ui-toolkit/stepper.html) |
 | `time-picker` | Typed time field with a popover of scrollable columns (hours, minutes, seconds, AM/PM), steps, min/max and 12/24h display. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/time-picker.html) |
 | `timeline` | Chronological list of events (activity feed, milestones, roadmap), vertical or horizontal, with completed and active states. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/timeline.html) |

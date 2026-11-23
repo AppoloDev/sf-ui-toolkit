@@ -1,0 +1,13 @@
+{
+    "type": "component",
+    "name": "Stats",
+    "description": "KPI cards in a responsive grid: label, value, trend badge, comparison line, optional icon and progress meter.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-icons"
+        ]
+    }
+}
