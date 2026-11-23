@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
+// Built-in tools. A tool is { run(chain, editor), active(editor), can(editor) }; `run` receives a focused chain and returns it.
 // TipTap is loaded on first use, so pages without an editor never download it.
 const TOOLS = {
     bold: { run: (chain) => chain.toggleBold(), active: (editor) => editor.isActive('bold'), can: (editor) => editor.can().toggleBold() },
@@ -21,6 +22,8 @@ const TOOLS = {
 /*
  * Rich text editor on TipTap. The hidden field holds the HTML; `rich-text-editor:change` fires on every
  * edit with { html, empty }. The HTML must be sanitized on the server.
+ * `rich-text-editor:configure` fires before the editor is created: listeners push TipTap extensions into
+ * detail.extensions, add tools to detail.tools and StarterKit options to detail.starterKit.
  * Toolbar: Left/Right/Home/End move between the tools (roving tabindex).
  */
 export default class extends Controller {
@@ -31,9 +34,13 @@ export default class extends Controller {
         this.fieldTarget.value = this.valueValue;
         const [{ Editor }, { default: StarterKit }] = await Promise.all([import('@tiptap/core'), import('@tiptap/starter-kit')]);
         if (!this.element.isConnected) return;
+        // Extension point: listeners add TipTap extensions, tools and StarterKit options (see the docs, "Extending").
+        const config = { extensions: [], tools: {}, starterKit: {} };
+        this.dispatch('configure', { detail: config });
+        this.tools = { ...TOOLS, ...config.tools };
         this.editor = new Editor({
             element: this.editorTarget,
-            extensions: [StarterKit.configure({ link: { openOnClick: false, autolink: true } })],
+            extensions: [StarterKit.configure({ link: { openOnClick: false, autolink: true }, ...config.starterKit }), ...config.extensions],
             content: this.valueValue,
             editable: this.editableValue,
             editorProps: {
@@ -80,7 +87,7 @@ export default class extends Controller {
 
             return;
         }
-        TOOLS[tool].run(this.editor.chain().focus()).run();
+        this.tools[tool]?.run(this.editor.chain().focus(), this.editor).run();
     }
 
     toggleLinkForm() {
@@ -134,9 +141,9 @@ export default class extends Controller {
         if (!this.editor || !this.hasToolbarTarget) return;
         let focusable = null;
         this.toolTargets.forEach((button) => {
-            const tool = TOOLS[button.dataset.tool];
-            button.disabled = !tool.can(this.editor);
-            button.setAttribute('aria-pressed', String(tool.active(this.editor)));
+            const tool = this.tools[button.dataset.tool];
+            button.disabled = !tool || !(tool.can?.(this.editor) ?? true);
+            button.setAttribute('aria-pressed', String(Boolean(tool?.active?.(this.editor))));
             if (!button.disabled && !focusable) focusable = button;
         });
         // Roving tabindex: one tool in the tab order, the focused one when the focus is in the toolbar.

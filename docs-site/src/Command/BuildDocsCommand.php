@@ -165,7 +165,7 @@ final class BuildDocsCommand extends Command
      */
     private function parse(string $markdown): array
     {
-        $page = ['title' => 'Untitled', 'description' => '', 'usage' => null, 'examples' => [], 'accessibility' => [], 'api' => []];
+        $page = ['title' => 'Untitled', 'description' => '', 'usage' => null, 'examples' => [], 'extending' => [], 'accessibility' => [], 'api' => []];
 
         $tokens = preg_split('/^(#{1,3}) +(.+)$/m', $markdown, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
         $part = null;
@@ -185,6 +185,8 @@ final class BuildDocsCommand extends Command
                 $part = mb_strtolower($heading);
                 if ('usage' === $part) {
                     $page['usage'] = $this->block($body);
+                } elseif ('extending' === $part) {
+                    $page['extending'][] = ['title' => null] + $this->section($body);
                 } elseif ('accessibility' === $part) {
                     preg_match_all('/^- (.+)$/m', $body, $items);
                     $page['accessibility'] = array_map($this->inline(...), $items[1]);
@@ -192,7 +194,9 @@ final class BuildDocsCommand extends Command
                 continue;
             }
 
-            if ('examples' === $part) {
+            if ('extending' === $part) {
+                $page['extending'][] = ['title' => $heading] + $this->section($body);
+            } elseif ('examples' === $part) {
                 $minHeight = preg_match('/<!--\s*height:\s*(\d+)\s*-->/', $body, $height) ? (int) $height[1] : 0;
                 $block = $this->block((string) preg_replace('/<!--.*?-->/s', '', $body));
                 if (null !== $block['code']) {
@@ -217,6 +221,22 @@ final class BuildDocsCommand extends Command
         $page['description_html'] = $this->inline($page['description']);
 
         return $page;
+    }
+
+    /**
+     * Paragraphs and fenced code blocks (any language) of a free-form section.
+     *
+     * @return array{paragraphs: list<string>, blocks: list<array{lang: string, code: string}>}
+     */
+    private function section(string $body): array
+    {
+        preg_match_all('/```(\w*)\n(.*?)```/s', $body, $fences, PREG_SET_ORDER);
+        $text = trim((string) preg_replace('/```\w*\n.*?```/s', '', $body));
+
+        return [
+            'paragraphs' => array_values(array_map($this->inline(...), array_filter(array_map('trim', preg_split('/\n\s*\n/', $text) ?: [])))),
+            'blocks' => array_map(static fn (array $fence): array => ['lang' => $fence[1], 'code' => rtrim($fence[2])], $fences),
+        ];
     }
 
     /**

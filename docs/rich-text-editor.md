@@ -62,6 +62,27 @@ The link button opens a small field under the toolbar to set or remove the link 
 </div>
 ```
 
+### Custom tools
+
+A tool is added in two places: the toolbar entry (`name`, `icon`, `label`) and its behavior, registered in JavaScript when the editor announces itself. This live example adds a horizontal rule and a "clear formatting" button using commands that StarterKit already provides; see "Extending" below for adding a TipTap extension.
+
+```twig
+<script>
+    document.addEventListener('rich-text-editor:configure', (event) => {
+        if (!event.target.matches('[data-example="custom-tools"]')) return;
+        event.detail.tools.horizontalRule = {
+            run: (chain) => chain.setHorizontalRule(),
+            can: (editor) => editor.can().setHorizontalRule(),
+        };
+        event.detail.tools.clearFormat = {
+            run: (chain) => chain.unsetAllMarks().clearNodes(),
+        };
+    });
+</script>
+<twig:RichTextEditor data-example="custom-tools" name="custom" minHeight="min-h-24" value="<p>Select some <strong>formatted</strong> text, then clear it.</p>"
+    :tools="['bold', 'italic', '|', {name: 'horizontalRule', icon: 'lucide:minus', label: 'Horizontal rule'}, {name: 'clearFormat', icon: 'lucide:remove-formatting', label: 'Clear formatting'}]" />
+```
+
 ### Translated texts
 
 The accessible names of the tools come from `toolLabels` (the tool names, plus `linkUrl`, `linkApply` and `linkRemove`); only the keys you pass are replaced.
@@ -72,6 +93,48 @@ The accessible names of the tools come from `toolLabels` (the tool names, plus `
     :toolLabels="{bold: 'Gras', italic: 'Italique', link: 'Lien', linkUrl: 'Adresse du lien', linkApply: 'Appliquer', linkRemove: 'Retirer le lien'}" />
 ```
 
+## Extending
+
+The editor announces itself with a `rich-text-editor:configure` event before TipTap creates it. The event bubbles from the editor element and carries a `detail` object that listeners fill in: `detail.extensions` (TipTap extensions to add), `detail.tools` (toolbar behaviors, keyed by tool name) and `detail.starterKit` (options merged into `StarterKit.configure()`). Register the listener before the controller connects, for example at the top of `assets/app.js`. Use `event.target` to target a given editor (a `data-` attribute works well).
+
+A tool is an object with `run(chain, editor)`, which receives a focused TipTap command chain and returns it, plus the optional `active(editor)` (drives `aria-pressed`) and `can(editor)` (disables the button when it returns `false`). The toolbar entry is a mapping in the `tools` prop: `{name, icon, label}`, where `icon` is any Symfony UX Icons name. Entries without a registered tool render disabled.
+
+### Adding a TipTap extension
+
+Install the extension (`php bin/console importmap:require @tiptap/extension-highlight@3.35.0`), then register the extension and its tool:
+
+```js
+import Highlight from '@tiptap/extension-highlight';
+
+document.addEventListener('rich-text-editor:configure', (event) => {
+    event.detail.extensions.push(Highlight);
+    event.detail.tools.highlight = {
+        run: (chain) => chain.toggleHighlight(),
+        active: (editor) => editor.isActive('highlight'),
+        can: (editor) => editor.can().toggleHighlight(),
+    };
+});
+```
+
+```twig
+<twig:RichTextEditor name="body" :tools="['bold', 'italic', {name: 'highlight', icon: 'lucide:highlighter', label: 'Highlight'}]" />
+```
+
+Extensions add their own HTML (here `<mark>`): style it in your CSS, and allow it in your server-side HTML sanitizer.
+
+### Changing the built-in behavior
+
+`detail.starterKit` is passed to `StarterKit.configure()`, so built-in features can be tuned or switched off, for example headings limited to one level, or code blocks removed:
+
+```js
+document.addEventListener('rich-text-editor:configure', (event) => {
+    event.detail.starterKit.heading = { levels: [2] };
+    event.detail.starterKit.codeBlock = false;
+});
+```
+
+Removing a feature does not remove its toolbar button: drop it from the `tools` prop too. To replace a built-in tool, register a tool with the same name in `detail.tools`.
+
 ## Accessibility
 
 - The writing area is a `textbox` (`aria-multiline`) named by `label`; the toolbar is a `toolbar` named by `toolbarLabel`, with a roving tabindex: `Tab` enters it, `←` / `→` / `Home` / `End` move between tools.
@@ -79,7 +142,7 @@ The accessible names of the tools come from `toolLabels` (the tool names, plus `
 - The link field is a labelled `url` input; `Esc` closes it and returns focus to the editor.
 - `readonly` and `disabled` editors are not editable.
 - TipTap is loaded on first use through a dynamic `import()`, so pages without an editor never download it.
-- Event: `rich-text-editor:change` fires on every edit with `detail.html` and `detail.empty`.
+- Events: `rich-text-editor:change` fires on every edit with `detail.html` and `detail.empty`; `rich-text-editor:configure` is the extension point (see Extending).
 
 ## API
 
@@ -89,7 +152,7 @@ The accessible names of the tools come from `toolLabels` (the tool names, plus `
 |---|---|---|---|
 | `name` | string | `null` | Field name. The value is the HTML of the document (empty when the editor is empty). |
 | `value` | string | `''` | Initial HTML. |
-| `tools` | array | bold, italic, underline, strike, heading2, heading3, lists, blockquote, codeBlock, link, undo, redo | Toolbar, in order. A vertical bar entry splits the groups (see the examples). |
+| `tools` | array | bold, italic, underline, strike, heading2, heading3, lists, blockquote, codeBlock, link, undo, redo | Toolbar, in order. A vertical bar entry splits the groups; a mapping `{name, icon, label}` adds a custom tool (see Extending). |
 | `placeholder` | string | `''` | Text shown while the editor is empty. |
 | `required` | bool | `false` | The form cannot be submitted while the editor is empty. |
 | `readonly` | bool | `false` | Shows the content without editing or toolbar. |

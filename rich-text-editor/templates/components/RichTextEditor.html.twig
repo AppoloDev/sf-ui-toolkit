@@ -5,8 +5,9 @@
   Props
     name         field name; the submitted value is the HTML of the document
     value        initial HTML
-    tools        toolbar, in order; `|` separates groups. Available: bold, italic, underline, strike, heading2, heading3,
-                 bulletList, orderedList, blockquote, code, codeBlock, link, undo, redo
+    tools        toolbar, in order; `|` separates groups. Built-in: bold, italic, underline, strike, heading2, heading3,
+                 bulletList, orderedList, blockquote, code, codeBlock, link, undo, redo. A custom tool is a mapping
+                 {name, icon, label} whose behavior is registered in JS (see the docs, "Extending")
     placeholder  text shown while the editor is empty
     required     the form cannot be submitted while the editor is empty
     readonly     shows the content without editing or toolbar
@@ -42,14 +43,17 @@
 <div class="{{ ('relative grid overflow-hidden rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring data-invalid:border-destructive' ~ (disabled ? ' opacity-50' : '') ~ ' ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
     {%- if not inactive %}
         <div role="toolbar" aria-label="{{ toolbarLabel }}" class="flex flex-wrap items-center gap-0.5 border-b border-border bg-muted/40 p-1" data-rich-text-editor-target="toolbar" data-action="keydown->rich-text-editor#toolbarKey">
-            {%- for tool in tools %}
+            {%- for item in tools %}
+                {%- set tool = item is iterable ? item.name : item -%}
+                {%- set icon = item is iterable ? (item.icon ?? null) : (icons[item] ?? null) -%}
                 {%- if tool == '|' %}
                     <span class="mx-1 h-5 w-px bg-border" aria-hidden="true"></span>
-                {%- elseif icons[tool] is defined %}
-                    <button type="button" aria-label="{{ names[tool] }}" title="{{ names[tool] }}" aria-pressed="false" tabindex="-1" disabled
+                {%- elseif icon %}
+                    {%- set tool_label = item is iterable and item.label is defined ? item.label : (names[tool] ?? tool) %}
+                    <button type="button" aria-label="{{ tool_label }}" title="{{ tool_label }}" aria-pressed="false" tabindex="-1" disabled
                             class="flex size-8 items-center justify-center rounded-md outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-40 aria-pressed:bg-muted aria-pressed:text-foreground"
                             data-rich-text-editor-target="tool" data-tool="{{ tool }}" data-action="rich-text-editor#command" data-rich-text-editor-tool-param="{{ tool }}">
-                        <twig:ux:icon :name="icons[tool]" class="size-4" aria-hidden="true" />
+                        <twig:ux:icon :name="icon" class="size-4" aria-hidden="true" />
                     </button>
                 {%- endif %}
             {%- endfor %}
