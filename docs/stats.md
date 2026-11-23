@@ -87,7 +87,7 @@ The words spoken to screen readers are props.
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `columns` | `1` \| `2` \| `3` \| `4` | `4` | Columns from the large breakpoint up (fewer on small screens). |
+| `columns` | `1`, `2`, `3`, `4` | `4` | Columns from the large breakpoint up (fewer on small screens). |
 | `divided` | bool | `false` | One bordered panel with thin rules instead of separate cards. |
 
 ### `<twig:Stats:Card>`
@@ -97,7 +97,7 @@ The words spoken to screen readers are props.
 | `label` | string | required | What is measured. |
 | `value` | string | required | The figure, already formatted. |
 | `delta` | string | `null` | Change, already formatted; a leading `-` means a decrease. |
-| `trend` | `up` \| `down` \| `neutral` | `null` | Overrides the direction guessed from `delta`. |
+| `trend` | `up`, `down`, `neutral` | `null` | Overrides the direction guessed from `delta`. |
 | `invert` | bool | `false` | A decrease is good news: swaps the colors. |
 | `comparison` | string | `null` | Text next to the delta, such as `vs last month`. |
 | `icon` | string | `null` | Symfony UX Icons name shown in a tile. |

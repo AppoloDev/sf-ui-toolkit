@@ -77,10 +77,10 @@ The intro sits on the left and stays in view while the list scrolls; the slot (h
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `items` | array | `[]` | List of `{question, answer, open?}`. Answers are escaped: pass markup marked safe with `\|raw` for rich text. |
+| `items` | array | `[]` | List of `{question, answer, open?}`. Answers are escaped: pass markup marked safe with the `raw` filter for rich text. |
 | `title` | string | `null` | Heading of the section. |
 | `description` | string | `null` | Text under the heading. |
-| `layout` | `single` \| `split` | `single` | Centered column, or intro on the left and list on the right. |
+| `layout` | `single`, `split` | `single` | Centered column, or intro on the left and list on the right. |
 | `multiple` | bool | `true` | Several answers can be open at once; `false` closes the others. |
 | `name` | string | `null` | Group name used when `multiple` is `false`; random when omitted. |
 | `structuredData` | bool | `false` | Adds the schema.org `FAQPage` JSON-LD. |

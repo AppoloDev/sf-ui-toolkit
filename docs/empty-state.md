@@ -75,7 +75,7 @@ The `media` block replaces the icon: here an isometric stack built from plain ma
 | `title` | string | `null` | Heading. |
 | `description` | string | `null` | Supporting text. |
 | `icon` | string | `null` | Symfony UX Icons name shown in a round tile when there is no `media` block. |
-| `align` | `center` \| `start` | `center` | Alignment of the content. |
+| `align` | `center`, `start` | `center` | Alignment of the content. |
 | `bordered` | bool | `false` | Dashed container with padding. |
 | `titleTag` | string | `h3` | Element of the title: `h2`, `h3`, `h4`, `h5` or `p`. |
 
