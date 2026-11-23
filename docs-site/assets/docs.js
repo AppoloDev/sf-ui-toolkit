@@ -1,4 +1,4 @@
-// Interactions de la documentation : onglets, copie, largeur responsive, hauteur des aperçus.
+// Documentation interactions: tabs, copy, responsive width, preview height.
 document.addEventListener('click', (event) => {
     const tab = event.target.closest('[data-tab]');
     if (tab) {
@@ -13,7 +13,7 @@ document.addEventListener('click', (event) => {
         const source = document.getElementById(copy.dataset.copy);
         navigator.clipboard.writeText(source.textContent).then(() => {
             const label = copy.textContent;
-            copy.textContent = 'Copié';
+            copy.textContent = 'Copied';
             setTimeout(() => { copy.textContent = label; }, 1500);
         });
         return;

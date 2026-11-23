@@ -1,7 +1,7 @@
 {
     "type": "component",
     "name": "Rating",
-    "description": "Note par étoiles : affichage en lecture seule (étoiles partielles) ou saisie par boutons radio, avec demi-étoiles et aperçu au survol.",
+    "description": "Star rating: read-only display (partial stars) or input with radio buttons, half stars and hover preview.",
     "copy-files": {
         "templates/": "templates/",
         "assets/": "assets/"

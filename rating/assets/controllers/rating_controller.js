@@ -1,8 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 
 /*
- * Aperçu au survol et mise à jour du remplissage des étoiles.
- * Le choix lui-même reste porté par les boutons radio natifs (clavier, formulaire, lecteurs d'écran).
+ * Hover preview and fill update for the stars.
+ * The selection itself stays carried by the native radio buttons (keyboard, forms, screen readers).
  */
 export default class extends Controller {
     static targets = ['fill'];

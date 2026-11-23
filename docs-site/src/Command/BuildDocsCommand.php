@@ -11,13 +11,13 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Twig\Environment;
 
 /**
- * Génère le site de documentation statique.
+ * Builds the static documentation site.
  *
- * Pour chaque docs/<recette>.md : une page <recette>.html, et une page d'aperçu par exemple
- * (preview/<recette>-<n>.html) affichée dans une iframe, ce qui rend le contrôle de largeur
- * responsive fidèle (les media queries s'appliquent à la largeur de l'iframe).
+ * For each docs/<recipe>.md: a <recipe>.html page, plus one preview page per example
+ * (preview/<recipe>-<n>.html) shown in an iframe, which makes the responsive width control
+ * faithful (media queries apply to the iframe width).
  */
-#[AsCommand(name: 'app:build-docs', description: 'Génère le site de documentation statique dans dist/')]
+#[AsCommand(name: 'app:build-docs', description: 'Builds the static documentation site into dist/')]
 final class BuildDocsCommand extends Command
 {
     public function __construct(
@@ -30,7 +30,7 @@ final class BuildDocsCommand extends Command
 
     protected function configure(): void
     {
-        $this->addOption('output', 'o', InputOption::VALUE_REQUIRED, 'Dossier de sortie', null);
+        $this->addOption('output', 'o', InputOption::VALUE_REQUIRED, 'Output directory', null);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -39,7 +39,7 @@ final class BuildDocsCommand extends Command
         $outDir = $input->getOption('output') ?? $root.'/dist';
         foreach ([$outDir, $outDir.'/preview', $outDir.'/controllers'] as $directory) {
             if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
-                $output->writeln(sprintf('<error>Impossible de créer %s</error>', $directory));
+                $output->writeln(sprintf('<error>Cannot create %s</error>', $directory));
 
                 return Command::FAILURE;
             }
@@ -75,18 +75,18 @@ final class BuildDocsCommand extends Command
                 sprintf('%s/%s.html', $outDir, $page['slug']),
                 $this->twig->render('docs/page.html.twig', ['page' => $page, 'pages' => $pages, 'kit' => $kit]),
             );
-            $output->writeln(sprintf('  <info>%s.html</info> (%d exemples)', $page['slug'], count($page['examples'])));
+            $output->writeln(sprintf('  <info>%s.html</info> (%d examples)', $page['slug'], count($page['examples'])));
         }
 
         file_put_contents($outDir.'/index.html', $this->twig->render('docs/index.html.twig', ['pages' => $pages, 'kit' => $kit]));
         file_put_contents($outDir.'/components.html', $this->twig->render('docs/components.html.twig', ['pages' => $pages, 'kit' => $kit]));
-        $output->writeln(sprintf('<info>%d composants documentés dans %s</info>', count($pages), $outDir));
+        $output->writeln(sprintf('<info>%d components documented in %s</info>', count($pages), $outDir));
 
         return Command::SUCCESS;
     }
 
     /**
-     * Copie les contrôleurs Stimulus des recettes et génère controllers.js qui les enregistre.
+     * Copies the recipes' Stimulus controllers and generates controllers.js, which registers them.
      */
     private function buildControllers(string $root, string $outDir): void
     {
@@ -141,7 +141,7 @@ final class BuildDocsCommand extends Command
      */
     private function parse(string $markdown): array
     {
-        $page = ['title' => 'Sans titre', 'description' => '', 'usage' => null, 'examples' => [], 'accessibility' => [], 'api' => []];
+        $page = ['title' => 'Untitled', 'description' => '', 'usage' => null, 'examples' => [], 'accessibility' => [], 'api' => []];
 
         $tokens = preg_split('/^(#{1,3}) +(.+)$/m', $markdown, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
         $part = null;
@@ -159,16 +159,16 @@ final class BuildDocsCommand extends Command
 
             if (2 === $level) {
                 $part = mb_strtolower($heading);
-                if ('utilisation' === $part) {
+                if ('usage' === $part) {
                     $page['usage'] = $this->block($body);
-                } elseif ('accessibilité' === $part) {
+                } elseif ('accessibility' === $part) {
                     preg_match_all('/^- (.+)$/m', $body, $items);
                     $page['accessibility'] = array_map($this->inline(...), $items[1]);
                 }
                 continue;
             }
 
-            if ('exemples' === $part) {
+            if ('examples' === $part) {
                 $block = $this->block($body);
                 if (null !== $block['code']) {
                     $page['examples'][] = ['title' => $heading, 'description' => $block['text'], 'code' => $block['code']];
@@ -206,7 +206,7 @@ final class BuildDocsCommand extends Command
     }
 
     /**
-     * Échappe le texte et transforme `code` en <code>. Le résultat est destiné à |raw.
+     * Escapes the text and turns `code` into <code>. The result is meant for |raw.
      */
     private function inline(string $text): string
     {

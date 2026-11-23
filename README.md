@@ -1,8 +1,10 @@
 # sf-ui-toolkit
 
-Kit [Symfony UX Toolkit](https://symfony.com/bundles/ux-toolkit/current/index.html) de composants Twig qui n'existent pas dans le kit officiel `shadcn`.
+A [Symfony UX Toolkit](https://symfony.com/bundles/ux-toolkit/current/index.html) kit of Twig components that do not exist in the official `shadcn` kit.
 
-## Installation d'une recette
+Documentation: https://appolodev.github.io/sf-ui-toolkit/
+
+## Installing a recipe
 
 ```bash
 php bin/console ux:install rating --kit=github.com/AppoloDev/sf-ui-toolkit
@@ -11,29 +13,35 @@ php bin/console ux:install rating --kit=github.com/AppoloDev/sf-ui-toolkit
 ## Structure
 
 ```
-manifest.json            # le kit
-<recette>/manifest.json  # une recette (copy-files, dépendances)
-<recette>/templates/…    # les fichiers copiés dans le projet
-docs/<recette>.md        # exemples de la documentation (blocs ```twig)
-docs-site/               # petite app Symfony qui rend la doc en HTML statique
+manifest.json            # the kit
+<recipe>/manifest.json   # a recipe (copy-files, dependencies)
+<recipe>/templates/…     # files copied into the project
+<recipe>/assets/…        # Stimulus controllers copied into the project
+docs/<recipe>.md         # documentation source (see below)
+docs-site/               # small Symfony app that renders the docs as static HTML
 ```
 
 ## Documentation (GitHub Pages)
 
-Le workflow `.github/workflows/docs.yml` installe `docs-site`, exécute `php bin/console app:build-docs`
-(chaque bloc ```twig de `docs/*.md` est réellement rendu avec les composants du kit) puis publie `dist/`.
+The `.github/workflows/docs.yml` workflow installs `docs-site`, runs `php bin/console app:build-docs`
+(every ```twig block of `docs/*.md` is really rendered with the kit's components), then publishes `dist/`.
 
-À faire une fois sur GitHub : *Settings → Pages → Source : GitHub Actions*.
+One-time setup on GitHub: *Settings → Pages → Source: GitHub Actions*.
 
-En local : `cd docs-site && composer install && php bin/console app:build-docs`, puis ouvrir `dist/index.html`.
+Locally: `cd docs-site && composer install && php bin/console app:build-docs`, then open `dist/index.html`.
 
-## Ajouter une recette
+## Adding a recipe
 
-1. `<recette>/manifest.json` + `<recette>/templates/components/<Nom>.html.twig`
-2. `docs/<recette>.md` : un `# Titre`, puis des sections `## Exemple` contenant un bloc ```twig
+1. `<recipe>/manifest.json` + `<recipe>/templates/components/<Name>.html.twig`
+2. `docs/<recipe>.md`, with these sections:
+   - `# Title`, then a `> One-line description` (used on the components index)
+   - `## Usage`: one ```twig block
+   - `## Examples`: one `### Title` per example, each with a ```twig block
+   - `## Accessibility`: a bullet list
+   - `## API`: one `### \`<twig:Name>\`` per component, with a `| Prop | Type | Default | Description |` table
 
-## Limites connues (squelette)
+## Known limitations (skeleton)
 
-- Tailwind est chargé par CDN dans la doc ; à remplacer par un build local.
-- `Rating` n'utilise pas `tailwind_merge` (le kit officiel le fait) : une classe passée en attribut s'ajoute sans résoudre les conflits.
-- Squelette non exécuté localement avant livraison : la première vraie vérification est la CI GitHub.
+- Tailwind is loaded from a CDN in the docs; replace it with a local build later.
+- `Rating` does not use `tailwind_merge` (the official kit does): a class passed as an attribute is appended without conflict resolution.
+- No syntax highlighting in the Code tab.

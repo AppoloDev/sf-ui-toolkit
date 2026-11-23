@@ -1,19 +1,19 @@
 {#
-  Rating : note par étoiles.
+  Rating: star rating.
 
   Props
-    name     nom du champ ; sans nom (ou en lecture seule), simple affichage
-    value    note actuelle (décimales acceptées)
-    max      nombre d'étoiles
-    step     1 ou 0.5 (demi-étoiles, en saisie)
-    readonly affichage seul
+    name     field name; without a name (or when read-only), display only
+    value    current rating (decimals accepted)
+    max      number of stars
+    step     1 or 0.5 (half stars, when editable)
+    readonly display only
     size     sm | md | lg
-    label    libellé accessible
+    label    accessible label
 
-  Le remplissage est rendu côté serveur (clip-path) ; le contrôleur Stimulus `rating`
-  n'ajoute que l'aperçu au survol. La saisie reste faite de boutons radio natifs.
+  The fill is rendered on the server (clip-path); the `rating` Stimulus controller
+  only adds the hover preview. Input stays made of native radio buttons.
 #}
-{%- props name = null, value = 0, max = 5, step = 1, readonly = false, size = 'md', label = 'Note' -%}
+{%- props name = null, value = 0, max = 5, step = 1, readonly = false, size = 'md', label = 'Rating' -%}
 {%- set size_class = {sm: 'size-4', md: 'size-5', lg: 'size-6'}[size] ?? 'size-5' -%}
 {%- set star_path = 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' -%}
 {%- set extra_class = attributes.render('class') -%}
@@ -21,7 +21,7 @@
 {%- set half = step == 0.5 -%}
 {%- set group_attrs = editable
     ? 'role="radiogroup" aria-label="' ~ label|e('html_attr') ~ '" data-controller="rating" data-rating-value-value="' ~ value ~ '" data-action="mouseleave->rating#reset"'
-    : 'role="img" aria-label="' ~ (label ~ ' : ' ~ value ~ ' / ' ~ max)|e('html_attr') ~ '"' -%}
+    : 'role="img" aria-label="' ~ (label ~ ': ' ~ value ~ ' / ' ~ max)|e('html_attr') ~ '"' -%}
 <div class="{{ ('inline-flex items-center gap-0.5 ' ~ extra_class)|trim }}" {{ group_attrs|raw }} {{ attributes }}>
     {%- for i in 1..max -%}
         {%- set fill = max(0, min(100, (value - (i - 1)) * 100)) -%}

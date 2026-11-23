@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     {% include '_head.html.twig' %}
     <title>{% block title %}Appolo UI{% endblock %}</title>
@@ -16,10 +16,10 @@
     <nav class="hidden w-52 shrink-0 text-sm md:block">
         <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Kit</p>
         <ul class="mb-6 space-y-1">
-            <li><a href="index.html" class="block rounded-md px-2 py-1 hover:bg-muted">Démarrage</a></li>
-            <li><a href="components.html" class="block rounded-md px-2 py-1 hover:bg-muted">Composants</a></li>
+            <li><a href="index.html" class="block rounded-md px-2 py-1 hover:bg-muted">Getting started</a></li>
+            <li><a href="components.html" class="block rounded-md px-2 py-1 hover:bg-muted">Components</a></li>
         </ul>
-        <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Composants</p>
+        <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Components</p>
         <ul class="space-y-1">
             {% for slug, item in pages %}
                 <li><a href="{{ slug }}.html" class="block rounded-md px-2 py-1 hover:bg-muted">{{ item.title }}</a></li>

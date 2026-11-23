@@ -26,14 +26,14 @@ jobs:
           php-version: '8.4'
           tools: composer
 
-      - name: Valider les manifests
+      - name: Validate manifests
         run: for f in manifest.json */manifest.json; do php -r 'json_decode(file_get_contents($argv[1]), false, 512, JSON_THROW_ON_ERROR);' "$f" && echo "ok $f"; done
 
-      - name: Installer les dépendances
+      - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
         working-directory: docs-site
 
-      - name: Générer le site
+      - name: Build the site
         run: php bin/console app:build-docs
         working-directory: docs-site
 

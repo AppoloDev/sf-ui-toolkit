@@ -1,18 +1,23 @@
-# sf-ui-toolkit : consignes
+# sf-ui-toolkit: instructions
 
-## Commits et pull requests
+## Language
 
-- Aucune mention de Claude ou d'Anthropic dans les commits ni dans les pull requests : pas de ligne `Co-Authored-By`, pas de `Claude-Session`, pas de « Generated with ».
-- Auteur des commits : l'identité Git configurée par le propriétaire du repo ; ne jamais en inventer une au nom de Claude.
-- Messages de commit en français, à l'impératif ou au présent, courts.
+- All code, code comments, documentation (README, `docs/*.md`, docs-site templates) and kit/recipe descriptions are written in English.
 
-## Structure du kit
+## Commits and pull requests
 
-- `manifest.json` à la racine : le kit. Chaque recette a son dossier `<recette>/manifest.json` + `<recette>/templates/components/…`.
-- Format des manifests de recette : `type`, `name`, `description`, `copy-files` (`"templates/": "templates/"`), `dependencies.composer` (liste de `paquet` ou `paquet:contrainte`).
-- Chaque recette a sa documentation dans `docs/<recette>.md` : un `# Titre`, puis des sections `## Exemple` contenant un bloc ```twig, rendu pour de vrai par `docs-site`.
+- No mention of Claude or Anthropic in commits or pull requests: no `Co-Authored-By` line, no `Claude-Session`, no "Generated with".
+- Commit author: the Git identity configured by the repository owner (`Fredxd`); never invent an identity in Claude's name.
+- Commit messages: short, imperative or present tense, in French (unchanged unless the owner says otherwise).
+
+## Kit structure
+
+- `manifest.json` at the root: the kit. Each recipe has its own folder `<recipe>/manifest.json` + `<recipe>/templates/components/…`.
+- Recipe manifest format: `type`, `name`, `description`, `copy-files` (`"templates/": "templates/"`), `dependencies.composer` (list of `package` or `package:constraint`).
+- Each recipe is documented in `docs/<recipe>.md`: `# Title`, `> description`, then the sections `## Usage`, `## Examples` (one `###` with a ```twig block per example), `## Accessibility` and `## API`. The ```twig blocks are really rendered by `docs-site`.
 
 ## Documentation
 
-- `docs-site/` est une petite app Symfony ; `php bin/console app:build-docs` génère `dist/` (publié sur GitHub Pages par `.github/workflows/docs.yml`).
-- Les composants du kit sont résolus comme après un `ux:install` : chaque `<recette>/templates` est ajouté aux chemins Twig (`docs-site/config/packages/twig.php`).
+- `docs-site/` is a small Symfony app; `php bin/console app:build-docs` generates `dist/` (published to GitHub Pages by `.github/workflows/docs.yml`).
+- Kit components are resolved as after a `ux:install`: each `<recipe>/templates` is added to the Twig paths (`docs-site/config/packages/twig.php`).
+- Stimulus controllers of recipes (`<recipe>/assets/controllers/*_controller.js`) are copied to `dist/controllers/` and registered by a generated `controllers.js`.

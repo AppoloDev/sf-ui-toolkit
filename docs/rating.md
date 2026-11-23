@@ -1,40 +1,40 @@
 # Rating
 
-> Note par étoiles : affichage en lecture seule (étoiles partielles) ou saisie par boutons radio, avec demi-étoiles et aperçu au survol.
+> Star rating: read-only display (partial stars) or input with radio buttons, half stars and hover preview.
 
-## Utilisation
+## Usage
 
 ```twig
-<twig:Rating name="note" :value="4" label="Votre note" />
+<twig:Rating name="rating" :value="4" label="Your rating" />
 ```
 
-## Exemples
+## Examples
 
-### Lecture seule
+### Read-only
 
-Sans `name` (ou avec `readonly`), le composant affiche la note. Une valeur décimale remplit partiellement l'étoile concernée.
+Without a `name` (or with `readonly`), the component displays the rating. A decimal value partially fills the relevant star.
 
 ```twig
 <twig:Rating :value="3.7" />
 ```
 
-### Saisie
+### Input
 
-Avec un `name`, chaque étoile est un bouton radio natif : le champ part avec le formulaire, et les flèches du clavier changent la note. Le survol affiche un aperçu.
-
-```twig
-<twig:Rating name="note" :value="4" label="Votre note" />
-```
-
-### Demi-étoiles
-
-Avec `step="0.5"`, chaque étoile compte deux zones : la moitié gauche vaut x,5 et la moitié droite la valeur entière.
+With a `name`, each star is a native radio button: the field is submitted with the form, and the arrow keys change the rating. Hovering shows a preview.
 
 ```twig
-<twig:Rating name="note_precise" :value="3.5" :step="0.5" label="Note précise" />
+<twig:Rating name="rating" :value="4" label="Your rating" />
 ```
 
-### Tailles
+### Half stars
+
+With `step="0.5"`, each star has two zones: the left half is worth x.5 and the right half the whole value.
+
+```twig
+<twig:Rating name="precise_rating" :value="3.5" :step="0.5" label="Precise rating" />
+```
+
+### Sizes
 
 ```twig
 <div class="flex flex-col items-start gap-3">
@@ -44,37 +44,37 @@ Avec `step="0.5"`, chaque étoile compte deux zones : la moitié gauche vaut x,5
 </div>
 ```
 
-### Nombre d'étoiles
+### Number of stars
 
 ```twig
 <twig:Rating :value="7" :max="10" />
 ```
 
-### Lecture seule forcée
+### Forced read-only
 
-`readonly` fige un champ qui a un `name` : utile pour réafficher une saisie existante.
+`readonly` freezes a field that has a `name`: handy to redisplay an existing submission.
 
 ```twig
-<twig:Rating name="note" :value="2" readonly />
+<twig:Rating name="rating" :value="2" readonly />
 ```
 
-## Accessibilité
+## Accessibility
 
-- En saisie, le composant est un `radiogroup` dont chaque étoile est un `input type="radio"` natif : tabulation, flèches et lecteurs d'écran fonctionnent sans JavaScript.
-- Le focus clavier est visible sur l'étoile concernée.
-- En lecture seule, le composant est une image (`role="img"`) dont le libellé indique la note, par exemple « Note : 3.7 / 5 ».
-- Le survol n'est qu'un aperçu : il ne change aucune valeur tant qu'on n'a pas cliqué.
+- When editable, the component is a `radiogroup` whose stars are native `input type="radio"` elements: tabbing, arrow keys and screen readers work without JavaScript.
+- Keyboard focus is visible on the relevant star.
+- When read-only, the component is an image (`role="img"`) whose label states the rating, for example "Rating: 3.7 / 5".
+- Hovering is only a preview: it changes no value until you click.
 
 ## API
 
 ### `<twig:Rating>`
 
-| Prop | Type | Défaut | Description |
+| Prop | Type | Default | Description |
 |---|---|---|---|
-| `name` | string | `null` | Nom du champ. Sans nom, le composant est en affichage seul. |
-| `value` | number | `0` | Note actuelle. Les décimales sont acceptées. |
-| `max` | int | `5` | Nombre d'étoiles. |
-| `step` | 1 ou 0.5 | `1` | `0.5` active les demi-étoiles en saisie. |
-| `readonly` | bool | `false` | Affichage seul, même avec un `name`. |
-| `size` | `sm`, `md`, `lg` | `md` | Taille des étoiles. |
-| `label` | string | `Note` | Libellé accessible du groupe. |
+| `name` | string | `null` | Field name. Without a name, the component is display only. |
+| `value` | number | `0` | Current rating. Decimals are accepted. |
+| `max` | int | `5` | Number of stars. |
+| `step` | 1 or 0.5 | `1` | `0.5` enables half stars when editable. |
+| `readonly` | bool | `false` | Display only, even with a `name`. |
+| `size` | `sm`, `md`, `lg` | `md` | Star size. |
+| `label` | string | `Rating` | Accessible label of the group. |

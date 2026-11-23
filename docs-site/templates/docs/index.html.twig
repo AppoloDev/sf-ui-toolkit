@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <nav class="mb-4 text-sm text-muted-foreground"><a href="index.html" class="hover:text-foreground">Appolo UI</a> / Démarrage</nav>
+    <nav class="mb-4 text-sm text-muted-foreground"><a href="index.html" class="hover:text-foreground">Appolo UI</a> / Getting started</nav>
     <h1 class="text-3xl font-bold tracking-tight">{{ kit.name|default('Appolo UI') }}</h1>
     <p class="mt-2 text-muted-foreground">{{ kit.description|default('') }}</p>
 
-    <h2 class="mt-10 text-lg font-semibold">Installer un composant</h2>
-    <p class="mt-1 text-sm text-muted-foreground">Chaque composant s'installe avec la commande du Symfony UX Toolkit, en indiquant ce kit :</p>
-    <pre class="mt-3 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>php bin/console ux:install &lt;composant&gt; --kit=github.com/AppoloDev/sf-ui-toolkit</code></pre>
+    <h2 class="mt-10 text-lg font-semibold">Installing a component</h2>
+    <p class="mt-1 text-sm text-muted-foreground">Each component is installed with the Symfony UX Toolkit command, pointing to this kit:</p>
+    <pre class="mt-3 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>php bin/console ux:install &lt;component&gt; --kit=github.com/AppoloDev/sf-ui-toolkit</code></pre>
 
-    <p class="mt-6"><a href="components.html" class="text-sm font-medium underline underline-offset-4">Voir les composants →</a></p>
+    <p class="mt-6"><a href="components.html" class="text-sm font-medium underline underline-offset-4">Browse the components →</a></p>
 {% endblock %}

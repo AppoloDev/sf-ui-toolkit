@@ -1,6 +1,6 @@
 {
     "name": "appolodev/sf-ui-toolkit-docs",
-    "description": "Site de documentation statique du kit (rendu des composants Twig, publié sur GitHub Pages).",
+    "description": "Static documentation site of the kit (renders the Twig components, published on GitHub Pages).",
     "type": "project",
     "license": "MIT",
     "require": {

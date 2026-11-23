@@ -2,8 +2,8 @@
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-// Chaque recette du kit (<recette>/templates) est ajoutée comme chemin Twig racine :
-// `components/Rating.html.twig` est ainsi résolu exactement comme après un `ux:install`.
+// Each recipe of the kit (<recipe>/templates) is added as a root Twig path:
+// `components/Rating.html.twig` is thus resolved exactly as after a `ux:install`.
 return static function (ContainerConfigurator $container): void {
     $paths = [];
     foreach (glob(dirname(__DIR__, 3).'/*/templates', GLOB_ONLYDIR) ?: [] as $directory) {

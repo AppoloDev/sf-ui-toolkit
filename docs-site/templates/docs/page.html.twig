@@ -5,14 +5,14 @@
 {% block body %}
     <nav class="mb-4 text-sm text-muted-foreground">
         <a href="index.html" class="hover:text-foreground">Appolo UI</a> /
-        <a href="components.html" class="hover:text-foreground">Composants</a> /
+        <a href="components.html" class="hover:text-foreground">Components</a> /
         <span class="text-foreground">{{ page.title }}</span>
     </nav>
 
     <h1 class="text-3xl font-bold tracking-tight">{{ page.title }}</h1>
     <p class="mt-2 text-muted-foreground">{{ page.description_html|raw }}</p>
 
-    {# Aperçu principal : le premier exemple #}
+    {# Hero preview: the first example #}
     {% if page.examples|length > 0 %}
         <div class="mt-8">{% include 'docs/_example.html.twig' with {example: page.examples|first, id: page.slug ~ '-hero'} only %}</div>
     {% endif %}
@@ -20,8 +20,8 @@
     <h2 class="mt-12 text-xl font-semibold">Installation</h2>
     <div data-tabs class="mt-3">
         <div class="flex gap-1 border-b border-border text-sm" role="tablist">
-            <button type="button" role="tab" data-tab="auto" aria-selected="true" class="-mb-px border-b-2 border-transparent px-3 py-2 aria-selected:border-foreground aria-selected:font-medium">Automatique</button>
-            <button type="button" role="tab" data-tab="manual" aria-selected="false" class="-mb-px border-b-2 border-transparent px-3 py-2 aria-selected:border-foreground aria-selected:font-medium">Manuelle</button>
+            <button type="button" role="tab" data-tab="auto" aria-selected="true" class="-mb-px border-b-2 border-transparent px-3 py-2 aria-selected:border-foreground aria-selected:font-medium">Automatic</button>
+            <button type="button" role="tab" data-tab="manual" aria-selected="false" class="-mb-px border-b-2 border-transparent px-3 py-2 aria-selected:border-foreground aria-selected:font-medium">Manual</button>
         </div>
         <div data-panel="auto" class="pt-4">
             <pre class="overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>{{ page.install.command }}</code></pre>
@@ -29,14 +29,14 @@
         <div data-panel="manual" class="space-y-4 pt-4" hidden>
             {% if page.install.composer %}
                 <div>
-                    <p class="text-sm font-medium">Paquets Composer</p>
+                    <p class="text-sm font-medium">Composer packages</p>
                     <pre class="mt-2 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>composer require {{ page.install.composer|join(' ') }}</code></pre>
                 </div>
             {% else %}
-                <p class="text-sm text-muted-foreground">Aucun paquet Composer requis.</p>
+                <p class="text-sm text-muted-foreground">No Composer package required.</p>
             {% endif %}
             <div>
-                <p class="text-sm font-medium">Fichiers à copier dans votre projet</p>
+                <p class="text-sm font-medium">Files to copy into your project</p>
                 <ul class="mt-2 space-y-1 text-sm">
                     {% for file in page.install.files %}
                         <li><code class="rounded bg-muted px-1.5 py-0.5">{{ file }}</code></li>
@@ -47,12 +47,12 @@
     </div>
 
     {% if page.usage %}
-        <h2 class="mt-12 text-xl font-semibold">Utilisation</h2>
+        <h2 class="mt-12 text-xl font-semibold">Usage</h2>
         {% if page.usage.text %}<p class="mt-1 text-sm text-muted-foreground">{{ page.usage.text|raw }}</p>{% endif %}
         <pre class="mt-3 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>{{ page.usage.code }}</code></pre>
     {% endif %}
 
-    <h2 class="mt-12 text-xl font-semibold">Exemples</h2>
+    <h2 class="mt-12 text-xl font-semibold">Examples</h2>
     {% for example in page.examples %}
         <section class="mt-8">
             <h3 class="text-base font-semibold">{{ example.title }}</h3>
@@ -62,20 +62,20 @@
     {% endfor %}
 
     {% if page.accessibility %}
-        <h2 class="mt-12 text-xl font-semibold">Accessibilité</h2>
+        <h2 class="mt-12 text-xl font-semibold">Accessibility</h2>
         <ul class="mt-3 list-disc space-y-1.5 pl-5 text-sm">
             {% for item in page.accessibility %}<li>{{ item|raw }}</li>{% endfor %}
         </ul>
     {% endif %}
 
     {% if page.api %}
-        <h2 class="mt-12 text-xl font-semibold">Référence de l'API</h2>
+        <h2 class="mt-12 text-xl font-semibold">API reference</h2>
         {% for component in page.api %}
             <h3 class="mt-6 font-mono text-sm font-semibold">{{ component.title }}</h3>
             <div class="mt-2 overflow-x-auto rounded-lg border border-border">
                 <table class="w-full text-left text-sm">
                     <thead class="border-b border-border bg-muted text-xs uppercase tracking-wide text-muted-foreground">
-                    <tr><th class="px-3 py-2">Prop</th><th class="px-3 py-2">Type</th><th class="px-3 py-2">Défaut</th><th class="px-3 py-2">Description</th></tr>
+                    <tr><th class="px-3 py-2">Prop</th><th class="px-3 py-2">Type</th><th class="px-3 py-2">Default</th><th class="px-3 py-2">Description</th></tr>
                     </thead>
                     <tbody class="divide-y divide-border">
                     {% for prop in component.props %}
