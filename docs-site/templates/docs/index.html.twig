@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="text-3xl font-bold tracking-tight">Appolo UI</h1>
+    <p class="mt-2 text-muted-foreground">Composants Twig complémentaires du kit shadcn, installables avec <code>ux:install</code>.</p>
+    <ul class="mt-8 divide-y divide-border rounded-lg border border-border">
+        {% for slug, item in pages %}
+            <li><a href="{{ slug }}.html" class="block px-4 py-3 hover:bg-muted">{{ item.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

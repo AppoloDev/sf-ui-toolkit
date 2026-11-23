@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Appolo UI{% endblock %}</title>
+    {# Tailwind v4 via CDN : suffisant pour un premier test, à remplacer par un build local ensuite. #}
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme inline {
+            --color-background: #ffffff;
+            --color-foreground: #0a0a0a;
+            --color-muted: #f5f5f5;
+            --color-muted-foreground: #737373;
+            --color-border: #e5e5e5;
+            --color-ring: #a3a3a3;
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground antialiased">
+<div class="mx-auto flex min-h-screen max-w-5xl gap-10 px-6 py-10">
+    <nav class="w-48 shrink-0 text-sm">
+        <a href="index.html" class="mb-6 block text-base font-semibold">Appolo UI</a>
+        <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Composants</p>
+        <ul class="space-y-1">
+            {% for slug, item in pages %}
+                <li><a href="{{ slug }}.html" class="block rounded-md px-2 py-1 hover:bg-muted">{{ item.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+    <main class="min-w-0 flex-1">
+        {% block body %}{% endblock %}
+    </main>
+</div>
+</body>
+</html>

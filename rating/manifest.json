@@ -1,0 +1,11 @@
+{
+    "type": "component",
+    "name": "Rating",
+    "description": "Note par étoiles : saisie (boutons radio) ou affichage en lecture seule, demi-étoiles comprises.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}

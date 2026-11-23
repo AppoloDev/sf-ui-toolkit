@@ -1,0 +1,26 @@
+{
+    "name": "appolodev/sf-ui-toolkit-docs",
+    "description": "Site de documentation statique du kit (rendu des composants Twig, publié sur GitHub Pages).",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2",
+        "symfony/console": "^7.3",
+        "symfony/framework-bundle": "^7.3",
+        "symfony/runtime": "^7.3",
+        "symfony/twig-bundle": "^7.3",
+        "symfony/ux-twig-component": "^2.20",
+        "symfony/yaml": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": true
+        },
+        "sort-packages": true
+    }
+}

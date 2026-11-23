@@ -1,0 +1,6 @@
+{
+    "name": "Appolo UI",
+    "description": "Composants Twig (Symfony UX Toolkit) complémentaires du kit shadcn : ce qui n'existe pas dans le kit officiel.",
+    "license": "MIT",
+    "homepage": "https://github.com/AppoloDev/sf-ui-toolkit"
+}
