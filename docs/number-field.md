@@ -44,7 +44,7 @@ An empty field stays empty until you type or press a button; the first press sta
 ### With an external label
 
 ```twig
-<div class="grid gap-1.5">
+<div class="grid w-fit gap-1.5">
     <label for="seats" class="text-sm font-medium">Seats</label>
     <twig:NumberField id="seats" name="seats" :value="2" :min="1" :max="8" />
 </div>
