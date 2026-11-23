@@ -1,0 +1,14 @@
+{
+    "type": "component",
+    "name": "Filters",
+    "description": "Schema-driven filter bar: chips with operator and value editors, add and clear, state carried in the URL query.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-icons"
+        ]
+    }
+}
