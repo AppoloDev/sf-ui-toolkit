@@ -1,0 +1,15 @@
+{#
+  Tree: expandable hierarchy (file explorer, navigation, organization chart).
+
+  Props
+    label  accessible name of the tree
+    lines  draw vertical guide lines to show depth
+
+  Nest Tree:Item inside Tree:Item to build branches. The `tree` Stimulus controller adds the
+  keyboard navigation (arrows, Home/End, typeahead, Enter) and keeps the ARIA state in sync.
+#}
+{%- props label = null, lines = false -%}
+{%- set extra_class = attributes.render('class') -%}
+<ul role="tree" class="{{ ('m-0 list-none p-0 text-sm ' ~ extra_class)|trim }}" {% if label %}aria-label="{{ label }}" {% endif %}data-controller="tree" data-tree-lines="{{ lines ? 'true' : 'false' }}" data-action="keydown->tree#keydown" {{ attributes }}>
+    {%- block content %}{% endblock -%}
+</ul>

@@ -1,0 +1,12 @@
+{
+    "type": "component",
+    "name": "Tree",
+    "description": "Expandable hierarchy with WAI-ARIA tree keyboard navigation (arrows, Home/End, typeahead), selection and optional guide lines.",
+    "copy-files": {
+        "templates/": "templates/",
+        "assets/": "assets/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}
