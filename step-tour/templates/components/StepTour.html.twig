@@ -1,0 +1,56 @@
+{#
+ # Content in steps, one at a time. Slot: `StepTour:Step` components.
+ #
+ # Props: counter, previousLabel, nextLabel, finishLabel, dotLabel, dots, buttons, index.
+ # Without the script, all the steps are shown one after the other.
+ #}
+{%- props
+    ## string|null The counter, with {current} and {total}. `null` hides it.
+    counter = 'Step {current} of {total}',
+    ## string The label of the previous button.
+    previousLabel = 'Back',
+    ## string The label of the next button.
+    nextLabel = 'Next',
+    ## string The label of the next button on the last step.
+    finishLabel = 'Done',
+    ## string The accessible name of a dot, with {n} for the number of the step.
+    dotLabel = 'Go to step {n}',
+    ## boolean Whether to show a dot per step.
+    dots = true,
+    ## boolean Whether to show the previous and next buttons.
+    buttons = true,
+    ## int The step shown first, from 0.
+    index = 0
+-%}
+<div
+    data-slot="step-tour"
+    data-controller="step-tour"
+    data-step-tour-index-value="{{ index }}"
+    data-step-tour-counter-value="{{ counter }}"
+    data-step-tour-dot-label-value="{{ dotLabel }}"
+    data-step-tour-next-label-value="{{ nextLabel }}"
+    data-step-tour-finish-label-value="{{ finishLabel }}"
+    {{ attributes.defaults({class: 'grid gap-4'|tailwind_classes}) }}
+>
+    <div data-slot="step-tour-steps">
+        {%- block content %}{% endblock -%}
+    </div>
+    <div data-slot="step-tour-footer" class="flex items-center justify-between gap-3">
+        {%- if counter is not null %}
+            <span data-step-tour-target="counter" aria-live="polite" class="text-xs text-muted-foreground tabular-nums"></span>
+        {%- endif %}
+        {%- if dots %}
+            <div data-step-tour-target="dots" class="flex items-center gap-1.5"></div>
+        {%- endif %}
+        {%- if buttons %}
+            <div class="ms-auto flex items-center gap-1.5">
+                <twig:Button type="button" size="sm" variant="outline" data-step-tour-target="previous" data-action="click->step-tour#previous">
+                    {{ previousLabel }}
+                </twig:Button>
+                <twig:Button type="button" size="sm" data-step-tour-target="next" data-action="click->step-tour#next">
+                    {{ nextLabel }}
+                </twig:Button>
+            </div>
+        {%- endif %}
+    </div>
+</div>

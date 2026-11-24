@@ -1,0 +1,10 @@
+{#
+ # One step of a `StepTour`. Slot: its content.
+ #}
+<div
+    data-slot="step-tour-step"
+    data-step-tour-target="step"
+    {{ attributes.defaults({class: 'grid gap-1'|tailwind_classes}) }}
+>
+    {%- block content %}{% endblock -%}
+</div>
