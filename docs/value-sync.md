@@ -44,7 +44,7 @@ Wrap a `Slider` in `ValueSync` and add the parts that show its value. They are u
 
 ### Decimals
 
-With a `step` below 1, `decimals` fixes the number of digits shown; `{percent}` is rounded.
+With a `step` below 1, `decimals` fixes the number of digits shown; `{percent}` is rounded. One output can show both.
 
 ```twig
 <twig:ValueSync class="mx-auto grid w-full max-w-sm gap-3">
@@ -52,15 +52,9 @@ With a `step` below 1, `decimals` fixes the number of digits shown; `{percent}` 
         <twig:Label for="ratio" class="font-medium">
             Ratio
         </twig:Label>
-        <span class="text-muted-foreground tabular-nums">
-            <twig:ValueSync:Output format="{value}" :decimals="1">
-                0.5
-            </twig:ValueSync:Output>
-            (
-            <twig:ValueSync:Output format="{percent}%">
-                50%
-            </twig:ValueSync:Output>)
-        </span>
+        <twig:ValueSync:Output format="{value} ({percent}%)" :decimals="1" class="text-muted-foreground tabular-nums">
+            0.5 (50%)
+        </twig:ValueSync:Output>
     </div>
     <twig:Slider id="ratio" name="ratio" min="0" max="1" step="0.1" value="0.5" />
 </twig:ValueSync>
