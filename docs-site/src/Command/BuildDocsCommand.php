@@ -227,17 +227,28 @@ final class BuildDocsCommand extends Command
                 }
             } elseif ('api' === $part) {
                 $props = [];
+                $blocks = [];
+                $mode = 'props';
                 foreach (preg_split('/\R/', $body) ?: [] as $line) {
                     if (!str_starts_with(trim($line), '|') || preg_match('/^\|[\s:|-]+\|?$/', trim($line))) {
                         continue;
                     }
                     $cells = array_map('trim', explode('|', trim(trim($line), '|')));
                     if ('Prop' === $cells[0]) {
+                        $mode = 'props';
+                        continue;
+                    }
+                    if ('Block' === $cells[0]) {
+                        $mode = 'blocks';
+                        continue;
+                    }
+                    if ('blocks' === $mode) {
+                        $blocks[] = ['name' => $cells[0] ?? '', 'description' => $this->inline($cells[1] ?? '')];
                         continue;
                     }
                     $props[] = ['name' => $cells[0] ?? '', 'type' => $cells[1] ?? '', 'default' => $cells[2] ?? '', 'description' => $this->inline($cells[3] ?? '')];
                 }
-                $page['api'][] = ['title' => trim($heading, '`'), 'props' => $props];
+                $page['api'][] = ['title' => trim($heading, '`'), 'props' => $props, 'blocks' => $blocks];
             }
         }
 

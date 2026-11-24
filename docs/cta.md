@@ -98,4 +98,9 @@ The `eyebrow` block replaces the label with any element, such as a `Badge` of an
 | `tone` | `default`, `muted`, `primary`, `dark` | `default` | Surface of the section. |
 | `titleTag` | string | `h2` | Element of the heading: `h2`, `h3` or `h4`. |
 
-Blocks: the default slot holds the actions; `<twig:block name="media">` holds the visual of the split layout.
+| Block | Description |
+|---|---|
+| `default` | The actions: buttons or links. |
+| `media` | The visual beside the copy in the split layout. |
+| `eyebrow` | Your own element above the title; replaces the `eyebrow` prop. |
+

@@ -122,6 +122,10 @@ The words spoken to screen readers are props.
 |---|---|---|---|
 | `columns` | `1`, `2`, `3`, `4` | `3` | Columns from the medium breakpoint up (fewer on small screens). |
 
+| Block | Description |
+|---|---|
+| `default` | `Pricing:Plan` elements. |
+
 ### `<twig:Pricing:Plan>`
 
 | Prop | Type | Default | Description |
@@ -136,7 +140,10 @@ The words spoken to screen readers are props.
 | `notIncludedLabel` | string | `Not included` | Spoken for a feature that is not included. |
 | `nameTag` | string | `h3` | Element of the plan name: `h2`, `h3` or `h4`. |
 
-The default slot holds the `Pricing:Feature` elements; the `action` block is the call-to-action at the bottom of the card.
+| Block | Description |
+|---|---|
+| `default` | `Pricing:Feature` elements. |
+| `action` | The call-to-action at the bottom of the card. |
 
 ### `<twig:Pricing:Feature>`
 
@@ -144,4 +151,7 @@ The default slot holds the `Pricing:Feature` elements; the `action` block is the
 |---|---|---|---|
 | `included` | bool | `true` | `false` shows a minus and is spoken as not included. |
 
-The default slot is the text of the feature.
+| Block | Description |
+|---|---|
+| `default` | The text of the feature. |
+

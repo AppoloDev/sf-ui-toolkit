@@ -120,6 +120,10 @@ Cards hold any content, such as a progress bar or an assignee.
 
 `{item}`, `{column}`, `{position}` and `{total}` are replaced with the card name, the column title, and the position and size in that column.
 
+| Block | Description |
+|---|---|
+| `default` | `Kanban:Column` elements. |
+
 ### `<twig:Kanban:Column>`
 
 | Prop | Type | Default | Description |
@@ -127,9 +131,18 @@ Cards hold any content, such as a progress bar or an assignee.
 | `value` | string | required | Identifier of the column, reported in events and in the submitted name. |
 | `title` | string | required | Heading of the column. |
 
+| Block | Description |
+|---|---|
+| `default` | `Kanban:Card` elements. |
+
 ### `<twig:Kanban:Card>`
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `value` | string | required | Identifier of the card. |
 | `label` | string | `null` | Spoken name of the card, defaults to its text. |
+
+| Block | Description |
+|---|---|
+| `default` | The content of the card. |
+

@@ -78,6 +78,10 @@ The slot accepts any markup.
 |---|---|---|---|
 | `orientation` | `vertical`, `horizontal` | `vertical` | Direction of the list. |
 
+| Block | Description |
+|---|---|
+| `default` | `Timeline:Item` elements, as direct children. |
+
 ### `<twig:Timeline:Item>`
 
 | Prop | Type | Default | Description |
@@ -87,3 +91,8 @@ The slot accepts any markup.
 | `datetime` | string | `null` | Machine-readable value of the `time` element. |
 | `completed` | bool | `false` | The event is done (indicator and connector use the primary color). |
 | `active` | bool | `false` | The current event. |
+
+| Block | Description |
+|---|---|
+| `default` | The body of the event: description, metadata, actions. |
+

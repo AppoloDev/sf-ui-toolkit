@@ -409,6 +409,10 @@ The events are named after the controller identifier: with a controller register
 | `id` | string | `null` | Id of the writing area, for an external `<label for>`. |
 | `controller` | string | `rich-text-editor` | Stimulus identifier. Set it to use a controller that extends this one (see Extending). |
 
+| Block | Description |
+|---|---|
+| `default` | The toolbar: `RichTextEditor:Tool` and `RichTextEditor:Separator` elements, in order. Without any, there is no toolbar. |
+
 ### `<twig:RichTextEditor:Tool>`
 
 | Prop | Type | Default | Description |
@@ -416,6 +420,10 @@ The events are named after the controller identifier: with a controller register
 | `name` | string | | Built-in tool (`bold`, `italic`, `underline`, `strike`, `heading2`, `heading3`, `bulletList`, `orderedList`, `blockquote`, `code`, `codeBlock`, `link`, `undo`, `redo`) or the name of a tool registered in JavaScript. |
 | `icon` | string | `null` | Symfony UX Icon name. Built-in tools have one; a custom tool needs it. |
 | `label` | string | | Accessible name and tooltip. |
+
+| Block | Description |
+|---|---|
+| `default` | Optional. A panel opened in a popover by the button, such as a `RichTextEditor:LinkForm`. |
 
 ### `<twig:RichTextEditor:Separator>`
 

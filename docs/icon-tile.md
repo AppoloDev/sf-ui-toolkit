@@ -100,3 +100,8 @@ The tile is the media of the shadcn `Item` component.
 | `variant` | `outline`, `elevated`, `frame` | `outline` | Surface of the tile. |
 | `size` | `xs`, `sm`, `default`, `lg`, `xl` | `default` | Tile size (24, 32, 40, 48 and 64 px). The glyph scales with it. |
 | `radius` | `default`, `full` | `default` | `full` makes the tile circular. |
+
+| Block | Description |
+|---|---|
+| `default` | Any content: an icon, initials, a number, a logo. It scales with the tile. |
+

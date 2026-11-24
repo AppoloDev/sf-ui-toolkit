@@ -89,12 +89,20 @@ With a `name`, the order is submitted as hidden inputs `priorities[]`, in the di
 
 `{item}`, `{position}` and `{total}` are replaced with the item name, its position and the item count.
 
+| Block | Description |
+|---|---|
+| `default` | `Sortable:Item` elements. |
+
 ### `<twig:Sortable:Item>`
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `value` | string | required | Identifier of the item, reported in the order and submitted with the form. |
 | `label` | string | `null` | Spoken name of the item for the keyboard announcements. Defaults to its text. |
+
+| Block | Description |
+|---|---|
+| `default` | The content of the item, with a `Sortable:Handle`. |
 
 ### `<twig:Sortable:Handle>`
 

@@ -145,6 +145,11 @@ The counter and the name of the bar are props; `{current}` and `{total}` are rep
 | `titleTag` | string | `h2` | Element of the title: `h1`, `h2` or `h3`. |
 | `interactive` | bool | `false` | Let the Stimulus controller switch between `Onboarding:Step` panels. |
 
+| Block | Description |
+|---|---|
+| `default` | The content of the step (the `Onboarding:Step` elements when `interactive`). |
+| `footer` | Actions under the content: Back, Continue, Skip. |
+
 ### `<twig:Onboarding:Step>`
 
 | Prop | Type | Default | Description |
@@ -153,4 +158,8 @@ The counter and the name of the bar are props; `{current}` and `{total}` are rep
 | `description` | string | `null` | Text under the heading. |
 | `titleTag` | string | `h2` | Element of the title: `h1`, `h2` or `h3`. |
 
-Blocks: the default slot is the content of the step; `<twig:block name="footer">` holds the actions.
+| Block | Description |
+|---|---|
+| `default` | The content of the step. |
+| `footer` | The actions of the step. |
+

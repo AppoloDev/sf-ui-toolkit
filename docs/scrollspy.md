@@ -63,8 +63,17 @@
 | `history` | bool | `true` | Keep the URL hash in sync with the active section. |
 | `label` | string | `On this page` | Accessible name of the navigation. |
 
+| Block | Description |
+|---|---|
+| `default` | `Scrollspy:Link` elements whose `href` is `#<section id>`. |
+
 ### `<twig:Scrollspy:Link>`
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `href` | string | required | `#<section id>`. The link is active (`data-active="true"`) while the section is in view. |
+
+| Block | Description |
+|---|---|
+| `default` | The text of the link. |
+

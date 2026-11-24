@@ -217,6 +217,11 @@ Pass a stored `json` export as `value` to show or continue a signature. `readonl
 | `regularLabel` | string | `Regular` | Accessible name of the regular weight button. |
 | `boldLabel` | string | `Bold` | Accessible name of the bold weight button. |
 
+| Block | Description |
+|---|---|
+| `default` | Your own controls and readouts, rendered under the toolbar and wired with the `signature-pad` actions. |
+| `colors` | `SignaturePad:Color` elements: the inks offered in the toolbar. |
+
 ### Content, actions and targets
 
 The content of the component is rendered under the toolbar. Controls placed there can use these Stimulus actions: `signature-pad#undo`, `#redo`, `#clear`, `#replay`, `#lock`, `#download` (with `data-signature-pad-format-param`), `#setColor` (`data-signature-pad-color-param`), `#setWeight` (`data-signature-pad-weight-param`) and `#typeName` (on an `input`). Two targets are filled for you: `data-signature-pad-target="preview"` (an `img`) and `data-signature-pad-target="size"` (payload size).

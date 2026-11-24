@@ -251,6 +251,10 @@ The `stepper:change` event is cancelable: call `preventDefault()` to refuse the 
 | `value` | int | `1` | Current step (1-based). |
 | `orientation` | `horizontal`, `vertical` | `horizontal` | Layout of the navigation. |
 
+| Block | Description |
+|---|---|
+| `default` | A `Stepper:Nav` and the `Stepper:Content` panels. |
+
 ### `<twig:Stepper:Item>`
 
 | Prop | Type | Default | Description |
@@ -260,11 +264,19 @@ The `stepper:change` event is cancelable: call `preventDefault()` to refuse the 
 | `disabled` | bool | `false` | The step is not reachable yet. |
 | `loading` | bool | `false` | Shows a spinner while the step is active. |
 
+| Block | Description |
+|---|---|
+| `default` | A `Stepper:Trigger` with its indicator, title and description. |
+
 ### `<twig:Stepper:Content>`
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `step` | int | required | Step shown by this panel. |
+
+| Block | Description |
+|---|---|
+| `default` | The panel of the step. |
 
 ### Other parts
 

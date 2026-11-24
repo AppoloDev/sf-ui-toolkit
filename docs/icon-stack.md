@@ -67,3 +67,8 @@ The tile is the media of the shadcn `Empty` component.
 | `label` | string | `null` | Accessible name. Without it the tile is hidden from assistive technologies. |
 
 The slot is the front layer (usually an icon).
+
+| Block | Description |
+|---|---|
+| `default` | The front layer, laid flat on the isometric plane: not interactive. |
+

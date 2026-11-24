@@ -89,7 +89,10 @@ The intro sits on the left and stays in view while the list scrolls; the `footer
 | `structuredData` | bool | `false` | Adds the schema.org `FAQPage` microdata. |
 | `titleTag` | string | `h2` | Element of the heading: `h2`, `h3` or `h4`. |
 
-The default slot holds the `Faq:Item` elements. The `footer` block is shown under the list (single layout) or under the intro (split layout).
+| Block | Description |
+|---|---|
+| `default` | `Faq:Item` elements. |
+| `footer` | Under the list (single layout) or under the intro (split layout): a support call-to-action. |
 
 ### `<twig:Faq:Item>`
 
@@ -99,4 +102,7 @@ The default slot holds the `Faq:Item` elements. The `footer` block is shown unde
 | `value` | string | `null` | Identifier of the item; derived from the question when omitted, unique within the FAQ. |
 | `open` | bool | `false` | Open from the start. |
 
-The default slot is the answer.
+| Block | Description |
+|---|---|
+| `default` | The answer. |
+

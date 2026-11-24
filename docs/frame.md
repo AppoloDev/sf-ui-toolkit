@@ -78,6 +78,10 @@ A `ghost` panel has no border, so a heading or a hint can sit on the Frame itsel
 | `stacked` | bool | `false` | Joins adjacent panels into one block. |
 | `spacing` | `xs`, `sm`, `default`, `lg` | `default` | Padding and gap around the panels (ignored when `dense`). |
 
+| Block | Description |
+|---|---|
+| `default` | `Frame:Panel` elements. |
+
 ### `<twig:Frame:Panel>`
 
 | Prop | Type | Default | Description |
@@ -86,3 +90,8 @@ A `ghost` panel has no border, so a heading or a hint can sit on the Frame itsel
 | `description` | string | `null` | Text under the heading. |
 | `fit` | bool | `false` | Keep the content height instead of filling the spare height of the Frame. |
 | `ghost` | bool | `false` | No border and no background. |
+
+| Block | Description |
+|---|---|
+| `default` | The content of the panel. |
+

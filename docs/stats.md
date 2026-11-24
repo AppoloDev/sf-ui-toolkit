@@ -90,6 +90,10 @@ The words spoken to screen readers are props.
 | `columns` | `1`, `2`, `3`, `4` | `4` | Columns from the large breakpoint up (fewer on small screens). |
 | `divided` | bool | `false` | One bordered panel with thin rules instead of separate cards. |
 
+| Block | Description |
+|---|---|
+| `default` | `Stats:Card` elements. |
+
 ### `<twig:Stats:Card>`
 
 | Prop | Type | Default | Description |
@@ -106,3 +110,8 @@ The words spoken to screen readers are props.
 | `increaseLabel` | string | `Increase` | Spoken before the delta when it is an increase. |
 | `decreaseLabel` | string | `Decrease` | Spoken before the delta when it is a decrease. |
 | `neutralLabel` | string | `No change` | Spoken before the delta when nothing changed. |
+
+| Block | Description |
+|---|---|
+| `default` | Extra content under the figure: a list, a sparkline, a footer. |
+

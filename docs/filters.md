@@ -124,7 +124,9 @@ With `:autoSubmit="false"`, changing a filter only updates the hidden inputs and
 | `valueLabel` | string | `{field} value` | Accessible name of a chip's value editor. |
 | `operatorLabels` | object | `{}` | Operator texts keyed by operator, for example `{eq: 'is', contains: 'contains'}`. The `number` type always shows symbols. |
 
-Blocks: the default slot holds one `<twig:Filters:Fields>` and optionally one `<twig:Filters:Values>`.
+| Block | Description |
+|---|---|
+| `default` | One `Filters:Fields` and optionally one `Filters:Values`. |
 
 ### `<twig:Filters:Field>`
 
@@ -134,7 +136,9 @@ Blocks: the default slot holds one `<twig:Filters:Fields>` and optionally one `<
 | `label` | string | | Displayed name. |
 | `type` | string | `text` | One of `text`, `number`, `select`, `multiselect`, `boolean`, `date`. |
 
-Blocks: the default slot holds `<twig:Filters:Option>` elements (`select` and `multiselect`).
+| Block | Description |
+|---|---|
+| `default` | `Filters:Option` elements (`select` and `multiselect` only). |
 
 ### `<twig:Filters:Option>`
 

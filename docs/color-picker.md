@@ -119,6 +119,10 @@ Put `ColorPicker:Swatch` elements in the slot to add a row of preset colors.
 | `eyedropperLabel` | string | `Pick a color from the screen` | Accessible name of the eye dropper button. |
 | `swatchesLabel` | string | `Preset colors` | Accessible name of the swatch list. |
 
+| Block | Description |
+|---|---|
+| `default` | `ColorPicker:Swatch` elements: the preset colors. |
+
 ### `<twig:ColorPicker:Swatch>`
 
 | Prop | Type | Default | Description |

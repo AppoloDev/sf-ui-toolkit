@@ -187,6 +187,10 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 | `selectedLabel` | string | `{count} selected` | Trigger text with several choices (`{count}` is replaced). |
 | `label` | string | `Options` | Accessible name of the popover. |
 
+| Block | Description |
+|---|---|
+| `default` | `Cascader:Option` elements (nested for children), and an optional `Cascader:Icon`. |
+
 ### `<twig:Cascader:Option>`
 
 | Prop | Type | Default | Description |
@@ -195,8 +199,13 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 | `label` | string | | Displayed text. |
 | `disabled` | bool | `false` | The entry cannot be chosen. |
 
-Blocks: the default slot holds nested `<twig:Cascader:Option>` elements, which make the entry a branch. Options can be generated with a regular Twig `for` loop.
+| Block | Description |
+|---|---|
+| `default` | Nested `Cascader:Option` elements: they make the entry a branch. |
 
 ### `<twig:Cascader:Icon>`
 
-No prop. The default slot holds the icon shown in the trigger in place of the chevron.
+| Block | Description |
+|---|---|
+| `default` | The icon shown in the trigger in place of the chevron. |
+

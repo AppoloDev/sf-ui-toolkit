@@ -95,7 +95,12 @@ The `tabs` block is a second row under the bar, for `variant="tab"` links; a cou
 | `bordered` | bool | `true` | Rule under the bar. |
 | `label` | string | `null` | Accessible name of the bar. |
 
-Blocks: `start` (brand, breadcrumb), the default slot (takes the remaining width), `end` (actions) and `tabs` (second row).
+| Block | Description |
+|---|---|
+| `start` | Brand or breadcrumb, at the start of the bar. |
+| `default` | Takes the remaining width: usually a named `nav` of links. |
+| `end` | Actions at the end of the bar. |
+| `tabs` | A second row under the bar, for `variant="tab"` links. |
 
 ### `<twig:Navbar:Link>`
 
@@ -106,4 +111,7 @@ Blocks: `start` (brand, breadcrumb), the default slot (takes the remaining width
 | `variant` | `pill`, `tab` | `pill` | Rounded link for the bar, or underlined link for the tabs row. |
 | `icon` | string | `null` | Symfony UX Icons name shown before the text. |
 
-The default slot is the text of the link.
+| Block | Description |
+|---|---|
+| `default` | The text of the link, and optionally a `Badge` for a count. |
+

@@ -73,7 +73,10 @@ A group without a label is a plain list. `avatar` is an image URL; without it, `
 
 ### `<twig:ActivityFeed>`
 
-No prop. The default slot holds the `ActivityFeed:Group` elements; the `more` block is shown under the list, for a load-more button.
+| Block | Description |
+|---|---|
+| `default` | `ActivityFeed:Group` elements. |
+| `more` | Under the list: a "Load more" button. |
 
 ### `<twig:ActivityFeed:Group>`
 
@@ -82,7 +85,9 @@ No prop. The default slot holds the `ActivityFeed:Group` elements; the `more` bl
 | `label` | string | `null` | Heading of the group, such as `Today`; without it the group is a plain list. |
 | `tag` | string | `h3` | Element of the heading: `h2`, `h3` or `h4`. |
 
-The default slot holds the `ActivityFeed:Item` elements.
+| Block | Description |
+|---|---|
+| `default` | `ActivityFeed:Item` elements. |
 
 ### `<twig:ActivityFeed:Item>`
 
@@ -97,7 +102,10 @@ The default slot holds the `ActivityFeed:Item` elements.
 | `initials` | string | `null` | Shown without an avatar; the first letters of the actor by default. |
 | `icon` | string | `null` | Symfony UX Icons name for a system event; replaces the avatar. |
 
-The default slot is the description under the line. The `attachments` block holds `ActivityFeed:Attachment` elements.
+| Block | Description |
+|---|---|
+| `default` | The description under the line. |
+| `attachments` | `ActivityFeed:Attachment` elements. |
 
 ### `<twig:ActivityFeed:Attachment>`
 

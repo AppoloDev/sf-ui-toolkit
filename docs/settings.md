@@ -109,7 +109,10 @@ The `nav` block puts a rail beside the content from the large breakpoint up, and
 
 ### `<twig:Settings>`
 
-The `nav` block holds the side navigation; the default slot holds the sections. There are no props.
+| Block | Description |
+|---|---|
+| `nav` | The side navigation, a rail beside the content from the large breakpoint up. |
+| `default` | The `Settings:Section` elements. |
 
 ### `<twig:Settings:Section>`
 
@@ -120,7 +123,10 @@ The `nav` block holds the side navigation; the default slot holds the sections. 
 | `framed` | bool | `true` | Rows in a bordered panel separated by rules. |
 | `titleTag` | string | `h2` | Element of the heading: `h2`, `h3` or `h4`. |
 
-Blocks: the default slot holds the rows; `<twig:block name="actions">` holds buttons next to the heading.
+| Block | Description |
+|---|---|
+| `default` | `Settings:Row` elements. |
+| `actions` | Buttons next to the heading. |
 
 ### `<twig:Settings:Row>`
 
@@ -132,4 +138,7 @@ Blocks: the default slot holds the rows; `<twig:block name="actions">` holds but
 | `for` | string | `null` | Id of the control: the label becomes a real label of it. |
 | `danger` | bool | `false` | Destructive setting: the label uses the destructive color. |
 
-The default slot is the control.
+| Block | Description |
+|---|---|
+| `default` | The control: switch, select, input, button... |
+

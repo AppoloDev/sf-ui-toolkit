@@ -87,6 +87,10 @@ Nest `Tree:Item` inside `Tree:Item` to build branches. Click the chevron to togg
 | `label` | string | `null` | Accessible name of the tree. |
 | `lines` | bool | `false` | Draws vertical guide lines for nested levels. |
 
+| Block | Description |
+|---|---|
+| `default` | `Tree:Item` elements. |
+
 ### `<twig:Tree:Item>`
 
 | Prop | Type | Default | Description |
@@ -95,3 +99,8 @@ Nest `Tree:Item` inside `Tree:Item` to build branches. Click the chevron to togg
 | `expanded` | bool | `false` | Branch open by default. |
 | `selected` | bool | `false` | Node selected by default. |
 | `href` | string | `null` | Makes the node a link. |
+
+| Block | Description |
+|---|---|
+| `default` | Nested `Tree:Item` elements; a node without children is a leaf. |
+
