@@ -14,7 +14,7 @@
 
 - `manifest.json` at the root: the kit. Each recipe has its own folder `<recipe>/manifest.json` + `<recipe>/templates/components/…`.
 - Recipe manifest format: `type`, `name`, `description`, `copy-files` (`"templates/": "templates/"`), `dependencies.composer` (list of `package` or `package:constraint`).
-- Each recipe is documented in `docs/<recipe>.md`: `# Title`, `> description`, then an optional `## Installation` (one bullet per shadcn recipe the component needs, since a recipe cannot depend on another kit) and the sections `## Usage`, `## Examples` (one `###` with a ```twig block per example), `## Accessibility` and `## API`. The ```twig blocks are really rendered by `docs-site`.
+- Each recipe is documented in `docs/<recipe>.md`: `# Title`, `> description`, then an optional `## Installation` (one bullet per shadcn recipe the component needs, since a recipe cannot depend on another kit) and the sections `## Usage`, `## Examples` (one `###` with a ```twig block per example), `## Accessibility` and `## API` (per component a props table, then a `| Block | Description |` table listing every slot: `default` and each named block). The ```twig blocks are really rendered by `docs-site`.
 
 ## Documentation
 
