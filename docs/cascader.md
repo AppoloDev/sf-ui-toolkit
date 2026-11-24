@@ -133,6 +133,8 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 
 ### Required and disabled
 
+<!-- height: 340 -->
+
 ```twig
 <div class="flex flex-wrap gap-3">
     <twig:Cascader name="needed" required>
