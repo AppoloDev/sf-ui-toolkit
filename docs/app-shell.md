@@ -303,7 +303,7 @@ document.querySelector('[data-controller~="app-shell"]').addEventListener('app-s
 
 ## API
 
-### `<twig:AppShell height="480px">`
+### `<twig:AppShell>`
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
