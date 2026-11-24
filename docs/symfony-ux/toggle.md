@@ -65,7 +65,9 @@ An icon that fills in while pressed.
 <div class="pt-10" style="min-height: 140px">
     <twig:Tooltip id="toggle-pin">
         <twig:Tooltip:Trigger>
-            <twig:Toggle variant="outline" aria-label="Pin to sidebar" {{ ...tooltip_trigger_attrs }}><twig:ux:icon name="lucide:pin" /></twig:Toggle>
+            <twig:Button variant="outline" size="icon" aria-label="Pin to sidebar" {{ ...tooltip_trigger_attrs }}>
+                <twig:Toggle variant="outline" class="pointer-events-none size-full border-0" tabindex="-1" aria-hidden="true"><twig:ux:icon name="lucide:pin" /></twig:Toggle>
+            </twig:Button>
         </twig:Tooltip:Trigger>
         <twig:Tooltip:Content>Pin to sidebar</twig:Tooltip:Content>
     </twig:Tooltip>
