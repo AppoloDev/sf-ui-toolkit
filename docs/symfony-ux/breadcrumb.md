@@ -19,10 +19,10 @@ Compose a `Breadcrumb:Item` with a `DropdownMenu` to open a menu from one of the
             <twig:Breadcrumb:Item>
                 <twig:DropdownMenu id="breadcrumb-dropdown">
                     <twig:DropdownMenu:Trigger>
-                        <button type="button" class="flex items-center gap-1 outline-none" {{ ...dropdown_menu_trigger_attrs }}>
+                        <twig:Button variant="link" class="h-auto gap-1 p-0 font-normal text-muted-foreground hover:text-foreground" {{ ...dropdown_menu_trigger_attrs }}>
                             Components
                             <twig:ux:icon name="lucide:chevron-down" class="size-3.5" />
-                        </button>
+                        </twig:Button>
                     </twig:DropdownMenu:Trigger>
                     <twig:DropdownMenu:Content align="start">
                         <twig:DropdownMenu:Group>
