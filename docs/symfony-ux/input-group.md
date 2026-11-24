@@ -237,3 +237,93 @@ A domain field between `https://` and `.com` cells.
     <twig:ButtonGroup:Text>.com</twig:ButtonGroup:Text>
 </twig:ButtonGroup>
 ```
+
+### Prefix Icon
+
+```twig
+<twig:InputGroup class="max-w-sm">
+    <twig:InputGroup:Addon><twig:ux:icon name="lucide:search" /></twig:InputGroup:Addon>
+    <twig:InputGroup:Input placeholder="Search..." />
+</twig:InputGroup>
+```
+
+### Icon Button
+
+```twig
+<twig:InputGroup class="max-w-sm">
+    <twig:InputGroup:Input placeholder="Add a comment" />
+    <twig:InputGroup:Addon align="inline-end"><twig:InputGroup:Button size="icon-xs" aria-label="Send"><twig:ux:icon name="lucide:send" /></twig:InputGroup:Button></twig:InputGroup:Addon>
+</twig:InputGroup>
+```
+
+### Inline Addons
+
+```twig
+<div class="grid w-full max-w-sm gap-4">
+    <twig:InputGroup>
+        <twig:InputGroup:Addon><twig:InputGroup:Text>https://</twig:InputGroup:Text></twig:InputGroup:Addon>
+        <twig:InputGroup:Input placeholder="example" />
+        <twig:InputGroup:Addon align="inline-end"><twig:InputGroup:Text>.com</twig:InputGroup:Text></twig:InputGroup:Addon>
+    </twig:InputGroup>
+    <twig:InputGroup>
+        <twig:InputGroup:Addon><twig:InputGroup:Text>$</twig:InputGroup:Text></twig:InputGroup:Addon>
+        <twig:InputGroup:Input placeholder="0.00" inputmode="decimal" />
+        <twig:InputGroup:Addon align="inline-end"><twig:InputGroup:Text>USD</twig:InputGroup:Text></twig:InputGroup:Addon>
+    </twig:InputGroup>
+</div>
+```
+
+### Order Search
+
+```twig
+<twig:InputGroup class="max-w-sm">
+    <twig:InputGroup:Addon><twig:ux:icon name="lucide:package" /></twig:InputGroup:Addon>
+    <twig:InputGroup:Input placeholder="Order number" />
+    <twig:InputGroup:Addon align="inline-end"><twig:InputGroup:Button variant="secondary">Find order</twig:InputGroup:Button></twig:InputGroup:Addon>
+</twig:InputGroup>
+```
+
+### Pill Category
+
+```twig
+<twig:InputGroup class="max-w-sm">
+    <twig:InputGroup:Addon><twig:Badge variant="secondary">Tag</twig:Badge></twig:InputGroup:Addon>
+    <twig:InputGroup:Input placeholder="Type a value" />
+</twig:InputGroup>
+```
+
+### API Request
+
+```twig
+<twig:InputGroup class="max-w-lg">
+    <twig:InputGroup:Addon><twig:Badge>GET</twig:Badge></twig:InputGroup:Addon>
+    <twig:InputGroup:Input value="https://api.example.com/v1/users" class="font-mono text-xs" />
+    <twig:InputGroup:Addon align="inline-end"><twig:InputGroup:Button variant="default" size="xs">Send</twig:InputGroup:Button></twig:InputGroup:Addon>
+</twig:InputGroup>
+```
+
+### Member Row
+
+```twig
+<twig:InputGroup class="max-w-sm">
+    <twig:InputGroup:Addon><twig:Avatar size="sm"><twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" /><twig:Avatar:Fallback>CN</twig:Avatar:Fallback></twig:Avatar></twig:InputGroup:Addon>
+    <twig:InputGroup:Input value="shadcn@example.com" />
+    <twig:InputGroup:Addon align="inline-end"><twig:Badge variant="secondary">Admin</twig:Badge></twig:InputGroup:Addon>
+</twig:InputGroup>
+```
+
+### Three Dot Menu
+
+```twig
+<div style="min-height: 240px" class="max-w-sm">
+    <twig:InputGroup>
+        <twig:InputGroup:Input value="Quarterly report" />
+        <twig:InputGroup:Addon align="inline-end">
+            <twig:DropdownMenu id="ig-dots" align="end">
+                <twig:DropdownMenu:Trigger><twig:InputGroup:Button variant="ghost" size="icon-xs" aria-label="More" {{ ...dropdown_menu_trigger_attrs }}><twig:ux:icon name="lucide:ellipsis" /></twig:InputGroup:Button></twig:DropdownMenu:Trigger>
+                <twig:DropdownMenu:Content><twig:DropdownMenu:Item>Rename</twig:DropdownMenu:Item><twig:DropdownMenu:Item>Duplicate</twig:DropdownMenu:Item><twig:DropdownMenu:Item variant="destructive">Delete</twig:DropdownMenu:Item></twig:DropdownMenu:Content>
+            </twig:DropdownMenu>
+        </twig:InputGroup:Addon>
+    </twig:InputGroup>
+</div>
+```

@@ -62,3 +62,101 @@ Set `orientation="responsive"` for automatic column layouts inside container-awa
     </form>
 </div>
 ```
+
+### Input and Textarea
+
+```twig
+<form class="w-full max-w-md">
+    <twig:Field:Group>
+        <twig:Field>
+            <twig:Field:Label for="f-title">Title</twig:Field:Label>
+            <twig:Input id="f-title" placeholder="Release notes" />
+        </twig:Field>
+        <twig:Field>
+            <twig:Field:Label for="f-body">Message</twig:Field:Label>
+            <twig:Textarea id="f-body" placeholder="Write something..." />
+            <twig:Field:Description>Markdown is supported.</twig:Field:Description>
+        </twig:Field>
+    </twig:Field:Group>
+</form>
+```
+
+### Select Controls
+
+```twig
+<div class="w-full max-w-md" style="min-height: 280px">
+    <twig:Field>
+        <twig:Field:Label for="f-role">Role</twig:Field:Label>
+        <twig:Select id="f-role">
+            <twig:Select:Trigger id="f-role-trigger"><twig:Select:Value placeholder="Select a role" /></twig:Select:Trigger>
+            <twig:Select:Content><twig:Select:Group id="f-role-list">{% for r in ['Admin', 'Editor', 'Viewer'] %}<twig:Select:Item value="{{ r|lower }}">{{ r }}</twig:Select:Item>{% endfor %}</twig:Select:Group></twig:Select:Content>
+        </twig:Select>
+        <twig:Field:Description>Controls what this member can edit.</twig:Field:Description>
+    </twig:Field>
+</div>
+```
+
+### Radio and Checkboxes
+
+```twig
+<twig:Field:Group class="w-full max-w-sm">
+    <twig:Field:Set>
+        <twig:Field:Legend variant="label">Notify me about</twig:Field:Legend>
+        <twig:Field:Group data-slot="checkbox-group">
+            {% for k, l in {mentions: 'Mentions', replies: 'Replies', digest: 'Weekly digest'} %}
+                <twig:Field orientation="horizontal"><twig:Checkbox id="f-n-{{ k }}" checked="{{ k != 'digest' }}" /><twig:Field:Label for="f-n-{{ k }}" class="font-normal">{{ l }}</twig:Field:Label></twig:Field>
+            {% endfor %}
+        </twig:Field:Group>
+    </twig:Field:Set>
+</twig:Field:Group>
+```
+
+### Slider and Switch
+
+```twig
+<twig:Field:Group class="w-full max-w-sm">
+    <twig:Field>
+        <twig:Field:Label>Volume</twig:Field:Label>
+        <twig:Slider value="40" />
+    </twig:Field>
+    <twig:Field orientation="horizontal">
+        <twig:Field:Content><twig:Field:Label for="f-sw">Autoplay</twig:Field:Label><twig:Field:Description>Start the next video automatically.</twig:Field:Description></twig:Field:Content>
+        <twig:Switch id="f-sw" checked />
+    </twig:Field>
+</twig:Field:Group>
+```
+
+### Settings Form
+
+```twig
+<form class="w-full max-w-md">
+    <twig:Field:Set>
+        <twig:Field:Legend>Account</twig:Field:Legend>
+        <twig:Field:Description>Manage how you appear to others.</twig:Field:Description>
+        <twig:Field:Group>
+            <twig:Field><twig:Field:Label for="s-name">Display name</twig:Field:Label><twig:Input id="s-name" value="Evil Rabbit" /></twig:Field>
+            <twig:Field orientation="horizontal"><twig:Field:Content><twig:Field:Label for="s-public">Public profile</twig:Field:Label><twig:Field:Description>Anyone can see your profile.</twig:Field:Description></twig:Field:Content><twig:Switch id="s-public" /></twig:Field>
+            <twig:Field orientation="horizontal"><twig:Button type="submit">Save</twig:Button><twig:Button type="button" variant="outline">Cancel</twig:Button></twig:Field>
+        </twig:Field:Group>
+    </twig:Field:Set>
+</form>
+```
+
+### Validation Errors
+
+```twig
+<form class="w-full max-w-sm">
+    <twig:Field:Group>
+        <twig:Field data-invalid="true">
+            <twig:Field:Label for="v-email">Email</twig:Field:Label>
+            <twig:Input id="v-email" value="not-an-email" aria-invalid="true" />
+            <twig:Field:Error>Enter a valid email address.</twig:Field:Error>
+        </twig:Field>
+        <twig:Field data-invalid="true">
+            <twig:Field:Label for="v-pass">Password</twig:Field:Label>
+            <twig:Input id="v-pass" type="password" value="123" aria-invalid="true" />
+            <twig:Field:Error>Must be at least 8 characters.</twig:Field:Error>
+        </twig:Field>
+    </twig:Field:Group>
+</form>
+```

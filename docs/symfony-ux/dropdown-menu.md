@@ -136,3 +136,77 @@
     </twig:DropdownMenu>
 </div>
 ```
+
+### Keyboard Shortcuts
+
+```twig
+<div class="flex justify-center pt-4" style="min-height: 260px">
+    <twig:DropdownMenu id="dd-shortcuts">
+        <twig:DropdownMenu:Trigger><twig:Button variant="outline" {{ ...dropdown_menu_trigger_attrs }}>Edit</twig:Button></twig:DropdownMenu:Trigger>
+        <twig:DropdownMenu:Content class="w-56">
+            {% for l, k in {Undo: '⌘Z', Redo: '⇧⌘Z', Cut: '⌘X', Copy: '⌘C', Paste: '⌘V'} %}
+                <twig:DropdownMenu:Item>{{ l }} <twig:DropdownMenu:Shortcut>{{ k }}</twig:DropdownMenu:Shortcut></twig:DropdownMenu:Item>
+            {% endfor %}
+        </twig:DropdownMenu:Content>
+    </twig:DropdownMenu>
+</div>
+```
+
+### Nested Submenus
+
+```twig
+<div class="flex justify-center pt-4" style="min-height: 280px">
+    <twig:DropdownMenu id="dd-nested">
+        <twig:DropdownMenu:Trigger><twig:Button variant="outline" {{ ...dropdown_menu_trigger_attrs }}>File</twig:Button></twig:DropdownMenu:Trigger>
+        <twig:DropdownMenu:Content class="w-48">
+            <twig:DropdownMenu:Item>New file</twig:DropdownMenu:Item>
+            <twig:DropdownMenu:Sub>
+                <twig:DropdownMenu:SubTrigger>Share</twig:DropdownMenu:SubTrigger>
+                <twig:DropdownMenu:SubContent>
+                    <twig:DropdownMenu:Item>Email</twig:DropdownMenu:Item>
+                    <twig:DropdownMenu:Sub>
+                        <twig:DropdownMenu:SubTrigger>Social</twig:DropdownMenu:SubTrigger>
+                        <twig:DropdownMenu:SubContent><twig:DropdownMenu:Item>Mastodon</twig:DropdownMenu:Item><twig:DropdownMenu:Item>Bluesky</twig:DropdownMenu:Item></twig:DropdownMenu:SubContent>
+                    </twig:DropdownMenu:Sub>
+                </twig:DropdownMenu:SubContent>
+            </twig:DropdownMenu:Sub>
+        </twig:DropdownMenu:Content>
+    </twig:DropdownMenu>
+</div>
+```
+
+### User Profile
+
+```twig
+<div class="flex justify-center pt-4" style="min-height: 300px">
+    <twig:DropdownMenu id="dd-profile" align="end">
+        <twig:DropdownMenu:Trigger><twig:Button variant="ghost" size="icon" class="rounded-full" aria-label="Account" {{ ...dropdown_menu_trigger_attrs }}><twig:Avatar><twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" /><twig:Avatar:Fallback>CN</twig:Avatar:Fallback></twig:Avatar></twig:Button></twig:DropdownMenu:Trigger>
+        <twig:DropdownMenu:Content class="w-60">
+            <twig:DropdownMenu:Label class="flex flex-col"><span class="text-sm font-medium">shadcn</span><span class="text-xs font-normal text-muted-foreground">shadcn@example.com</span></twig:DropdownMenu:Label>
+            <twig:DropdownMenu:Separator />
+            <twig:DropdownMenu:Item><twig:ux:icon name="lucide:user" class="size-4" /> Profile</twig:DropdownMenu:Item>
+            <twig:DropdownMenu:Item><twig:ux:icon name="lucide:settings" class="size-4" /> Settings</twig:DropdownMenu:Item>
+            <twig:DropdownMenu:Separator />
+            <twig:DropdownMenu:Item variant="destructive"><twig:ux:icon name="lucide:log-out" class="size-4" /> Log out</twig:DropdownMenu:Item>
+        </twig:DropdownMenu:Content>
+    </twig:DropdownMenu>
+</div>
+```
+
+### Theme and Status
+
+```twig
+<div class="flex justify-center pt-4" style="min-height: 300px">
+    <twig:DropdownMenu id="dd-theme">
+        <twig:DropdownMenu:Trigger><twig:Button variant="outline" {{ ...dropdown_menu_trigger_attrs }}>Appearance</twig:Button></twig:DropdownMenu:Trigger>
+        <twig:DropdownMenu:Content class="w-48">
+            <twig:DropdownMenu:Label>Theme</twig:DropdownMenu:Label>
+            {% for t in ['Light', 'Dark', 'System'] %}<twig:DropdownMenu:Item><twig:ux:icon name="lucide:{{ {Light: 'sun', Dark: 'moon', System: 'monitor'}[t] }}" class="size-4" /> {{ t }}</twig:DropdownMenu:Item>{% endfor %}
+            <twig:DropdownMenu:Separator />
+            <twig:DropdownMenu:Label>Status</twig:DropdownMenu:Label>
+            <twig:DropdownMenu:Item><span class="size-2 rounded-full bg-green-500"></span> Online</twig:DropdownMenu:Item>
+            <twig:DropdownMenu:Item><span class="size-2 rounded-full bg-amber-500"></span> Away</twig:DropdownMenu:Item>
+        </twig:DropdownMenu:Content>
+    </twig:DropdownMenu>
+</div>
+```
