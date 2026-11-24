@@ -1,0 +1,12 @@
+{#- Root of a group that follows one value. The source is the Slider of the group (or, without one, the `Field`);
+    the `Output`, `Tooltip` and `Progress` parts and the `Field` are updated when it changes. -#}
+<div
+    data-slot="value-sync"
+    {{ attributes.defaults({
+        'data-controller': 'value-sync',
+        'data-action': 'input->value-sync#sync',
+    }) }}
+>
+    {##- The source (a Slider) and the parts that show its value: `ValueSync:Output`, `ValueSync:Tooltip`, `ValueSync:Progress`, `ValueSync:Field`. -#}
+    {%- block content %}{% endblock -%}
+</div>

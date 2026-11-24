@@ -64,6 +64,7 @@ The props of each component are listed in its documentation.
 | `time-picker` | Typed time field with a popover of scrollable columns (hours, minutes, seconds, AM/PM), steps, min/max and 12/24h display. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/time-picker.html) |
 | `timeline` | Chronological list of events (activity feed, milestones, roadmap), vertical or horizontal, with completed and active states. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/timeline.html) |
 | `tree` | Expandable hierarchy with WAI-ARIA tree keyboard navigation (arrows, Home/End, typeahead), selection and optional guide lines. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/tree.html) |
+| `value-sync` | Mirrors the value of a slider or a field into texts, an emoji, a progress bar, a bubble that follows the thumb and a number field, while it changes. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/value-sync.html) |
 
 ## Blocks
 

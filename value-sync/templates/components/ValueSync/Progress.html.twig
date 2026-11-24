@@ -1,0 +1,5 @@
+{%- props
+    ## integer The percentage shown before the value is known (server rendering).
+    value = 0
+-%}
+<twig:Progress :value="value" data-value-sync-target="progress" {{ ...attributes }} />

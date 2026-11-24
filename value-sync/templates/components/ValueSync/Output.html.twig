@@ -1,0 +1,21 @@
+{%- props
+    ## string|null The text, where `{value}` is the value and `{percent}` its position between the minimum and the maximum, as a percentage. With `steps`, `{step}` is the text of the step. Default: `{value}`, or `{step}` with `steps`.
+    format = null,
+    ## array|null Texts by threshold, for example `{1: 'Poor', 4: 'Good'}`: the text of the highest threshold that is not above the value is used.
+    steps = null,
+    ## number|null The number of decimals of the value. Without it, the value is shown as the source gives it.
+    decimals = null,
+    ## string The HTML tag to render.
+    as = 'span'
+-%}
+<{{ as }}
+    data-slot="value-sync-output"
+    data-value-sync-target="output"
+    data-format="{{ format ?? (steps ? '{step}' : '{value}') }}"
+    {% if steps %}data-steps="{{ steps|json_encode }}"{% endif %}
+    {% if decimals is not null %}data-decimals="{{ decimals }}"{% endif %}
+    {{ attributes }}
+>
+    {##- The text shown before the value is known (server rendering). -#}
+    {%- block content %}{% endblock -%}
+</{{ as }}>

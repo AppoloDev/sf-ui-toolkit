@@ -1,0 +1,24 @@
+{#- A bubble that follows the thumb: place it in a `relative` wrapper around the Slider, with room above (`pt-8`). -#}
+{%- props
+    ## string|null The text, where `{value}` is the value and `{percent}` its position as a percentage.
+    format = null,
+    ## array|null Texts by threshold, as `ValueSync:Output`.
+    steps = null,
+    ## number|null The number of decimals of the value.
+    decimals = null
+-%}
+<span
+    data-slot="value-sync-tooltip"
+    data-value-sync-target="output"
+    data-follow
+    data-format="{{ format ?? (steps ? '{step}' : '{value}') }}"
+    {% if steps %}data-steps="{{ steps|json_encode }}"{% endif %}
+    {% if decimals is not null %}data-decimals="{{ decimals }}"{% endif %}
+    {{ attributes.defaults({
+        class: 'pointer-events-none absolute top-0 -translate-x-1/2 rounded bg-foreground px-2 py-0.5 text-xs font-semibold text-background tabular-nums rtl:translate-x-1/2'|tailwind_classes,
+    }) }}
+>
+    {##- The text shown before the value is known (server rendering). -#}
+    {%- block content %}{% endblock -%}
+    <span class="absolute -bottom-1 left-1/2 size-2 -translate-x-1/2 rotate-45 bg-foreground" aria-hidden="true"></span>
+</span>

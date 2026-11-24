@@ -1,0 +1,6 @@
+{#- A field that shows the value and changes it: typing a number moves the Slider. Give it `min`, `max` and `step`, as the Slider. -#}
+{%- props
+    ## string The type of the field.
+    type = 'number'
+-%}
+<twig:Input :type="type" data-value-sync-target="field" {{ ...attributes }} />
