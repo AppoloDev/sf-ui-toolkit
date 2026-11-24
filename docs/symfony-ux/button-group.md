@@ -261,3 +261,255 @@ Use a `Popover` as the second part of a button group.
     <twig:Button variant="outline" size="icon" aria-label="Zoom in"><twig:ux:icon name="lucide:plus" /></twig:Button>
 </twig:ButtonGroup>
 ```
+
+### Two Buttons
+
+```twig
+<twig:ButtonGroup><twig:Button variant="outline">Archive</twig:Button><twig:Button variant="outline">Report</twig:Button></twig:ButtonGroup>
+```
+
+### Button and Input
+
+```twig
+<twig:ButtonGroup class="w-72"><twig:Button variant="outline">Subscribe</twig:Button><twig:Input placeholder="you@example.com" /></twig:ButtonGroup>
+```
+
+### Buttons and Badge
+
+```twig
+<twig:ButtonGroup>
+    <twig:ButtonGroup:Text><twig:ux:icon name="lucide:file" /> <twig:Badge variant="secondary">Draft</twig:Badge></twig:ButtonGroup:Text>
+    <twig:Button variant="outline"><twig:ux:icon name="lucide:pencil" /> Edit</twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Upload"><twig:ux:icon name="lucide:upload" /></twig:Button>
+</twig:ButtonGroup>
+```
+
+### Icon Actions
+
+```twig
+<twig:ButtonGroup>
+    {% for l, i in {'Flip horizontal': 'flip-horizontal', 'Flip vertical': 'flip-vertical', 'Rotate': 'rotate-cw'} %}
+        <twig:Button variant="outline" size="icon" aria-label="{{ l }}"><twig:ux:icon name="lucide:{{ i }}" /></twig:Button>
+    {% endfor %}
+</twig:ButtonGroup>
+```
+
+### Like Counter
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline"><twig:ux:icon name="lucide:heart" /> Like</twig:Button>
+    <twig:ButtonGroup:Text class="bg-background tabular-nums">1.2K</twig:ButtonGroup:Text>
+</twig:ButtonGroup>
+```
+
+### Basic Pagination
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="sm"><twig:ux:icon name="lucide:arrow-left" /> Previous</twig:Button>
+    {% for n in 1..3 %}<twig:Button variant="outline" size="sm">{{ n }}</twig:Button>{% endfor %}
+    <twig:Button variant="outline" size="sm">Next <twig:ux:icon name="lucide:arrow-right" /></twig:Button>
+</twig:ButtonGroup>
+```
+
+### Numbered Pagination
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="icon" aria-label="Previous"><twig:ux:icon name="lucide:chevron-left" /></twig:Button>
+    {% for n in 1..5 %}<twig:Button variant="{{ n == 3 ? 'default' : 'outline' }}" size="icon" aria-current="{{ n == 3 ? 'page' : 'false' }}">{{ n }}</twig:Button>{% endfor %}
+    <twig:Button variant="outline" size="icon" aria-label="Next"><twig:ux:icon name="lucide:chevron-right" /></twig:Button>
+</twig:ButtonGroup>
+```
+
+### Text Alignment
+
+```twig
+<twig:ButtonGroup aria-label="Text alignment">
+    {% for a in ['left', 'center', 'right', 'justify'] %}<twig:Button variant="outline" size="icon-sm" aria-label="Align {{ a }}"><twig:ux:icon name="lucide:align-{{ a }}" /></twig:Button>{% endfor %}
+</twig:ButtonGroup>
+```
+
+### Vertical Orientation
+
+```twig
+<twig:ButtonGroup orientation="vertical">
+    <twig:Button variant="outline" size="icon" aria-label="Add"><twig:ux:icon name="lucide:plus" /></twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Subtract"><twig:ux:icon name="lucide:minus" /></twig:Button>
+</twig:ButtonGroup>
+```
+
+### Vertical Tool Palette
+
+```twig
+<div class="flex flex-col gap-2 w-fit">
+    <twig:ButtonGroup orientation="vertical">
+        {% for l, i in {Search: 'search', Copy: 'copy', Share: 'share-2'} %}<twig:Button variant="outline" size="icon" aria-label="{{ l }}"><twig:ux:icon name="lucide:{{ i }}" /></twig:Button>{% endfor %}
+    </twig:ButtonGroup>
+    <twig:ButtonGroup orientation="vertical"><twig:Button variant="outline" size="icon" aria-label="Delete"><twig:ux:icon name="lucide:trash-2" /></twig:Button></twig:ButtonGroup>
+</div>
+```
+
+### Disabled Button
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline"><twig:ux:icon name="lucide:files" /> Files</twig:Button>
+    <twig:Button variant="outline" disabled><twig:ux:icon name="lucide:folder" /> Folder</twig:Button>
+    <twig:Button variant="outline"><twig:ux:icon name="lucide:trash-2" /> Trash</twig:Button>
+</twig:ButtonGroup>
+```
+
+### Separated Buttons
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button>Files</twig:Button><twig:ButtonGroup:Separator /><twig:Button>Folder</twig:Button><twig:ButtonGroup:Separator /><twig:Button>Media</twig:Button>
+</twig:ButtonGroup>
+```
+
+### Dashboard Views
+
+```twig
+<twig:ButtonGroup>
+    {% for l, i in {Grid: 'layout-grid', List: 'list', Table: 'table'} %}<twig:Button variant="outline" size="icon" aria-label="{{ l }} view"><twig:ux:icon name="lucide:{{ i }}" /></twig:Button>{% endfor %}
+</twig:ButtonGroup>
+```
+
+### View Switcher
+
+```twig
+<twig:ButtonGroup>
+    {% for l, i in {List: 'list', Grid: 'layout-grid', Table: 'table'} %}<twig:Button variant="outline" size="icon" aria-label="{{ l }} view" aria-pressed="{{ l == 'List' ? 'true' : 'false' }}" class="{{ l == 'List' ? 'bg-muted' : '' }}"><twig:ux:icon name="lucide:{{ i }}" /></twig:Button>{% endfor %}
+</twig:ButtonGroup>
+```
+
+### Follower Count
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline"><twig:ux:icon name="lucide:user-plus" /> Follow</twig:Button>
+    <twig:ButtonGroup:Text class="text-muted-foreground">2.4k followers</twig:ButtonGroup:Text>
+</twig:ButtonGroup>
+```
+
+### Share Caption
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button><twig:ux:icon name="lucide:share-2" /> Share</twig:Button>
+    <twig:ButtonGroup:Text class="border-0 bg-transparent px-2 shadow-none">128 shares</twig:ButtonGroup:Text>
+</twig:ButtonGroup>
+```
+
+### Media Controls
+
+```twig
+<twig:ButtonGroup>
+    {% for l, i in {'Skip back': 'skip-back', Play: 'play', 'Skip forward': 'skip-forward'} %}<twig:Button variant="outline" size="icon" aria-label="{{ l }}"><twig:ux:icon name="lucide:{{ i }}" /></twig:Button>{% endfor %}
+</twig:ButtonGroup>
+```
+
+### Vertical List
+
+```twig
+<twig:ButtonGroup orientation="vertical" class="w-40">
+    {% for l in ['Dashboard', 'Projects', 'Team', 'Settings'] %}<twig:Button variant="outline" class="justify-start {{ l == 'Dashboard' ? 'bg-muted' : '' }}" aria-current="{{ l == 'Dashboard' ? 'page' : 'false' }}">{{ l }}</twig:Button>{% endfor %}
+</twig:ButtonGroup>
+```
+
+### Time Interval
+
+```twig
+<twig:ButtonGroup>
+    {% for t in ['1m', '5m', '15m', '1H', '4H', '1D', '1W', 'Auto'] %}<twig:Button variant="outline" size="xs" class="tabular-nums {{ t == '1H' ? 'bg-muted' : '' }}">{{ t }}</twig:Button>{% endfor %}
+</twig:ButtonGroup>
+```
+
+### Segmented Control
+
+```twig
+<div style="min-height: 220px">
+<twig:ButtonGroup>
+    <twig:Button variant="outline" class="bg-muted"><twig:ux:icon name="lucide:route" /> Routes</twig:Button>
+    <twig:Button variant="outline"><twig:ux:icon name="lucide:folder-tree" /> Paths</twig:Button>
+    <twig:Button variant="outline"><twig:ux:icon name="lucide:bot" /> Bot Name</twig:Button>
+    <twig:DropdownMenu id="bg-seg" align="end">
+        <twig:DropdownMenu:Trigger><twig:Button variant="outline" size="icon" aria-label="Options" {{ ...dropdown_menu_trigger_attrs }}><twig:ux:icon name="lucide:chevron-down" /></twig:Button></twig:DropdownMenu:Trigger>
+        <twig:DropdownMenu:Content><twig:DropdownMenu:Item>Rename</twig:DropdownMenu:Item><twig:DropdownMenu:Item>Reset</twig:DropdownMenu:Item></twig:DropdownMenu:Content>
+    </twig:DropdownMenu>
+</twig:ButtonGroup>
+</div>
+```
+
+### Split Button
+
+```twig
+<div style="min-height: 220px">
+<twig:ButtonGroup>
+    <twig:Button>Save</twig:Button><twig:ButtonGroup:Separator />
+    <twig:DropdownMenu id="bg-split" align="end">
+        <twig:DropdownMenu:Trigger><twig:Button size="icon" aria-label="More" {{ ...dropdown_menu_trigger_attrs }}><twig:ux:icon name="lucide:chevron-down" /></twig:Button></twig:DropdownMenu:Trigger>
+        <twig:DropdownMenu:Content><twig:DropdownMenu:Item>Publish</twig:DropdownMenu:Item><twig:DropdownMenu:Item>Keep as draft</twig:DropdownMenu:Item><twig:DropdownMenu:Item>Exit</twig:DropdownMenu:Item></twig:DropdownMenu:Content>
+    </twig:DropdownMenu>
+</twig:ButtonGroup>
+</div>
+```
+
+### Review Actions
+
+```twig
+<div style="min-height: 240px">
+<twig:ButtonGroup>
+    <twig:Button><twig:ux:icon name="lucide:check" /> Approve</twig:Button><twig:ButtonGroup:Separator />
+    <twig:DropdownMenu id="bg-review" align="end">
+        <twig:DropdownMenu:Trigger><twig:Button size="icon" aria-label="More" {{ ...dropdown_menu_trigger_attrs }}><twig:ux:icon name="lucide:chevron-down" /></twig:Button></twig:DropdownMenu:Trigger>
+        <twig:DropdownMenu:Content><twig:DropdownMenu:Item>Approve with conditions</twig:DropdownMenu:Item><twig:DropdownMenu:Item>Request changes</twig:DropdownMenu:Item><twig:DropdownMenu:Separator /><twig:DropdownMenu:Item variant="destructive">Reject</twig:DropdownMenu:Item></twig:DropdownMenu:Content>
+    </twig:DropdownMenu>
+</twig:ButtonGroup>
+</div>
+```
+
+### Search With Button
+
+```twig
+<twig:ButtonGroup class="w-80"><twig:Input placeholder="Search records" /><twig:Button><twig:ux:icon name="lucide:search" /> Search</twig:Button></twig:ButtonGroup>
+```
+
+### Search Filter Clear
+
+```twig
+<twig:ButtonGroup class="w-96">
+    <twig:Button variant="outline"><twig:ux:icon name="lucide:filter" /> Filter</twig:Button>
+    <twig:Input placeholder="Search" />
+    <twig:Button variant="outline" size="icon" aria-label="Clear"><twig:ux:icon name="lucide:x" /></twig:Button>
+</twig:ButtonGroup>
+```
+
+### File Attachment
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="xs"><twig:ux:icon name="lucide:paperclip" /> report.pdf <span class="text-muted-foreground">2.4 MB</span></twig:Button>
+    <twig:Button variant="outline" size="icon-xs" aria-label="Download"><twig:ux:icon name="lucide:download" /></twig:Button>
+</twig:ButtonGroup>
+```
+
+### Buy Sell Hold
+
+```twig
+<twig:ButtonGroup>
+    {% for s in ['Buy', 'Hold', 'Sell'] %}<twig:Button variant="outline" aria-pressed="false">{{ s }}</twig:Button>{% endfor %}
+</twig:ButtonGroup>
+```
+
+### Environment Switcher
+
+```twig
+<twig:ButtonGroup>
+    {% for e in ['Dev', 'Staging', 'Production'] %}
+        <twig:Button variant="outline" class="{{ e == 'Production' ? 'bg-muted' : '' }}">{{ e }}{% if e == 'Production' %} <span class="size-2 rounded-full bg-green-500"></span>{% endif %}</twig:Button>
+    {% endfor %}
+</twig:ButtonGroup>
+```
