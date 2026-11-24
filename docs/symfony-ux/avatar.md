@@ -548,3 +548,36 @@ The badge is a Lucide icon, its shape filled through the inner group, and pinned
     </span>
 </div>
 ```
+
+### Gradient Ring
+
+A turning conic gradient sits behind the avatar, which keeps a gap in the page color. The second ring is still, like the one of a story that was not seen. The animation stops for people who ask for less motion.
+
+```twig
+<div class="flex items-center gap-6">
+    <div class="relative flex size-16 items-center justify-center">
+        <span class="absolute inset-0 animate-spin rounded-full bg-[conic-gradient(#ec4899,#f59e0b,#8b5cf6,#ec4899)] [animation-duration:3s] motion-reduce:animate-none">
+        </span>
+        <span class="relative flex rounded-full bg-background p-1">
+            <twig:Avatar size="lg">
+                <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+                <twig:Avatar:Fallback>
+                    CN
+                </twig:Avatar:Fallback>
+            </twig:Avatar>
+        </span>
+    </div>
+    <div class="relative flex size-16 items-center justify-center">
+        <span class="absolute inset-0 rounded-full bg-[conic-gradient(from_45deg,#ec4899,#f59e0b,#8b5cf6,#ec4899)]">
+        </span>
+        <span class="relative flex rounded-full bg-background p-1">
+            <twig:Avatar size="lg">
+                <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+                <twig:Avatar:Fallback>
+                    CN
+                </twig:Avatar:Fallback>
+            </twig:Avatar>
+        </span>
+    </div>
+</div>
+```

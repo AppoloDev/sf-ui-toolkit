@@ -204,3 +204,69 @@
     </twig:Dialog>
 </div>
 ```
+
+### Recent and Favorites
+
+Favorites come first, with a filled star, then the latest commands with when they ran, then the others. Typing filters all the groups together.
+
+```twig
+<twig:Command class="max-w-sm rounded-lg border">
+    <twig:Command:Input placeholder="Search commands..." />
+    <twig:Command:List>
+        <twig:Command:Empty>
+            No results found.
+        </twig:Command:Empty>
+        <twig:Command:Group heading="Favorites">
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:star" class="fill-amber-400 text-amber-400" />
+                New project
+                <twig:Command:Shortcut>
+                    ⌘N
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:star" class="fill-amber-400 text-amber-400" />
+                Open dashboard
+                <twig:Command:Shortcut>
+                    ⌘D
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+        </twig:Command:Group>
+        <twig:Command:Separator />
+        <twig:Command:Group heading="Recent">
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:history" />
+                Invite a member
+                <twig:Command:Shortcut class="tracking-normal">
+                    2 min ago
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:history" />
+                Export report
+                <twig:Command:Shortcut class="tracking-normal">
+                    1 hour ago
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:history" />
+                Change theme
+                <twig:Command:Shortcut class="tracking-normal">
+                    Yesterday
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+        </twig:Command:Group>
+        <twig:Command:Separator />
+        <twig:Command:Group heading="All commands">
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:settings" />
+                Open settings
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:log-out" />
+                Sign out
+            </twig:Command:Item>
+        </twig:Command:Group>
+    </twig:Command:List>
+</twig:Command>
+```

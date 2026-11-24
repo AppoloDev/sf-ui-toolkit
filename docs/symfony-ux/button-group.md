@@ -724,3 +724,19 @@ A single-choice `ToggleGroup` stacked vertically: the pressed item is the active
     </twig:ToggleGroup:Item>
 </twig:ToggleGroup>
 ```
+
+### Volume Control
+
+A speaker icon next to a `NumberField`, which brings the buttons, the arrow keys and the limits. It needs the `number-field` recipe of this kit.
+
+```twig
+<twig:ButtonGroup>
+    <twig:ButtonGroup:Text>
+        <twig:ux:icon name="lucide:volume-2" />
+        <span class="sr-only">
+            Volume
+        </span>
+    </twig:ButtonGroup:Text>
+    <twig:NumberField name="volume" :value="40" :min="0" :max="100" :step="10" label="Volume" />
+</twig:ButtonGroup>
+```
