@@ -99,31 +99,3 @@
 </div>
 ```
 
-### Unsaved Changes
-
-These examples use `Frame` from this kit. The dialog content is a Frame panel; the checkbox is a plain one, nothing detects unsaved edits for you.
-
-```twig
-<div style="min-height: 360px">
-    <twig:AlertDialog id="ad-unsaved">
-        <twig:AlertDialog:Trigger><twig:Button variant="outline" {{ ...alert_dialog_trigger_attrs }}>Discard changes</twig:Button></twig:AlertDialog:Trigger>
-        <twig:AlertDialog:Content class="overflow-hidden p-0">
-            <twig:Frame class="p-px">
-                <twig:Frame:Panel>
-                    <div class="flex items-start gap-3">
-                        <span class="flex size-10 shrink-0 items-center justify-center rounded-full border border-amber-100 bg-amber-50 text-amber-500 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300"><twig:ux:icon name="lucide:triangle-alert" class="size-5" /></span>
-                        <div class="flex flex-col gap-1">
-                            <twig:AlertDialog:Title class="text-sm font-semibold">Unsaved changes</twig:AlertDialog:Title>
-                            <twig:AlertDialog:Description>You have unsaved changes in this form. If you leave now, your progress will be lost.</twig:AlertDialog:Description>
-                        </div>
-                    </div>
-                    <div class="mt-6 flex items-center justify-between gap-4">
-                        <label for="ad-unsaved-ask" class="flex items-center gap-2 text-sm text-muted-foreground"><twig:Checkbox id="ad-unsaved-ask" /> Don't ask again</label>
-                        <div class="flex items-center gap-2"><twig:AlertDialog:Cancel>Stay</twig:AlertDialog:Cancel><twig:AlertDialog:Action>Discard changes</twig:AlertDialog:Action></div>
-                    </div>
-                </twig:Frame:Panel>
-            </twig:Frame>
-        </twig:AlertDialog:Content>
-    </twig:AlertDialog>
-</div>
-```

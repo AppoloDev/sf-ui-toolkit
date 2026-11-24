@@ -128,17 +128,3 @@ A whole card that toggles the checkbox.
 </div>
 ```
 
-### Frame Group
-
-These examples use `Frame` from this kit.
-
-```twig
-<twig:Frame spacing="sm" class="max-w-xs">
-    <twig:Frame:Header><twig:Frame:Title>Notification Settings</twig:Frame:Title></twig:Frame:Header>
-    <twig:Frame:Panel class="overflow-hidden p-0">
-        {% for k, d in {push: {l: 'Push notifications', on: true}, email: {l: 'Email notifications', on: false}, sms: {l: 'SMS notifications', on: false}} %}
-            <label for="cb-frame-{{ k }}" class="flex cursor-pointer items-center gap-3 p-3 text-sm {{ k != 'push' ? 'border-t border-border' : '' }}"><twig:Checkbox id="cb-frame-{{ k }}" checked="{{ d.on }}" /> {{ d.l }}</label>
-        {% endfor %}
-    </twig:Frame:Panel>
-</twig:Frame>
-```

@@ -77,6 +77,222 @@ A `ghost` panel has no border, so a heading or a hint can sit on the Frame itsel
 </twig:Frame>
 ```
 
+### Accordion in a Frame
+
+Needs the `accordion` recipe of the official kit.
+
+```twig
+<twig:Frame stacked spacing="sm" class="max-w-lg">
+    {% for k, d in {account: {i: 'settings', t: 'Account Settings', b: 'New', c: 'Manage your account preferences, security settings and personal information.'}, privacy: {i: 'lock', t: 'Privacy and Security', b: '', c: 'Control who can see your profile and what data we collect.'}, support: {i: 'circle-help', t: 'Help and Support', b: '', c: 'Access the help center and contact support, 24/7.'}} %}
+        <twig:Frame:Panel fit class="py-3">
+            <twig:Accordion id="acc-frame-{{ k }}" defaultValue="{{ k == 'account' ? k : '' }}">
+                <twig:Accordion:Item value="{{ k }}" class="border-b-0">
+                    <twig:Accordion:Trigger class="items-center py-1 font-semibold hover:no-underline">
+                        <span class="flex items-center gap-3"><span class="flex size-8 items-center justify-center rounded-lg bg-muted"><twig:ux:icon name="lucide:{{ d.i }}" class="size-4 text-muted-foreground" /></span>{{ d.t }}{% if d.b %} <twig:Badge variant="secondary" class="ms-1">{{ d.b }}</twig:Badge>{% endif %}</span>
+                    </twig:Accordion:Trigger>
+                    <twig:Accordion:Content class="ps-12 text-muted-foreground">{{ d.c }}</twig:Accordion:Content>
+                </twig:Accordion:Item>
+            </twig:Accordion>
+        </twig:Frame:Panel>
+    {% endfor %}
+</twig:Frame>
+```
+
+### Collapsible in a Frame
+
+Needs the `collapsible` recipe of the official kit.
+
+```twig
+<twig:Frame stacked dense spacing="sm" class="max-w-xs">
+    <twig:Collapsible open>
+        <twig:Collapsible:Trigger>
+            <twig:Button variant="ghost" class="h-auto w-full justify-between rounded-none px-4 py-3 text-sm font-medium" {{ ...collapsible_trigger_attrs }}>Deployment successful <twig:ux:icon name="lucide:chevron-right" class="size-4 text-muted-foreground" /></twig:Button>
+        </twig:Collapsible:Trigger>
+        <twig:Collapsible:Content>
+            <twig:Frame:Panel><p class="text-xs leading-relaxed text-muted-foreground">Updated the core authentication logic and fixed a minor bug in the login flow.</p></twig:Frame:Panel>
+        </twig:Collapsible:Content>
+    </twig:Collapsible>
+</twig:Frame>
+```
+
+### Collapsible with a nested list
+
+Needs the `collapsible` and `dropdown-menu` recipes of the official kit.
+
+```twig
+<div style="min-height: 320px">
+<twig:Frame stacked dense spacing="sm" class="max-w-xs">
+    <twig:Collapsible open>
+        <twig:Frame:Header class="flex-row items-center gap-1.5 py-1">
+            <twig:Collapsible:Trigger><twig:Button variant="ghost" size="icon-sm" aria-label="Toggle API keys" {{ ...collapsible_trigger_attrs }}><twig:ux:icon name="lucide:chevron-right" /></twig:Button></twig:Collapsible:Trigger>
+            <twig:Frame:Title>API Keys</twig:Frame:Title>
+            <twig:Button variant="ghost" size="icon-sm" class="ms-auto" aria-label="Add key"><twig:ux:icon name="lucide:plus" /></twig:Button>
+        </twig:Frame:Header>
+        <twig:Collapsible:Content>
+            <twig:Frame:Panel>
+                <div class="flex flex-col gap-2.5">
+                    {% for n, k in {Production: 'AUDO23••••SDIFPPL', Development: 'DUILO3••••SDIFUIP', Staging: 'IPPODA••••4SDI'} %}
+                        <div class="flex items-center justify-between gap-3 text-xs"><span class="w-24 truncate font-medium">{{ n }}</span><code class="truncate text-muted-foreground">{{ k }}</code>
+                            <twig:DropdownMenu id="keys-{{ n|lower }}" align="end">
+                                <twig:DropdownMenu:Trigger><twig:Button variant="ghost" size="icon-xs" aria-label="Actions for {{ n }}" {{ ...dropdown_menu_trigger_attrs }}><twig:ux:icon name="lucide:ellipsis" /></twig:Button></twig:DropdownMenu:Trigger>
+                                <twig:DropdownMenu:Content><twig:DropdownMenu:Item>Copy key</twig:DropdownMenu:Item><twig:DropdownMenu:Item variant="destructive">Delete</twig:DropdownMenu:Item></twig:DropdownMenu:Content>
+                            </twig:DropdownMenu>
+                        </div>
+                    {% endfor %}
+                </div>
+            </twig:Frame:Panel>
+        </twig:Collapsible:Content>
+    </twig:Collapsible>
+</twig:Frame>
+</div>
+```
+
+### Radio group in a Frame
+
+Needs the `radio-group` recipe of the official kit.
+
+```twig
+<twig:Frame spacing="sm" class="max-w-xs">
+    <twig:Frame:Header><twig:Frame:Title>Language</twig:Frame:Title></twig:Frame:Header>
+    <twig:Frame:Panel class="overflow-hidden p-0">
+        <twig:RadioGroup>
+            {% for v, l in {en: 'English', es: 'Spanish', fr: 'French', de: 'German'} %}
+                <label for="rg-frame-{{ v }}" class="flex cursor-pointer items-center gap-3 p-3 text-sm {{ v != 'en' ? 'border-t border-border' : '' }}"><twig:RadioGroup:Item id="rg-frame-{{ v }}" name="rg-frame" value="{{ v }}" checked="{{ v == 'en' }}" /> {{ l }}</label>
+            {% endfor %}
+        </twig:RadioGroup>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Switch in a Frame
+
+Needs the `switch` recipe of the official kit.
+
+```twig
+<twig:Frame spacing="sm" class="max-w-xs">
+    <twig:Frame:Header><twig:Frame:Title>Privacy Settings</twig:Frame:Title></twig:Frame:Header>
+    <twig:Frame:Panel class="overflow-hidden p-0">
+        {% for k, d in {visibility: {l: 'Profile visibility', on: true}, status: {l: 'Show online status', on: true}, data: {l: 'Allow data collection', on: false}} %}
+            <label for="sw-frame-{{ k }}" class="flex cursor-pointer items-center justify-between p-3 text-sm {{ k != 'visibility' ? 'border-t border-border' : '' }}">{{ d.l }}<twig:Switch id="sw-frame-{{ k }}" checked="{{ d.on }}" /></label>
+        {% endfor %}
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Checkbox group in a Frame
+
+Needs the `checkbox` recipe of the official kit.
+
+```twig
+<twig:Frame spacing="sm" class="max-w-xs">
+    <twig:Frame:Header><twig:Frame:Title>Notification Settings</twig:Frame:Title></twig:Frame:Header>
+    <twig:Frame:Panel class="overflow-hidden p-0">
+        {% for k, d in {push: {l: 'Push notifications', on: true}, email: {l: 'Email notifications', on: false}, sms: {l: 'SMS notifications', on: false}} %}
+            <label for="cb-frame-{{ k }}" class="flex cursor-pointer items-center gap-3 p-3 text-sm {{ k != 'push' ? 'border-t border-border' : '' }}"><twig:Checkbox id="cb-frame-{{ k }}" checked="{{ d.on }}" /> {{ d.l }}</label>
+        {% endfor %}
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Breadcrumb in a Frame
+
+Needs the `breadcrumb` recipe of the official kit.
+
+```twig
+<twig:Frame class="w-fit">
+    <twig:Frame:Panel fit class="px-3 py-2">
+        <twig:Breadcrumb>
+            <twig:Breadcrumb:List>
+                <twig:Breadcrumb:Item><twig:Breadcrumb:Link href="#" class="flex items-center gap-1.5"><twig:ux:icon name="lucide:house" class="size-4" /> Home</twig:Breadcrumb:Link></twig:Breadcrumb:Item>
+                <twig:Breadcrumb:Separator />
+                <twig:Breadcrumb:Item><twig:Breadcrumb:Link href="#">Products</twig:Breadcrumb:Link></twig:Breadcrumb:Item>
+                <twig:Breadcrumb:Separator />
+                <twig:Breadcrumb:Item><twig:Breadcrumb:Page class="font-semibold">Checkout</twig:Breadcrumb:Page></twig:Breadcrumb:Item>
+            </twig:Breadcrumb:List>
+        </twig:Breadcrumb>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Compact social proof
+
+Needs the `avatar` recipe of the official kit.
+
+```twig
+<twig:Frame class="w-fit">
+    <twig:Frame:Panel fit class="flex items-center gap-2 p-2">
+        <div class="flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background">
+            {% for u in ['shadcn', 'maxleiter', 'evilrabbit', 'leerob'] %}<twig:Avatar class="size-7"><twig:Avatar:Image src="https://github.com/{{ u }}.png" alt="{{ u }}" /><twig:Avatar:Fallback>{{ u|first|upper }}</twig:Avatar:Fallback></twig:Avatar>{% endfor %}
+        </div>
+        <p class="me-1.5 text-xs text-muted-foreground">Joined by <span class="font-semibold text-foreground">500+</span> developers.</p>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Alert dialog in a Frame
+
+Needs the `alert-dialog` and `checkbox` recipes of the official kit.
+
+```twig
+<div style="min-height: 360px">
+    <twig:AlertDialog id="ad-unsaved">
+        <twig:AlertDialog:Trigger><twig:Button variant="outline" {{ ...alert_dialog_trigger_attrs }}>Discard changes</twig:Button></twig:AlertDialog:Trigger>
+        <twig:AlertDialog:Content class="overflow-hidden p-0">
+            <twig:Frame class="p-px">
+                <twig:Frame:Panel>
+                    <div class="flex items-start gap-3">
+                        <span class="flex size-10 shrink-0 items-center justify-center rounded-full border border-amber-100 bg-amber-50 text-amber-500 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300"><twig:ux:icon name="lucide:triangle-alert" class="size-5" /></span>
+                        <div class="flex flex-col gap-1">
+                            <twig:AlertDialog:Title class="text-sm font-semibold">Unsaved changes</twig:AlertDialog:Title>
+                            <twig:AlertDialog:Description>You have unsaved changes in this form. If you leave now, your progress will be lost.</twig:AlertDialog:Description>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between gap-4">
+                        <label for="ad-unsaved-ask" class="flex items-center gap-2 text-sm text-muted-foreground"><twig:Checkbox id="ad-unsaved-ask" /> Don't ask again</label>
+                        <div class="flex items-center gap-2"><twig:AlertDialog:Cancel>Stay</twig:AlertDialog:Cancel><twig:AlertDialog:Action>Discard changes</twig:AlertDialog:Action></div>
+                    </div>
+                </twig:Frame:Panel>
+            </twig:Frame>
+        </twig:AlertDialog:Content>
+    </twig:AlertDialog>
+</div>
+```
+
+### Alert without borders in a Frame
+
+Needs the `alert` recipe of the official kit.
+
+```twig
+<twig:Frame class="max-w-lg">
+    <twig:Frame:Panel fit class="overflow-hidden p-0">
+        <twig:Alert class="border-0"><twig:ux:icon name="lucide:info" class="text-destructive" /><twig:Alert:Title>System update</twig:Alert:Title><twig:Alert:Description>A new system update is available. Please restart your application to apply the changes.</twig:Alert:Description></twig:Alert>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Stacked alerts in a Frame
+
+Needs the `alert` recipe of this kit (for the success and warning variants) and the `button` recipe of the official kit.
+
+```twig
+<twig:Frame stacked class="max-w-lg">
+    <twig:Frame:Panel fit class="p-0"><twig:Alert variant="success" class="rounded-none border-0"><twig:ux:icon name="lucide:circle-check" /><twig:Alert:Title>Deployment successful</twig:Alert:Title><twig:Alert:Description>Your application has been deployed to the production environment.</twig:Alert:Description></twig:Alert></twig:Frame:Panel>
+    <twig:Frame:Panel fit class="p-0"><twig:Alert variant="warning" class="rounded-none border-0"><twig:ux:icon name="lucide:triangle-alert" /><twig:Alert:Title>Resource limit reached</twig:Alert:Title><twig:Alert:Description>Your plan has reached its resource limits. Consider upgrading.</twig:Alert:Description><twig:Alert:Action><twig:Button size="xs">Verify</twig:Button></twig:Alert:Action></twig:Alert></twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Alert with actions in a Frame
+
+Needs the `alert` and `button` recipes of the official kit.
+
+```twig
+<twig:Frame class="max-w-lg">
+    <twig:Frame:Panel fit class="overflow-hidden p-0">
+        <twig:Alert class="border-0"><twig:ux:icon name="lucide:shield-check" class="text-emerald-500" /><twig:Alert:Title>Security update</twig:Alert:Title><twig:Alert:Description>Update your password and enable 2FA to improve your account security.</twig:Alert:Description><twig:Alert:Action><twig:Button variant="outline" size="xs">Dismiss</twig:Button><twig:Button size="xs">Update</twig:Button></twig:Alert:Action></twig:Alert>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
 ## Accessibility
 
 - `Frame:Title` renders an `h3` by default; change it with `tag` to keep the heading levels of the page in order.

@@ -135,17 +135,3 @@
 </div>
 ```
 
-### In Frame
-
-These examples use `Frame` from this kit.
-
-```twig
-<twig:Frame spacing="sm" class="max-w-xs">
-    <twig:Frame:Header><twig:Frame:Title>Privacy Settings</twig:Frame:Title></twig:Frame:Header>
-    <twig:Frame:Panel class="overflow-hidden p-0">
-        {% for k, d in {visibility: {l: 'Profile visibility', on: true}, status: {l: 'Show online status', on: true}, data: {l: 'Allow data collection', on: false}} %}
-            <label for="sw-frame-{{ k }}" class="flex cursor-pointer items-center justify-between p-3 text-sm {{ k != 'visibility' ? 'border-t border-border' : '' }}">{{ d.l }}<twig:Switch id="sw-frame-{{ k }}" checked="{{ d.on }}" /></label>
-        {% endfor %}
-    </twig:Frame:Panel>
-</twig:Frame>
-```

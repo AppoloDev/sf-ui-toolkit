@@ -116,23 +116,3 @@
 </twig:Accordion>
 ```
 
-### In Frame
-
-These examples use `Frame` from this kit. Each panel holds its own accordion, so the rows open independently.
-
-```twig
-<twig:Frame stacked spacing="sm" class="max-w-lg">
-    {% for k, d in {account: {i: 'settings', t: 'Account Settings', b: 'New', c: 'Manage your account preferences, security settings and personal information.'}, privacy: {i: 'lock', t: 'Privacy and Security', b: '', c: 'Control who can see your profile and what data we collect.'}, support: {i: 'circle-help', t: 'Help and Support', b: '', c: 'Access the help center and contact support, 24/7.'}} %}
-        <twig:Frame:Panel fit class="py-3">
-            <twig:Accordion id="acc-frame-{{ k }}" defaultValue="{{ k == 'account' ? k : '' }}">
-                <twig:Accordion:Item value="{{ k }}" class="border-b-0">
-                    <twig:Accordion:Trigger class="items-center py-1 font-semibold hover:no-underline">
-                        <span class="flex items-center gap-3"><span class="flex size-8 items-center justify-center rounded-lg bg-muted"><twig:ux:icon name="lucide:{{ d.i }}" class="size-4 text-muted-foreground" /></span>{{ d.t }}{% if d.b %} <twig:Badge variant="secondary" class="ms-1">{{ d.b }}</twig:Badge>{% endif %}</span>
-                    </twig:Accordion:Trigger>
-                    <twig:Accordion:Content class="ps-12 text-muted-foreground">{{ d.c }}</twig:Accordion:Content>
-                </twig:Accordion:Item>
-            </twig:Accordion>
-        </twig:Frame:Panel>
-    {% endfor %}
-</twig:Frame>
-```
