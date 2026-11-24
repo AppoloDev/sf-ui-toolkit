@@ -47,14 +47,17 @@
     <span data-state-view="idle" class="contents">
         {{- block(outerBlocks.content) -}}
     </span>
+    {%- set _pending %}{% if outerBlocks.pending is defined %}{{ block(outerBlocks.pending) }}{% endif %}{% endset %}
+    {%- set _done %}{% if outerBlocks.done is defined %}{{ block(outerBlocks.done) }}{% endif %}{% endset %}
+    {%- set _failed %}{% if outerBlocks.failed is defined %}{{ block(outerBlocks.failed) }}{% endif %}{% endset %}
     <span data-state-view="pending" class="contents" hidden>
-        {%- if outerBlocks.pending is defined %}{{ block(outerBlocks.pending) }}{% else %}<twig:ux:icon name="lucide:loader-circle" class="animate-spin" aria-hidden="true" />{% endif -%}
+        {%- if _pending|trim is not empty %}{{ _pending }}{% else %}<twig:ux:icon name="lucide:loader-circle" class="animate-spin" aria-hidden="true" />{% endif -%}
     </span>
     <span data-state-view="done" class="contents" hidden>
-        {%- if outerBlocks.done is defined %}{{ block(outerBlocks.done) }}{% else %}<twig:ux:icon name="lucide:check" aria-hidden="true" />{% endif -%}
+        {%- if _done|trim is not empty %}{{ _done }}{% else %}<twig:ux:icon name="lucide:check" aria-hidden="true" />{% endif -%}
     </span>
     <span data-state-view="failed" class="contents" hidden>
-        {%- if outerBlocks.failed is defined %}{{ block(outerBlocks.failed) }}{% else %}<twig:ux:icon name="lucide:x" aria-hidden="true" />{% endif -%}
+        {%- if _failed|trim is not empty %}{{ _failed }}{% else %}<twig:ux:icon name="lucide:x" aria-hidden="true" />{% endif -%}
     </span>
     <span data-button-feedback-target="status" role="status" class="sr-only"></span>
 </twig:Button>

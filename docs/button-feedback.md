@@ -101,7 +101,7 @@ With `action="request"` the click sends a request. The button shows the `pending
 - The button is disabled and `aria-busy` while pending, so that a second click cannot start the action again.
 - A live region announces the result: `doneAnnouncement` or `failedAnnouncement`. Write them in the language of the page, and say what happened (« Link copied »), because the new content of the button is not read by itself.
 - An icon-only button needs an `aria-label`. It does not change with the state: the live region carries the news.
-- Copying uses the clipboard API, and falls back to a hidden field where it is missing. If both fail, the button shows `failed`.
+- Copying uses the clipboard API, and falls back to a hidden field where it is missing or refused. If both fail, the button shows `failed`.
 
 ## API
 

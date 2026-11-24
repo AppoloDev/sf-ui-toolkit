@@ -56,12 +56,13 @@ export default class extends Controller {
     }
 
     async #write(text) {
-        if (navigator.clipboard?.writeText) {
+        try {
             await navigator.clipboard.writeText(text);
 
             return;
+        } catch {
+            // Missing API, or refused (a frame without the permission): try the older way.
         }
-        // Older browsers and non-secure pages.
         const area = document.createElement('textarea');
         area.value = text;
         area.style.position = 'fixed';
