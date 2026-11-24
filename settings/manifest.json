@@ -1,0 +1,11 @@
+{
+    "type": "component",
+    "name": "Settings",
+    "description": "Settings page layout: optional side navigation, titled sections and rows with label, description, badge and one control.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}

@@ -1,0 +1,29 @@
+{#
+  Settings:Row: one setting, a label with its description on one side and the control on the other.
+
+  Props
+    label        what the setting is
+    description  what it does
+    badge        short tag next to the label (Pro, Beta, Required...)
+    for          id of the control: the label then becomes a real <label for>; without it the control is grouped and named by the label
+    danger       destructive setting: the label is shown in the destructive color
+
+  The slot is the control (switch, select, input, button...).
+#}
+{%- props label, description = null, badge = null, for = null, danger = false -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set uid = 'setting-' ~ random(1000000) -%}
+<div class="{{ ('flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 ' ~ extra_class)|trim }}" {{ attributes }}>
+    <div class="grid min-w-0 gap-0.5">
+        <div class="flex flex-wrap items-center gap-2">
+            {%- if for %}
+                <label for="{{ for }}" class="text-sm font-medium {{ danger ? 'text-destructive' : 'text-foreground' }}">{{ label }}</label>
+            {%- else %}
+                <span id="{{ uid }}" class="text-sm font-medium {{ danger ? 'text-destructive' : 'text-foreground' }}">{{ label }}</span>
+            {%- endif %}
+            {%- if badge %}<span class="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">{{ badge }}</span>{% endif %}
+        </div>
+        {%- if description %}<p class="text-sm text-muted-foreground">{{ description }}</p>{% endif %}
+    </div>
+    <div class="shrink-0" {% if not for %}role="group" aria-labelledby="{{ uid }}"{% endif %}>{% block content %}{% endblock %}</div>
+</div>

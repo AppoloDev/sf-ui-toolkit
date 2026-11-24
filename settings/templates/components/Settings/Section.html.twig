@@ -1,0 +1,29 @@
+{#
+  Settings:Section: a titled group of rows.
+
+  Props
+    title        heading of the section
+    description  text under the heading
+    framed       rows sit in a bordered panel separated by rules (false: plain list)
+    titleTag     h2 | h3 | h4 (default h2)
+
+  Blocks
+    actions  buttons next to the heading
+    (slot)   the Settings:Row elements
+#}
+{%- props title = null, description = null, framed = true, titleTag = 'h2' -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set tag = titleTag in ['h2', 'h3', 'h4'] ? titleTag : 'h2' -%}
+{%- set actions -%}{% block actions %}{% endblock %}{%- endset -%}
+<section class="{{ ('grid gap-4 ' ~ extra_class)|trim }}" {{ attributes }}>
+    {%- if title or description or actions|trim is not empty %}
+        <header class="flex flex-wrap items-start justify-between gap-3">
+            <div class="grid gap-1">
+                {%- if title %}<{{ tag }} class="text-base font-semibold text-foreground">{{ title }}</{{ tag }}>{% endif %}
+                {%- if description %}<p class="text-sm text-muted-foreground">{{ description }}</p>{% endif %}
+            </div>
+            {%- if actions|trim is not empty %}<div class="flex flex-wrap gap-2">{{ actions }}</div>{% endif %}
+        </header>
+    {%- endif %}
+    <div class="{{ framed ? 'divide-y divide-border rounded-xl border border-border bg-background' : 'grid gap-4' }}">{% block content %}{% endblock %}</div>
+</section>
