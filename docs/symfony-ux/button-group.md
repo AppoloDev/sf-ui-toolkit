@@ -284,62 +284,6 @@ Use a `Popover` as the second part of a button group.
 </twig:ButtonGroup>
 ```
 
-### Icon Actions
-
-```twig
-<twig:ButtonGroup>
-    {% for l, i in {'Flip horizontal': 'flip-horizontal', 'Flip vertical': 'flip-vertical', 'Rotate': 'rotate-cw'} %}
-        <twig:Button variant="outline" size="icon" aria-label="{{ l }}"><twig:ux:icon name="lucide:{{ i }}" /></twig:Button>
-    {% endfor %}
-</twig:ButtonGroup>
-```
-
-### Like Counter
-
-```twig
-<twig:ButtonGroup>
-    <twig:Button variant="outline"><twig:ux:icon name="lucide:heart" /> Like</twig:Button>
-    <twig:ButtonGroup:Text class="bg-background tabular-nums">1.2K</twig:ButtonGroup:Text>
-</twig:ButtonGroup>
-```
-
-### Basic Pagination
-
-```twig
-<twig:ButtonGroup>
-    <twig:Button variant="outline" size="sm"><twig:ux:icon name="lucide:arrow-left" /> Previous</twig:Button>
-    {% for n in 1..3 %}<twig:Button variant="outline" size="sm">{{ n }}</twig:Button>{% endfor %}
-    <twig:Button variant="outline" size="sm">Next <twig:ux:icon name="lucide:arrow-right" /></twig:Button>
-</twig:ButtonGroup>
-```
-
-### Numbered Pagination
-
-```twig
-<twig:ButtonGroup>
-    <twig:Button variant="outline" size="icon" aria-label="Previous"><twig:ux:icon name="lucide:chevron-left" /></twig:Button>
-    {% for n in 1..5 %}<twig:Button variant="{{ n == 3 ? 'default' : 'outline' }}" size="icon" aria-current="{{ n == 3 ? 'page' : 'false' }}">{{ n }}</twig:Button>{% endfor %}
-    <twig:Button variant="outline" size="icon" aria-label="Next"><twig:ux:icon name="lucide:chevron-right" /></twig:Button>
-</twig:ButtonGroup>
-```
-
-### Text Alignment
-
-```twig
-<twig:ButtonGroup aria-label="Text alignment">
-    {% for a in ['left', 'center', 'right', 'justify'] %}<twig:Button variant="outline" size="icon-sm" aria-label="Align {{ a }}"><twig:ux:icon name="lucide:align-{{ a }}" /></twig:Button>{% endfor %}
-</twig:ButtonGroup>
-```
-
-### Vertical Orientation
-
-```twig
-<twig:ButtonGroup orientation="vertical">
-    <twig:Button variant="outline" size="icon" aria-label="Add"><twig:ux:icon name="lucide:plus" /></twig:Button>
-    <twig:Button variant="outline" size="icon" aria-label="Subtract"><twig:ux:icon name="lucide:minus" /></twig:Button>
-</twig:ButtonGroup>
-```
-
 ### Vertical Tool Palette
 
 ```twig
@@ -349,16 +293,6 @@ Use a `Popover` as the second part of a button group.
     </twig:ButtonGroup>
     <twig:ButtonGroup orientation="vertical"><twig:Button variant="outline" size="icon" aria-label="Delete"><twig:ux:icon name="lucide:trash-2" /></twig:Button></twig:ButtonGroup>
 </div>
-```
-
-### Disabled Button
-
-```twig
-<twig:ButtonGroup>
-    <twig:Button variant="outline"><twig:ux:icon name="lucide:files" /> Files</twig:Button>
-    <twig:Button variant="outline" disabled><twig:ux:icon name="lucide:folder" /> Folder</twig:Button>
-    <twig:Button variant="outline"><twig:ux:icon name="lucide:trash-2" /> Trash</twig:Button>
-</twig:ButtonGroup>
 ```
 
 ### Separated Buttons
@@ -377,14 +311,6 @@ Use a `Popover` as the second part of a button group.
 </twig:ButtonGroup>
 ```
 
-### View Switcher
-
-```twig
-<twig:ButtonGroup>
-    {% for l, i in {List: 'list', Grid: 'layout-grid', Table: 'table'} %}<twig:Button variant="outline" size="icon" aria-label="{{ l }} view" aria-pressed="{{ l == 'List' ? 'true' : 'false' }}" class="{{ l == 'List' ? 'bg-muted' : '' }}"><twig:ux:icon name="lucide:{{ i }}" /></twig:Button>{% endfor %}
-</twig:ButtonGroup>
-```
-
 ### Follower Count
 
 ```twig
@@ -400,14 +326,6 @@ Use a `Popover` as the second part of a button group.
 <twig:ButtonGroup>
     <twig:Button><twig:ux:icon name="lucide:share-2" /> Share</twig:Button>
     <twig:ButtonGroup:Text class="border-0 bg-transparent px-2 shadow-none">128 shares</twig:ButtonGroup:Text>
-</twig:ButtonGroup>
-```
-
-### Media Controls
-
-```twig
-<twig:ButtonGroup>
-    {% for l, i in {'Skip back': 'skip-back', Play: 'play', 'Skip forward': 'skip-forward'} %}<twig:Button variant="outline" size="icon" aria-label="{{ l }}"><twig:ux:icon name="lucide:{{ i }}" /></twig:Button>{% endfor %}
 </twig:ButtonGroup>
 ```
 
@@ -443,20 +361,6 @@ Use a `Popover` as the second part of a button group.
 </div>
 ```
 
-### Split Button
-
-```twig
-<div style="min-height: 220px">
-<twig:ButtonGroup>
-    <twig:Button>Save</twig:Button><twig:ButtonGroup:Separator />
-    <twig:DropdownMenu id="bg-split" align="end">
-        <twig:DropdownMenu:Trigger><twig:Button size="icon" aria-label="More" {{ ...dropdown_menu_trigger_attrs }}><twig:ux:icon name="lucide:chevron-down" /></twig:Button></twig:DropdownMenu:Trigger>
-        <twig:DropdownMenu:Content><twig:DropdownMenu:Item>Publish</twig:DropdownMenu:Item><twig:DropdownMenu:Item>Keep as draft</twig:DropdownMenu:Item><twig:DropdownMenu:Item>Exit</twig:DropdownMenu:Item></twig:DropdownMenu:Content>
-    </twig:DropdownMenu>
-</twig:ButtonGroup>
-</div>
-```
-
 ### Review Actions
 
 ```twig
@@ -469,22 +373,6 @@ Use a `Popover` as the second part of a button group.
     </twig:DropdownMenu>
 </twig:ButtonGroup>
 </div>
-```
-
-### Search With Button
-
-```twig
-<twig:ButtonGroup class="w-80"><twig:Input placeholder="Search records" /><twig:Button><twig:ux:icon name="lucide:search" /> Search</twig:Button></twig:ButtonGroup>
-```
-
-### Search Filter Clear
-
-```twig
-<twig:ButtonGroup class="w-96">
-    <twig:Button variant="outline"><twig:ux:icon name="lucide:filter" /> Filter</twig:Button>
-    <twig:Input placeholder="Search" />
-    <twig:Button variant="outline" size="icon" aria-label="Clear"><twig:ux:icon name="lucide:x" /></twig:Button>
-</twig:ButtonGroup>
 ```
 
 ### File Attachment
