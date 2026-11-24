@@ -1,0 +1,13 @@
+{
+    "type": "component",
+    "name": "ActivityFeed",
+    "description": "Activity feed grouped by day: actor avatar or icon, action text, time, description, attachments and a slot for a load-more button.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-icons"
+        ]
+    }
+}
