@@ -91,6 +91,8 @@ final class BuildDocsCommand extends Command
                 $examples = array_column($keyed, 2);
             }
             $pages[$slug]['examples'] = $examples;
+            // The component is documented under Components, with every example of the official kit: its Symfony UX page would repeat it.
+            unset($pages['ux-'.$slug]);
         }
 
         $this->buildControllers($root, $outDir);
