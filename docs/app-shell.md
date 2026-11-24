@@ -10,7 +10,7 @@ A rail item and a panel group are tied by the same `group` name; the one marked 
 
 <!-- height: 520 -->
 ```twig
-<twig:AppShell storageKey="docs:app-shell">
+<twig:AppShell height="480px" storageKey="docs:app-shell">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
             <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
@@ -50,13 +50,15 @@ A rail item and a panel group are tied by the same `group` name; the one marked 
 
 ## Examples
 
+The examples set `height="480px"` because they live in a preview frame that grows with its content: with the default `100vh` the layout would follow the frame and grow without end. In an application keep the default.
+
 ### Panel only
 
 Without a rail it is a classic collapsible sidebar. `header` and `footer` blocks of `AppShell:Panel` hold a brand or an account area; a group without a `group` name is always visible.
 
 <!-- height: 520 -->
 ```twig
-<twig:AppShell storageKey="docs:app-shell-panel">
+<twig:AppShell height="480px" storageKey="docs:app-shell-panel">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Panel>
             <twig:block name="header"><span class="text-base font-semibold">Acme Inc.</span></twig:block>
@@ -89,7 +91,7 @@ Items with an `href` are links (`aria-current` on the active one) and need no pa
 
 <!-- height: 520 -->
 ```twig
-<twig:AppShell>
+<twig:AppShell height="480px">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
             <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
@@ -115,7 +117,7 @@ Items with an `href` are links (`aria-current` on the active one) and need no pa
 
 <!-- height: 520 -->
 ```twig
-<twig:AppShell collapsed :storageKey="false">
+<twig:AppShell height="480px" collapsed :storageKey="false">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
             <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
@@ -159,7 +161,7 @@ The header is a part like the others. Without it the toggle and the menu button 
 
 <!-- height: 520 -->
 ```twig
-<twig:AppShell :storageKey="false" :shortcut="false">
+<twig:AppShell height="480px" :storageKey="false" :shortcut="false">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
             <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
@@ -197,7 +199,7 @@ The header is a part like the others. Without it the toggle and the menu button 
 
 <!-- height: 520 -->
 ```twig
-<twig:AppShell :storageKey="false">
+<twig:AppShell height="480px" :storageKey="false">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
             <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
@@ -242,7 +244,7 @@ The `footer` block of `AppShell:Content` sits under the page, outside its paddin
 
 <!-- height: 520 -->
 ```twig
-<twig:AppShell :storageKey="false">
+<twig:AppShell height="480px" :storageKey="false">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
             <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
@@ -301,13 +303,14 @@ document.querySelector('[data-controller~="app-shell"]').addEventListener('app-s
 
 ## API
 
-### `<twig:AppShell>`
+### `<twig:AppShell height="480px">`
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `collapsed` | `bool` | `false` | Starts with the panel collapsed; a remembered choice wins. |
 | `storageKey` | `string, false` | `app-shell:collapsed` | `localStorage` key remembering the choice; `false` to not remember it. |
 | `shortcut` | `string, false` | `b` | Letter used with Ctrl or Cmd to toggle the panel; `false` for none. |
+| `height` | `string` | `100vh` | Height of the layout and of the sticky sidebar, any CSS length. |
 
 | Block | Description |
 | --- | --- |

@@ -5,7 +5,7 @@
 #}
 <div data-app-shell-target="overlay" aria-hidden="true" data-action="click->app-shell#close" class="fixed inset-0 z-40 hidden bg-black/50 group-data-[open=true]/shell:block md:hidden!"></div>
 <aside data-app-shell-target="sidebar" {{ attributes.defaults({
-    class: 'fixed inset-y-0 start-0 z-50 flex -translate-x-full transition-transform duration-300 group-data-[open=true]/shell:translate-x-0 md:sticky md:top-0 md:z-auto md:h-screen md:translate-x-0',
+    class: 'fixed inset-y-0 start-0 z-50 flex -translate-x-full transition-transform duration-300 group-data-[open=true]/shell:translate-x-0 md:sticky md:top-0 md:z-auto md:h-(--app-shell-height) md:translate-x-0',
 }) }}>
     {% block content %}{% endblock %}
 </aside>

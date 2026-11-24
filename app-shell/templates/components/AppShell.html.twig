@@ -13,19 +13,22 @@
   Props
     collapsed   true: the panel starts collapsed (a saved choice wins)
     storageKey  localStorage key remembering the choice; false to not remember it
+    height      height of the layout and of the sticky sidebar, any CSS length (100vh by default); set a fixed
+                value when the layout is embedded in a box that grows with its content, such as a preview
     shortcut    letter used with Ctrl or Cmd to toggle the panel (b by default); false for none
 
   Events (on the root)
     app-shell:toggle ({ collapsed }), app-shell:select ({ group })
 #}
-{%- props collapsed = false, storageKey = 'app-shell:collapsed', shortcut = 'b' -%}
+{%- props collapsed = false, storageKey = 'app-shell:collapsed', shortcut = 'b', height = '100vh' -%}
 <div {{ attributes.defaults({
-    class: 'group/shell flex min-h-screen w-full bg-background text-foreground',
+    class: 'group/shell flex min-h-(--app-shell-height) w-full bg-background text-foreground',
     'data-controller': 'app-shell',
     'data-app-shell-storage-key-value': storageKey ?: false,
     'data-app-shell-shortcut-value': shortcut ?: false,
     'data-collapsed': collapsed ? 'true' : 'false',
     'data-open': 'false',
+    style: '--app-shell-height: ' ~ height,
 }) }}>
     {%- if storageKey %}
     <script>
