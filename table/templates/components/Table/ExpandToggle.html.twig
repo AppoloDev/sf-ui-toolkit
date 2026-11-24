@@ -1,0 +1,41 @@
+{#
+ # The button that opens or closes the detail row of a table row, to put in a `Table:Cell` of that row.
+ #
+ # Props: controls (id of the `Table:RowExpansion` it opens), open, all (expands or collapses every row of the
+ # controller instead), expandLabel, collapseLabel.
+ # Slots: default (replaces the chevron).
+ #}
+{%- props
+    ## string|null The id of the Table:RowExpansion this button opens. Not needed with `all`.
+    controls = null,
+    ## boolean Whether the row is open at first. Set it on the Table:RowExpansion too.
+    open = false,
+    ## boolean Makes the button open or close every row of the table.
+    all = false,
+    ## string|null The accessible name when the row is closed. Defaults to "Expand row", or "Expand all rows" with `all`.
+    expandLabel = null,
+    ## string|null The accessible name when the row is open. Defaults to "Collapse row", or "Collapse all rows" with `all`.
+    collapseLabel = null
+-%}
+{%- set _expand = expandLabel ?? (all ? 'Expand all rows' : 'Expand row') -%}
+{%- set _collapse = collapseLabel ?? (all ? 'Collapse all rows' : 'Collapse row') -%}
+{%- set _data = {
+    type: 'button',
+    'aria-expanded': open ? 'true' : 'false',
+    'aria-label': open ? _collapse : _expand,
+    'data-expand-label': _expand,
+    'data-collapse-label': _collapse,
+    'data-action': 'row-expansion#' ~ (all ? 'toggleAll' : 'toggle'),
+} -%}
+{%- if all %}{% set _data = _data|merge({'data-row-expansion-all': ''}) %}{% endif -%}
+{%- if controls %}{% set _data = _data|merge({'aria-controls': controls}) %}{% endif -%}
+<button
+    data-slot="table-expand-toggle"
+    {{ attributes.defaults({
+        class: 'group/toggle inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-muted-foreground outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50'|tailwind_classes,
+    }).defaults(_data) }}
+>
+    {%- block content -%}
+        <twig:ux:icon name="lucide:chevron-right" class="size-4 transition-transform group-aria-expanded/toggle:rotate-90" aria-hidden="true" />
+    {%- endblock -%}
+</button>

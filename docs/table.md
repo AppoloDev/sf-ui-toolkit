@@ -1,6 +1,461 @@
 # Table
 
+> Rows that expand to show a detail panel under them, and the examples of the Table component of the shadcn kit that its own documentation does not have.
+
+## Installation
+
+- table
+
+## Usage
+
+Put `row-expansion` on the table or on an element around it (around a toolbar too, to use `expandAll` and `collapseAll`). In each row, a `Table:ExpandToggle` points to the `Table:RowExpansion` placed right under it, through the same id. The detail row spans every column of the table. `expandAll` and `collapseAll` open and close every row; with `data-row-expansion-single-value="true"` only one row stays open. A `row-expansion:expand` or `row-expansion:collapse` event, with the `toggle` and the `row` in `event.detail`, is sent each time a row opens or closes.
+
+```twig
+<twig:Table data-controller="row-expansion">
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="w-10">
+                <twig:Table:ExpandToggle controls="order-1" expandLabel="Show order 1" collapseLabel="Hide order 1" />
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Order 1
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="order-1">
+            Two items, shipped on 12 March.
+        </twig:Table:RowExpansion>
+    </twig:Table:Body>
+</twig:Table>
+```
+
 ## Examples
+
+### Row Expansion
+
+A toggle in the first column opens the detail of each order.
+
+```twig
+<twig:Table data-controller="row-expansion">
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head class="w-10">
+                <span class="sr-only">Details</span>
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Order
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Customer
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                Amount
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Table:ExpandToggle controls="row-a1" expandLabel="Show order 1001" collapseLabel="Hide order 1001" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                #1001
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Amy Brooks
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $250.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-a1">
+            <div class="grid gap-1 text-sm">
+                <p class="font-medium">
+                    Shipping address
+                </p>
+                <p class="text-muted-foreground">
+                    12 Harbor Street, Portland, OR 97201
+                </p>
+                <p class="text-muted-foreground">
+                    2 items, paid by credit card.
+                </p>
+            </div>
+        </twig:Table:RowExpansion>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Table:ExpandToggle controls="row-a2" expandLabel="Show order 1002" collapseLabel="Hide order 1002" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                #1002
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Noah Carter
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $150.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-a2">
+            <div class="grid gap-1 text-sm">
+                <p class="font-medium">
+                    Shipping address
+                </p>
+                <p class="text-muted-foreground">
+                    48 Elm Avenue, Austin, TX 78701
+                </p>
+                <p class="text-muted-foreground">
+                    1 item, paid by PayPal.
+                </p>
+            </div>
+        </twig:Table:RowExpansion>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Table:ExpandToggle controls="row-a3" expandLabel="Show order 1003" collapseLabel="Hide order 1003" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                #1003
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Lina Moreau
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $350.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-a3">
+            <div class="grid gap-1 text-sm">
+                <p class="font-medium">
+                    Shipping address
+                </p>
+                <p class="text-muted-foreground">
+                    7 Rue des Lilas, 69003 Lyon
+                </p>
+                <p class="text-muted-foreground">
+                    4 items, bank transfer.
+                </p>
+            </div>
+        </twig:Table:RowExpansion>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Expand All and Collapse All
+
+Buttons in a toolbar call `expandAll` and `collapseAll`, and the toggle of the header (`all`) does both: it is open when every row is.
+
+```twig
+<div data-controller="row-expansion" class="grid gap-3">
+    <div class="flex gap-2">
+        <twig:Button variant="outline" size="sm" type="button" data-action="row-expansion#expandAll">
+            Expand all
+        </twig:Button>
+        <twig:Button variant="outline" size="sm" type="button" data-action="row-expansion#collapseAll">
+            Collapse all
+        </twig:Button>
+    </div>
+    <twig:Table>
+        <twig:Table:Header>
+            <twig:Table:Row>
+                <twig:Table:Head class="w-10">
+                    <twig:Table:ExpandToggle all />
+                </twig:Table:Head>
+                <twig:Table:Head>
+                    Project
+                </twig:Table:Head>
+                <twig:Table:Head>
+                    Owner
+                </twig:Table:Head>
+            </twig:Table:Row>
+        </twig:Table:Header>
+        <twig:Table:Body>
+            <twig:Table:Row>
+                <twig:Table:Cell>
+                    <twig:Table:ExpandToggle controls="row-b1" expandLabel="Show Atlas" collapseLabel="Hide Atlas" />
+                </twig:Table:Cell>
+                <twig:Table:Cell class="font-medium">
+                    Atlas
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Amy Brooks
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:RowExpansion id="row-b1">
+                <p class="text-sm text-muted-foreground">
+                    A new search for the documentation. Beta planned for April.
+                </p>
+            </twig:Table:RowExpansion>
+            <twig:Table:Row>
+                <twig:Table:Cell>
+                    <twig:Table:ExpandToggle controls="row-b2" expandLabel="Show Beacon" collapseLabel="Hide Beacon" />
+                </twig:Table:Cell>
+                <twig:Table:Cell class="font-medium">
+                    Beacon
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Noah Carter
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:RowExpansion id="row-b2">
+                <p class="text-sm text-muted-foreground">
+                    Notifications for the mobile app. In review.
+                </p>
+            </twig:Table:RowExpansion>
+            <twig:Table:Row>
+                <twig:Table:Cell>
+                    <twig:Table:ExpandToggle controls="row-b3" expandLabel="Show Compass" collapseLabel="Hide Compass" />
+                </twig:Table:Cell>
+                <twig:Table:Cell class="font-medium">
+                    Compass
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Lina Moreau
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:RowExpansion id="row-b3">
+                <p class="text-sm text-muted-foreground">
+                    Onboarding for new teams. Shipped.
+                </p>
+            </twig:Table:RowExpansion>
+        </twig:Table:Body>
+    </twig:Table>
+</div>
+```
+
+### One at a Time
+
+With `data-row-expansion-single-value`, opening a row closes the one that was open.
+
+```twig
+<twig:Table data-controller="row-expansion" data-row-expansion-single-value="true">
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="w-10">
+                <twig:Table:ExpandToggle controls="row-c1" expandLabel="Show Starter plan" collapseLabel="Hide Starter plan" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                Starter
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $9 / month
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-c1">
+            <p class="text-sm text-muted-foreground">
+                One project, 2 GB of storage and community support.
+            </p>
+        </twig:Table:RowExpansion>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Table:ExpandToggle controls="row-c2" expandLabel="Show Team plan" collapseLabel="Hide Team plan" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                Team
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $29 / month
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-c2">
+            <p class="text-sm text-muted-foreground">
+                Unlimited projects, 50 GB of storage and email support.
+            </p>
+        </twig:Table:RowExpansion>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Table:ExpandToggle controls="row-c3" expandLabel="Show Business plan" collapseLabel="Hide Business plan" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                Business
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $99 / month
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-c3">
+            <p class="text-sm text-muted-foreground">
+                Single sign-on, audit log and a dedicated contact.
+            </p>
+        </twig:Table:RowExpansion>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Open by Default
+
+Set `open` on the toggle and on its detail row.
+
+```twig
+<twig:Table data-controller="row-expansion">
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="w-10">
+                <twig:Table:ExpandToggle controls="row-d1" open expandLabel="Show invoice INV001" collapseLabel="Hide invoice INV001" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                INV001
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Paid
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-d1" open>
+            <p class="text-sm text-muted-foreground">
+                Paid on 3 March by credit card. Receipt sent to the customer.
+            </p>
+        </twig:Table:RowExpansion>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Table:ExpandToggle controls="row-d2" expandLabel="Show invoice INV002" collapseLabel="Hide invoice INV002" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                INV002
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Pending
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-d2">
+            <p class="text-sm text-muted-foreground">
+                Waiting for the payment, due on 20 March.
+            </p>
+        </twig:Table:RowExpansion>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Nested Table
+
+The detail can hold another table, here the orders of a product with a status badge.
+
+```twig
+<twig:Table data-controller="row-expansion">
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head class="w-10">
+                <span class="sr-only">Orders</span>
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Product
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Category
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                Price
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Table:ExpandToggle controls="row-e1" expandLabel="Show the orders of Bamboo Watch" collapseLabel="Hide the orders of Bamboo Watch" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                Bamboo Watch
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Accessories
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $65.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-e1">
+            <div class="grid gap-2">
+                <p class="text-sm font-medium">
+                    Orders for Bamboo Watch
+                </p>
+                <div class="rounded-md border bg-background">
+                    <twig:Table>
+                        <twig:Table:Header>
+                            <twig:Table:Row>
+                                <twig:Table:Head>
+                                    Id
+                                </twig:Table:Head>
+                                <twig:Table:Head>
+                                    Customer
+                                </twig:Table:Head>
+                                <twig:Table:Head>
+                                    Date
+                                </twig:Table:Head>
+                                <twig:Table:Head>
+                                    Status
+                                </twig:Table:Head>
+                                <twig:Table:Head class="text-right">
+                                    Amount
+                                </twig:Table:Head>
+                            </twig:Table:Row>
+                        </twig:Table:Header>
+                        <twig:Table:Body>
+                            <twig:Table:Row>
+                                <twig:Table:Cell>
+                                    1000-0
+                                </twig:Table:Cell>
+                                <twig:Table:Cell>
+                                    James Butt
+                                </twig:Table:Cell>
+                                <twig:Table:Cell>
+                                    2020-09-13
+                                </twig:Table:Cell>
+                                <twig:Table:Cell>
+                                    <twig:Badge variant="success">
+                                        Delivered
+                                    </twig:Badge>
+                                </twig:Table:Cell>
+                                <twig:Table:Cell class="text-right">
+                                    $65.00
+                                </twig:Table:Cell>
+                            </twig:Table:Row>
+                            <twig:Table:Row>
+                                <twig:Table:Cell>
+                                    1000-1
+                                </twig:Table:Cell>
+                                <twig:Table:Cell>
+                                    Josephine Darakjy
+                                </twig:Table:Cell>
+                                <twig:Table:Cell>
+                                    2020-05-14
+                                </twig:Table:Cell>
+                                <twig:Table:Cell>
+                                    <twig:Badge variant="warning">
+                                        Pending
+                                    </twig:Badge>
+                                </twig:Table:Cell>
+                                <twig:Table:Cell class="text-right">
+                                    $130.00
+                                </twig:Table:Cell>
+                            </twig:Table:Row>
+                        </twig:Table:Body>
+                    </twig:Table>
+                </div>
+            </div>
+        </twig:Table:RowExpansion>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Table:ExpandToggle controls="row-e2" expandLabel="Show the orders of Black Watch" collapseLabel="Hide the orders of Black Watch" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                Black Watch
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Accessories
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $72.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-e2">
+            <div class="grid gap-2">
+                <p class="text-sm font-medium">
+                    Orders for Black Watch
+                </p>
+                <p class="text-sm text-muted-foreground">
+                    No order yet.
+                </p>
+            </div>
+        </twig:Table:RowExpansion>
+    </twig:Table:Body>
+</twig:Table>
+```
 
 ### Actions
 
@@ -1232,3 +1687,38 @@ A table with a `DropdownMenu` of actions on each row.
     </twig:Card:Content>
 </twig:Card>
 ```
+
+## Accessibility
+
+- The toggle is a native button: Tab reaches it, Space and Enter use it. It has `aria-expanded`, kept up to date, and `aria-controls` pointing to the detail row.
+- Its accessible name comes from `expandLabel` and `collapseLabel` and changes with the state. Name the row in them ("Show order 1001"), since the chevron alone does not say which row it opens.
+- A closed detail row is `hidden`: it is neither shown nor read.
+- The toggle of the header (`all`) is open when every row is, and has its own labels.
+
+## API
+
+### `<twig:Table:ExpandToggle>`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `controls` | string or null | `null` | The id of the `Table:RowExpansion` this button opens. Not needed with `all`. |
+| `open` | bool | `false` | Whether the row is open at first. Set it on the `Table:RowExpansion` too. |
+| `all` | bool | `false` | Makes the button open or close every row of the controller. |
+| `expandLabel` | string or null | `null` | The accessible name when the row is closed. Defaults to "Expand row", or "Expand all rows" with `all`. |
+| `collapseLabel` | string or null | `null` | The accessible name when the row is open. Defaults to "Collapse row", or "Collapse all rows" with `all`. |
+
+| Block | Description |
+| --- | --- |
+| `default` | Replaces the chevron, which turns when the row is open. |
+
+### `<twig:Table:RowExpansion>`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `id` | string | | The id of the row, the one of `controls` on the toggle. |
+| `open` | bool | `false` | Whether the detail is shown at first. Set it on the `Table:ExpandToggle` too. |
+| `colspan` | int or null | `null` | The number of columns the detail spans. By default, the number of columns of the table, counted in the browser. |
+
+| Block | Description |
+| --- | --- |
+| `default` | The detail of the row: text, a nested table, a form. |

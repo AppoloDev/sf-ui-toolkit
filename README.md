@@ -70,6 +70,7 @@ The props of each component are listed in its documentation.
 | `spinner` | The shadcn Spinner with an icon prop to swap the spinning icon. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/spinner.html) |
 | `step-tour` | Content in steps, shown one at a time with a counter, dots and previous and next buttons: a guided tour, release notes, a short onboarding. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/step-tour.html) |
 | `stepper` | Multi-step navigation with indicators, states, vertical layout, panels and cancelable step changes (per-step validation). | [Documentation](https://appolodev.github.io/sf-ui-toolkit/stepper.html) |
+| `table` | Rows that expand to show a detail panel under them, for the Table component of the shadcn kit. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/table.html) |
 | `time-picker` | Typed time field with a popover of scrollable columns (hours, minutes, seconds, AM/PM), steps, min/max and 12/24h display. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/time-picker.html) |
 | `timeline` | Chronological list of events (activity feed, milestones, roadmap), vertical or horizontal, with completed and active states. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/timeline.html) |
 | `tree` | Expandable hierarchy with WAI-ARIA tree keyboard navigation (arrows, Home/End, typeahead), selection and optional guide lines. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/tree.html) |

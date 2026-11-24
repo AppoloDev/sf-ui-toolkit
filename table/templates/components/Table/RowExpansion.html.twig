@@ -1,0 +1,33 @@
+{#
+ # The row shown under a table row while it is open, with one cell as wide as the table.
+ #
+ # Props: id (the one of `controls` on the toggle), open, colspan.
+ # Slots: default (the detail).
+ #}
+{%- props
+    ## string The id of the row, referenced by `controls` on the Table:ExpandToggle.
+    id,
+    ## boolean Whether the detail is shown at first. Set it on the Table:ExpandToggle too.
+    open = false,
+    ## int|null The number of columns the detail spans. Defaults to the number of columns of the table, counted in the browser.
+    colspan = null
+-%}
+<tr
+    id="{{ id }}"
+    data-slot="table-row-expansion"
+    data-state="{{ open ? 'open' : 'closed' }}"
+    {{ open ? '' : 'hidden' }}
+    {{ attributes.defaults({
+        class: 'border-b bg-muted/30'|tailwind_classes,
+    }) }}
+>
+    <td
+        data-slot="table-row-expansion-cell"
+        colspan="{{ colspan ?? 1 }}"
+        {% if colspan is null %}data-auto-colspan{% endif %}
+        class="p-4 align-top whitespace-normal"
+    >
+        {##- The detail of the row: text, a nested table, a form... -#}
+        {%- block content %}{% endblock -%}
+    </td>
+</tr>
