@@ -203,7 +203,7 @@ A second drawer opened from inside the first one.
             <twig:Drawer:Footer>
                 <twig:Drawer id="drawer-inner">
                     <twig:Drawer:Trigger>
-                        <twig:Button {{ ...drawer_trigger_attrs }}>
+                        <twig:Button class="w-full" {{ ...drawer_trigger_attrs }}>
                             Delete account
                         </twig:Button>
                     </twig:Drawer:Trigger>
