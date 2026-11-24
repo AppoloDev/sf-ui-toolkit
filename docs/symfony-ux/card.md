@@ -332,3 +332,66 @@
     </twig:Card:Content>
 </twig:Card>
 ```
+
+### Stacked Depth
+
+The `Card` clips its content, so the two layers behind it are siblings of the card in a `relative isolate` wrapper, not part of it.
+
+```twig
+<div class="relative isolate mx-auto mb-6 max-w-sm">
+    <div class="absolute inset-x-6 -bottom-4 -z-20 h-full rounded-xl bg-card ring-1 ring-foreground/10">
+    </div>
+    <div class="absolute inset-x-3 -bottom-2 -z-10 h-full rounded-xl bg-card ring-1 ring-foreground/10">
+    </div>
+    <twig:Card>
+        <twig:Card:Header>
+            <twig:Card:Title>
+                Stacked card
+            </twig:Card:Title>
+            <twig:Card:Description>
+                Two layers sit behind this card to give it depth.
+            </twig:Card:Description>
+        </twig:Card:Header>
+        <twig:Card:Content>
+            <p class="text-sm">
+                Use it for a card that stands for several items, such as a pile of drafts.
+            </p>
+        </twig:Card:Content>
+        <twig:Card:Footer>
+            <twig:Button variant="outline" class="w-full">
+                Action
+            </twig:Button>
+        </twig:Card:Footer>
+    </twig:Card>
+</div>
+```
+
+### Deployment Status
+
+```twig
+<twig:Card class="mx-auto max-w-sm text-center">
+    <twig:Card:Content class="flex flex-col items-center gap-3 py-4">
+        <div class="flex size-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 ring-8 ring-emerald-500/5 dark:text-emerald-400">
+            <twig:ux:icon name="lucide:circle-check" class="size-7" />
+        </div>
+        <div class="grid gap-1">
+            <p class="text-base font-medium">
+                Deployment successful
+            </p>
+            <p class="text-muted-foreground">
+                Your app is now live.
+            </p>
+        </div>
+        <div class="flex items-center gap-2 rounded-lg bg-muted px-2.5 py-1.5 font-mono text-xs">
+            <twig:ux:icon name="lucide:globe" class="size-3.5 text-muted-foreground" />
+            app.example.com
+        </div>
+    </twig:Card:Content>
+    <twig:Card:Footer>
+        <twig:Button as="a" href="#" variant="outline" class="w-full">
+            Visit site
+            <twig:ux:icon name="lucide:arrow-up-right" />
+        </twig:Button>
+    </twig:Card:Footer>
+</twig:Card>
+```
