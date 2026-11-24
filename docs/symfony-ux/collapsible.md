@@ -38,9 +38,9 @@
 ```twig
 <twig:Collapsible class="w-full max-w-xs rounded-lg border p-3">
     <twig:Collapsible:Trigger>
-        <button type="button" class="flex w-full items-center gap-2 text-start text-sm" {{ ...collapsible_trigger_attrs }}>
+        <twig:Button variant="ghost" class="h-auto w-full justify-start gap-2 p-0 text-sm hover:bg-transparent" {{ ...collapsible_trigger_attrs }}>
             <twig:Avatar size="sm"><twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" /><twig:Avatar:Fallback>CN</twig:Avatar:Fallback></twig:Avatar> @shadcn
-        </button>
+        </twig:Button>
     </twig:Collapsible:Trigger>
     <twig:Collapsible:Content class="mt-3 grid gap-1 text-xs text-muted-foreground"><p>Last activity: 2 hours ago</p><p>Online since 09:12</p><p>Location: 🇫🇷 France</p></twig:Collapsible:Content>
 </twig:Collapsible>
