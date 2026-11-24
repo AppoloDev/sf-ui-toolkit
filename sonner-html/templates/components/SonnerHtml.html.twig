@@ -1,0 +1,10 @@
+{#
+ # A `Sonner` that also accepts toasts written as markup.
+ #
+ # It takes no prop of its own: every attribute, `position`, `richColors` or `class` included, goes to the
+ # `Sonner` it wraps. Put `<template>` elements in the slot, one per toast, and fire them from any element
+ # with `data-action="click->sonner-html#show"` and `data-sonner-html-template-param="#id"`.
+ #}
+<twig:Sonner {{ ...attributes }} data-controller="sonner sonner-html">
+    {%- block content %}{% endblock -%}
+</twig:Sonner>

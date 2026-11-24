@@ -89,56 +89,6 @@ The `class` of `Sonner` lands on the list of toasts, so an arbitrary variant res
 </twig:Sonner>
 ```
 
-### Updatable
-
-A toast that reuses an `id` replaces the previous one. Dispatch the `sonner` event on `window` with the same `id` to turn a loading toast into its result.
-
-```twig
-<twig:Sonner>
-    <twig:Button id="updatable-save" variant="outline">
-        Save changes
-    </twig:Button>
-</twig:Sonner>
-<script>
-    const notify = (detail) => window.dispatchEvent(new CustomEvent('sonner', { detail }));
-
-    document.getElementById('updatable-save').addEventListener('click', () => {
-        notify({ id: 'save', type: 'loading', title: 'Saving changes…' });
-        setTimeout(() => notify({ id: 'save', type: 'success', title: 'Changes saved', description: 'Everything is up to date.' }), 2000);
-    });
-</script>
-```
-
-### Promise
-
-The same mechanism follows a promise: a loading toast while it is pending, then a success or an error toast with the same `id`.
-
-```twig
-<twig:Sonner>
-    <div class="flex flex-wrap gap-2">
-        <twig:Button id="promise-ok" variant="outline">
-            Resolve
-        </twig:Button>
-        <twig:Button id="promise-ko" variant="outline">
-            Reject
-        </twig:Button>
-    </div>
-</twig:Sonner>
-<script>
-    const notify = (detail) => window.dispatchEvent(new CustomEvent('sonner', { detail }));
-
-    const run = (succeed) => {
-        notify({ id: 'job', type: 'loading', title: 'Sending the report…' });
-        new Promise((resolve, reject) => setTimeout(succeed ? resolve : reject, 2000))
-            .then(() => notify({ id: 'job', type: 'success', title: 'Report sent' }))
-            .catch(() => notify({ id: 'job', type: 'error', title: 'Sending failed', description: 'The server did not answer.' }));
-    };
-
-    document.getElementById('promise-ok').addEventListener('click', () => run(true));
-    document.getElementById('promise-ko').addEventListener('click', () => run(false));
-</script>
-```
-
 ### Upload Progress
 
 The description is rewritten on each tick, with the same `id`, until the upload ends.

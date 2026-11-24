@@ -58,6 +58,7 @@ The props of each component are listed in its documentation.
 | `rich-text-editor` | Rich text field built on TipTap with a configurable toolbar, links and an HTML value for the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/rich-text-editor.html) |
 | `scrollspy` | Table-of-contents navigation that highlights the section currently in view. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/scrollspy.html) |
 | `signature-pad` | Handwritten signature captured with a mouse, a finger or a stylus, exported as PNG, JPEG, SVG or JSON. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/signature-pad.html) |
+| `sonner-html` | A Sonner whose toasts can hold any markup, and that can follow a request from a loading toast to its result. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/sonner-html.html) |
 | `sortable` | Reorderable list or grid: drag and drop on a handle, full keyboard reordering, and the order submitted with the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/sortable.html) |
 | `spinner` | The shadcn Spinner with an icon prop to swap the spinning icon. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/spinner.html) |
 | `stepper` | Multi-step navigation with indicators, states, vertical layout, panels and cancelable step changes (per-step validation). | [Documentation](https://appolodev.github.io/sf-ui-toolkit/stepper.html) |

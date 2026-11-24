@@ -1,0 +1,14 @@
+{
+    "type": "component",
+    "name": "SonnerHtml",
+    "description": "A Sonner whose toasts can hold any markup, taken from a template, and that can follow a request from a loading toast to its result.",
+    "copy-files": {
+        "assets/controllers/": "%CONTROLLERS_DIR%/",
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-twig-component:^3.5"
+        ]
+    }
+}
