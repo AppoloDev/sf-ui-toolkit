@@ -12,8 +12,12 @@ Each question is a `Faq:Item`; its slot is the answer, so it can hold any markup
 
 ```twig
 <twig:Faq title="Frequently asked questions">
-    <twig:Faq:Item question="Can I cancel at any time?">Yes, from your account settings.</twig:Faq:Item>
-    <twig:Faq:Item question="Do you offer refunds?">Within 30 days of the purchase.</twig:Faq:Item>
+    <twig:Faq:Item question="Can I cancel at any time?">
+        Yes, from your account settings.
+    </twig:Faq:Item>
+    <twig:Faq:Item question="Do you offer refunds?">
+        Within 30 days of the purchase.
+    </twig:Faq:Item>
 </twig:Faq>
 ```
 
@@ -25,10 +29,18 @@ Several answers can be open at once. `open` on an item opens it from the start.
 
 ```twig
 <twig:Faq title="Frequently asked questions" description="Everything you need to know before you start.">
-    <twig:Faq:Item question="Can I cancel at any time?" open>Yes. You can cancel from your account settings and keep access until the end of the billing period.</twig:Faq:Item>
-    <twig:Faq:Item question="Do you offer refunds?">We refund any purchase within 30 days, no questions asked.</twig:Faq:Item>
-    <twig:Faq:Item question="Can I change my plan later?">You can upgrade or downgrade whenever you want; the difference is prorated.</twig:Faq:Item>
-    <twig:Faq:Item question="Is my data safe?">Data is encrypted in transit and at rest, and backed up every night.</twig:Faq:Item>
+    <twig:Faq:Item question="Can I cancel at any time?" open>
+        Yes. You can cancel from your account settings and keep access until the end of the billing period.
+    </twig:Faq:Item>
+    <twig:Faq:Item question="Do you offer refunds?">
+        We refund any purchase within 30 days, no questions asked.
+    </twig:Faq:Item>
+    <twig:Faq:Item question="Can I change my plan later?">
+        You can upgrade or downgrade whenever you want; the difference is prorated.
+    </twig:Faq:Item>
+    <twig:Faq:Item question="Is my data safe?">
+        Data is encrypted in transit and at rest, and backed up every night.
+    </twig:Faq:Item>
 </twig:Faq>
 ```
 
@@ -38,9 +50,19 @@ Several answers can be open at once. `open` on an item opens it from the start.
 
 ```twig
 <twig:Faq :multiple="false" title="Billing">
-    <twig:Faq:Item question="When am I charged?">On the same day each month, starting with your first purchase.</twig:Faq:Item>
-    <twig:Faq:Item question="Which payment methods do you accept?">Credit cards and SEPA direct debit.</twig:Faq:Item>
-    <twig:Faq:Item question="Where can I find my invoices?">In <strong>Settings</strong>, under Billing.</twig:Faq:Item>
+    <twig:Faq:Item question="When am I charged?">
+        On the same day each month, starting with your first purchase.
+    </twig:Faq:Item>
+    <twig:Faq:Item question="Which payment methods do you accept?">
+        Credit cards and SEPA direct debit.
+    </twig:Faq:Item>
+    <twig:Faq:Item question="Where can I find my invoices?">
+        In
+        <strong>
+            Settings
+        </strong>,
+        under Billing.
+    </twig:Faq:Item>
 </twig:Faq>
 ```
 
@@ -50,11 +72,19 @@ The intro sits on the left and stays in view while the list scrolls; the `footer
 
 ```twig
 <twig:Faq layout="split" title="Questions? Answers." description="Can't find what you are looking for?">
-    <twig:Faq:Item question="How do I get started?">Create an account and follow the three-step checklist.</twig:Faq:Item>
-    <twig:Faq:Item question="Can I invite my team?">Yes, unlimited members on every paid plan.</twig:Faq:Item>
-    <twig:Faq:Item question="Is there an API?">A REST API is included on all plans.</twig:Faq:Item>
+    <twig:Faq:Item question="How do I get started?">
+        Create an account and follow the three-step checklist.
+    </twig:Faq:Item>
+    <twig:Faq:Item question="Can I invite my team?">
+        Yes, unlimited members on every paid plan.
+    </twig:Faq:Item>
+    <twig:Faq:Item question="Is there an API?">
+        A REST API is included on all plans.
+    </twig:Faq:Item>
     <twig:block name="footer">
-        <twig:Button as="a" href="#" variant="outline">Contact support</twig:Button>
+        <twig:Button as="a" href="#" variant="outline">
+            Contact support
+        </twig:Button>
     </twig:block>
 </twig:Faq>
 ```
@@ -65,7 +95,9 @@ The intro sits on the left and stays in view while the list scrolls; the `footer
 
 ```twig
 <twig:Faq structuredData>
-    <twig:Faq:Item question="Is there a free plan?">Yes, up to three projects.</twig:Faq:Item>
+    <twig:Faq:Item question="Is there a free plan?">
+        Yes, up to three projects.
+    </twig:Faq:Item>
 </twig:Faq>
 ```
 

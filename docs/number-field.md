@@ -52,9 +52,13 @@ Compose it with the shadcn `Field` and `Field:Label`; the label points at the `i
 
 ```twig
 <twig:Field class="w-fit">
-    <twig:Field:Label for="seats">Seats</twig:Field:Label>
+    <twig:Field:Label for="seats">
+        Seats
+    </twig:Field:Label>
     <twig:NumberField id="seats" name="seats" :value="2" :min="1" :max="8" />
-    <twig:Field:Description>Between 1 and 8.</twig:Field:Description>
+    <twig:Field:Description>
+        Between 1 and 8.
+    </twig:Field:Description>
 </twig:Field>
 ```
 

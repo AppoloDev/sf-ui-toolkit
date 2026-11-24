@@ -87,31 +87,36 @@ The `link` tool takes a `RichTextEditor:LinkForm` in its slot: the button then o
 ```twig
 <form class="grid gap-3" onsubmit="event.preventDefault(); this.querySelector('output').textContent = this.body.value">
     <twig:RichTextEditor name="body" required placeholder="Required" minHeight="min-h-24">
-    <twig:RichTextEditor:Tool name="bold" label="Bold" />
-    <twig:RichTextEditor:Tool name="italic" label="Italic" />
-    <twig:RichTextEditor:Tool name="underline" label="Underline" />
-    <twig:RichTextEditor:Tool name="strike" label="Strikethrough" />
-    <twig:RichTextEditor:Separator />
-    <twig:RichTextEditor:Tool name="heading2" label="Heading 2" />
-    <twig:RichTextEditor:Tool name="heading3" label="Heading 3" />
-    <twig:RichTextEditor:Separator />
-    <twig:RichTextEditor:Tool name="bulletList" label="Bulleted list" />
-    <twig:RichTextEditor:Tool name="orderedList" label="Numbered list" />
-    <twig:RichTextEditor:Tool name="blockquote" label="Quote" />
-    <twig:RichTextEditor:Tool name="codeBlock" label="Code block" />
-    <twig:RichTextEditor:Separator />
-    <twig:RichTextEditor:Tool name="link" label="Link">
-        <twig:RichTextEditor:LinkForm />
-    </twig:RichTextEditor:Tool>
-    <twig:RichTextEditor:Separator />
-    <twig:RichTextEditor:Tool name="undo" label="Undo" />
-    <twig:RichTextEditor:Tool name="redo" label="Redo" />
-</twig:RichTextEditor>
+        <twig:RichTextEditor:Tool name="bold" label="Bold" />
+        <twig:RichTextEditor:Tool name="italic" label="Italic" />
+        <twig:RichTextEditor:Tool name="underline" label="Underline" />
+        <twig:RichTextEditor:Tool name="strike" label="Strikethrough" />
+        <twig:RichTextEditor:Separator />
+        <twig:RichTextEditor:Tool name="heading2" label="Heading 2" />
+        <twig:RichTextEditor:Tool name="heading3" label="Heading 3" />
+        <twig:RichTextEditor:Separator />
+        <twig:RichTextEditor:Tool name="bulletList" label="Bulleted list" />
+        <twig:RichTextEditor:Tool name="orderedList" label="Numbered list" />
+        <twig:RichTextEditor:Tool name="blockquote" label="Quote" />
+        <twig:RichTextEditor:Tool name="codeBlock" label="Code block" />
+        <twig:RichTextEditor:Separator />
+        <twig:RichTextEditor:Tool name="link" label="Link">
+            <twig:RichTextEditor:LinkForm />
+        </twig:RichTextEditor:Tool>
+        <twig:RichTextEditor:Separator />
+        <twig:RichTextEditor:Tool name="undo" label="Undo" />
+        <twig:RichTextEditor:Tool name="redo" label="Redo" />
+    </twig:RichTextEditor>
     <div class="flex items-center gap-2">
-        <twig:Button type="submit">Submit</twig:Button>
-        <twig:Button type="reset" variant="outline">Reset</twig:Button>
+        <twig:Button type="submit">
+            Submit
+        </twig:Button>
+        <twig:Button type="reset" variant="outline">
+            Reset
+        </twig:Button>
     </div>
-    <output class="break-all font-mono text-xs text-muted-foreground"></output>
+    <output class="break-all font-mono text-xs text-muted-foreground">
+    </output>
 </form>
 ```
 

@@ -12,9 +12,13 @@
 
 ```twig
 <twig:Field class="max-w-xs">
-    <twig:Field:Label for="in-username">Username</twig:Field:Label>
+    <twig:Field:Label for="in-username">
+        Username
+    </twig:Field:Label>
     <twig:Input id="in-username" placeholder="shadcn" />
-    <twig:Field:Description>This is your public display name.</twig:Field:Description>
+    <twig:Field:Description>
+        This is your public display name.
+    </twig:Field:Description>
 </twig:Field>
 ```
 
@@ -22,9 +26,13 @@
 
 ```twig
 <twig:Field data-invalid="true" class="max-w-xs">
-    <twig:Field:Label for="in-error">Email</twig:Field:Label>
+    <twig:Field:Label for="in-error">
+        Email
+    </twig:Field:Label>
     <twig:Input id="in-error" type="email" value="not-an-email" aria-invalid="true" />
-    <twig:Field:Error>Please enter a valid email address.</twig:Field:Error>
+    <twig:Field:Error>
+        Please enter a valid email address.
+    </twig:Field:Error>
 </twig:Field>
 ```
 
@@ -49,7 +57,12 @@ Password, phone, URL, number, date, time, color and range.
 
 ```twig
 <twig:Field class="max-w-xs">
-    <twig:Field:Label for="in-company">Company <span class="text-destructive" aria-hidden="true">*</span></twig:Field:Label>
+    <twig:Field:Label for="in-company">
+        Company
+        <span class="text-destructive" aria-hidden="true">
+            *
+        </span>
+    </twig:Field:Label>
     <twig:Input id="in-company" required />
 </twig:Field>
 ```
@@ -59,8 +72,12 @@ Password, phone, URL, number, date, time, color and range.
 ```twig
 <twig:Field class="max-w-xs">
     <div class="flex items-center justify-between">
-        <twig:Field:Label for="in-middle">Middle name</twig:Field:Label>
-        <twig:Badge variant="outline">Optional</twig:Badge>
+        <twig:Field:Label for="in-middle">
+            Middle name
+        </twig:Field:Label>
+        <twig:Badge variant="outline">
+            Optional
+        </twig:Badge>
     </div>
     <twig:Input id="in-middle" />
 </twig:Field>
@@ -70,7 +87,12 @@ Password, phone, URL, number, date, time, color and range.
 
 ```twig
 <twig:Field class="max-w-xs">
-    <twig:Field:Label for="in-key">API key <twig:Badge>New</twig:Badge></twig:Field:Label>
+    <twig:Field:Label for="in-key">
+        API key
+        <twig:Badge>
+            New
+        </twig:Badge>
+    </twig:Field:Label>
     <twig:Input id="in-key" />
 </twig:Field>
 ```
@@ -79,7 +101,9 @@ Password, phone, URL, number, date, time, color and range.
 
 ```twig
 <twig:Field orientation="horizontal" class="max-w-sm">
-    <twig:Field:Label for="in-name" class="w-20">Name</twig:Field:Label>
+    <twig:Field:Label for="in-name" class="w-20">
+        Name
+    </twig:Field:Label>
     <twig:Input id="in-name" placeholder="Evil Rabbit" />
 </twig:Field>
 ```
@@ -91,13 +115,32 @@ Password, phone, URL, number, date, time, color and range.
     <twig:Card:Content>
         <twig:Field:Group>
             <div class="grid grid-cols-2 gap-4">
-                <twig:Field><twig:Field:Label for="cf-phone">Phone</twig:Field:Label><twig:Input id="cf-phone" type="tel" placeholder="+1 555 0100" /></twig:Field>
-                <twig:Field><twig:Field:Label for="cf-country">Country</twig:Field:Label><twig:Input id="cf-country" placeholder="United States" /></twig:Field>
+                <twig:Field>
+                    <twig:Field:Label for="cf-phone">
+                        Phone
+                    </twig:Field:Label>
+                    <twig:Input id="cf-phone" type="tel" placeholder="+1 555 0100" />
+                </twig:Field>
+                <twig:Field>
+                    <twig:Field:Label for="cf-country">
+                        Country
+                    </twig:Field:Label>
+                    <twig:Input id="cf-country" placeholder="United States" />
+                </twig:Field>
             </div>
-            <twig:Field><twig:Field:Label for="cf-address">Address</twig:Field:Label><twig:Input id="cf-address" placeholder="123 Main St" /></twig:Field>
+            <twig:Field>
+                <twig:Field:Label for="cf-address">
+                    Address
+                </twig:Field:Label>
+                <twig:Input id="cf-address" placeholder="123 Main St" />
+            </twig:Field>
             <twig:Field orientation="horizontal" class="justify-end">
-                <twig:Button variant="outline" type="button">Cancel</twig:Button>
-                <twig:Button type="submit">Submit</twig:Button>
+                <twig:Button variant="outline" type="button">
+                    Cancel
+                </twig:Button>
+                <twig:Button type="submit">
+                    Submit
+                </twig:Button>
             </twig:Field>
         </twig:Field:Group>
     </twig:Card:Content>
@@ -108,12 +151,23 @@ Password, phone, URL, number, date, time, color and range.
 
 ```twig
 <twig:Field data-invalid="true" class="max-w-xs">
-    <twig:Field:Label for="in-code">Security code</twig:Field:Label>
+    <twig:Field:Label for="in-code">
+        Security code
+    </twig:Field:Label>
     <twig:Input id="in-code" value="12" aria-invalid="true" />
     <ul class="flex flex-col gap-1 text-sm text-destructive">
-        {% for e in ['Must be 6 digits', 'Must not start with 0', 'Must not repeat the same digit'] %}
-            <li class="flex items-center gap-1.5"><twig:ux:icon name="lucide:circle-alert" class="size-3.5" /> {{ e }}</li>
-        {% endfor %}
+        <li class="flex items-center gap-1.5">
+            <twig:ux:icon name="lucide:circle-alert" class="size-3.5" />
+            Must be 6 digits
+        </li>
+        <li class="flex items-center gap-1.5">
+            <twig:ux:icon name="lucide:circle-alert" class="size-3.5" />
+            Must not start with 0
+        </li>
+        <li class="flex items-center gap-1.5">
+            <twig:ux:icon name="lucide:circle-alert" class="size-3.5" />
+            Must not repeat the same digit
+        </li>
     </ul>
 </twig:Field>
 ```
@@ -153,8 +207,12 @@ Password, phone, URL, number, date, time, color and range.
 ```twig
 <twig:Field class="max-w-sm">
     <div class="flex items-center justify-between">
-        <twig:Field:Label for="in-desc">Project description</twig:Field:Label>
-        <span class="text-xs text-muted-foreground">0 / 50</span>
+        <twig:Field:Label for="in-desc">
+            Project description
+        </twig:Field:Label>
+        <span class="text-xs text-muted-foreground">
+            0 / 50
+        </span>
     </div>
     <twig:Input id="in-desc" maxlength="50" />
 </twig:Field>

@@ -7,10 +7,12 @@
 ```twig
 <twig:Sortable name="priorities" class="flex flex-col gap-2">
     <twig:Sortable:Item value="design">
-        <twig:Sortable:Handle /> Design
+        <twig:Sortable:Handle />
+        Design
     </twig:Sortable:Item>
     <twig:Sortable:Item value="build">
-        <twig:Sortable:Handle /> Build
+        <twig:Sortable:Handle />
+        Build
     </twig:Sortable:Item>
 </twig:Sortable>
 ```
@@ -23,13 +25,29 @@ Drag an item by its handle. The order is reported by the `sortable:change` event
 
 ```twig
 <twig:Sortable class="flex max-w-sm flex-col gap-2" id="vertical-list">
-    <twig:Sortable:Item value="design"><twig:Sortable:Handle /> Design the schema</twig:Sortable:Item>
-    <twig:Sortable:Item value="build"><twig:Sortable:Handle /> Build the API</twig:Sortable:Item>
-    <twig:Sortable:Item value="test"><twig:Sortable:Handle /> Write the tests</twig:Sortable:Item>
-    <twig:Sortable:Item value="ship"><twig:Sortable:Handle /> Ship it</twig:Sortable:Item>
+    <twig:Sortable:Item value="design">
+        <twig:Sortable:Handle />
+        Design the schema
+    </twig:Sortable:Item>
+    <twig:Sortable:Item value="build">
+        <twig:Sortable:Handle />
+        Build the API
+    </twig:Sortable:Item>
+    <twig:Sortable:Item value="test">
+        <twig:Sortable:Handle />
+        Write the tests
+    </twig:Sortable:Item>
+    <twig:Sortable:Item value="ship">
+        <twig:Sortable:Handle />
+        Ship it
+    </twig:Sortable:Item>
 </twig:Sortable>
-<p class="mt-3 text-sm text-muted-foreground">Order: <code id="vertical-order">design, build, test, ship</code></p>
-
+<p class="mt-3 text-sm text-muted-foreground">
+    Order:
+    <code id="vertical-order">
+        design, build, test, ship
+    </code>
+</p>
 <script>
     document.getElementById('vertical-list').addEventListener('sortable:change', (event) => {
         document.getElementById('vertical-order').textContent = event.detail.order.join(', ');
@@ -43,12 +61,42 @@ The drag logic does not depend on the layout: switching from a list to a grid is
 
 ```twig
 <twig:Sortable class="grid max-w-md grid-cols-3 gap-2">
-    <twig:Sortable:Item value="1" class="justify-between"><span>One</span><twig:Sortable:Handle /></twig:Sortable:Item>
-    <twig:Sortable:Item value="2" class="justify-between"><span>Two</span><twig:Sortable:Handle /></twig:Sortable:Item>
-    <twig:Sortable:Item value="3" class="justify-between"><span>Three</span><twig:Sortable:Handle /></twig:Sortable:Item>
-    <twig:Sortable:Item value="4" class="justify-between"><span>Four</span><twig:Sortable:Handle /></twig:Sortable:Item>
-    <twig:Sortable:Item value="5" class="justify-between"><span>Five</span><twig:Sortable:Handle /></twig:Sortable:Item>
-    <twig:Sortable:Item value="6" class="justify-between"><span>Six</span><twig:Sortable:Handle /></twig:Sortable:Item>
+    <twig:Sortable:Item value="1" class="justify-between">
+        <span>
+            One
+        </span>
+        <twig:Sortable:Handle />
+    </twig:Sortable:Item>
+    <twig:Sortable:Item value="2" class="justify-between">
+        <span>
+            Two
+        </span>
+        <twig:Sortable:Handle />
+    </twig:Sortable:Item>
+    <twig:Sortable:Item value="3" class="justify-between">
+        <span>
+            Three
+        </span>
+        <twig:Sortable:Handle />
+    </twig:Sortable:Item>
+    <twig:Sortable:Item value="4" class="justify-between">
+        <span>
+            Four
+        </span>
+        <twig:Sortable:Handle />
+    </twig:Sortable:Item>
+    <twig:Sortable:Item value="5" class="justify-between">
+        <span>
+            Five
+        </span>
+        <twig:Sortable:Handle />
+    </twig:Sortable:Item>
+    <twig:Sortable:Item value="6" class="justify-between">
+        <span>
+            Six
+        </span>
+        <twig:Sortable:Handle />
+    </twig:Sortable:Item>
 </twig:Sortable>
 ```
 
@@ -59,12 +107,24 @@ With a `name`, the order is submitted as hidden inputs `priorities[]`, in the di
 ```twig
 <form method="post" class="max-w-sm space-y-3" onsubmit="event.preventDefault(); this.querySelector('output').textContent = new URLSearchParams(new FormData(this)).toString();">
     <twig:Sortable name="priorities" class="flex flex-col gap-2">
-        <twig:Sortable:Item value="speed"><twig:Sortable:Handle /> Speed</twig:Sortable:Item>
-        <twig:Sortable:Item value="cost"><twig:Sortable:Handle /> Cost</twig:Sortable:Item>
-        <twig:Sortable:Item value="quality"><twig:Sortable:Handle /> Quality</twig:Sortable:Item>
+        <twig:Sortable:Item value="speed">
+            <twig:Sortable:Handle />
+            Speed
+        </twig:Sortable:Item>
+        <twig:Sortable:Item value="cost">
+            <twig:Sortable:Handle />
+            Cost
+        </twig:Sortable:Item>
+        <twig:Sortable:Item value="quality">
+            <twig:Sortable:Handle />
+            Quality
+        </twig:Sortable:Item>
     </twig:Sortable>
-    <twig:Button type="submit">Submit</twig:Button>
-    <output class="block break-all text-xs text-muted-foreground"></output>
+    <twig:Button type="submit">
+        Submit
+    </twig:Button>
+    <output class="block break-all text-xs text-muted-foreground">
+    </output>
 </form>
 ```
 

@@ -9,7 +9,9 @@
 This recipe replaces the `Badge` of the official kit: its 6 variants and its `as` prop are unchanged, so existing badges keep working. `variant` picks the color, `appearance` how it is drawn.
 
 ```twig
-<twig:Badge variant="success" appearance="light">Paid</twig:Badge>
+<twig:Badge variant="success" appearance="light">
+    Paid
+</twig:Badge>
 ```
 
 ## Examples
@@ -20,11 +22,21 @@ The solid colors: `default` is the primary color, `success`, `info` and `warning
 
 ```twig
 <div class="flex flex-wrap items-center gap-2">
-    <twig:Badge>Primary</twig:Badge>
-    <twig:Badge variant="success">Success</twig:Badge>
-    <twig:Badge variant="info">Info</twig:Badge>
-    <twig:Badge variant="warning">Warning</twig:Badge>
-    <twig:Badge variant="destructive" appearance="solid">Destructive</twig:Badge>
+    <twig:Badge>
+        Primary
+    </twig:Badge>
+    <twig:Badge variant="success">
+        Success
+    </twig:Badge>
+    <twig:Badge variant="info">
+        Info
+    </twig:Badge>
+    <twig:Badge variant="warning">
+        Warning
+    </twig:Badge>
+    <twig:Badge variant="destructive" appearance="solid">
+        Destructive
+    </twig:Badge>
 </div>
 ```
 
@@ -32,11 +44,21 @@ The solid colors: `default` is the primary color, `success`, `info` and `warning
 
 ```twig
 <div class="flex flex-wrap items-center gap-2">
-    <twig:Badge appearance="outline">Primary</twig:Badge>
-    <twig:Badge variant="success" appearance="outline">Success</twig:Badge>
-    <twig:Badge variant="info" appearance="outline">Info</twig:Badge>
-    <twig:Badge variant="warning" appearance="outline">Warning</twig:Badge>
-    <twig:Badge variant="destructive" appearance="outline">Destructive</twig:Badge>
+    <twig:Badge appearance="outline">
+        Primary
+    </twig:Badge>
+    <twig:Badge variant="success" appearance="outline">
+        Success
+    </twig:Badge>
+    <twig:Badge variant="info" appearance="outline">
+        Info
+    </twig:Badge>
+    <twig:Badge variant="warning" appearance="outline">
+        Warning
+    </twig:Badge>
+    <twig:Badge variant="destructive" appearance="outline">
+        Destructive
+    </twig:Badge>
 </div>
 ```
 
@@ -44,11 +66,21 @@ The solid colors: `default` is the primary color, `success`, `info` and `warning
 
 ```twig
 <div class="flex flex-wrap items-center gap-2">
-    <twig:Badge appearance="light">Primary</twig:Badge>
-    <twig:Badge variant="success" appearance="light">Success</twig:Badge>
-    <twig:Badge variant="info" appearance="light">Info</twig:Badge>
-    <twig:Badge variant="warning" appearance="light">Warning</twig:Badge>
-    <twig:Badge variant="destructive" appearance="light">Destructive</twig:Badge>
+    <twig:Badge appearance="light">
+        Primary
+    </twig:Badge>
+    <twig:Badge variant="success" appearance="light">
+        Success
+    </twig:Badge>
+    <twig:Badge variant="info" appearance="light">
+        Info
+    </twig:Badge>
+    <twig:Badge variant="warning" appearance="light">
+        Warning
+    </twig:Badge>
+    <twig:Badge variant="destructive" appearance="light">
+        Destructive
+    </twig:Badge>
 </div>
 ```
 
@@ -56,9 +88,15 @@ The solid colors: `default` is the primary color, `success`, `info` and `warning
 
 ```twig
 <div class="flex items-center gap-2.5">
-    <twig:Badge size="xs">Extra small</twig:Badge>
-    <twig:Badge>Default</twig:Badge>
-    <twig:Badge size="lg">Large</twig:Badge>
+    <twig:Badge size="xs">
+        Extra small
+    </twig:Badge>
+    <twig:Badge>
+        Default
+    </twig:Badge>
+    <twig:Badge size="lg">
+        Large
+    </twig:Badge>
 </div>
 ```
 
@@ -68,9 +106,15 @@ The default is the pill of the official kit; `sm`, `md` and `full` change the co
 
 ```twig
 <div class="flex flex-wrap items-center gap-2.5">
-    <twig:Badge radius="sm" variant="success" appearance="light">Small</twig:Badge>
-    <twig:Badge radius="md" variant="success" appearance="light">Medium</twig:Badge>
-    <twig:Badge radius="full" variant="success" appearance="light">Full</twig:Badge>
+    <twig:Badge radius="sm" variant="success" appearance="light">
+        Small
+    </twig:Badge>
+    <twig:Badge radius="md" variant="success" appearance="light">
+        Medium
+    </twig:Badge>
+    <twig:Badge radius="full" variant="success" appearance="light">
+        Full
+    </twig:Badge>
 </div>
 ```
 
@@ -78,9 +122,15 @@ The default is the pill of the official kit; `sm`, `md` and `full` change the co
 
 ```twig
 <div class="flex items-center gap-2.5">
-    <twig:Badge radius="full" class="min-w-5 px-1.5">3</twig:Badge>
-    <twig:Badge radius="full" variant="warning" class="min-w-5 px-1.5">12</twig:Badge>
-    <twig:Badge radius="full" variant="info" appearance="outline" class="min-w-5 px-1.5">99+</twig:Badge>
+    <twig:Badge radius="full" class="min-w-5 px-1.5">
+        3
+    </twig:Badge>
+    <twig:Badge radius="full" variant="warning" class="min-w-5 px-1.5">
+        12
+    </twig:Badge>
+    <twig:Badge radius="full" variant="info" appearance="outline" class="min-w-5 px-1.5">
+        99+
+    </twig:Badge>
 </div>
 ```
 

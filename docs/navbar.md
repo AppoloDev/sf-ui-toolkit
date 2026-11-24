@@ -12,12 +12,24 @@ The bar is layout only: you put the brand, the navigation and the actions in its
 
 ```twig
 <twig:Navbar>
-    <twig:block name="start"><a href="/" class="text-sm font-semibold">Acme</a></twig:block>
+    <twig:block name="start">
+        <a href="/" class="text-sm font-semibold">
+            Acme
+        </a>
+    </twig:block>
     <nav aria-label="Main" class="flex gap-1">
-        <twig:Navbar:Link href="/" active>Dashboard</twig:Navbar:Link>
-        <twig:Navbar:Link href="/reports">Reports</twig:Navbar:Link>
+        <twig:Navbar:Link href="/" active>
+            Dashboard
+        </twig:Navbar:Link>
+        <twig:Navbar:Link href="/reports">
+            Reports
+        </twig:Navbar:Link>
     </nav>
-    <twig:block name="end"><twig:Button as="a" href="/new">New</twig:Button></twig:block>
+    <twig:block name="end">
+        <twig:Button as="a" href="/new">
+            New
+        </twig:Button>
+    </twig:block>
 </twig:Navbar>
 ```
 
@@ -30,16 +42,29 @@ The default slot takes the remaining width. Wrap the links in a named `nav`.
 ```twig
 <twig:Navbar>
     <twig:block name="start">
-        <a href="#" class="flex items-center gap-2 text-sm font-semibold"><twig:ux:icon name="lucide:layers" class="size-5" aria-hidden="true" />Acme</a>
+        <a href="#" class="flex items-center gap-2 text-sm font-semibold">
+            <twig:ux:icon name="lucide:layers" class="size-5" aria-hidden="true" />
+            Acme
+        </a>
     </twig:block>
     <nav aria-label="Main" class="flex gap-1">
-        <twig:Navbar:Link href="#" active icon="lucide:layout-dashboard">Dashboard</twig:Navbar:Link>
-        <twig:Navbar:Link href="#" icon="lucide:folder">Projects</twig:Navbar:Link>
-        <twig:Navbar:Link href="#" icon="lucide:users">Team</twig:Navbar:Link>
+        <twig:Navbar:Link href="#" active icon="lucide:layout-dashboard">
+            Dashboard
+        </twig:Navbar:Link>
+        <twig:Navbar:Link href="#" icon="lucide:folder">
+            Projects
+        </twig:Navbar:Link>
+        <twig:Navbar:Link href="#" icon="lucide:users">
+            Team
+        </twig:Navbar:Link>
     </nav>
     <twig:block name="end">
-        <twig:Button as="a" href="#" variant="outline">Share</twig:Button>
-        <twig:Button as="a" href="#">New project</twig:Button>
+        <twig:Button as="a" href="#" variant="outline">
+            Share
+        </twig:Button>
+        <twig:Button as="a" href="#">
+            New project
+        </twig:Button>
     </twig:block>
 </twig:Navbar>
 ```
@@ -50,13 +75,35 @@ The `tabs` block is a second row under the bar, for `variant="tab"` links; a cou
 
 ```twig
 <twig:Navbar>
-    <twig:block name="start"><span class="text-sm font-semibold">Apollo / Website redesign</span></twig:block>
-    <twig:block name="end"><twig:Button as="a" href="#">Create task</twig:Button></twig:block>
+    <twig:block name="start">
+        <span class="text-sm font-semibold">
+            Apollo / Website redesign
+        </span>
+    </twig:block>
+    <twig:block name="end">
+        <twig:Button as="a" href="#">
+            Create task
+        </twig:Button>
+    </twig:block>
     <twig:block name="tabs">
-        <twig:Navbar:Link variant="tab" href="#" active>Tasks <twig:Badge variant="secondary">24</twig:Badge></twig:Navbar:Link>
-        <twig:Navbar:Link variant="tab" href="#" >Reviews <twig:Badge variant="destructive">3</twig:Badge></twig:Navbar:Link>
-        <twig:Navbar:Link variant="tab" href="#">Files</twig:Navbar:Link>
-        <twig:Navbar:Link variant="tab" href="#">Settings</twig:Navbar:Link>
+        <twig:Navbar:Link variant="tab" href="#" active>
+            Tasks
+            <twig:Badge variant="secondary">
+                24
+            </twig:Badge>
+        </twig:Navbar:Link>
+        <twig:Navbar:Link variant="tab" href="#" >
+            Reviews
+            <twig:Badge variant="destructive">
+                3
+            </twig:Badge>
+        </twig:Navbar:Link>
+        <twig:Navbar:Link variant="tab" href="#">
+            Files
+        </twig:Navbar:Link>
+        <twig:Navbar:Link variant="tab" href="#">
+            Settings
+        </twig:Navbar:Link>
     </twig:block>
 </twig:Navbar>
 ```
@@ -68,12 +115,39 @@ The `tabs` block is a second row under the bar, for `variant="tab"` links; a cou
 ```twig
 <div class="h-40 overflow-y-auto rounded-lg border border-border">
     <twig:Navbar sticky :bordered="false" class="shadow-xs">
-        <twig:block name="start"><span class="text-sm font-semibold">Sticky bar</span></twig:block>
-        <twig:block name="end"><twig:Navbar:Link href="#" active>Docs</twig:Navbar:Link></twig:block>
+        <twig:block name="start">
+            <span class="text-sm font-semibold">
+                Sticky bar
+            </span>
+        </twig:block>
+        <twig:block name="end">
+            <twig:Navbar:Link href="#" active>
+                Docs
+            </twig:Navbar:Link>
+        </twig:block>
     </twig:Navbar>
     <div class="grid gap-3 p-4 text-sm text-muted-foreground">
-        <p>Scroll this panel: the bar stays at the top.</p>
-        <p>Content line 2.</p><p>Content line 3.</p><p>Content line 4.</p><p>Content line 5.</p><p>Content line 6.</p><p>Content line 7.</p>
+        <p>
+            Scroll this panel: the bar stays at the top.
+        </p>
+        <p>
+            Content line 2.
+        </p>
+        <p>
+            Content line 3.
+        </p>
+        <p>
+            Content line 4.
+        </p>
+        <p>
+            Content line 5.
+        </p>
+        <p>
+            Content line 6.
+        </p>
+        <p>
+            Content line 7.
+        </p>
     </div>
 </div>
 ```

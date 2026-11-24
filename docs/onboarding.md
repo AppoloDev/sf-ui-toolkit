@@ -10,8 +10,12 @@ The block is the frame of one step: where the person is, the title, the content 
 <twig:Onboarding :step="2" :steps="4" title="Create your workspace" description="You can change this later.">
     <twig:Input aria-label="Workspace name" placeholder="Acme Inc." />
     <twig:block name="footer">
-        <twig:Button as="a" href="#" variant="outline">Back</twig:Button>
-        <twig:Button as="a" href="#">Continue</twig:Button>
+        <twig:Button as="a" href="#" variant="outline">
+            Back
+        </twig:Button>
+        <twig:Button as="a" href="#">
+            Continue
+        </twig:Button>
     </twig:block>
 </twig:Onboarding>
 ```
@@ -26,32 +30,52 @@ Set `interactive` and put one `Onboarding:Step` per step in the default slot: th
 ```twig
 <twig:Onboarding interactive :steps="3" indicator="dots">
     <twig:Onboarding:Step title="Welcome aboard" description="Three quick steps to get you set up.">
-        <p class="text-sm text-muted-foreground">It takes less than a minute.</p>
+        <p class="text-sm text-muted-foreground">
+            It takes less than a minute.
+        </p>
     </twig:Onboarding:Step>
     <twig:Onboarding:Step title="Create your workspace" description="Pick a name your team will recognize.">
         <twig:Field>
-            <twig:Field:Label for="workspace">Workspace name</twig:Field:Label>
+            <twig:Field:Label for="workspace">
+                Workspace name
+            </twig:Field:Label>
             <twig:Input id="workspace" placeholder="Acme Inc." />
         </twig:Field>
         <twig:Field>
-            <twig:Field:Label for="size">Team size</twig:Field:Label>
+            <twig:Field:Label for="size">
+                Team size
+            </twig:Field:Label>
             <twig:NativeSelect id="size" class="w-full">
-                <twig:NativeSelect:Option value="1">Just me</twig:NativeSelect:Option>
-                <twig:NativeSelect:Option value="10">2 to 10</twig:NativeSelect:Option>
-                <twig:NativeSelect:Option value="50">11 to 50</twig:NativeSelect:Option>
+                <twig:NativeSelect:Option value="1">
+                    Just me
+                </twig:NativeSelect:Option>
+                <twig:NativeSelect:Option value="10">
+                    2 to 10
+                </twig:NativeSelect:Option>
+                <twig:NativeSelect:Option value="50">
+                    11 to 50
+                </twig:NativeSelect:Option>
             </twig:NativeSelect>
         </twig:Field>
     </twig:Onboarding:Step>
     <twig:Onboarding:Step title="Almost there" description="Choose how we keep you posted.">
         <twig:Field orientation="horizontal">
             <twig:Checkbox id="updates" checked />
-            <twig:Field:Label for="updates">Send me product updates</twig:Field:Label>
+            <twig:Field:Label for="updates">
+                Send me product updates
+            </twig:Field:Label>
         </twig:Field>
     </twig:Onboarding:Step>
     <twig:block name="footer">
-        <twig:Button variant="outline" data-onboarding-target="back">Back</twig:Button>
-        <twig:Button data-onboarding-target="next">Continue</twig:Button>
-        <twig:Button data-onboarding-target="finish">Finish</twig:Button>
+        <twig:Button variant="outline" data-onboarding-target="back">
+            Back
+        </twig:Button>
+        <twig:Button data-onboarding-target="next">
+            Continue
+        </twig:Button>
+        <twig:Button data-onboarding-target="finish">
+            Finish
+        </twig:Button>
     </twig:block>
 </twig:Onboarding>
 ```
@@ -63,20 +87,34 @@ The default indicator is a progress bar with the step counter under it.
 ```twig
 <twig:Onboarding :step="2" :steps="4" title="Create your workspace" description="Pick a name your team will recognize.">
     <twig:Field>
-        <twig:Field:Label for="ws-name">Workspace name</twig:Field:Label>
+        <twig:Field:Label for="ws-name">
+            Workspace name
+        </twig:Field:Label>
         <twig:Input id="ws-name" placeholder="Acme Inc." />
     </twig:Field>
     <twig:Field>
-        <twig:Field:Label for="ws-size">Team size</twig:Field:Label>
+        <twig:Field:Label for="ws-size">
+            Team size
+        </twig:Field:Label>
         <twig:NativeSelect id="ws-size" class="w-full">
-            <twig:NativeSelect:Option value="1">Just me</twig:NativeSelect:Option>
-            <twig:NativeSelect:Option value="10">2 to 10</twig:NativeSelect:Option>
-            <twig:NativeSelect:Option value="50">11 to 50</twig:NativeSelect:Option>
+            <twig:NativeSelect:Option value="1">
+                Just me
+            </twig:NativeSelect:Option>
+            <twig:NativeSelect:Option value="10">
+                2 to 10
+            </twig:NativeSelect:Option>
+            <twig:NativeSelect:Option value="50">
+                11 to 50
+            </twig:NativeSelect:Option>
         </twig:NativeSelect>
     </twig:Field>
     <twig:block name="footer">
-        <twig:Button as="a" href="#" variant="outline">Back</twig:Button>
-        <twig:Button as="a" href="#">Continue</twig:Button>
+        <twig:Button as="a" href="#" variant="outline">
+            Back
+        </twig:Button>
+        <twig:Button as="a" href="#">
+            Continue
+        </twig:Button>
     </twig:block>
 </twig:Onboarding>
 ```
@@ -88,7 +126,9 @@ The default indicator is a progress bar with the step counter under it.
 ```twig
 <twig:Onboarding indicator="dots" :step="1" :steps="3" title="Welcome aboard" description="Three quick steps to get you set up.">
     <twig:block name="footer">
-        <twig:Button as="a" href="#">Get started</twig:Button>
+        <twig:Button as="a" href="#">
+            Get started
+        </twig:Button>
     </twig:block>
 </twig:Onboarding>
 ```
@@ -101,8 +141,12 @@ The default indicator is a progress bar with the step counter under it.
 <twig:Onboarding align="start" :step="3" :steps="4" title="Invite your team" description="Add colleagues by email. You can skip this for now.">
     <twig:Textarea aria-label="Email addresses" rows="3" placeholder="ada@example.com, grace@example.com" />
     <twig:block name="footer">
-        <twig:Button as="a" href="#" variant="link">Skip for now</twig:Button>
-        <twig:Button as="a" href="#">Send invites</twig:Button>
+        <twig:Button as="a" href="#" variant="link">
+            Skip for now
+        </twig:Button>
+        <twig:Button as="a" href="#">
+            Send invites
+        </twig:Button>
     </twig:block>
 </twig:Onboarding>
 ```
@@ -114,8 +158,12 @@ The counter and the name of the bar are props; `{current}` and `{total}` are rep
 ```twig
 <twig:Onboarding :step="2" :steps="5" stepLabel="Étape {current} sur {total}" progressLabel="Progression de la configuration" title="Créez votre espace" description="Vous pourrez le modifier plus tard.">
     <twig:block name="footer">
-        <twig:Button as="a" href="#" variant="outline">Retour</twig:Button>
-        <twig:Button as="a" href="#">Continuer</twig:Button>
+        <twig:Button as="a" href="#" variant="outline">
+            Retour
+        </twig:Button>
+        <twig:Button as="a" href="#">
+            Continuer
+        </twig:Button>
     </twig:block>
 </twig:Onboarding>
 ```

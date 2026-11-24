@@ -18,9 +18,15 @@
 
 ```twig
 <div class="flex items-end gap-6">
-    <twig:IconStack size="sm"><twig:ux:icon name="lucide:folder" /></twig:IconStack>
-    <twig:IconStack><twig:ux:icon name="lucide:folder" /></twig:IconStack>
-    <twig:IconStack size="lg"><twig:ux:icon name="lucide:folder" /></twig:IconStack>
+    <twig:IconStack size="sm">
+        <twig:ux:icon name="lucide:folder" />
+    </twig:IconStack>
+    <twig:IconStack>
+        <twig:ux:icon name="lucide:folder" />
+    </twig:IconStack>
+    <twig:IconStack size="lg">
+        <twig:ux:icon name="lucide:folder" />
+    </twig:IconStack>
 </div>
 ```
 
@@ -30,9 +36,15 @@ A text color class on the component tints the layers and the shadow; the icon ca
 
 ```twig
 <div class="flex items-end gap-6">
-    <twig:IconStack class="text-blue-300"><twig:ux:icon name="lucide:cloud" class="text-blue-600" /></twig:IconStack>
-    <twig:IconStack class="text-emerald-300"><twig:ux:icon name="lucide:check" class="text-emerald-600" /></twig:IconStack>
-    <twig:IconStack class="text-red-300"><twig:ux:icon name="lucide:triangle-alert" class="text-red-600" /></twig:IconStack>
+    <twig:IconStack class="text-blue-300">
+        <twig:ux:icon name="lucide:cloud" class="text-blue-600" />
+    </twig:IconStack>
+    <twig:IconStack class="text-emerald-300">
+        <twig:ux:icon name="lucide:check" class="text-emerald-600" />
+    </twig:IconStack>
+    <twig:IconStack class="text-red-300">
+        <twig:ux:icon name="lucide:triangle-alert" class="text-red-600" />
+    </twig:IconStack>
 </div>
 ```
 
@@ -44,10 +56,16 @@ The tile is the media of the shadcn `Empty` component.
 <twig:Empty class="max-w-sm border">
     <twig:Empty:Header>
         <twig:Empty:Media>
-            <twig:IconStack size="lg"><twig:ux:icon name="lucide:inbox" /></twig:IconStack>
+            <twig:IconStack size="lg">
+                <twig:ux:icon name="lucide:inbox" />
+            </twig:IconStack>
         </twig:Empty:Media>
-        <twig:Empty:Title>No messages yet</twig:Empty:Title>
-        <twig:Empty:Description>New messages will show up here.</twig:Empty:Description>
+        <twig:Empty:Title>
+            No messages yet
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            New messages will show up here.
+        </twig:Empty:Description>
     </twig:Empty:Header>
 </twig:Empty>
 ```

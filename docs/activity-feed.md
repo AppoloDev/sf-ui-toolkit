@@ -14,7 +14,9 @@ The feed is made of `ActivityFeed:Group` sections (one per day) holding `Activit
 ```twig
 <twig:ActivityFeed>
     <twig:ActivityFeed:Group>
-        <twig:ActivityFeed:Item actor="Ada Lovelace" action="commented on" target="Invoice 1042" time="2 h ago">Approved, thanks.</twig:ActivityFeed:Item>
+        <twig:ActivityFeed:Item actor="Ada Lovelace" action="commented on" target="Invoice 1042" time="2 h ago">
+            Approved, thanks.
+        </twig:ActivityFeed:Item>
         <twig:ActivityFeed:Item icon="lucide:git-merge" action="Release 2.4 was published" time="Yesterday" />
     </twig:ActivityFeed:Group>
 </twig:ActivityFeed>
@@ -29,7 +31,9 @@ Each group has a heading; items show an avatar, initials or an icon for a system
 ```twig
 <twig:ActivityFeed>
     <twig:ActivityFeed:Group label="Today">
-        <twig:ActivityFeed:Item actor="Ada Lovelace" action="commented on" target="Invoice 1042" time="2 h ago" datetime="2026-11-24T07:30">Approved. Please send it to accounting.</twig:ActivityFeed:Item>
+        <twig:ActivityFeed:Item actor="Ada Lovelace" action="commented on" target="Invoice 1042" time="2 h ago" datetime="2026-11-24T07:30">
+            Approved. Please send it to accounting.
+        </twig:ActivityFeed:Item>
         <twig:ActivityFeed:Item actor="Grace Hopper" action="assigned" target="Q4 audit" time="4 h ago" datetime="2026-11-24T05:30" />
         <twig:ActivityFeed:Item icon="lucide:rocket" action="Release 2.4 was published" time="5 h ago" datetime="2026-11-24T04:30" />
     </twig:ActivityFeed:Group>
@@ -43,7 +47,9 @@ Each group has a heading; items show an avatar, initials or an icon for a system
         <twig:ActivityFeed:Item actor="Margaret H." action="closed" target="Ticket 887" time="09:05" />
     </twig:ActivityFeed:Group>
     <twig:block name="more">
-        <twig:Button as="a" href="#" variant="outline">Load more</twig:Button>
+        <twig:Button as="a" href="#" variant="outline">
+            Load more
+        </twig:Button>
     </twig:block>
 </twig:ActivityFeed>
 ```
@@ -56,7 +62,9 @@ A group without a label is a plain list. `avatar` is an image URL; without it, `
 <twig:ActivityFeed>
     <twig:ActivityFeed:Group>
         <twig:ActivityFeed:Item actor="Ada Lovelace" initials="AL" action="joined" target="the Finance team" time="3 d ago" />
-        <twig:ActivityFeed:Item actor="Grace Hopper" action="changed the status of" target="Q4 audit" time="4 d ago">From draft to in review.</twig:ActivityFeed:Item>
+        <twig:ActivityFeed:Item actor="Grace Hopper" action="changed the status of" target="Q4 audit" time="4 d ago">
+            From draft to in review.
+        </twig:ActivityFeed:Item>
         <twig:ActivityFeed:Item actor="Linus T." action="created" target="Project Apollo" time="1 week ago" />
     </twig:ActivityFeed:Group>
 </twig:ActivityFeed>

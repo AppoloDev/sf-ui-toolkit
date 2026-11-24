@@ -18,9 +18,15 @@
 
 ```twig
 <div class="flex items-center gap-4">
-    <twig:IconTile variant="outline"><twig:ux:icon name="lucide:house" /></twig:IconTile>
-    <twig:IconTile variant="elevated"><twig:ux:icon name="lucide:house" /></twig:IconTile>
-    <twig:IconTile variant="frame"><twig:ux:icon name="lucide:house" /></twig:IconTile>
+    <twig:IconTile variant="outline">
+        <twig:ux:icon name="lucide:house" />
+    </twig:IconTile>
+    <twig:IconTile variant="elevated">
+        <twig:ux:icon name="lucide:house" />
+    </twig:IconTile>
+    <twig:IconTile variant="frame">
+        <twig:ux:icon name="lucide:house" />
+    </twig:IconTile>
 </div>
 ```
 
@@ -30,11 +36,21 @@ The glyph, the padding and the radius follow the size.
 
 ```twig
 <div class="flex items-end gap-4">
-    <twig:IconTile size="xs"><twig:ux:icon name="lucide:plus" /></twig:IconTile>
-    <twig:IconTile size="sm"><twig:ux:icon name="lucide:plus" /></twig:IconTile>
-    <twig:IconTile><twig:ux:icon name="lucide:plus" /></twig:IconTile>
-    <twig:IconTile size="lg"><twig:ux:icon name="lucide:plus" /></twig:IconTile>
-    <twig:IconTile size="xl"><twig:ux:icon name="lucide:plus" /></twig:IconTile>
+    <twig:IconTile size="xs">
+        <twig:ux:icon name="lucide:plus" />
+    </twig:IconTile>
+    <twig:IconTile size="sm">
+        <twig:ux:icon name="lucide:plus" />
+    </twig:IconTile>
+    <twig:IconTile>
+        <twig:ux:icon name="lucide:plus" />
+    </twig:IconTile>
+    <twig:IconTile size="lg">
+        <twig:ux:icon name="lucide:plus" />
+    </twig:IconTile>
+    <twig:IconTile size="xl">
+        <twig:ux:icon name="lucide:plus" />
+    </twig:IconTile>
 </div>
 ```
 
@@ -42,8 +58,12 @@ The glyph, the padding and the radius follow the size.
 
 ```twig
 <div class="flex items-center gap-4">
-    <twig:IconTile radius="full"><twig:ux:icon name="lucide:user" /></twig:IconTile>
-    <twig:IconTile radius="full" variant="frame"><twig:ux:icon name="lucide:user" /></twig:IconTile>
+    <twig:IconTile radius="full">
+        <twig:ux:icon name="lucide:user" />
+    </twig:IconTile>
+    <twig:IconTile radius="full" variant="frame">
+        <twig:ux:icon name="lucide:user" />
+    </twig:IconTile>
 </div>
 ```
 
@@ -53,9 +73,15 @@ Override the colors with utility classes: soft, solid, or any palette color. Add
 
 ```twig
 <div class="flex items-center gap-4">
-    <twig:IconTile class="border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-400"><twig:ux:icon name="lucide:star" /></twig:IconTile>
-    <twig:IconTile class="border-transparent bg-emerald-600 text-white dark:bg-emerald-500"><twig:ux:icon name="lucide:check" /></twig:IconTile>
-    <twig:IconTile variant="elevated" class="bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400"><twig:ux:icon name="lucide:triangle-alert" /></twig:IconTile>
+    <twig:IconTile class="border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-400">
+        <twig:ux:icon name="lucide:star" />
+    </twig:IconTile>
+    <twig:IconTile class="border-transparent bg-emerald-600 text-white dark:bg-emerald-500">
+        <twig:ux:icon name="lucide:check" />
+    </twig:IconTile>
+    <twig:IconTile variant="elevated" class="bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400">
+        <twig:ux:icon name="lucide:triangle-alert" />
+    </twig:IconTile>
 </div>
 ```
 
@@ -65,8 +91,12 @@ The tile accepts any content: initials, a number, a logo.
 
 ```twig
 <div class="flex items-center gap-4">
-    <twig:IconTile radius="full" class="font-semibold">AB</twig:IconTile>
-    <twig:IconTile size="lg" class="font-semibold">42</twig:IconTile>
+    <twig:IconTile radius="full" class="font-semibold">
+        AB
+    </twig:IconTile>
+    <twig:IconTile size="lg" class="font-semibold">
+        42
+    </twig:IconTile>
 </div>
 ```
 
@@ -77,11 +107,17 @@ The tile is the media of the shadcn `Item` component.
 ```twig
 <twig:Item variant="outline" class="max-w-sm">
     <twig:Item:Media>
-        <twig:IconTile variant="elevated"><twig:ux:icon name="lucide:file-text" /></twig:IconTile>
+        <twig:IconTile variant="elevated">
+            <twig:ux:icon name="lucide:file-text" />
+        </twig:IconTile>
     </twig:Item:Media>
     <twig:Item:Content>
-        <twig:Item:Title>Weekly report</twig:Item:Title>
-        <twig:Item:Description>Updated 2 hours ago</twig:Item:Description>
+        <twig:Item:Title>
+            Weekly report
+        </twig:Item:Title>
+        <twig:Item:Description>
+            Updated 2 hours ago
+        </twig:Item:Description>
     </twig:Item:Content>
 </twig:Item>
 ```

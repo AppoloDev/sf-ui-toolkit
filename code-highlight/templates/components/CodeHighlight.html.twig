@@ -6,7 +6,11 @@
     ## string|null The code. Without it, the content of the component is the code.
     code = null,
     ## string|null The accessible name of the block, announced by screen readers since the block can scroll.
-    label = null
+    label = null,
+    ## boolean Whether a column of line numbers is shown next to the code. It is not selected when the code is copied.
+    lineNumbers = false,
+    ## number The number of the first line, when `lineNumbers` is set.
+    startLine = 1
 -%}
 {%- set _source -%}
     {%- if code is not null -%}
@@ -28,12 +32,14 @@
     '[&_.hl-comment]:text-[#6e7781] [&_.hl-comment]:italic dark:[&_.hl-comment]:text-[#8b949e]',
     '[&_.hl-addition]:bg-emerald-500/15 [&_.hl-deletion]:bg-red-500/15',
 ]|join(' ') -%}
+{%- set _html = ('' ~ _source)|highlight(language) -%}
 <pre
     data-slot="code-highlight"
     data-language="{{ language }}"
     tabindex="0"
     {% if label %}role="region" aria-label="{{ label }}"{% endif %}
     {{ attributes.defaults({
-        class: ('overflow-x-auto rounded-lg border border-border bg-muted/40 p-4 font-mono text-sm leading-relaxed text-foreground notranslate ' ~ _tokens)|tailwind_classes,
+        class: ((lineNumbers ? 'flex ' : '') ~ 'overflow-x-auto rounded-lg border border-border bg-muted/40 p-4 font-mono text-sm leading-relaxed text-foreground notranslate ' ~ _tokens)|tailwind_classes,
     }) }}
-><code>{{ ('' ~ _source)|highlight(language) }}</code></pre>
+>{%- if lineNumbers %}<span data-slot="code-highlight-lines" aria-hidden="true" class="me-4 shrink-0 text-end text-muted-foreground select-none">{{ range(startLine, startLine + (("" ~ _html)|split("\n")|length) - 1)|join("\n") }}</span>{% endif -%}
+<code class="min-w-0 grow">{{ _html }}</code></pre>

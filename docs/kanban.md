@@ -11,7 +11,9 @@
 ```twig
 <twig:Kanban name="board">
     <twig:Kanban:Column value="todo" title="To do">
-        <twig:Kanban:Card value="1">Write the docs</twig:Kanban:Card>
+        <twig:Kanban:Card value="1">
+            Write the docs
+        </twig:Kanban:Card>
     </twig:Kanban:Column>
     <twig:Kanban:Column value="done" title="Done" />
 </twig:Kanban>
@@ -28,15 +30,25 @@ Drag a card onto another column, or focus it, press `Space`, move it with the ar
 ```twig
 <twig:Kanban name="board">
     <twig:Kanban:Column value="todo" title="To do">
-        <twig:Kanban:Card value="1">Write the documentation</twig:Kanban:Card>
-        <twig:Kanban:Card value="2">Review the pull request</twig:Kanban:Card>
-        <twig:Kanban:Card value="3">Plan the release</twig:Kanban:Card>
+        <twig:Kanban:Card value="1">
+            Write the documentation
+        </twig:Kanban:Card>
+        <twig:Kanban:Card value="2">
+            Review the pull request
+        </twig:Kanban:Card>
+        <twig:Kanban:Card value="3">
+            Plan the release
+        </twig:Kanban:Card>
     </twig:Kanban:Column>
     <twig:Kanban:Column value="doing" title="In progress">
-        <twig:Kanban:Card value="4">Fix the login redirect</twig:Kanban:Card>
+        <twig:Kanban:Card value="4">
+            Fix the login redirect
+        </twig:Kanban:Card>
     </twig:Kanban:Column>
     <twig:Kanban:Column value="done" title="Done">
-        <twig:Kanban:Card value="5">Set up the CI</twig:Kanban:Card>
+        <twig:Kanban:Card value="5">
+            Set up the CI
+        </twig:Kanban:Card>
     </twig:Kanban:Column>
 </twig:Kanban>
 ```
@@ -51,16 +63,30 @@ Cards hold any content, such as a progress bar or an assignee.
 <twig:Kanban>
     <twig:Kanban:Column value="planned" title="Planned">
         <twig:Kanban:Card value="a" label="Single sign-on">
-            <p class="font-medium">Single sign-on</p>
-            <div class="mt-2 h-1.5 rounded-full bg-muted"><div class="h-full w-1/4 rounded-full bg-primary"></div></div>
-            <p class="mt-1.5 text-xs text-muted-foreground">25 %</p>
+            <p class="font-medium">
+                Single sign-on
+            </p>
+            <div class="mt-2 h-1.5 rounded-full bg-muted">
+                <div class="h-full w-1/4 rounded-full bg-primary">
+                </div>
+            </div>
+            <p class="mt-1.5 text-xs text-muted-foreground">
+                25 %
+            </p>
         </twig:Kanban:Card>
     </twig:Kanban:Column>
     <twig:Kanban:Column value="shipping" title="Shipping">
         <twig:Kanban:Card value="b" label="Audit log">
-            <p class="font-medium">Audit log</p>
-            <div class="mt-2 h-1.5 rounded-full bg-muted"><div class="h-full w-4/5 rounded-full bg-primary"></div></div>
-            <p class="mt-1.5 text-xs text-muted-foreground">80 %</p>
+            <p class="font-medium">
+                Audit log
+            </p>
+            <div class="mt-2 h-1.5 rounded-full bg-muted">
+                <div class="h-full w-4/5 rounded-full bg-primary">
+                </div>
+            </div>
+            <p class="mt-1.5 text-xs text-muted-foreground">
+                80 %
+            </p>
         </twig:Kanban:Card>
     </twig:Kanban:Column>
 </twig:Kanban>
@@ -76,12 +102,18 @@ Cards hold any content, such as a progress bar or an assignee.
 <div class="grid gap-2">
     <twig:Kanban id="persisted">
         <twig:Kanban:Column value="open" title="Open">
-            <twig:Kanban:Card value="1">Ticket 1</twig:Kanban:Card>
-            <twig:Kanban:Card value="2">Ticket 2</twig:Kanban:Card>
+            <twig:Kanban:Card value="1">
+                Ticket 1
+            </twig:Kanban:Card>
+            <twig:Kanban:Card value="2">
+                Ticket 2
+            </twig:Kanban:Card>
         </twig:Kanban:Column>
         <twig:Kanban:Column value="closed" title="Closed (locked)" />
     </twig:Kanban>
-    <p id="persisted-log" class="text-sm text-muted-foreground">Drag a card to Closed: the move is refused.</p>
+    <p id="persisted-log" class="text-sm text-muted-foreground">
+        Drag a card to Closed: the move is refused.
+    </p>
 </div>
 <script>
     const board = document.getElementById('persisted');

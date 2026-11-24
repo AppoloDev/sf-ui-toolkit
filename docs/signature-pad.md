@@ -38,9 +38,14 @@ The pad submits its value through `name`. With `required` the browser blocks the
 <form class="grid max-w-md gap-3" onsubmit="event.preventDefault(); this.querySelector('output').textContent = this.signature.value ? this.signature.value.length + ' characters of SVG submitted' : ''">
     <twig:SignaturePad name="signature" format="svg" required />
     <div class="flex items-center gap-2">
-        <twig:Button type="submit">Sign</twig:Button>
-        <twig:Button variant="outline" type="reset">Reset</twig:Button>
-        <output class="text-sm text-muted-foreground"></output>
+        <twig:Button type="submit">
+            Sign
+        </twig:Button>
+        <twig:Button variant="outline" type="reset">
+            Reset
+        </twig:Button>
+        <output class="text-sm text-muted-foreground">
+        </output>
     </div>
 </form>
 ```
@@ -57,9 +62,15 @@ Put `SignaturePad:Color` elements in the `colors` block to add ink color buttons
         <twig:SignaturePad:Color color="#dc2626" />
     </twig:block>
     <div class="flex gap-2">
-        <twig:Button variant="outline" data-action="signature-pad#replay">Replay</twig:Button>
-        <twig:Button variant="outline" data-action="signature-pad#download" data-signature-pad-format-param="png">Download PNG</twig:Button>
-        <twig:Button variant="outline" data-action="signature-pad#download" data-signature-pad-format-param="svg">Download SVG</twig:Button>
+        <twig:Button variant="outline" data-action="signature-pad#replay">
+            Replay
+        </twig:Button>
+        <twig:Button variant="outline" data-action="signature-pad#download" data-signature-pad-format-param="png">
+            Download PNG
+        </twig:Button>
+        <twig:Button variant="outline" data-action="signature-pad#download" data-signature-pad-format-param="svg">
+            Download SVG
+        </twig:Button>
     </div>
 </twig:SignaturePad>
 ```
@@ -72,12 +83,25 @@ Put `SignaturePad:Color` elements in the `colors` block to add ink color buttons
 <twig:SignaturePad name="signature" class="max-w-md">
     <div class="flex items-center gap-3 rounded-md border border-border p-2">
         <img alt="Signature preview" hidden class="h-12 rounded bg-muted object-contain" data-signature-pad-target="preview">
-        <span class="text-sm text-muted-foreground">Payload: <span data-signature-pad-target="size">0 B</span></span>
+        <span class="text-sm text-muted-foreground">
+            Payload:
+            <span data-signature-pad-target="size">
+                0 B
+            </span>
+        </span>
         <span class="ml-auto flex gap-1">
-            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="png">PNG</twig:Button>
-            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="jpeg">JPEG</twig:Button>
-            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="svg">SVG</twig:Button>
-            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="json">JSON</twig:Button>
+            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="png">
+                PNG
+            </twig:Button>
+            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="jpeg">
+                JPEG
+            </twig:Button>
+            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="svg">
+                SVG
+            </twig:Button>
+            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="json">
+                JSON
+            </twig:Button>
         </span>
     </div>
 </twig:SignaturePad>
@@ -90,7 +114,9 @@ Drawing needs a pointer. A text input wired to `signature-pad#typeName` renders 
 ```twig
 <twig:SignaturePad name="signature" class="max-w-md">
     <twig:Field>
-        <twig:Field:Label for="typed-name">Or type your name</twig:Field:Label>
+        <twig:Field:Label for="typed-name">
+            Or type your name
+        </twig:Field:Label>
         <twig:Input id="typed-name" autocomplete="name" data-action="input->signature-pad#typeName" />
     </twig:Field>
 </twig:SignaturePad>
@@ -102,12 +128,16 @@ Drawing needs a pointer. A text input wired to `signature-pad#typeName` renders 
 
 ```twig
 <div class="grid max-w-md gap-3 rounded-lg border border-border p-4">
-    <p class="text-sm">I have read and accept the terms of the agreement.</p>
+    <p class="text-sm">
+        I have read and accept the terms of the agreement.
+    </p>
     <twig:SignaturePad name="agreement" format="svg">
         <div class="flex items-center gap-3">
-            <twig:Button data-action="signature-pad#lock"
-                    onclick="this.nextElementSibling.textContent = 'Signed on ' + new Date().toLocaleDateString()">Sign and date</twig:Button>
-            <span class="text-sm text-muted-foreground"></span>
+            <twig:Button data-action="signature-pad#lock" onclick="this.nextElementSibling.textContent = 'Signed on ' + new Date().toLocaleDateString()">
+                Sign and date
+            </twig:Button>
+            <span class="text-sm text-muted-foreground">
+            </span>
         </div>
     </twig:SignaturePad>
 </div>
@@ -128,14 +158,31 @@ Several pads can live on one page; listen to `signature-pad:change` to count the
 ```twig
 <div class="grid max-w-md gap-3">
     <div id="clauses" class="grid gap-3">
-        {% for clause in ['Payment terms', 'Confidentiality', 'Termination'] %}
-            <div class="grid grid-cols-[1fr_8rem] items-center gap-3">
-                <span class="text-sm">{{ clause }}</span>
-                <twig:SignaturePad name="initials_{{ loop.index }}" :toolbar="false" placeholder="Initials" class="[&_div.relative]:h-14" />
-            </div>
-        {% endfor %}
+        <div class="grid grid-cols-[1fr_8rem] items-center gap-3">
+            <span class="text-sm">
+                Payment terms
+            </span>
+            <twig:SignaturePad name="initials_1" :toolbar="false" placeholder="Initials" class="[&_div.relative]:h-14" />
+        </div>
+        <div class="grid grid-cols-[1fr_8rem] items-center gap-3">
+            <span class="text-sm">
+                Confidentiality
+            </span>
+            <twig:SignaturePad name="initials_2" :toolbar="false" placeholder="Initials" class="[&_div.relative]:h-14" />
+        </div>
+        <div class="grid grid-cols-[1fr_8rem] items-center gap-3">
+            <span class="text-sm">
+                Termination
+            </span>
+            <twig:SignaturePad name="initials_3" :toolbar="false" placeholder="Initials" class="[&_div.relative]:h-14" />
+        </div>
     </div>
-    <p class="text-sm text-muted-foreground"><span id="initialed">0</span> of 3 initialed</p>
+    <p class="text-sm text-muted-foreground">
+        <span id="initialed">
+            0
+        </span>
+        of 3 initialed
+    </p>
 </div>
 <script>
     const clauses = document.getElementById('clauses');
@@ -153,8 +200,11 @@ The submitted field is a plain input named `name`, so any script can read it. He
 <div class="grid max-w-md gap-3">
     <twig:SignaturePad name="signature" id="sig" />
     <div class="flex items-center gap-2">
-        <twig:Button variant="outline" id="attach">Attach as file</twig:Button>
-        <span id="attached" class="text-sm text-muted-foreground"></span>
+        <twig:Button variant="outline" id="attach">
+            Attach as file
+        </twig:Button>
+        <span id="attached" class="text-sm text-muted-foreground">
+        </span>
     </div>
 </div>
 <script>

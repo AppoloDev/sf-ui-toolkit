@@ -6,12 +6,24 @@
 
 ```twig
 <twig:RadioGroup class="w-fit">
-    {% for v, label in {default: 'Default', comfortable: 'Comfortable', compact: 'Compact'} %}
-        <twig:Field orientation="horizontal">
-            <twig:RadioGroup:Item id="rg-basic-{{ v }}" name="rg-basic" value="{{ v }}" checked="{{ v == 'comfortable' }}" />
-            <twig:Field:Label for="rg-basic-{{ v }}" class="font-normal">{{ label }}</twig:Field:Label>
-        </twig:Field>
-    {% endfor %}
+    <twig:Field orientation="horizontal">
+        <twig:RadioGroup:Item id="rg-basic-default" name="rg-basic" value="default" checked="" />
+        <twig:Field:Label for="rg-basic-default" class="font-normal">
+            Default
+        </twig:Field:Label>
+    </twig:Field>
+    <twig:Field orientation="horizontal">
+        <twig:RadioGroup:Item id="rg-basic-comfortable" name="rg-basic" value="comfortable" checked="1" />
+        <twig:Field:Label for="rg-basic-comfortable" class="font-normal">
+            Comfortable
+        </twig:Field:Label>
+    </twig:Field>
+    <twig:Field orientation="horizontal">
+        <twig:RadioGroup:Item id="rg-basic-compact" name="rg-basic" value="compact" checked="" />
+        <twig:Field:Label for="rg-basic-compact" class="font-normal">
+            Compact
+        </twig:Field:Label>
+    </twig:Field>
 </twig:RadioGroup>
 ```
 
@@ -19,12 +31,24 @@
 
 ```twig
 <twig:RadioGroup class="w-fit">
-    {% for v, cls in {blue: 'border-blue-600 checked:bg-blue-600', green: 'border-green-600 checked:bg-green-600', yellow: 'border-yellow-500 checked:bg-yellow-500'} %}
-        <twig:Field orientation="horizontal">
-            <twig:RadioGroup:Item id="rg-color-{{ v }}" name="rg-color" value="{{ v }}" class="{{ cls }}" />
-            <twig:Field:Label for="rg-color-{{ v }}" class="font-normal capitalize">{{ v }}</twig:Field:Label>
-        </twig:Field>
-    {% endfor %}
+    <twig:Field orientation="horizontal">
+        <twig:RadioGroup:Item id="rg-color-blue" name="rg-color" value="blue" class="border-blue-600 checked:bg-blue-600" />
+        <twig:Field:Label for="rg-color-blue" class="font-normal capitalize">
+            blue
+        </twig:Field:Label>
+    </twig:Field>
+    <twig:Field orientation="horizontal">
+        <twig:RadioGroup:Item id="rg-color-green" name="rg-color" value="green" class="border-green-600 checked:bg-green-600" />
+        <twig:Field:Label for="rg-color-green" class="font-normal capitalize">
+            green
+        </twig:Field:Label>
+    </twig:Field>
+    <twig:Field orientation="horizontal">
+        <twig:RadioGroup:Item id="rg-color-yellow" name="rg-color" value="yellow" class="border-yellow-500 checked:bg-yellow-500" />
+        <twig:Field:Label for="rg-color-yellow" class="font-normal capitalize">
+            yellow
+        </twig:Field:Label>
+    </twig:Field>
 </twig:RadioGroup>
 ```
 
@@ -32,15 +56,31 @@
 
 ```twig
 <twig:Field:Set class="max-w-xs">
-    <twig:Field:Legend variant="label">Battery level</twig:Field:Legend>
-    <twig:Field:Description>Choose how aggressively the device saves power.</twig:Field:Description>
+    <twig:Field:Legend variant="label">
+        Battery level
+    </twig:Field:Legend>
+    <twig:Field:Description>
+        Choose how aggressively the device saves power.
+    </twig:Field:Description>
     <twig:RadioGroup>
-        {% for v in ['low', 'medium', 'high'] %}
-            <twig:Field orientation="horizontal">
-                <twig:RadioGroup:Item id="rg-battery-{{ v }}" name="rg-battery" value="{{ v }}" checked="{{ v == 'medium' }}" />
-                <twig:Field:Label for="rg-battery-{{ v }}" class="font-normal capitalize">{{ v }}</twig:Field:Label>
-            </twig:Field>
-        {% endfor %}
+        <twig:Field orientation="horizontal">
+            <twig:RadioGroup:Item id="rg-battery-low" name="rg-battery" value="low" checked="" />
+            <twig:Field:Label for="rg-battery-low" class="font-normal capitalize">
+                low
+            </twig:Field:Label>
+        </twig:Field>
+        <twig:Field orientation="horizontal">
+            <twig:RadioGroup:Item id="rg-battery-medium" name="rg-battery" value="medium" checked="1" />
+            <twig:Field:Label for="rg-battery-medium" class="font-normal capitalize">
+                medium
+            </twig:Field:Label>
+        </twig:Field>
+        <twig:Field orientation="horizontal">
+            <twig:RadioGroup:Item id="rg-battery-high" name="rg-battery" value="high" checked="" />
+            <twig:Field:Label for="rg-battery-high" class="font-normal capitalize">
+                high
+            </twig:Field:Label>
+        </twig:Field>
     </twig:RadioGroup>
 </twig:Field:Set>
 ```
@@ -49,17 +89,32 @@
 
 ```twig
 <twig:RadioGroup class="max-w-sm">
-    {% for v, plan in {plus: {t: 'Plus', d: 'For individuals and small teams.'}, pro: {t: 'Pro', d: 'For growing businesses.'}} %}
-        <twig:Field:Label for="rg-plan-{{ v }}">
-            <twig:Field orientation="horizontal" class="rounded-lg border p-4 has-checked:border-primary has-checked:bg-primary/5">
-                <twig:Field:Content>
-                    <twig:Field:Title>{{ plan.t }}</twig:Field:Title>
-                    <twig:Field:Description>{{ plan.d }}</twig:Field:Description>
-                </twig:Field:Content>
-                <twig:RadioGroup:Item id="rg-plan-{{ v }}" name="rg-plan" value="{{ v }}" checked="{{ v == 'plus' }}" />
-            </twig:Field>
-        </twig:Field:Label>
-    {% endfor %}
+    <twig:Field:Label for="rg-plan-plus">
+        <twig:Field orientation="horizontal" class="rounded-lg border p-4 has-checked:border-primary has-checked:bg-primary/5">
+            <twig:Field:Content>
+                <twig:Field:Title>
+                    Plus
+                </twig:Field:Title>
+                <twig:Field:Description>
+                    For individuals and small teams.
+                </twig:Field:Description>
+            </twig:Field:Content>
+            <twig:RadioGroup:Item id="rg-plan-plus" name="rg-plan" value="plus" checked="1" />
+        </twig:Field>
+    </twig:Field:Label>
+    <twig:Field:Label for="rg-plan-pro">
+        <twig:Field orientation="horizontal" class="rounded-lg border p-4 has-checked:border-primary has-checked:bg-primary/5">
+            <twig:Field:Content>
+                <twig:Field:Title>
+                    Pro
+                </twig:Field:Title>
+                <twig:Field:Description>
+                    For growing businesses.
+                </twig:Field:Description>
+            </twig:Field:Content>
+            <twig:RadioGroup:Item id="rg-plan-pro" name="rg-plan" value="pro" checked="" />
+        </twig:Field>
+    </twig:Field:Label>
 </twig:RadioGroup>
 ```
 
@@ -68,13 +123,26 @@
 ```twig
 <twig:Card class="max-w-sm gap-0 py-0">
     <twig:RadioGroup class="gap-0">
-        {% for v, label in {standard: 'Standard (5-7 days)', express: 'Express (2-3 days)', overnight: 'Overnight'} %}
-            {% if v != 'standard' %}<twig:Separator />{% endif %}
-            <twig:Field:Label for="rg-ship-{{ v }}" class="flex cursor-pointer items-center gap-3 px-4 py-3">
-                <twig:RadioGroup:Item id="rg-ship-{{ v }}" name="rg-ship" value="{{ v }}" checked="{{ v == 'standard' }}" />
-                <span class="font-normal">{{ label }}</span>
-            </twig:Field:Label>
-        {% endfor %}
+        <twig:Field:Label for="rg-ship-standard" class="flex cursor-pointer items-center gap-3 px-4 py-3">
+            <twig:RadioGroup:Item id="rg-ship-standard" name="rg-ship" value="standard" checked="1" />
+            <span class="font-normal">
+                Standard (5-7 days)
+            </span>
+        </twig:Field:Label>
+        <twig:Separator />
+        <twig:Field:Label for="rg-ship-express" class="flex cursor-pointer items-center gap-3 px-4 py-3">
+            <twig:RadioGroup:Item id="rg-ship-express" name="rg-ship" value="express" checked="" />
+            <span class="font-normal">
+                Express (2-3 days)
+            </span>
+        </twig:Field:Label>
+        <twig:Separator />
+        <twig:Field:Label for="rg-ship-overnight" class="flex cursor-pointer items-center gap-3 px-4 py-3">
+            <twig:RadioGroup:Item id="rg-ship-overnight" name="rg-ship" value="overnight" checked="" />
+            <span class="font-normal">
+                Overnight
+            </span>
+        </twig:Field:Label>
     </twig:RadioGroup>
 </twig:Card>
 ```
@@ -84,14 +152,29 @@
 ```twig
 <twig:Card class="max-w-sm gap-0 py-0">
     <twig:RadioGroup class="gap-0">
-        {% for v, c in {email: {l: 'Email', i: 'mail'}, phone: {l: 'Phone', i: 'phone'}, chat: {l: 'Chat', i: 'message-circle'}} %}
-            {% if v != 'email' %}<twig:Separator />{% endif %}
-            <twig:Field:Label for="rg-contact-{{ v }}" class="flex cursor-pointer items-center gap-3 px-4 py-3">
-                <twig:ux:icon name="lucide:{{ c.i }}" class="size-4 text-muted-foreground" />
-                <span class="flex-1 font-normal">{{ c.l }}</span>
-                <twig:RadioGroup:Item id="rg-contact-{{ v }}" name="rg-contact" value="{{ v }}" checked="{{ v == 'email' }}" />
-            </twig:Field:Label>
-        {% endfor %}
+        <twig:Field:Label for="rg-contact-email" class="flex cursor-pointer items-center gap-3 px-4 py-3">
+            <twig:ux:icon name="lucide:mail" class="size-4 text-muted-foreground" />
+            <span class="flex-1 font-normal">
+                Email
+            </span>
+            <twig:RadioGroup:Item id="rg-contact-email" name="rg-contact" value="email" checked="1" />
+        </twig:Field:Label>
+        <twig:Separator />
+        <twig:Field:Label for="rg-contact-phone" class="flex cursor-pointer items-center gap-3 px-4 py-3">
+            <twig:ux:icon name="lucide:phone" class="size-4 text-muted-foreground" />
+            <span class="flex-1 font-normal">
+                Phone
+            </span>
+            <twig:RadioGroup:Item id="rg-contact-phone" name="rg-contact" value="phone" checked="" />
+        </twig:Field:Label>
+        <twig:Separator />
+        <twig:Field:Label for="rg-contact-chat" class="flex cursor-pointer items-center gap-3 px-4 py-3">
+            <twig:ux:icon name="lucide:message-circle" class="size-4 text-muted-foreground" />
+            <span class="flex-1 font-normal">
+                Chat
+            </span>
+            <twig:RadioGroup:Item id="rg-contact-chat" name="rg-contact" value="chat" checked="" />
+        </twig:Field:Label>
     </twig:RadioGroup>
 </twig:Card>
 ```
@@ -100,16 +183,62 @@
 
 ```twig
 <twig:RadioGroup class="grid max-w-md grid-cols-2 gap-3">
-    {% for v, a in {analytics: {t: 'Analytics', d: 'Track usage', i: 'chart-column'}, billing: {t: 'Billing', d: 'Manage plans', i: 'credit-card'}, security: {t: 'Security', d: 'Protect data', i: 'shield'}, support: {t: 'Support', d: 'Get help', i: 'life-buoy'}} %}
-        <twig:Field:Label for="rg-area-{{ v }}">
-            <twig:Field class="relative rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
-                <span class="flex size-8 items-center justify-center rounded-md bg-muted"><twig:ux:icon name="lucide:{{ a.i }}" class="size-4" /></span>
-                <twig:Field:Title>{{ a.t }}</twig:Field:Title>
-                <twig:Field:Description>{{ a.d }}</twig:Field:Description>
-                <twig:RadioGroup:Item id="rg-area-{{ v }}" name="rg-area" value="{{ v }}" class="absolute end-3 top-3" />
-            </twig:Field>
-        </twig:Field:Label>
-    {% endfor %}
+    <twig:Field:Label for="rg-area-analytics">
+        <twig:Field class="relative rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
+            <span class="flex size-8 items-center justify-center rounded-md bg-muted">
+                <twig:ux:icon name="lucide:chart-column" class="size-4" />
+            </span>
+            <twig:Field:Title>
+                Analytics
+            </twig:Field:Title>
+            <twig:Field:Description>
+                Track usage
+            </twig:Field:Description>
+            <twig:RadioGroup:Item id="rg-area-analytics" name="rg-area" value="analytics" class="absolute end-3 top-3" />
+        </twig:Field>
+    </twig:Field:Label>
+    <twig:Field:Label for="rg-area-billing">
+        <twig:Field class="relative rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
+            <span class="flex size-8 items-center justify-center rounded-md bg-muted">
+                <twig:ux:icon name="lucide:credit-card" class="size-4" />
+            </span>
+            <twig:Field:Title>
+                Billing
+            </twig:Field:Title>
+            <twig:Field:Description>
+                Manage plans
+            </twig:Field:Description>
+            <twig:RadioGroup:Item id="rg-area-billing" name="rg-area" value="billing" class="absolute end-3 top-3" />
+        </twig:Field>
+    </twig:Field:Label>
+    <twig:Field:Label for="rg-area-security">
+        <twig:Field class="relative rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
+            <span class="flex size-8 items-center justify-center rounded-md bg-muted">
+                <twig:ux:icon name="lucide:shield" class="size-4" />
+            </span>
+            <twig:Field:Title>
+                Security
+            </twig:Field:Title>
+            <twig:Field:Description>
+                Protect data
+            </twig:Field:Description>
+            <twig:RadioGroup:Item id="rg-area-security" name="rg-area" value="security" class="absolute end-3 top-3" />
+        </twig:Field>
+    </twig:Field:Label>
+    <twig:Field:Label for="rg-area-support">
+        <twig:Field class="relative rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
+            <span class="flex size-8 items-center justify-center rounded-md bg-muted">
+                <twig:ux:icon name="lucide:life-buoy" class="size-4" />
+            </span>
+            <twig:Field:Title>
+                Support
+            </twig:Field:Title>
+            <twig:Field:Description>
+                Get help
+            </twig:Field:Description>
+            <twig:RadioGroup:Item id="rg-area-support" name="rg-area" value="support" class="absolute end-3 top-3" />
+        </twig:Field>
+    </twig:Field:Label>
 </twig:RadioGroup>
 ```
 
@@ -117,15 +246,44 @@
 
 ```twig
 <twig:RadioGroup class="grid max-w-md grid-cols-2 gap-3">
-    {% for u in ['shadcn', 'maxleiter'] %}
-        <twig:Field:Label for="rg-user-{{ u }}">
-            <twig:Field orientation="horizontal" class="items-center rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
-                <twig:Avatar><twig:Avatar:Image src="https://github.com/{{ u }}.png" alt="{{ u }}" /><twig:Avatar:Fallback>{{ u|first|upper }}</twig:Avatar:Fallback></twig:Avatar>
-                <twig:Field:Content class="flex-1"><twig:Field:Title>{{ u }}</twig:Field:Title><twig:Field:Description>@{{ u }}</twig:Field:Description></twig:Field:Content>
-                <twig:RadioGroup:Item id="rg-user-{{ u }}" name="rg-user" value="{{ u }}" />
-            </twig:Field>
-        </twig:Field:Label>
-    {% endfor %}
+    <twig:Field:Label for="rg-user-shadcn">
+        <twig:Field orientation="horizontal" class="items-center rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
+            <twig:Avatar>
+                <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+                <twig:Avatar:Fallback>
+                    S
+                </twig:Avatar:Fallback>
+            </twig:Avatar>
+            <twig:Field:Content class="flex-1">
+                <twig:Field:Title>
+                    shadcn
+                </twig:Field:Title>
+                <twig:Field:Description>
+                    @shadcn
+                </twig:Field:Description>
+            </twig:Field:Content>
+            <twig:RadioGroup:Item id="rg-user-shadcn" name="rg-user" value="shadcn" />
+        </twig:Field>
+    </twig:Field:Label>
+    <twig:Field:Label for="rg-user-maxleiter">
+        <twig:Field orientation="horizontal" class="items-center rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
+            <twig:Avatar>
+                <twig:Avatar:Image src="https://github.com/maxleiter.png" alt="maxleiter" />
+                <twig:Avatar:Fallback>
+                    M
+                </twig:Avatar:Fallback>
+            </twig:Avatar>
+            <twig:Field:Content class="flex-1">
+                <twig:Field:Title>
+                    maxleiter
+                </twig:Field:Title>
+                <twig:Field:Description>
+                    @maxleiter
+                </twig:Field:Description>
+            </twig:Field:Content>
+            <twig:RadioGroup:Item id="rg-user-maxleiter" name="rg-user" value="maxleiter" />
+        </twig:Field>
+    </twig:Field:Label>
 </twig:RadioGroup>
 ```
 
@@ -135,15 +293,27 @@
 <twig:RadioGroup class="w-fit">
     <twig:Field orientation="horizontal">
         <twig:RadioGroup:Item id="rg-ch-stable" name="rg-ch" value="stable" checked />
-        <twig:Field:Label for="rg-ch-stable" class="font-normal">Stable <twig:Badge variant="secondary">Recommended</twig:Badge></twig:Field:Label>
+        <twig:Field:Label for="rg-ch-stable" class="font-normal">
+            Stable
+            <twig:Badge variant="secondary">
+                Recommended
+            </twig:Badge>
+        </twig:Field:Label>
     </twig:Field>
     <twig:Field orientation="horizontal">
         <twig:RadioGroup:Item id="rg-ch-beta" name="rg-ch" value="beta" />
-        <twig:Field:Label for="rg-ch-beta" class="font-normal">Beta <twig:Badge>New</twig:Badge></twig:Field:Label>
+        <twig:Field:Label for="rg-ch-beta" class="font-normal">
+            Beta
+            <twig:Badge>
+                New
+            </twig:Badge>
+        </twig:Field:Label>
     </twig:Field>
     <twig:Field orientation="horizontal">
         <twig:RadioGroup:Item id="rg-ch-canary" name="rg-ch" value="canary" />
-        <twig:Field:Label for="rg-ch-canary" class="font-normal">Canary</twig:Field:Label>
+        <twig:Field:Label for="rg-ch-canary" class="font-normal">
+            Canary
+        </twig:Field:Label>
     </twig:Field>
 </twig:RadioGroup>
 ```
@@ -152,12 +322,24 @@
 
 ```twig
 <twig:RadioGroup class="flex flex-wrap gap-6">
-    {% for v in ['admin', 'editor', 'viewer'] %}
-        <twig:Field orientation="horizontal" class="w-auto">
-            <twig:RadioGroup:Item id="rg-role-{{ v }}" name="rg-role" value="{{ v }}" checked="{{ v == 'viewer' }}" />
-            <twig:Field:Label for="rg-role-{{ v }}" class="font-normal capitalize">{{ v }}</twig:Field:Label>
-        </twig:Field>
-    {% endfor %}
+    <twig:Field orientation="horizontal" class="w-auto">
+        <twig:RadioGroup:Item id="rg-role-admin" name="rg-role" value="admin" checked="" />
+        <twig:Field:Label for="rg-role-admin" class="font-normal capitalize">
+            admin
+        </twig:Field:Label>
+    </twig:Field>
+    <twig:Field orientation="horizontal" class="w-auto">
+        <twig:RadioGroup:Item id="rg-role-editor" name="rg-role" value="editor" checked="" />
+        <twig:Field:Label for="rg-role-editor" class="font-normal capitalize">
+            editor
+        </twig:Field:Label>
+    </twig:Field>
+    <twig:Field orientation="horizontal" class="w-auto">
+        <twig:RadioGroup:Item id="rg-role-viewer" name="rg-role" value="viewer" checked="1" />
+        <twig:Field:Label for="rg-role-viewer" class="font-normal capitalize">
+            viewer
+        </twig:Field:Label>
+    </twig:Field>
 </twig:RadioGroup>
 ```
 
@@ -165,15 +347,39 @@
 
 ```twig
 <twig:RadioGroup class="max-w-sm">
-    {% for v, t in {free: {n: 'Free', p: '$0'}, pro: {n: 'Pro', p: '$19'}, enterprise: {n: 'Enterprise', p: '$99'}} %}
-        <twig:Field:Label for="rg-tier-{{ v }}">
-            <twig:Field orientation="horizontal" class="items-center rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
-                <twig:RadioGroup:Item id="rg-tier-{{ v }}" name="rg-tier" value="{{ v }}" checked="{{ v == 'pro' }}" />
-                <span class="flex-1 font-medium">{{ t.n }}</span>
-                <span class="text-sm text-muted-foreground">{{ t.p }} / month</span>
-            </twig:Field>
-        </twig:Field:Label>
-    {% endfor %}
+    <twig:Field:Label for="rg-tier-free">
+        <twig:Field orientation="horizontal" class="items-center rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
+            <twig:RadioGroup:Item id="rg-tier-free" name="rg-tier" value="free" checked="" />
+            <span class="flex-1 font-medium">
+                Free
+            </span>
+            <span class="text-sm text-muted-foreground">
+                $0 / month
+            </span>
+        </twig:Field>
+    </twig:Field:Label>
+    <twig:Field:Label for="rg-tier-pro">
+        <twig:Field orientation="horizontal" class="items-center rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
+            <twig:RadioGroup:Item id="rg-tier-pro" name="rg-tier" value="pro" checked="1" />
+            <span class="flex-1 font-medium">
+                Pro
+            </span>
+            <span class="text-sm text-muted-foreground">
+                $19 / month
+            </span>
+        </twig:Field>
+    </twig:Field:Label>
+    <twig:Field:Label for="rg-tier-enterprise">
+        <twig:Field orientation="horizontal" class="items-center rounded-lg border p-3 has-checked:border-primary has-checked:bg-primary/5">
+            <twig:RadioGroup:Item id="rg-tier-enterprise" name="rg-tier" value="enterprise" checked="" />
+            <span class="flex-1 font-medium">
+                Enterprise
+            </span>
+            <span class="text-sm text-muted-foreground">
+                $99 / month
+            </span>
+        </twig:Field>
+    </twig:Field:Label>
 </twig:RadioGroup>
 ```
 

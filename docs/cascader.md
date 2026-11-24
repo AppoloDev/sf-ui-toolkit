@@ -133,7 +133,9 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 
 ```twig
 <twig:Cascader name="folder" placeholder="Choose a folder">
-    <twig:Cascader:Icon><twig:ux:icon name="lucide:folder" /></twig:Cascader:Icon>
+    <twig:Cascader:Icon>
+        <twig:ux:icon name="lucide:folder" />
+    </twig:Cascader:Icon>
     <twig:Cascader:Option value="docs" label="Documents" />
     <twig:Cascader:Option value="media" label="Media" />
 </twig:Cascader>

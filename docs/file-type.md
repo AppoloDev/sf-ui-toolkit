@@ -87,9 +87,18 @@ When the file name is displayed beside the icon, hide the icon from assistive te
 
 ```twig
 <ul class="max-w-sm divide-y divide-border rounded-lg border border-border text-sm">
-    <li class="flex items-center gap-3 p-3"><twig:FileType type="pdf" size="sm" decorative /> annual-report.pdf</li>
-    <li class="flex items-center gap-3 p-3"><twig:FileType type="xlsx" size="sm" decorative /> budget.xlsx</li>
-    <li class="flex items-center gap-3 p-3"><twig:FileType type="zip" size="sm" decorative /> assets.zip</li>
+    <li class="flex items-center gap-3 p-3">
+        <twig:FileType type="pdf" size="sm" decorative />
+        annual-report.pdf
+    </li>
+    <li class="flex items-center gap-3 p-3">
+        <twig:FileType type="xlsx" size="sm" decorative />
+        budget.xlsx
+    </li>
+    <li class="flex items-center gap-3 p-3">
+        <twig:FileType type="zip" size="sm" decorative />
+        assets.zip
+    </li>
 </ul>
 ```
 

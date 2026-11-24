@@ -59,7 +59,9 @@ The trend badge is green for an increase and red for a decrease; its direction i
 <twig:Stats :columns="2">
     <twig:Stats:Card label="API quota" value="7,420 / 10,000" progress="74" progressLabel="Quota used" />
     <twig:Stats:Card label="Storage" value="38 GB" progress="38" progressLabel="Storage used" comparison="of 100 GB">
-        <p class="text-xs text-muted-foreground">Next cleanup on Monday.</p>
+        <p class="text-xs text-muted-foreground">
+            Next cleanup on Monday.
+        </p>
     </twig:Stats:Card>
 </twig:Stats>
 ```

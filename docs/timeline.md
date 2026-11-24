@@ -40,9 +40,15 @@ Suited to milestones and pipeline steps.
 
 ```twig
 <twig:Timeline orientation="horizontal" class="w-full">
-    <twig:Timeline:Item title="Kick-off" date="Q1" :completed="true">Scope agreed</twig:Timeline:Item>
-    <twig:Timeline:Item title="Beta" date="Q2" :active="true">In progress</twig:Timeline:Item>
-    <twig:Timeline:Item title="Launch" date="Q3">Planned</twig:Timeline:Item>
+    <twig:Timeline:Item title="Kick-off" date="Q1" :completed="true">
+        Scope agreed
+    </twig:Timeline:Item>
+    <twig:Timeline:Item title="Beta" date="Q2" :active="true">
+        In progress
+    </twig:Timeline:Item>
+    <twig:Timeline:Item title="Launch" date="Q3">
+        Planned
+    </twig:Timeline:Item>
     <twig:Timeline:Item title="Review" date="Q4" />
 </twig:Timeline>
 ```
@@ -54,10 +60,14 @@ The slot accepts any markup.
 ```twig
 <twig:Timeline class="max-w-md">
     <twig:Timeline:Item title="Alice commented" date="2 hours ago" :completed="true">
-        <blockquote class="border-l-2 border-border pl-3 italic">Looks good to me.</blockquote>
+        <blockquote class="border-l-2 border-border pl-3 italic">
+            Looks good to me.
+        </blockquote>
     </twig:Timeline:Item>
     <twig:Timeline:Item title="Bob pushed 3 commits" date="Yesterday" :completed="true">
-        <code class="rounded bg-muted px-1.5 py-0.5 text-xs">main</code>
+        <code class="rounded bg-muted px-1.5 py-0.5 text-xs">
+            main
+        </code>
     </twig:Timeline:Item>
     <twig:Timeline:Item title="Pull request opened" date="2 days ago" />
 </twig:Timeline>

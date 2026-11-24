@@ -13,23 +13,43 @@ A rail item and a panel group are tied by the same `group` name; the one marked 
 <twig:AppShell height="480px" storageKey="docs:app-shell">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
-            <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
-            <twig:AppShell:RailItem label="Overview" group="overview" active><twig:ux:icon name="lucide:layout-dashboard" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Projects" group="projects"><twig:ux:icon name="lucide:folder" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Team" group="team"><twig:ux:icon name="lucide:users" class="size-5" /></twig:AppShell:RailItem>
+            <twig:block name="brand">
+                <twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" />
+            </twig:block>
+            <twig:AppShell:RailItem label="Overview" group="overview" active>
+                <twig:ux:icon name="lucide:layout-dashboard" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Projects" group="projects">
+                <twig:ux:icon name="lucide:folder" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Team" group="team">
+                <twig:ux:icon name="lucide:users" class="size-5" />
+            </twig:AppShell:RailItem>
         </twig:AppShell:Rail>
         <twig:AppShell:Panel>
             <twig:AppShell:PanelGroup group="overview" title="Overview" active class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">Dashboard</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Activity</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Activity
+                </a>
             </twig:AppShell:PanelGroup>
             <twig:AppShell:PanelGroup group="projects" title="Projects" class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Website</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Mobile app</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Website
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Mobile app
+                </a>
             </twig:AppShell:PanelGroup>
             <twig:AppShell:PanelGroup group="team" title="Team" class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Members</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Roles</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Members
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Roles
+                </a>
             </twig:AppShell:PanelGroup>
         </twig:AppShell:Panel>
     </twig:AppShell:Sidebar>
@@ -37,12 +57,19 @@ A rail item and a panel group are tied by the same `group` name; the one marked 
         <twig:AppShell:Header>
             <twig:AppShell:MenuButton />
             <twig:AppShell:Toggle />
-            <span class="mx-2 hidden h-4 w-px bg-border md:block"></span>
-            <span class="text-sm text-muted-foreground">Dashboard</span>
+            <span class="mx-2 hidden h-4 w-px bg-border md:block">
+            </span>
+            <span class="text-sm text-muted-foreground">
+                Dashboard
+            </span>
         </twig:AppShell:Header>
         <twig:AppShell:Content>
-            <h1 class="text-lg font-semibold">Dashboard</h1>
-            <p class="text-sm text-muted-foreground">Page content goes here.</p>
+            <h1 class="text-lg font-semibold">
+                Dashboard
+            </h1>
+            <p class="text-sm text-muted-foreground">
+                Page content goes here.
+            </p>
         </twig:AppShell:Content>
     </twig:AppShell:Main>
 </twig:AppShell>
@@ -61,25 +88,46 @@ Without a rail it is a classic collapsible sidebar. `header` and `footer` blocks
 <twig:AppShell height="480px" storageKey="docs:app-shell-panel">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Panel>
-            <twig:block name="header"><span class="text-base font-semibold">Acme Inc.</span></twig:block>
+            <twig:block name="header">
+                <span class="text-base font-semibold">
+                    Acme Inc.
+                </span>
+            </twig:block>
             <twig:AppShell:PanelGroup title="Workspace" class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">Dashboard</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Projects</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Settings</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Projects
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Settings
+                </a>
             </twig:AppShell:PanelGroup>
-            <twig:block name="footer"><span class="text-xs text-muted-foreground">Free plan</span></twig:block>
+            <twig:block name="footer">
+                <span class="text-xs text-muted-foreground">
+                    Free plan
+                </span>
+            </twig:block>
         </twig:AppShell:Panel>
     </twig:AppShell:Sidebar>
     <twig:AppShell:Main>
         <twig:AppShell:Header>
             <twig:AppShell:MenuButton />
             <twig:AppShell:Toggle />
-            <span class="mx-2 hidden h-4 w-px bg-border md:block"></span>
-            <span class="text-sm text-muted-foreground">Dashboard</span>
+            <span class="mx-2 hidden h-4 w-px bg-border md:block">
+            </span>
+            <span class="text-sm text-muted-foreground">
+                Dashboard
+            </span>
         </twig:AppShell:Header>
         <twig:AppShell:Content>
-            <h1 class="text-lg font-semibold">Dashboard</h1>
-            <p class="text-sm text-muted-foreground">Page content goes here.</p>
+            <h1 class="text-lg font-semibold">
+                Dashboard
+            </h1>
+            <p class="text-sm text-muted-foreground">
+                Page content goes here.
+            </p>
         </twig:AppShell:Content>
     </twig:AppShell:Main>
 </twig:AppShell>
@@ -94,18 +142,39 @@ Items with an `href` are links (`aria-current` on the active one) and need no pa
 <twig:AppShell height="480px">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
-            <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
-            <twig:AppShell:RailItem label="Home" href="#" active><twig:ux:icon name="lucide:house" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Inbox" href="#"><twig:ux:icon name="lucide:inbox" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Calendar" href="#"><twig:ux:icon name="lucide:calendar" class="size-5" /></twig:AppShell:RailItem>
-            <twig:block name="footer"><twig:AppShell:RailItem label="Settings" href="#"><twig:ux:icon name="lucide:settings" class="size-5" /></twig:AppShell:RailItem></twig:block>
+            <twig:block name="brand">
+                <twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" />
+            </twig:block>
+            <twig:AppShell:RailItem label="Home" href="#" active>
+                <twig:ux:icon name="lucide:house" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Inbox" href="#">
+                <twig:ux:icon name="lucide:inbox" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Calendar" href="#">
+                <twig:ux:icon name="lucide:calendar" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:block name="footer">
+                <twig:AppShell:RailItem label="Settings" href="#">
+                    <twig:ux:icon name="lucide:settings" class="size-5" />
+                </twig:AppShell:RailItem>
+            </twig:block>
         </twig:AppShell:Rail>
     </twig:AppShell:Sidebar>
     <twig:AppShell:Main>
-        <twig:AppShell:Header><twig:AppShell:MenuButton /><span class="text-sm text-muted-foreground">Home</span></twig:AppShell:Header>
+        <twig:AppShell:Header>
+            <twig:AppShell:MenuButton />
+            <span class="text-sm text-muted-foreground">
+                Home
+            </span>
+        </twig:AppShell:Header>
         <twig:AppShell:Content>
-            <h1 class="text-lg font-semibold">Dashboard</h1>
-            <p class="text-sm text-muted-foreground">Page content goes here.</p>
+            <h1 class="text-lg font-semibold">
+                Dashboard
+            </h1>
+            <p class="text-sm text-muted-foreground">
+                Page content goes here.
+            </p>
         </twig:AppShell:Content>
     </twig:AppShell:Main>
 </twig:AppShell>
@@ -120,23 +189,43 @@ Items with an `href` are links (`aria-current` on the active one) and need no pa
 <twig:AppShell height="480px" collapsed :storageKey="false">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
-            <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
-            <twig:AppShell:RailItem label="Overview" group="overview" active><twig:ux:icon name="lucide:layout-dashboard" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Projects" group="projects"><twig:ux:icon name="lucide:folder" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Team" group="team"><twig:ux:icon name="lucide:users" class="size-5" /></twig:AppShell:RailItem>
+            <twig:block name="brand">
+                <twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" />
+            </twig:block>
+            <twig:AppShell:RailItem label="Overview" group="overview" active>
+                <twig:ux:icon name="lucide:layout-dashboard" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Projects" group="projects">
+                <twig:ux:icon name="lucide:folder" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Team" group="team">
+                <twig:ux:icon name="lucide:users" class="size-5" />
+            </twig:AppShell:RailItem>
         </twig:AppShell:Rail>
         <twig:AppShell:Panel>
             <twig:AppShell:PanelGroup group="overview" title="Overview" active class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">Dashboard</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Activity</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Activity
+                </a>
             </twig:AppShell:PanelGroup>
             <twig:AppShell:PanelGroup group="projects" title="Projects" class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Website</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Mobile app</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Website
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Mobile app
+                </a>
             </twig:AppShell:PanelGroup>
             <twig:AppShell:PanelGroup group="team" title="Team" class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Members</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Roles</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Members
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Roles
+                </a>
             </twig:AppShell:PanelGroup>
         </twig:AppShell:Panel>
     </twig:AppShell:Sidebar>
@@ -144,12 +233,19 @@ Items with an `href` are links (`aria-current` on the active one) and need no pa
         <twig:AppShell:Header>
             <twig:AppShell:MenuButton />
             <twig:AppShell:Toggle />
-            <span class="mx-2 hidden h-4 w-px bg-border md:block"></span>
-            <span class="text-sm text-muted-foreground">Dashboard</span>
+            <span class="mx-2 hidden h-4 w-px bg-border md:block">
+            </span>
+            <span class="text-sm text-muted-foreground">
+                Dashboard
+            </span>
         </twig:AppShell:Header>
         <twig:AppShell:Content>
-            <h1 class="text-lg font-semibold">Dashboard</h1>
-            <p class="text-sm text-muted-foreground">Page content goes here.</p>
+            <h1 class="text-lg font-semibold">
+                Dashboard
+            </h1>
+            <p class="text-sm text-muted-foreground">
+                Page content goes here.
+            </p>
         </twig:AppShell:Content>
     </twig:AppShell:Main>
 </twig:AppShell>
@@ -164,30 +260,54 @@ The header is a part like the others. Without it the toggle and the menu button 
 <twig:AppShell height="480px" :storageKey="false" :shortcut="false">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
-            <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
-            <twig:AppShell:RailItem label="Overview" group="overview" active><twig:ux:icon name="lucide:layout-dashboard" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Projects" group="projects"><twig:ux:icon name="lucide:folder" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Team" group="team"><twig:ux:icon name="lucide:users" class="size-5" /></twig:AppShell:RailItem>
+            <twig:block name="brand">
+                <twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" />
+            </twig:block>
+            <twig:AppShell:RailItem label="Overview" group="overview" active>
+                <twig:ux:icon name="lucide:layout-dashboard" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Projects" group="projects">
+                <twig:ux:icon name="lucide:folder" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Team" group="team">
+                <twig:ux:icon name="lucide:users" class="size-5" />
+            </twig:AppShell:RailItem>
         </twig:AppShell:Rail>
         <twig:AppShell:Panel width="14rem">
             <twig:AppShell:PanelGroup group="overview" title="Overview" active class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">Dashboard</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Activity</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Activity
+                </a>
             </twig:AppShell:PanelGroup>
             <twig:AppShell:PanelGroup group="projects" title="Projects" class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Website</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Mobile app</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Website
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Mobile app
+                </a>
             </twig:AppShell:PanelGroup>
             <twig:AppShell:PanelGroup group="team" title="Team" class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Members</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Roles</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Members
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Roles
+                </a>
             </twig:AppShell:PanelGroup>
         </twig:AppShell:Panel>
     </twig:AppShell:Sidebar>
     <twig:AppShell:Main>
         <twig:AppShell:Content>
-            <h1 class="text-lg font-semibold">Dashboard</h1>
-            <p class="text-sm text-muted-foreground">Page content goes here.</p>
+            <h1 class="text-lg font-semibold">
+                Dashboard
+            </h1>
+            <p class="text-sm text-muted-foreground">
+                Page content goes here.
+            </p>
         </twig:AppShell:Content>
     </twig:AppShell:Main>
 </twig:AppShell>
@@ -202,23 +322,43 @@ The header is a part like the others. Without it the toggle and the menu button 
 <twig:AppShell height="480px" :storageKey="false">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
-            <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
-            <twig:AppShell:RailItem label="Overview" group="overview" active><twig:ux:icon name="lucide:layout-dashboard" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Projects" group="projects"><twig:ux:icon name="lucide:folder" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Team" group="team"><twig:ux:icon name="lucide:users" class="size-5" /></twig:AppShell:RailItem>
+            <twig:block name="brand">
+                <twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" />
+            </twig:block>
+            <twig:AppShell:RailItem label="Overview" group="overview" active>
+                <twig:ux:icon name="lucide:layout-dashboard" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Projects" group="projects">
+                <twig:ux:icon name="lucide:folder" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Team" group="team">
+                <twig:ux:icon name="lucide:users" class="size-5" />
+            </twig:AppShell:RailItem>
         </twig:AppShell:Rail>
         <twig:AppShell:Panel>
             <twig:AppShell:PanelGroup group="overview" title="Overview" active class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">Dashboard</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Activity</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Activity
+                </a>
             </twig:AppShell:PanelGroup>
             <twig:AppShell:PanelGroup group="projects" title="Projects" class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Website</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Mobile app</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Website
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Mobile app
+                </a>
             </twig:AppShell:PanelGroup>
             <twig:AppShell:PanelGroup group="team" title="Team" class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Members</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Roles</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Members
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Roles
+                </a>
             </twig:AppShell:PanelGroup>
         </twig:AppShell:Panel>
     </twig:AppShell:Sidebar>
@@ -226,13 +366,22 @@ The header is a part like the others. Without it the toggle and the menu button 
         <twig:AppShell:Header sticky>
             <twig:AppShell:MenuButton />
             <twig:AppShell:Toggle />
-            <span class="mx-2 hidden h-4 w-px bg-border md:block"></span>
-            <span class="text-sm text-muted-foreground">Dashboard</span>
-            <a href="#" class="ms-auto rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent">Invite</a>
+            <span class="mx-2 hidden h-4 w-px bg-border md:block">
+            </span>
+            <span class="text-sm text-muted-foreground">
+                Dashboard
+            </span>
+            <a href="#" class="ms-auto rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent">
+                Invite
+            </a>
         </twig:AppShell:Header>
         <twig:AppShell:Content>
-            <h1 class="text-lg font-semibold">Dashboard</h1>
-            <p class="text-sm text-muted-foreground">Page content goes here.</p>
+            <h1 class="text-lg font-semibold">
+                Dashboard
+            </h1>
+            <p class="text-sm text-muted-foreground">
+                Page content goes here.
+            </p>
         </twig:AppShell:Content>
     </twig:AppShell:Main>
 </twig:AppShell>
@@ -247,23 +396,43 @@ The `footer` block of `AppShell:Content` sits under the page, outside its paddin
 <twig:AppShell height="480px" :storageKey="false">
     <twig:AppShell:Sidebar>
         <twig:AppShell:Rail>
-            <twig:block name="brand"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></twig:block>
-            <twig:AppShell:RailItem label="Overview" group="overview" active><twig:ux:icon name="lucide:layout-dashboard" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Projects" group="projects"><twig:ux:icon name="lucide:folder" class="size-5" /></twig:AppShell:RailItem>
-            <twig:AppShell:RailItem label="Team" group="team"><twig:ux:icon name="lucide:users" class="size-5" /></twig:AppShell:RailItem>
+            <twig:block name="brand">
+                <twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" />
+            </twig:block>
+            <twig:AppShell:RailItem label="Overview" group="overview" active>
+                <twig:ux:icon name="lucide:layout-dashboard" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Projects" group="projects">
+                <twig:ux:icon name="lucide:folder" class="size-5" />
+            </twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Team" group="team">
+                <twig:ux:icon name="lucide:users" class="size-5" />
+            </twig:AppShell:RailItem>
         </twig:AppShell:Rail>
         <twig:AppShell:Panel>
             <twig:AppShell:PanelGroup group="overview" title="Overview" active class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">Dashboard</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Activity</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground bg-accent font-medium">
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Activity
+                </a>
             </twig:AppShell:PanelGroup>
             <twig:AppShell:PanelGroup group="projects" title="Projects" class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Website</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Mobile app</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Website
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Mobile app
+                </a>
             </twig:AppShell:PanelGroup>
             <twig:AppShell:PanelGroup group="team" title="Team" class="grid gap-0.5">
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Members</a>
-                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">Roles</a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Members
+                </a>
+                <a href="#" class="flex items-center rounded-md px-2 py-2 hover:bg-accent hover:text-accent-foreground">
+                    Roles
+                </a>
             </twig:AppShell:PanelGroup>
         </twig:AppShell:Panel>
     </twig:AppShell:Sidebar>
@@ -271,13 +440,24 @@ The `footer` block of `AppShell:Content` sits under the page, outside its paddin
         <twig:AppShell:Header>
             <twig:AppShell:MenuButton />
             <twig:AppShell:Toggle />
-            <span class="mx-2 hidden h-4 w-px bg-border md:block"></span>
-            <span class="text-sm text-muted-foreground">Dashboard</span>
+            <span class="mx-2 hidden h-4 w-px bg-border md:block">
+            </span>
+            <span class="text-sm text-muted-foreground">
+                Dashboard
+            </span>
         </twig:AppShell:Header>
         <twig:AppShell:Content>
-            <h1 class="text-lg font-semibold">Dashboard</h1>
-            <p class="text-sm text-muted-foreground">Page content goes here.</p>
-            <twig:block name="footer"><p class="border-t border-border px-4 py-3 text-xs text-muted-foreground md:px-8">&copy; Acme Inc.</p></twig:block>
+            <h1 class="text-lg font-semibold">
+                Dashboard
+            </h1>
+            <p class="text-sm text-muted-foreground">
+                Page content goes here.
+            </p>
+            <twig:block name="footer">
+                <p class="border-t border-border px-4 py-3 text-xs text-muted-foreground md:px-8">
+                    &copy; Acme Inc.
+                </p>
+            </twig:block>
         </twig:AppShell:Content>
     </twig:AppShell:Main>
 </twig:AppShell>

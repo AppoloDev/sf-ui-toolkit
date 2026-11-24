@@ -50,7 +50,9 @@ An E.164 `value` selects the country from its dial code and fills the national n
 
 ```twig
 <twig:Field class="w-fit">
-    <twig:Field:Label for="mobile">Mobile</twig:Field:Label>
+    <twig:Field:Label for="mobile">
+        Mobile
+    </twig:Field:Label>
     <twig:PhoneInput id="mobile" name="mobile" defaultCountry="GB" />
 </twig:Field>
 ```

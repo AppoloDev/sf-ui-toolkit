@@ -34,18 +34,25 @@ Rows hold any control. `for` turns the label into a real `<label>` of that contr
         </twig:Settings:Row>
         <twig:Settings:Row label="Language" description="Used for dates and numbers." for="language">
             <twig:NativeSelect id="language">
-                <twig:NativeSelect:Option>English</twig:NativeSelect:Option>
-                <twig:NativeSelect:Option>Français</twig:NativeSelect:Option>
+                <twig:NativeSelect:Option>
+                    English
+                </twig:NativeSelect:Option>
+                <twig:NativeSelect:Option>
+                    Français
+                </twig:NativeSelect:Option>
             </twig:NativeSelect>
         </twig:Settings:Row>
         <twig:Settings:Row label="Priority support" description="Answers within two hours." badge="Pro">
-            <span class="text-sm text-muted-foreground">Not on your plan</span>
+            <span class="text-sm text-muted-foreground">
+                Not on your plan
+            </span>
         </twig:Settings:Row>
     </twig:Settings:Section>
-
     <twig:Settings:Section title="Danger zone">
         <twig:Settings:Row label="Delete account" description="Removes your data for good." danger>
-            <twig:Button as="a" href="#" variant="destructive">Delete</twig:Button>
+            <twig:Button as="a" href="#" variant="destructive">
+                Delete
+            </twig:Button>
         </twig:Settings:Row>
     </twig:Settings:Section>
 </twig:Settings>
@@ -59,13 +66,23 @@ The `nav` block puts a rail beside the content from the large breakpoint up, and
 <twig:Settings>
     <twig:block name="nav">
         <nav aria-label="Settings" class="grid gap-1 text-sm">
-            <a href="#profile" aria-current="page" class="rounded-md bg-muted px-3 py-2 font-medium">Profile</a>
-            <a href="#security" class="rounded-md px-3 py-2 text-muted-foreground hover:bg-muted">Security</a>
-            <a href="#billing" class="rounded-md px-3 py-2 text-muted-foreground hover:bg-muted">Billing</a>
+            <a href="#profile" aria-current="page" class="rounded-md bg-muted px-3 py-2 font-medium">
+                Profile
+            </a>
+            <a href="#security" class="rounded-md px-3 py-2 text-muted-foreground hover:bg-muted">
+                Security
+            </a>
+            <a href="#billing" class="rounded-md px-3 py-2 text-muted-foreground hover:bg-muted">
+                Billing
+            </a>
         </nav>
     </twig:block>
     <twig:Settings:Section id="profile" title="Profile" description="Your public information.">
-        <twig:block name="actions"><twig:Button as="a" href="#">Save</twig:Button></twig:block>
+        <twig:block name="actions">
+            <twig:Button as="a" href="#">
+                Save
+            </twig:Button>
+        </twig:block>
         <twig:Settings:Row label="Username" for="username">
             <twig:Input id="username" value="ada" class="w-48!" />
         </twig:Settings:Row>

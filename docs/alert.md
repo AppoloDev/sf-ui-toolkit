@@ -15,8 +15,12 @@ This recipe replaces the `Alert` template of the official kit (install the offic
 ```twig
 <twig:Alert variant="success">
     <twig:ux:icon name="lucide:circle-check" />
-    <twig:Alert:Title>Saved</twig:Alert:Title>
-    <twig:Alert:Description>Your changes are live.</twig:Alert:Description>
+    <twig:Alert:Title>
+        Saved
+    </twig:Alert:Title>
+    <twig:Alert:Description>
+        Your changes are live.
+    </twig:Alert:Description>
 </twig:Alert>
 ```
 
@@ -27,8 +31,12 @@ This recipe replaces the `Alert` template of the official kit (install the offic
 ```twig
 <twig:Alert variant="info" class="max-w-md">
     <twig:ux:icon name="lucide:info" />
-    <twig:Alert:Title>Heads up</twig:Alert:Title>
-    <twig:Alert:Description>A new version is available.</twig:Alert:Description>
+    <twig:Alert:Title>
+        Heads up
+    </twig:Alert:Title>
+    <twig:Alert:Description>
+        A new version is available.
+    </twig:Alert:Description>
 </twig:Alert>
 ```
 
@@ -37,8 +45,12 @@ This recipe replaces the `Alert` template of the official kit (install the offic
 ```twig
 <twig:Alert variant="success" class="max-w-md">
     <twig:ux:icon name="lucide:circle-check" />
-    <twig:Alert:Title>Payment received</twig:Alert:Title>
-    <twig:Alert:Description>The invoice is now marked as paid.</twig:Alert:Description>
+    <twig:Alert:Title>
+        Payment received
+    </twig:Alert:Title>
+    <twig:Alert:Description>
+        The invoice is now marked as paid.
+    </twig:Alert:Description>
 </twig:Alert>
 ```
 
@@ -47,8 +59,12 @@ This recipe replaces the `Alert` template of the official kit (install the offic
 ```twig
 <twig:Alert variant="warning" class="max-w-md">
     <twig:ux:icon name="lucide:triangle-alert" />
-    <twig:Alert:Title>Almost out of space</twig:Alert:Title>
-    <twig:Alert:Description>You used 92% of your storage.</twig:Alert:Description>
+    <twig:Alert:Title>
+        Almost out of space
+    </twig:Alert:Title>
+    <twig:Alert:Description>
+        You used 92% of your storage.
+    </twig:Alert:Description>
 </twig:Alert>
 ```
 
@@ -59,8 +75,12 @@ A solid bar in the foreground color, readable in light and dark themes.
 ```twig
 <twig:Alert variant="invert" class="max-w-md">
     <twig:ux:icon name="lucide:circle-check" />
-    <twig:Alert:Title>Deployment complete</twig:Alert:Title>
-    <twig:Alert:Description>Your site is live.</twig:Alert:Description>
+    <twig:Alert:Title>
+        Deployment complete
+    </twig:Alert:Title>
+    <twig:Alert:Description>
+        Your site is live.
+    </twig:Alert:Description>
 </twig:Alert>
 ```
 
@@ -69,9 +89,17 @@ A solid bar in the foreground color, readable in light and dark themes.
 ```twig
 <twig:Alert variant="invert" class="max-w-md">
     <twig:ux:icon name="lucide:sparkles" />
-    <twig:Alert:Title>Unlock the full toolkit</twig:Alert:Title>
-    <twig:Alert:Description>Upgrade to Pro for unlimited projects and priority support.</twig:Alert:Description>
-    <twig:Alert:Action><twig:Button size="xs" variant="secondary">Upgrade</twig:Button></twig:Alert:Action>
+    <twig:Alert:Title>
+        Unlock the full toolkit
+    </twig:Alert:Title>
+    <twig:Alert:Description>
+        Upgrade to Pro for unlimited projects and priority support.
+    </twig:Alert:Description>
+    <twig:Alert:Action>
+        <twig:Button size="xs" variant="secondary">
+            Upgrade
+        </twig:Button>
+    </twig:Alert:Action>
 </twig:Alert>
 ```
 
@@ -81,9 +109,51 @@ A solid bar in the foreground color, readable in light and dark themes.
 
 ```twig
 <div class="flex max-w-md flex-col gap-3">
-    {% for v in ['default', 'destructive', 'info', 'success', 'warning'] %}
-        <twig:Alert variant="{{ v }}" appearance="solid"><twig:ux:icon name="lucide:bell" /><twig:Alert:Title class="capitalize">{{ v }}</twig:Alert:Title><twig:Alert:Description>A short message.</twig:Alert:Description></twig:Alert>
-    {% endfor %}
+    <twig:Alert variant="default" appearance="solid">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            default
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="destructive" appearance="solid">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            destructive
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="info" appearance="solid">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            info
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="success" appearance="solid">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            success
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="warning" appearance="solid">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            warning
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
 </div>
 ```
 
@@ -93,9 +163,51 @@ A solid bar in the foreground color, readable in light and dark themes.
 
 ```twig
 <div class="flex max-w-md flex-col gap-3">
-    {% for v in ['default', 'destructive', 'info', 'success', 'warning'] %}
-        <twig:Alert variant="{{ v }}" appearance="light"><twig:ux:icon name="lucide:bell" /><twig:Alert:Title class="capitalize">{{ v }}</twig:Alert:Title><twig:Alert:Description>A short message.</twig:Alert:Description></twig:Alert>
-    {% endfor %}
+    <twig:Alert variant="default" appearance="light">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            default
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="destructive" appearance="light">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            destructive
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="info" appearance="light">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            info
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="success" appearance="light">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            success
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="warning" appearance="light">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            warning
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
 </div>
 ```
 
@@ -103,9 +215,60 @@ A solid bar in the foreground color, readable in light and dark themes.
 
 ```twig
 <div class="flex max-w-md flex-col gap-3">
-    {% for v in ['default', 'destructive', 'info', 'success', 'warning', 'invert'] %}
-        <twig:Alert variant="{{ v }}"><twig:ux:icon name="lucide:bell" /><twig:Alert:Title class="capitalize">{{ v }}</twig:Alert:Title><twig:Alert:Description>A short message.</twig:Alert:Description></twig:Alert>
-    {% endfor %}
+    <twig:Alert variant="default">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            default
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="destructive">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            destructive
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="info">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            info
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="success">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            success
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="warning">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            warning
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
+    <twig:Alert variant="invert">
+        <twig:ux:icon name="lucide:bell" />
+        <twig:Alert:Title class="capitalize">
+            invert
+        </twig:Alert:Title>
+        <twig:Alert:Description>
+            A short message.
+        </twig:Alert:Description>
+    </twig:Alert>
 </div>
 ```
 

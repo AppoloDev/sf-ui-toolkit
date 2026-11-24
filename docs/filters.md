@@ -70,9 +70,8 @@ The component lives in a `GET` form. Each active filter submits its value as `<f
 <twig:Filters :autoSubmit="false">
     <twig:Filters:Fields>
         <twig:Filters:Field name="status" label="Status" type="select">
-            {% for value, label in {open: 'Open', closed: 'Closed'} %}
-                <twig:Filters:Option :value="value" :label="label" />
-            {% endfor %}
+            <twig:Filters:Option :value="value" :label="label" />
+            <twig:Filters:Option :value="value" :label="label" />
         </twig:Filters:Field>
     </twig:Filters:Fields>
     <twig:Filters:Values>

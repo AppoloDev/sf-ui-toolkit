@@ -53,7 +53,9 @@ Put `ColorPicker:Swatch` elements in the slot to add a row of preset colors.
 
 ```twig
 <twig:Field class="w-fit">
-    <twig:Field:Label for="brand">Brand color</twig:Field:Label>
+    <twig:Field:Label for="brand">
+        Brand color
+    </twig:Field:Label>
     <twig:ColorPicker id="brand" name="brand" value="#3b82f6" label="Brand color" />
 </twig:Field>
 ```

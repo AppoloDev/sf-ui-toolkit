@@ -34,7 +34,17 @@
 ```twig
 <div class="max-w-xs">
     <twig:Slider name="storage" min="5" max="35" value="20" aria-label="Storage" />
-    <div class="mt-2 flex justify-between text-xs text-muted-foreground"><span>5 GB</span><span>20 GB</span><span>35 GB</span></div>
+    <div class="mt-2 flex justify-between text-xs text-muted-foreground">
+        <span>
+            5 GB
+        </span>
+        <span>
+            20 GB
+        </span>
+        <span>
+            35 GB
+        </span>
+    </div>
 </div>
 ```
 
@@ -44,7 +54,79 @@
 <div class="max-w-xs">
     <twig:Slider name="months" min="0" max="12" value="6" aria-label="Duration in months" />
     <div class="mt-2 flex justify-between text-xs text-muted-foreground">
-        {% for m in 0..12 %}<span class="flex w-0 flex-col items-center"><span class="h-1.5 w-px bg-border"></span>{% if m is even %}<span class="mt-1">{{ m }}</span>{% endif %}</span>{% endfor %}
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+            <span class="mt-1">
+                0
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+            <span class="mt-1">
+                2
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+            <span class="mt-1">
+                4
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+            <span class="mt-1">
+                6
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+            <span class="mt-1">
+                8
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+            <span class="mt-1">
+                10
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+        </span>
+        <span class="flex w-0 flex-col items-center">
+            <span class="h-1.5 w-px bg-border">
+            </span>
+            <span class="mt-1">
+                12
+            </span>
+        </span>
     </div>
 </div>
 ```
@@ -53,8 +135,16 @@
 
 ```twig
 <div class="max-w-xs">
-    <div class="mb-3 h-2 rounded-full" style="background: linear-gradient(to right, #ffb36b, #fff, #9ec5ff)"></div>
+    <div class="mb-3 h-2 rounded-full" style="background: linear-gradient(to right, #ffb36b, #fff, #9ec5ff)">
+    </div>
     <twig:Slider name="kelvin" min="2700" max="6500" step="100" value="4500" aria-label="Color temperature" />
-    <div class="mt-2 flex justify-between text-xs text-muted-foreground"><span>Warm 2700K</span><span>Cool 6500K</span></div>
+    <div class="mt-2 flex justify-between text-xs text-muted-foreground">
+        <span>
+            Warm 2700K
+        </span>
+        <span>
+            Cool 6500K
+        </span>
+    </div>
 </div>
 ```

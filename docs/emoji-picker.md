@@ -35,7 +35,9 @@ The trigger shows the chosen emoji. Search ranks by name, tag and shortcode; `â†
 
 ```twig
 <twig:Field class="w-fit">
-    <twig:Field:Label for="mood">Mood</twig:Field:Label>
+    <twig:Field:Label for="mood">
+        Mood
+    </twig:Field:Label>
     <twig:EmojiPicker id="mood" name="mood" label="Mood" />
 </twig:Field>
 ```

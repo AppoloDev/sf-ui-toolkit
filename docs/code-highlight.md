@@ -118,6 +118,19 @@ Use the `code` prop with a captured string, or call the filter yourself in your 
 </div>
 ```
 
+### Line numbers
+
+`lineNumbers` adds a column of numbers that is not selected when the code is copied; `startLine` sets the first number.
+
+```twig
+<twig:CodeHighlight language="php" lineNumbers :startLine="12">
+    public function shout(): string
+    {
+        return strtoupper($this->message);
+    }
+</twig:CodeHighlight>
+```
+
 ### Unknown language
 
 An unknown language is shown as plain text, escaped.
@@ -156,6 +169,8 @@ The colors are Tailwind classes on the `<pre>` (one `hl-*` class per kind of tok
 | `language` | string | `text` | The language: php, twig, html, css, scss, javascript, typescript, jsx, tsx, json, yaml, sql, bash, diff, xml, markdown and others. An unknown value is shown as plain text. |
 | `code` | string, null | `null` | The code. Without it, the content of the component is used. |
 | `label` | string, null | `null` | The accessible name of the block; it becomes a region. |
+| `lineNumbers` | boolean | `false` | Shows a column of line numbers next to the code. |
+| `startLine` | number | `1` | The number of the first line, when `lineNumbers` is set. |
 
 | Block | Description |
 | --- | --- |
