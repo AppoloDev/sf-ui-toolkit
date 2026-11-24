@@ -1761,6 +1761,7 @@ A table with a `DropdownMenu` of actions on each row.
 
 - The toggle is a native button: Tab reaches it, Space and Enter use it. It has `aria-expanded`, kept up to date, and `aria-controls` pointing to the detail row.
 - Its accessible name comes from `expandLabel` and `collapseLabel` and changes with the state. Name the row in them ("Show order 1001"), since the chevron alone does not say which row it opens.
+- With the clickable row, the click is a mouse help only: the chevron stays the way in for the keyboard and for screen readers, so keep it in every row.
 - A closed detail row is `hidden`: it is neither shown nor read.
 - The toggle of the header (`all`) is open when every row is, and has its own labels.
 
