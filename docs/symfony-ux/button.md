@@ -412,3 +412,14 @@ The two icons are stacked and cross-fade with a rotation. The accessible name st
     </span>
 </twig:Toggle>
 ```
+
+### Theme Toggle
+
+A `Toggle` is pressed for the dark theme: the sun and the moon cross-fade and rotate with CSS variants, no script. This example only shows the control, the theme itself is switched by your own code.
+
+```twig
+<twig:Toggle variant="outline" aria-label="Toggle theme">
+    <twig:ux:icon name="lucide:sun" class="transition-all duration-300 group-aria-pressed/toggle:scale-0 group-aria-pressed/toggle:-rotate-90 group-aria-pressed/toggle:opacity-0" aria-hidden="true" />
+    <twig:ux:icon name="lucide:moon" class="absolute scale-0 rotate-90 opacity-0 transition-all duration-300 group-aria-pressed/toggle:scale-100 group-aria-pressed/toggle:rotate-0 group-aria-pressed/toggle:opacity-100" aria-hidden="true" />
+</twig:Toggle>
+```

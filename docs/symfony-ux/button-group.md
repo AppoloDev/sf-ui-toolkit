@@ -699,3 +699,28 @@ Use a `Popover` as the second part of a button group.
     </twig:Button>
 </twig:ButtonGroup>
 ```
+
+### Vertical Nav
+
+A single-choice `ToggleGroup` stacked vertically: the pressed item is the active page.
+
+```twig
+<twig:ToggleGroup type="single" variant="outline" orientation="vertical" :spacing="0" class="w-44 items-stretch">
+    <twig:ToggleGroup:Item value="dashboard" pressed class="justify-start">
+        <twig:ux:icon name="lucide:layout-dashboard" aria-hidden="true" />
+        Dashboard
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="analytics" class="justify-start">
+        <twig:ux:icon name="lucide:bar-chart-2" aria-hidden="true" />
+        Analytics
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="settings" class="justify-start">
+        <twig:ux:icon name="lucide:settings" aria-hidden="true" />
+        Settings
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="help" class="justify-start">
+        <twig:ux:icon name="lucide:circle-help" aria-hidden="true" />
+        Help
+    </twig:ToggleGroup:Item>
+</twig:ToggleGroup>
+```

@@ -2,6 +2,10 @@
 
 > Server-side syntax highlighting for code blocks: a Twig filter and a component with a `language` prop, no JavaScript in the browser.
 
+## Installation
+
+- code-block
+
 ## Usage
 
 The recipe copies a Twig extension (`src/Twig/HighlightExtension.php`), registered automatically in a Symfony application that autoconfigures `src/`, and installs `tempest/highlight`, which does the highlighting. The extension adds a `highlight` filter (`{{ code|highlight('php') }}`, the code is escaped) that the component calls.
@@ -129,6 +133,29 @@ Use the `code` prop with a captured string, or call the filter yourself in your 
         return strtoupper($this->message);
     }
 </twig:CodeHighlight>
+```
+
+### In a Code Block
+
+The `CodeBlock` of the official kit gives the frame, the title and the copy button; `CodeHighlight` colors the code inside it. The classes ending with `!` remove the border, the background and the corners of the highlighted block, so the frame of the `CodeBlock` is the only one.
+
+```twig
+{% set snippet %}{% verbatim %}public function shout(): string
+{
+    return strtoupper($this->message);
+}{% endverbatim %}{% endset %}
+<twig:CodeBlock class="max-w-lg">
+    <twig:CodeBlock:Header>
+        <twig:CodeBlock:Title>
+            <twig:ux:icon name="lucide:file-code" />
+            Alert.php
+        </twig:CodeBlock:Title>
+        <twig:CodeBlock:Actions>
+            <twig:CodeBlock:CopyButton :value="snippet" />
+        </twig:CodeBlock:Actions>
+    </twig:CodeBlock:Header>
+    <twig:CodeHighlight language="php" :code="snippet" class="rounded-none! border-0! bg-transparent!" />
+</twig:CodeBlock>
 ```
 
 ### Unknown language
