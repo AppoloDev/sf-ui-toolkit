@@ -71,17 +71,18 @@ final class BuildDocsCommand extends Command
         }
 
         // A recipe that overrides a component of the official kit (badge, alert...) also shows the examples of that
-        // component, so its page is complete on its own; the new examples come first.
+        // component, so its page is complete on its own; they come first (default, variants...), then the new ones.
         foreach ($pages as $slug => $page) {
             if ('ux' === $page['kind'] || !isset($pages['ux-'.$slug])) {
                 continue;
             }
+            $inherited = [];
             foreach ($pages['ux-'.$slug]['examples'] as $example) {
-                if ('RTL' === $example['title']) {
-                    continue;
+                if ('RTL' !== $example['title']) {
+                    $inherited[] = ['added' => false, 'inherited' => true] + $example;
                 }
-                $pages[$slug]['examples'][] = ['added' => false, 'inherited' => true] + $example;
             }
+            $pages[$slug]['examples'] = array_merge($inherited, $page['examples']);
         }
 
         $this->buildControllers($root, $outDir);
