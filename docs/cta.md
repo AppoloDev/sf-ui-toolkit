@@ -66,6 +66,19 @@ The `media` block sits beside the copy in the split layout; it is hidden from th
 </div>
 ```
 
+### Custom eyebrow
+
+The `eyebrow` block replaces the label with any element, such as a `Badge` of another variant.
+
+```twig
+<twig:Cta title="Your trial ends tomorrow" description="Pick a plan to keep your projects.">
+    <twig:block name="eyebrow">
+        <twig:Badge variant="destructive">1 day left</twig:Badge>
+    </twig:block>
+    <twig:Button as="a" href="#">Choose a plan</twig:Button>
+</twig:Cta>
+```
+
 ## Accessibility
 
 - The title is a real heading: `titleTag` (`h2`, `h3` or `h4`) lets it fit the page outline.
@@ -78,7 +91,7 @@ The `media` block sits beside the copy in the split layout; it is hidden from th
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `eyebrow` | string | `null` | Small label above the title. |
+| `eyebrow` | string | `null` | Small label above the title, styled for the tone. For any other look, use the `eyebrow` block. |
 | `title` | string | `null` | Heading. |
 | `description` | string | `null` | Supporting text. |
 | `layout` | `centered`, `split`, `inline` | `centered` | Centered column, copy beside a media block, or copy left and actions right. |

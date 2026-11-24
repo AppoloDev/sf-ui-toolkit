@@ -11,6 +11,7 @@
 
   Blocks
     media    visual shown beside the copy in the split layout
+    eyebrow  your own element above the title (a <twig:Badge variant="destructive">, an icon and text...); replaces the `eyebrow` prop
     (slot)   actions: buttons or links (style them for the tone you choose)
 #}
 {%- props eyebrow = null, title = null, description = null, layout = 'centered', tone = 'default', titleTag = 'h2' -%}
@@ -35,10 +36,11 @@
 {%- set chip = {default: 'bg-muted! text-muted-foreground!', muted: 'bg-background! text-muted-foreground!', primary: 'bg-primary-foreground/15! text-primary-foreground!', dark: 'bg-zinc-800! text-zinc-300!'}[tone] ?? 'bg-muted! text-muted-foreground!' -%}
 {%- set centered = layout == 'centered' -%}
 {%- set media -%}{% block media %}{% endblock %}{%- endset -%}
+{%- set eyebrow_block -%}{% block eyebrow %}{% endblock %}{%- endset -%}
 {%- set actions -%}{% block content %}{% endblock %}{%- endset -%}
 <section {{ attributes.defaults({class: style.apply({tone: tone, layout: layout})|tailwind_classes}) }}>
     <div class="grid max-w-xl content-start gap-3 {{ centered ? 'justify-items-center' : '' }}">
-        {%- if eyebrow %}<twig:Badge class="h-auto px-3 py-1 {{ chip }}">{{ eyebrow }}</twig:Badge>{% endif %}
+        {%- if eyebrow_block|trim is not empty %}{{ eyebrow_block }}{% elseif eyebrow %}<twig:Badge class="h-auto px-3 py-1 {{ chip }}">{{ eyebrow }}</twig:Badge>{% endif %}
         {%- if title %}<{{ tag }} class="text-3xl font-semibold tracking-tight text-balance">{{ title }}</{{ tag }}>{% endif %}
         {%- if description %}<p class="text-base {{ soft }}">{{ description }}</p>{% endif %}
         {%- if layout != 'inline' and actions|trim is not empty %}
