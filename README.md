@@ -17,6 +17,17 @@ Replace `rating` with the component you want. The command copies its Twig templa
 
 Components that display icons use [Symfony UX Icons](https://symfony.com/bundles/ux-icons/current/index.html) with the [Lucide](https://lucide.dev) set; `ux:install` prints the `composer require symfony/ux-icons` command to run, and you can import the icons locally with `php bin/console ux:icons:import lucide:star`.
 
+## Requirements
+
+Some components are built on components of the official `shadcn` kit rather than reimplementing them (a popover panel, a button...). Their documentation page lists what to install first, for example:
+
+```bash
+php bin/console ux:install popover button --kit=shadcn
+php bin/console ux:install cascader --kit=github.com/AppoloDev/sf-ui-toolkit
+```
+
+Currently: `cascader` needs `popover` and `button`.
+
 ## Translations
 
 Components ship with English texts and no translation files. Every visible or spoken text is a prop (`addLabel`, `clearLabel`, ...) that you can translate where you use the component:

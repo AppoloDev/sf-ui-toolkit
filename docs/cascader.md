@@ -4,7 +4,7 @@
 
 ## Usage
 
-The panel is the shadcn `Popover` and the trigger its `Button`: install the `popover` and `button` components from the shadcn kit first (a recipe cannot depend on another kit).
+The panel is the shadcn `Popover` and the trigger its `Button`: install them from the shadcn kit first with `php bin/console ux:install popover button --kit=shadcn` (a recipe cannot depend on another kit).
 
 ```twig
 <twig:Cascader name="category">
@@ -152,8 +152,8 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 
 ## Accessibility
 
-- The trigger announces `aria-expanded`; the popover is a dialog with a search field and one `listbox` per level, with `aria-multiselectable`, `aria-selected`, `aria-expanded` on branches and `aria-checked="mixed"` for partly chosen branches.
-- Keys: `↓` from the search field enters the list, `↑` / `↓` move in a level, `→` opens the highlighted branch, `←` (or `Backspace` on an empty search) goes back, `Enter` or `Space` chooses or opens, `Esc` closes and returns focus to the trigger.
+- The trigger announces `aria-expanded` (kept by the shadcn `Popover`); the panel is a dialog with a search field and one `listbox` per level, with `aria-multiselectable`, `aria-selected`, `aria-expanded` on branches and `aria-checked="mixed"` for partly chosen branches.
+- Keys: `↓` from the search field enters the list, `↑` / `↓` move in a level, `→` opens the highlighted branch, `←` (or `Backspace` on an empty search) goes back, `Enter` or `Space` chooses or opens, `Esc` closes and returns focus to the trigger (handled by the `Popover`); `↓` on the closed trigger opens the panel.
 - Level changes are announced through a polite live region.
 - `required` blocks the form submission while nothing is chosen.
 - Tree layouts are better served by the Tree component; this one is a picker.
