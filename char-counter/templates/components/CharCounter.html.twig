@@ -1,0 +1,38 @@
+{#
+ # Wraps an input or a textarea and shows how many characters it holds.
+ #
+ # Props: max, format, announcement, overAnnouncement, warnAt.
+ # Slot: the field (an `Input`, a `Textarea` or any `<input>` / `<textarea>`).
+ #}
+{%- props
+    ## integer|null The limit. When `null`, the `maxlength` of the field is used if it has one.
+    max = null,
+    ## string|null The text of the counter, with {count}, {max} and {remaining}. `{count} / {max}` with a limit, `{count}` without one.
+    format = null,
+    ## string What is announced to screen readers when the count nears the limit, with {remaining}.
+    announcement = '{remaining} characters remaining',
+    ## string What is announced to screen readers when the count is over the limit, with {over}.
+    overAnnouncement = '{over} characters over the limit',
+    ## float The share of the limit, between 0 and 1, from which the counter turns to a warning.
+    warnAt = 0.9
+-%}
+<div
+    data-slot="char-counter"
+    data-controller="char-counter"
+    {%- if max is not null %} data-char-counter-max-value="{{ max }}"{% endif %}
+    {%- if format is not null %} data-char-counter-format-value="{{ format }}"{% endif %}
+    data-char-counter-announcement-value="{{ announcement }}"
+    data-char-counter-over-announcement-value="{{ overAnnouncement }}"
+    data-char-counter-warn-at-value="{{ warnAt }}"
+    {{ attributes.defaults({class: 'grid gap-1.5'|tailwind_classes}) }}
+>
+    {%- block content %}{% endblock %}
+    <p
+        data-slot="char-counter-count"
+        data-char-counter-target="count"
+        data-state="idle"
+        aria-hidden="true"
+        class="justify-self-end text-xs text-muted-foreground tabular-nums data-[state=over]:text-destructive data-[state=warning]:text-amber-600 dark:data-[state=warning]:text-amber-400"
+    ></p>
+    <span data-char-counter-target="status" role="status" class="sr-only"></span>
+</div>
