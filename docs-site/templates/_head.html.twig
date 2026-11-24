@@ -24,4 +24,27 @@
 <style type="text/tailwindcss">
 {#- Theme tokens and base styles of the shadcn kit (its kit.css), so its components look as in an application. -#}
 {{ kit_css|raw }}
+{#- Tailwind's reset leaves buttons with the default cursor: clickable elements get the pointer, disabled ones the not-allowed cursor. -#}
+@layer base {
+    button:not(:disabled),
+    [role="button"]:not([aria-disabled="true"]),
+    [role="tab"],
+    [role="menuitem"],
+    [role="option"],
+    summary,
+    select:not(:disabled),
+    label[for],
+    input[type="checkbox"]:not(:disabled),
+    input[type="radio"]:not(:disabled),
+    input[type="range"]:not(:disabled),
+    a[href] {
+        cursor: pointer;
+    }
+    button:disabled,
+    [aria-disabled="true"],
+    input:disabled,
+    select:disabled {
+        cursor: not-allowed;
+    }
+}
 </style>
