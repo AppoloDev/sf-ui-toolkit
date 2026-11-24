@@ -1,0 +1,10 @@
+{#
+ # The nodes under another node. A change of the parent checkbox is applied to all of them.
+ #}
+<div
+    data-slot="checkbox-tree-children"
+    role="group"
+    {{ attributes.defaults({class: 'grid gap-2 ps-6'|tailwind_classes}) }}
+>
+    {%- block content %}{% endblock -%}
+</div>

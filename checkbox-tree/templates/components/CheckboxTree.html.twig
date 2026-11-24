@@ -1,0 +1,12 @@
+{#
+ # A group of checkboxes arranged in a tree. Slot: `CheckboxTree:Node` components.
+ # It also draws the mixed state (a dash) on the checkboxes of the official `Checkbox`.
+ #}
+{%- set _mixed = '[&_input[type=checkbox]:indeterminate]:border-primary [&_input[type=checkbox]:indeterminate]:bg-primary [&_input[type=checkbox]:indeterminate]:bg-[linear-gradient(var(--color-primary-foreground),var(--color-primary-foreground))] [&_input[type=checkbox]:indeterminate]:bg-size-[8px_2px] [&_input[type=checkbox]:indeterminate]:bg-center [&_input[type=checkbox]:indeterminate]:bg-no-repeat' -%}
+<div
+    data-slot="checkbox-tree"
+    data-controller="checkbox-tree"
+    {{ attributes.defaults({class: ('grid gap-2 ' ~ _mixed)|tailwind_classes}) }}
+>
+    {%- block content %}{% endblock -%}
+</div>

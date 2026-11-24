@@ -1,0 +1,10 @@
+{#
+ # One level of the tree: a row with a checkbox, and optionally a `CheckboxTree:Children` with the nodes under it.
+ # The first checkbox that is not inside a nested node is the one of this node.
+ #}
+<div
+    data-slot="checkbox-tree-node"
+    {{ attributes.defaults({class: 'grid gap-2'|tailwind_classes}) }}
+>
+    {%- block content %}{% endblock -%}
+</div>
