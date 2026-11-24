@@ -244,3 +244,159 @@
     </twig:Select>
 </div>
 ```
+
+### Basic
+
+```twig
+<div style="min-height: 240px">
+    <twig:Select id="select-basic">
+        <twig:Select:Trigger class="w-48"><twig:Select:Value placeholder="Select a framework" /></twig:Select:Trigger>
+        <twig:Select:Content>
+            <twig:Select:Group id="select-basic-list">
+                {% for f in ['Symfony', 'Laravel', 'Rails', 'Django'] %}<twig:Select:Item value="{{ f|lower }}">{{ f }}</twig:Select:Item>{% endfor %}
+            </twig:Select:Group>
+        </twig:Select:Content>
+    </twig:Select>
+</div>
+```
+
+### Grouped Labels
+
+```twig
+<div style="min-height: 340px">
+    <twig:Select id="select-grouped">
+        <twig:Select:Trigger class="w-56"><twig:Select:Value placeholder="Select a food" /></twig:Select:Trigger>
+        <twig:Select:Content>
+            <twig:Select:Group id="select-grouped-fruits">
+                <twig:Select:Label>Fruits</twig:Select:Label>
+                <twig:Select:Item value="apple">Apple</twig:Select:Item>
+                <twig:Select:Item value="banana">Banana</twig:Select:Item>
+            </twig:Select:Group>
+            <twig:Select:Group id="select-grouped-veg">
+                <twig:Select:Label>Vegetables</twig:Select:Label>
+                <twig:Select:Item value="carrot">Carrot</twig:Select:Item>
+                <twig:Select:Item value="broccoli">Broccoli</twig:Select:Item>
+            </twig:Select:Group>
+        </twig:Select:Content>
+    </twig:Select>
+</div>
+```
+
+### Grouped Separators
+
+```twig
+<div style="min-height: 340px">
+    <twig:Select id="select-sep">
+        <twig:Select:Trigger class="w-56"><twig:Select:Value placeholder="Select a timezone" /></twig:Select:Trigger>
+        <twig:Select:Content>
+            <twig:Select:Group id="select-sep-eu">
+                <twig:Select:Item value="paris">Paris (CET)</twig:Select:Item>
+                <twig:Select:Item value="london">London (GMT)</twig:Select:Item>
+            </twig:Select:Group>
+            <twig:Select:Separator />
+            <twig:Select:Group id="select-sep-us">
+                <twig:Select:Item value="ny">New York (EST)</twig:Select:Item>
+                <twig:Select:Item value="la">Los Angeles (PST)</twig:Select:Item>
+            </twig:Select:Group>
+        </twig:Select:Content>
+    </twig:Select>
+</div>
+```
+
+### Plan Picker
+
+```twig
+<div style="min-height: 300px">
+    <twig:Select id="select-plan">
+        <twig:Select:Trigger class="w-72"><twig:Select:Value placeholder="Choose a plan" /></twig:Select:Trigger>
+        <twig:Select:Content>
+            <twig:Select:Group id="select-plan-list">
+                {% for p, d in {Free: '$0 / month', Pro: '$12 / month', Team: '$30 / month'} %}
+                    <twig:Select:Item value="{{ p|lower }}"><span class="font-medium">{{ p }}</span> <span class="text-muted-foreground">{{ d }}</span></twig:Select:Item>
+                {% endfor %}
+            </twig:Select:Group>
+        </twig:Select:Content>
+    </twig:Select>
+</div>
+```
+
+### Access Levels
+
+```twig
+<div style="min-height: 300px">
+    <twig:Select id="select-access">
+        <twig:Select:Trigger class="w-52"><twig:Select:Value placeholder="Access level" /></twig:Select:Trigger>
+        <twig:Select:Content>
+            <twig:Select:Group id="select-access-list">
+                {% for l, i in {Viewer: 'eye', Commenter: 'message-square', Editor: 'pencil', Owner: 'crown'} %}
+                    <twig:Select:Item value="{{ l|lower }}"><twig:ux:icon name="lucide:{{ i }}" /> {{ l }}</twig:Select:Item>
+                {% endfor %}
+            </twig:Select:Group>
+        </twig:Select:Content>
+    </twig:Select>
+</div>
+```
+
+### Status Filter
+
+```twig
+<div style="min-height: 300px">
+    <twig:Select id="select-status-filter">
+        <twig:Select:Trigger size="sm" class="w-40"><twig:Select:Value placeholder="Status" /></twig:Select:Trigger>
+        <twig:Select:Content>
+            <twig:Select:Group id="select-status-filter-list">
+                {% for s in ['All', 'Active', 'Paused', 'Archived'] %}<twig:Select:Item value="{{ s|lower }}">{{ s }}</twig:Select:Item>{% endfor %}
+            </twig:Select:Group>
+        </twig:Select:Content>
+    </twig:Select>
+</div>
+```
+
+### Priority Badges
+
+```twig
+<div style="min-height: 300px">
+    <twig:Select id="select-priority">
+        <twig:Select:Trigger class="w-48"><twig:Select:Value placeholder="Priority" /></twig:Select:Trigger>
+        <twig:Select:Content>
+            <twig:Select:Group id="select-priority-list">
+                {% for p, v in {Low: 'outline', Medium: 'secondary', High: 'destructive'} %}
+                    <twig:Select:Item value="{{ p|lower }}"><twig:Badge variant="{{ v }}">{{ p }}</twig:Badge></twig:Select:Item>
+                {% endfor %}
+            </twig:Select:Group>
+        </twig:Select:Content>
+    </twig:Select>
+</div>
+```
+
+### Font Preview
+
+```twig
+<div style="min-height: 300px">
+    <twig:Select id="select-font">
+        <twig:Select:Trigger class="w-52"><twig:Select:Value placeholder="Font" /></twig:Select:Trigger>
+        <twig:Select:Content>
+            <twig:Select:Group id="select-font-list">
+                <twig:Select:Item value="sans" class="font-sans">Sans serif</twig:Select:Item>
+                <twig:Select:Item value="serif" class="font-serif">Serif</twig:Select:Item>
+                <twig:Select:Item value="mono" class="font-mono">Monospace</twig:Select:Item>
+            </twig:Select:Group>
+        </twig:Select:Content>
+    </twig:Select>
+</div>
+```
+
+### Large List
+
+```twig
+<div style="min-height: 320px">
+    <twig:Select id="select-large">
+        <twig:Select:Trigger class="w-44"><twig:Select:Value placeholder="Select a year" /></twig:Select:Trigger>
+        <twig:Select:Content>
+            <twig:Select:Group id="select-large-list">
+                {% for y in 2026..1990 %}<twig:Select:Item value="{{ y }}">{{ y }}</twig:Select:Item>{% endfor %}
+            </twig:Select:Group>
+        </twig:Select:Content>
+    </twig:Select>
+</div>
+```

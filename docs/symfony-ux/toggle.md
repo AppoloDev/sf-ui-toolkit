@@ -82,3 +82,20 @@ An icon that fills in while pressed.
     <twig:Toggle variant="outline" size="sm">Toggle</twig:Toggle>
 </div>
 ```
+
+### Count Badge
+
+```twig
+<twig:Toggle variant="outline" aria-label="Like">
+    <twig:ux:icon name="lucide:heart" /> Like <twig:Badge variant="secondary" class="ms-1">24</twig:Badge>
+</twig:Toggle>
+```
+
+### Disabled Text
+
+```twig
+<div class="flex gap-2">
+    <twig:Toggle variant="outline" disabled>Disabled</twig:Toggle>
+    <twig:Toggle variant="outline" pressed disabled>Pressed disabled</twig:Toggle>
+</div>
+```
