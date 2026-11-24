@@ -12,31 +12,39 @@
     stepLabel      "Step {current} of {total}": the placeholders are replaced
     progressLabel  accessible name of the progress bar
     titleTag       h1 | h2 | h3 (default h2)
+    interactive    false: you render one step at a time | true: the Stimulus controller switches between
+                   <twig:Onboarding:Step> panels, the buttons of the footer carry data-onboarding-target
+                   back, next and finish
 
   Blocks
     footer   actions under the content (Back, Continue, Skip)
     (slot)   the content of the step
 #}
-{%- props step = 1, steps = 1, title = null, description = null, indicator = 'bar', align = 'center', stepLabel = 'Step {current} of {total}', progressLabel = 'Setup progress', titleTag = 'h2' -%}
+{%- props step = 1, steps = 1, title = null, description = null, indicator = 'bar', align = 'center', stepLabel = 'Step {current} of {total}', progressLabel = 'Setup progress', titleTag = 'h2', interactive = false -%}
 {%- set tag = titleTag in ['h1', 'h2', 'h3'] ? titleTag : 'h2' -%}
 {%- set total = max(1, steps) -%}
 {%- set current = max(1, min(total, step)) -%}
 {%- set centered = align != 'start' -%}
 {%- set footer -%}{% block footer %}{% endblock %}{%- endset -%}
-<div {{ attributes.defaults({class: ('mx-auto grid w-full max-w-md gap-6 ' ~ (centered ? 'text-center' : 'text-left'))|tailwind_classes}) }}>
+<div {{ attributes.defaults({
+    class: ('mx-auto grid w-full max-w-md gap-6 ' ~ (centered ? 'text-center' : 'text-left'))|tailwind_classes,
+    'data-controller': interactive ? 'onboarding' : false,
+    'data-onboarding-step-value': interactive ? current : false,
+    'data-onboarding-step-label-value': interactive ? stepLabel : false,
+}) }}>
     <div class="grid gap-2">
         {%- if indicator == 'dots' %}
             <ol class="flex items-center gap-2 {{ centered ? 'justify-center' : '' }}">
                 {%- for index in 1..total %}
-                    <li {% if index == current %}aria-current="step"{% endif %} class="h-2 rounded-full transition-all {{ index == current ? 'w-6 bg-primary' : (index < current ? 'w-2 bg-primary/60' : 'w-2 bg-muted') }}"><span class="sr-only">{{ stepLabel|replace({'{current}': index, '{total}': total}) }}</span></li>
+                    <li data-onboarding-target="dot" data-state="{{ index == current ? 'active' : (index < current ? 'done' : 'todo') }}" {% if index == current %}aria-current="step"{% endif %} class="h-2 w-2 rounded-full bg-muted transition-all data-[state=active]:w-6 data-[state=active]:bg-primary data-[state=done]:bg-primary/60"><span class="sr-only">{{ stepLabel|replace({'{current}': index, '{total}': total}) }}</span></li>
                 {%- endfor %}
             </ol>
         {%- else %}
-            <div role="progressbar" aria-label="{{ progressLabel }}" aria-valuemin="1" aria-valuemax="{{ total }}" aria-valuenow="{{ current }}" aria-valuetext="{{ stepLabel|replace({'{current}': current, '{total}': total}) }}" class="h-1.5 overflow-hidden rounded-full bg-muted">
-                <div class="h-full rounded-full bg-primary transition-all" style="width: {{ (current / total * 100)|round(1) }}%"></div>
+            <div data-onboarding-target="bar" role="progressbar" aria-label="{{ progressLabel }}" aria-valuemin="1" aria-valuemax="{{ total }}" aria-valuenow="{{ current }}" aria-valuetext="{{ stepLabel|replace({'{current}': current, '{total}': total}) }}" class="h-1.5 overflow-hidden rounded-full bg-muted">
+                <div data-onboarding-target="fill" class="h-full rounded-full bg-primary transition-all" style="width: {{ (current / total * 100)|round(1) }}%"></div>
             </div>
         {%- endif %}
-        <p class="text-xs font-medium text-muted-foreground">{{ stepLabel|replace({'{current}': current, '{total}': total}) }}</p>
+        <p data-onboarding-target="label" class="text-xs font-medium text-muted-foreground">{{ stepLabel|replace({'{current}': current, '{total}': total}) }}</p>
     </div>
     {%- if title or description %}
         <div class="grid gap-1.5">

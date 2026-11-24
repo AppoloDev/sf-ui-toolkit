@@ -1,9 +1,10 @@
 {
     "type": "block",
     "name": "Onboarding",
-    "description": "Setup flow shell: step counter, progress bar or dot indicator, title, description, content and footer actions.",
+    "description": "Setup flow shell: step counter, progress bar or dot indicator, title, description, content and footer actions, server-driven or interactive.",
     "copy-files": {
-        "templates/components/": "%COMPONENTS_DIR%/"
+        "templates/components/": "%COMPONENTS_DIR%/",
+        "assets/controllers/": "%CONTROLLERS_DIR%/"
     },
     "dependencies": {
         "composer": [

@@ -1,0 +1,23 @@
+{#
+  Onboarding:Step: one panel of an interactive <twig:Onboarding>. Only the current panel is visible once the
+  Stimulus controller is connected; without JavaScript they are all shown.
+
+  Props
+    title        heading of the step
+    description  text under the heading
+    titleTag     h1 | h2 | h3 (default h2)
+
+  Blocks
+    (slot)   the content of the step
+#}
+{%- props title = null, description = null, titleTag = 'h2' -%}
+{%- set tag = titleTag in ['h1', 'h2', 'h3'] ? titleTag : 'h2' -%}
+<div data-onboarding-target="step" {{ attributes.defaults({class: 'grid gap-6'}) }}>
+    {%- if title or description %}
+        <div class="grid gap-1.5">
+            {%- if title %}<{{ tag }} tabindex="-1" data-onboarding-heading class="text-2xl font-semibold tracking-tight text-foreground outline-none">{{ title }}</{{ tag }}>{% endif %}
+            {%- if description %}<p class="text-sm text-muted-foreground">{{ description }}</p>{% endif %}
+        </div>
+    {%- endif %}
+    <div class="grid gap-4 text-left">{% block content %}{% endblock %}</div>
+</div>

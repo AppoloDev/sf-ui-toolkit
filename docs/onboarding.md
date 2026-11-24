@@ -4,19 +4,56 @@
 
 ## Usage
 
-The block is the frame of one step: where the person is, the title, the content and the actions. Moving between steps (one route per step, Turbo, a multi-step form) is yours; render the block again with the next `step`.
+The block is the frame of one step: where the person is, the title, the content and the actions. By default moving between steps (one route per step, Turbo, a multi-step form) is yours: render the block again with the next `step`.
 
 ```twig
 <twig:Onboarding :step="2" :steps="4" title="Create your workspace" description="You can change this later.">
-    <input type="text" aria-label="Workspace name" placeholder="Acme Inc." class="h-10 rounded-md border border-border bg-background px-3 text-sm">
+    <twig:Input aria-label="Workspace name" placeholder="Acme Inc." />
     <twig:block name="footer">
-        <a href="#" class="inline-flex h-10 items-center rounded-md border border-border px-4 text-sm font-medium">Back</a>
-        <a href="#" class="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground">Continue</a>
+        <twig:Button as="a" href="#" variant="outline">Back</twig:Button>
+        <twig:Button as="a" href="#">Continue</twig:Button>
     </twig:block>
 </twig:Onboarding>
 ```
 
 ## Examples
+
+### Interactive
+
+Set `interactive` and put one `Onboarding:Step` per step in the default slot: the Stimulus controller shows one at a time, updates the indicator and moves the focus to the new title. The footer buttons carry a `data-onboarding-target` of `back`, `next` or `finish`; Back is hidden on the first step and Continue is replaced by Finish on the last one. The root dispatches `onboarding:change` (`detail.step`, `detail.total`) and `onboarding:finish`: listen to them to save the answers or redirect.
+
+<!-- height: 460 -->
+```twig
+<twig:Onboarding interactive :steps="3" indicator="dots">
+    <twig:Onboarding:Step title="Welcome aboard" description="Three quick steps to get you set up.">
+        <p class="text-sm text-muted-foreground">It takes less than a minute.</p>
+    </twig:Onboarding:Step>
+    <twig:Onboarding:Step title="Create your workspace" description="Pick a name your team will recognize.">
+        <div class="grid gap-1.5">
+            <twig:Label for="workspace">Workspace name</twig:Label>
+            <twig:Input id="workspace" placeholder="Acme Inc." />
+        </div>
+        <div class="grid gap-1.5">
+            <twig:Label for="size">Team size</twig:Label>
+            <twig:NativeSelect id="size" class="w-full">
+                <twig:NativeSelect:Option value="1">Just me</twig:NativeSelect:Option>
+                <twig:NativeSelect:Option value="10">2 to 10</twig:NativeSelect:Option>
+                <twig:NativeSelect:Option value="50">11 to 50</twig:NativeSelect:Option>
+            </twig:NativeSelect>
+        </div>
+    </twig:Onboarding:Step>
+    <twig:Onboarding:Step title="Almost there" description="Choose how we keep you posted.">
+        <label class="flex items-center gap-2 text-sm">
+            <twig:Checkbox checked /> Send me product updates
+        </label>
+    </twig:Onboarding:Step>
+    <twig:block name="footer">
+        <twig:Button variant="outline" data-onboarding-target="back">Back</twig:Button>
+        <twig:Button data-onboarding-target="next">Continue</twig:Button>
+        <twig:Button data-onboarding-target="finish">Finish</twig:Button>
+    </twig:block>
+</twig:Onboarding>
+```
 
 ### Progress bar
 
@@ -24,17 +61,21 @@ The default indicator is a progress bar with the step counter under it.
 
 ```twig
 <twig:Onboarding :step="2" :steps="4" title="Create your workspace" description="Pick a name your team will recognize.">
-    <label class="grid gap-1.5 text-sm font-medium">Workspace name
-        <input type="text" placeholder="Acme Inc." class="h-10 rounded-md border border-border bg-background px-3 text-sm font-normal outline-none focus-visible:ring-2 focus-visible:ring-ring">
-    </label>
-    <label class="grid gap-1.5 text-sm font-medium">Team size
-        <select class="h-10 rounded-md border border-border bg-background px-3 text-sm font-normal outline-none focus-visible:ring-2 focus-visible:ring-ring">
-            <option>Just me</option><option>2 to 10</option><option>11 to 50</option>
-        </select>
-    </label>
+    <div class="grid gap-1.5">
+        <twig:Label for="ws-name">Workspace name</twig:Label>
+        <twig:Input id="ws-name" placeholder="Acme Inc." />
+    </div>
+    <div class="grid gap-1.5">
+        <twig:Label for="ws-size">Team size</twig:Label>
+        <twig:NativeSelect id="ws-size" class="w-full">
+            <twig:NativeSelect:Option value="1">Just me</twig:NativeSelect:Option>
+            <twig:NativeSelect:Option value="10">2 to 10</twig:NativeSelect:Option>
+            <twig:NativeSelect:Option value="50">11 to 50</twig:NativeSelect:Option>
+        </twig:NativeSelect>
+    </div>
     <twig:block name="footer">
-        <a href="#" class="inline-flex h-10 items-center rounded-md border border-border px-4 text-sm font-medium hover:bg-muted">Back</a>
-        <a href="#" class="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground">Continue</a>
+        <twig:Button as="a" href="#" variant="outline">Back</twig:Button>
+        <twig:Button as="a" href="#">Continue</twig:Button>
     </twig:block>
 </twig:Onboarding>
 ```
@@ -46,7 +87,7 @@ The default indicator is a progress bar with the step counter under it.
 ```twig
 <twig:Onboarding indicator="dots" :step="1" :steps="3" title="Welcome aboard" description="Three quick steps to get you set up.">
     <twig:block name="footer">
-        <a href="#" class="inline-flex h-10 items-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground">Get started</a>
+        <twig:Button as="a" href="#">Get started</twig:Button>
     </twig:block>
 </twig:Onboarding>
 ```
@@ -57,10 +98,10 @@ The default indicator is a progress bar with the step counter under it.
 
 ```twig
 <twig:Onboarding align="start" :step="3" :steps="4" title="Invite your team" description="Add colleagues by email. You can skip this for now.">
-    <textarea aria-label="Email addresses" rows="3" placeholder="ada@example.com, grace@example.com" class="rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"></textarea>
+    <twig:Textarea aria-label="Email addresses" rows="3" placeholder="ada@example.com, grace@example.com" />
     <twig:block name="footer">
-        <a href="#" class="text-sm font-medium text-muted-foreground underline underline-offset-4">Skip for now</a>
-        <a href="#" class="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground">Send invites</a>
+        <twig:Button as="a" href="#" variant="link">Skip for now</twig:Button>
+        <twig:Button as="a" href="#">Send invites</twig:Button>
     </twig:block>
 </twig:Onboarding>
 ```
@@ -72,8 +113,8 @@ The counter and the name of the bar are props; `{current}` and `{total}` are rep
 ```twig
 <twig:Onboarding :step="2" :steps="5" stepLabel="Étape {current} sur {total}" progressLabel="Progression de la configuration" title="Créez votre espace" description="Vous pourrez le modifier plus tard.">
     <twig:block name="footer">
-        <a href="#" class="inline-flex h-10 items-center rounded-md border border-border px-4 text-sm font-medium">Retour</a>
-        <a href="#" class="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground">Continuer</a>
+        <twig:Button as="a" href="#" variant="outline">Retour</twig:Button>
+        <twig:Button as="a" href="#">Continuer</twig:Button>
     </twig:block>
 </twig:Onboarding>
 ```
@@ -83,6 +124,7 @@ The counter and the name of the bar are props; `{current}` and `{total}` are rep
 - The bar is a `progressbar` with `aria-valuemin`, `aria-valuemax`, `aria-valuenow` and a spoken text (`aria-valuetext`, built from `stepLabel`), named by `progressLabel`.
 - The dots are an ordered list: the current step carries `aria-current="step"`, and each dot has a hidden text with the step label.
 - The title is a real heading: `titleTag` (`h1`, `h2` or `h3`) lets it fit the page outline, for instance `h1` when the flow is the whole page.
+- In interactive mode the focus moves to the title of the new step; hidden panels are not exposed to assistive technology.
 - Moving to another step reloads or replaces the content: move the focus to the title or the first field in your own code so keyboard and screen reader users land at the start of the new step.
 
 ## API
@@ -99,6 +141,15 @@ The counter and the name of the bar are props; `{current}` and `{total}` are rep
 | `align` | `center`, `start` | `center` | Alignment of the header and the footer. |
 | `stepLabel` | string | `Step {current} of {total}` | Counter text; `{current}` and `{total}` are replaced. |
 | `progressLabel` | string | `Setup progress` | Accessible name of the progress bar. |
+| `titleTag` | string | `h2` | Element of the title: `h1`, `h2` or `h3`. |
+| `interactive` | bool | `false` | Let the Stimulus controller switch between `Onboarding:Step` panels. |
+
+### `<twig:Onboarding:Step>`
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `title` | string | `null` | Heading of the step. |
+| `description` | string | `null` | Text under the heading. |
 | `titleTag` | string | `h2` | Element of the title: `h1`, `h2` or `h3`. |
 
 Blocks: the default slot is the content of the step; `<twig:block name="footer">` holds the actions.
