@@ -5,10 +5,15 @@
 ## Usage
 
 ```twig
-<twig:Cascader name="category" :options="[
-    {value: 'fruit', label: 'Fruit', children: [{value: 'apple', label: 'Apple'}, {value: 'pear', label: 'Pear'}]},
-    {value: 'veg', label: 'Vegetables', children: [{value: 'leek', label: 'Leek'}]},
-]" />
+<twig:Cascader name="category">
+    <twig:Cascader:Option value="fruit" label="Fruit">
+        <twig:Cascader:Option value="apple" label="Apple" />
+        <twig:Cascader:Option value="pear" label="Pear" />
+    </twig:Cascader:Option>
+    <twig:Cascader:Option value="veg" label="Vegetables">
+        <twig:Cascader:Option value="leek" label="Leek" />
+    </twig:Cascader:Option>
+</twig:Cascader>
 ```
 
 ## Examples
@@ -20,15 +25,24 @@ Each level opens in a new column; the trigger shows the full path of the choice.
 <!-- height: 340 -->
 
 ```twig
-<twig:Cascader name="region" :options="[
-    {value: 'eu', label: 'Europe', children: [
-        {value: 'fr', label: 'France', children: [{value: 'idf', label: 'Île-de-France'}, {value: 'occ', label: 'Occitanie'}]},
-        {value: 'de', label: 'Germany', children: [{value: 'by', label: 'Bavaria'}, {value: 'be', label: 'Berlin'}]},
-    ]},
-    {value: 'am', label: 'Americas', children: [
-        {value: 'us', label: 'United States', children: [{value: 'ca', label: 'California'}, {value: 'ny', label: 'New York'}]},
-    ]},
-]" value="occ" />
+<twig:Cascader name="region" value="occ">
+    <twig:Cascader:Option value="eu" label="Europe">
+        <twig:Cascader:Option value="fr" label="France">
+            <twig:Cascader:Option value="idf" label="Île-de-France" />
+            <twig:Cascader:Option value="occ" label="Occitanie" />
+        </twig:Cascader:Option>
+        <twig:Cascader:Option value="de" label="Germany">
+            <twig:Cascader:Option value="by" label="Bavaria" />
+            <twig:Cascader:Option value="be" label="Berlin" />
+        </twig:Cascader:Option>
+    </twig:Cascader:Option>
+    <twig:Cascader:Option value="am" label="Americas">
+        <twig:Cascader:Option value="us" label="United States">
+            <twig:Cascader:Option value="ca" label="California" />
+            <twig:Cascader:Option value="ny" label="New York" />
+        </twig:Cascader:Option>
+    </twig:Cascader:Option>
+</twig:Cascader>
 ```
 
 ### Drill down
@@ -38,10 +52,16 @@ Each level opens in a new column; the trigger shows the full path of the choice.
 <!-- height: 340 -->
 
 ```twig
-<twig:Cascader mode="drill" name="topic" separator=" › " :options="[
-    {value: 'dev', label: 'Development', children: [{value: 'php', label: 'PHP'}, {value: 'js', label: 'JavaScript'}]},
-    {value: 'ops', label: 'Operations', children: [{value: 'ci', label: 'CI'}, {value: 'monitoring', label: 'Monitoring', disabled: true}]},
-]" />
+<twig:Cascader mode="drill" name="topic" separator=" › ">
+    <twig:Cascader:Option value="dev" label="Development">
+        <twig:Cascader:Option value="php" label="PHP" />
+        <twig:Cascader:Option value="js" label="JavaScript" />
+    </twig:Cascader:Option>
+    <twig:Cascader:Option value="ops" label="Operations">
+        <twig:Cascader:Option value="ci" label="CI" />
+        <twig:Cascader:Option value="monitoring" label="Monitoring" disabled />
+    </twig:Cascader:Option>
+</twig:Cascader>
 ```
 
 ### Multiple, with a cap
@@ -51,10 +71,16 @@ Each level opens in a new column; the trigger shows the full path of the choice.
 <!-- height: 340 -->
 
 ```twig
-<twig:Cascader name="permissions" multiple :max="3" placeholder="Permissions" :options="[
-    {value: 'users', label: 'Users', children: [{value: 'users.read', label: 'Read'}, {value: 'users.write', label: 'Write'}]},
-    {value: 'billing', label: 'Billing', children: [{value: 'billing.read', label: 'Read'}, {value: 'billing.write', label: 'Write'}]},
-]" :value="['users.read']" />
+<twig:Cascader name="permissions" multiple :max="3" placeholder="Permissions" :value="['users.read']">
+    <twig:Cascader:Option value="users" label="Users">
+        <twig:Cascader:Option value="users.read" label="Read" />
+        <twig:Cascader:Option value="users.write" label="Write" />
+    </twig:Cascader:Option>
+    <twig:Cascader:Option value="billing" label="Billing">
+        <twig:Cascader:Option value="billing.read" label="Read" />
+        <twig:Cascader:Option value="billing.write" label="Write" />
+    </twig:Cascader:Option>
+</twig:Cascader>
 ```
 
 ### Cascading selection
@@ -64,10 +90,17 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 <!-- height: 340 -->
 
 ```twig
-<twig:Cascader name="scopes" multiple cascade placeholder="Scopes" :options="[
-    {value: 'projects', label: 'Projects', children: [{value: 'p.read', label: 'Read'}, {value: 'p.write', label: 'Write'}, {value: 'p.delete', label: 'Delete'}]},
-    {value: 'teams', label: 'Teams', children: [{value: 't.read', label: 'Read'}, {value: 't.write', label: 'Write'}]},
-]" :value="['p.read']" />
+<twig:Cascader name="scopes" multiple cascade placeholder="Scopes" :value="['p.read']">
+    <twig:Cascader:Option value="projects" label="Projects">
+        <twig:Cascader:Option value="p.read" label="Read" />
+        <twig:Cascader:Option value="p.write" label="Write" />
+        <twig:Cascader:Option value="p.delete" label="Delete" />
+    </twig:Cascader:Option>
+    <twig:Cascader:Option value="teams" label="Teams">
+        <twig:Cascader:Option value="t.read" label="Read" />
+        <twig:Cascader:Option value="t.write" label="Write" />
+    </twig:Cascader:Option>
+</twig:Cascader>
 ```
 
 ### Branches are selectable
@@ -77,18 +110,25 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 <!-- height: 340 -->
 
 ```twig
-<twig:Cascader name="folder" selectable="any" placeholder="Choose a folder" :options="[
-    {value: 'docs', label: 'Documents', children: [{value: 'docs/contracts', label: 'Contracts'}, {value: 'docs/invoices', label: 'Invoices'}]},
-    {value: 'media', label: 'Media'},
-]" />
+<twig:Cascader name="folder" selectable="any" placeholder="Choose a folder">
+    <twig:Cascader:Option value="docs" label="Documents">
+        <twig:Cascader:Option value="docs/contracts" label="Contracts" />
+        <twig:Cascader:Option value="docs/invoices" label="Invoices" />
+    </twig:Cascader:Option>
+    <twig:Cascader:Option value="media" label="Media" />
+</twig:Cascader>
 ```
 
 ### Required and disabled
 
 ```twig
 <div class="flex flex-wrap gap-3">
-    <twig:Cascader name="needed" required :options="[{value: 'a', label: 'Option A'}]" />
-    <twig:Cascader name="locked" disabled :options="[{value: 'a', label: 'Option A'}]" value="a" />
+    <twig:Cascader name="needed" required>
+        <twig:Cascader:Option value="a" label="Option A" />
+    </twig:Cascader>
+    <twig:Cascader name="locked" disabled value="a">
+        <twig:Cascader:Option value="a" label="Option A" />
+    </twig:Cascader>
 </div>
 ```
 
@@ -107,7 +147,6 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `options` | array | `[]` | Nested `{value, label, children?, disabled?}`. Every `value` must be unique across the tree. |
 | `name` | string | `null` | Field name; `name[]` when `multiple`. |
 | `value` | string, array | `null` | Chosen value (a list when `multiple`). |
 | `multiple` | bool | `false` | Checkbox rows; the popover stays open. |
@@ -125,3 +164,13 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 | `backLabel` | string | `Back` | Text of the back row in `drill` mode. |
 | `selectedLabel` | string | `{count} selected` | Trigger text with several choices (`{count}` is replaced). |
 | `label` | string | `Options` | Accessible name of the popover. |
+
+### `<twig:Cascader:Option>`
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `value` | string | | Value of the entry; unique across the whole tree. |
+| `label` | string | | Displayed text. |
+| `disabled` | bool | `false` | The entry cannot be chosen. |
+
+Blocks: the default slot holds nested `<twig:Cascader:Option>` elements, which make the entry a branch. Options can be generated with a regular Twig `for` loop.

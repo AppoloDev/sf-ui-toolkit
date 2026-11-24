@@ -2,7 +2,7 @@
   Cascader: pick a value in a hierarchy through columns (or one level at a time), with search.
 
   Props
-    options        nested list of { value, label, children?, disabled? }; every value must be unique
+    (slot)         <twig:Cascader:Option value label disabled> elements, nested for children; every value must be unique
     name           field name; multiple: `name[]`
     value          selected value (multiple: list of values)
     multiple       checkboxes instead of a single choice; the popover stays open
@@ -15,11 +15,10 @@
     placeholder, searchLabel, emptyLabel, backLabel, selectedLabel ({count}), label   texts
     id             id of the trigger (for an external <label for>)
 #}
-{%- props options = [], name = null, value = null, multiple = false, max = null, selectable = 'leaf', cascade = false, mode = 'columns', separator = ' / ', required = false, disabled = false, placeholder = 'Select…', searchLabel = 'Search', emptyLabel = 'No results.', backLabel = 'Back', selectedLabel = '{count} selected', label = 'Options', id = null -%}
+{%- props name = null, value = null, multiple = false, max = null, selectable = 'leaf', cascade = false, mode = 'columns', separator = ' / ', required = false, disabled = false, placeholder = 'Select…', searchLabel = 'Search', emptyLabel = 'No results.', backLabel = 'Back', selectedLabel = '{count} selected', label = 'Options', id = null -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set data = {
     'data-controller': 'cascader',
-    'data-cascader-options-value': options|json_encode,
     'data-cascader-selected-value': (multiple ? (value ?? []) : (value is null or value == '' ? [] : [value]))|json_encode,
     'data-cascader-name-value': name ?? '',
     'data-cascader-multiple-value': multiple ? 'true' : 'false',
@@ -46,6 +45,7 @@
         <div class="flex max-h-64 divide-x divide-border overflow-x-auto" data-cascader-target="columns"></div>
         <p class="sr-only" role="status" aria-live="polite" data-cascader-target="status"></p>
     </div>
+    <ul hidden data-cascader-target="source">{% block content %}{% endblock %}</ul>
     <span data-cascader-target="inputs" hidden></span>
     <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" data-cascader-target="validity" {{ required ? 'required' }}>
 </div>

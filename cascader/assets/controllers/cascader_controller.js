@@ -6,9 +6,8 @@ import { Controller } from '@hotwired/stimulus';
  * back, Enter chooses or opens, Escape closes. `cascader:change` fires with { values }.
  */
 export default class extends Controller {
-    static targets = ['trigger', 'display', 'panel', 'search', 'columns', 'status', 'inputs', 'validity'];
+    static targets = ['trigger', 'display', 'panel', 'search', 'columns', 'status', 'inputs', 'validity', 'source'];
     static values = {
-        options: Array,
         selected: Array,
         name: String,
         multiple: Boolean,
@@ -30,13 +29,24 @@ export default class extends Controller {
             this.index.set(String(node.value), { node, path });
             if (node.children?.length) walk(node.children, path);
         });
-        walk(this.optionsValue, []);
+        this.options = this.read(this.sourceTarget);
+        walk(this.options, []);
         this.chosen = new Set(this.selectedValue.map(String).filter((value) => this.index.has(value)));
         this.trail = [];
         this.onOutsideClick = (event) => {
             if (!this.element.contains(event.target)) this.close();
         };
         this.sync(false);
+    }
+
+    // Builds the tree from the <li data-value data-label> markup rendered by <twig:Cascader:Option>.
+    read(list) {
+        return Array.from(list.children).filter((item) => 'LI' === item.tagName).map((item) => ({
+            value: item.dataset.value,
+            label: item.dataset.label,
+            disabled: 'disabled' in item.dataset,
+            children: this.read(item.querySelector(':scope > ul') ?? document.createElement('ul')),
+        }));
     }
 
     disconnect() {
@@ -115,7 +125,7 @@ export default class extends Controller {
     // --- rendering --------------------------------------------------------------------------
 
     levels() {
-        const levels = [{ nodes: this.optionsValue, parent: null }];
+        const levels = [{ nodes: this.options, parent: null }];
         this.trail.forEach((value) => {
             const node = this.index.get(value)?.node;
             if (node && this.isBranch(node)) levels.push({ nodes: node.children, parent: node });

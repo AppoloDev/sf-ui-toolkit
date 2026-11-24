@@ -36,6 +36,8 @@ The model is `rich-text-editor`, which depends on TipTap (`@tiptap/core` and `@t
 
 ## Rules that bite
 
+- Lists of entries (options, items, tools, swatches) are never an array prop: they are child components (`<twig:Cascader:Option value="..." label="...">`, nested for hierarchies). A child is an anonymous template that only renders markup (`<li data-value data-label>`, hidden under the parent), and the Stimulus controller reads that markup. Content goes in the child's slot, so Twig loops and rich content work. `Cascader` is the model.
+
 - One commit per component, short imperative English message, push every time.
 - Commits and pull requests carry no co-author or generated-by line; the author is the repository owner.
 - Everything in English; the README is for end users only, contributor details go in `CONTRIBUTING.md`.
