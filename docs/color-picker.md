@@ -4,6 +4,8 @@
 
 ## Usage
 
+The panel is the shadcn `Popover`, with its `Button` and `Input`: install them first with `php bin/console ux:install popover button input --kit=shadcn`.
+
 ```twig
 <twig:ColorPicker name="brand_color" value="#3b82f6" />
 ```
@@ -22,12 +24,21 @@ The trigger shows the current color; the popover has the saturation/brightness a
 
 ### Swatches
 
-`swatches` adds a row of preset colors.
+Put `ColorPicker:Swatch` elements in the slot to add a row of preset colors.
 
 <!-- height: 400 -->
 
 ```twig
-<twig:ColorPicker name="label_color" value="#22c55e" :swatches="['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899', '#64748b']" label="Label color" />
+<twig:ColorPicker name="label_color" value="#22c55e" label="Label color">
+    <twig:ColorPicker:Swatch color="#ef4444" />
+    <twig:ColorPicker:Swatch color="#f97316" />
+    <twig:ColorPicker:Swatch color="#eab308" />
+    <twig:ColorPicker:Swatch color="#22c55e" />
+    <twig:ColorPicker:Swatch color="#3b82f6" />
+    <twig:ColorPicker:Swatch color="#8b5cf6" />
+    <twig:ColorPicker:Swatch color="#ec4899" />
+    <twig:ColorPicker:Swatch color="#64748b" />
+</twig:ColorPicker>
 ```
 
 ### Opacity
@@ -79,7 +90,6 @@ The trigger shows the current color; the popover has the saturation/brightness a
 | `value` | string | `#3b82f6` | Initial color (any CSS color). |
 | `format` | `hex`, `rgb`, `hsl` | `hex` | Format of the submitted value. |
 | `alpha` | bool | `false` | Enables the opacity slider. Without it, the output is always opaque. |
-| `swatches` | array | `[]` | Preset colors (CSS colors). |
 | `disabled` | bool | `false` | Disables the picker. |
 | `label` | string | `Pick a color` | Accessible label of the trigger and the popover. |
 | `areaLabel` | string | `Saturation and brightness` | Accessible name of the color area. |
@@ -90,3 +100,9 @@ The trigger shows the current color; the popover has the saturation/brightness a
 | `fieldLabel` | string | `Color value` | Accessible name of the typed field. |
 | `eyedropperLabel` | string | `Pick a color from the screen` | Accessible name of the eye dropper button. |
 | `swatchesLabel` | string | `Preset colors` | Accessible name of the swatch list. |
+
+### `<twig:ColorPicker:Swatch>`
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `color` | string | | Preset color (any CSS color). |

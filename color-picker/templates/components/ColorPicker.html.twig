@@ -7,14 +7,19 @@
     value     initial color (any CSS color: #3b82f6, rgb(...), hsl(...), a color name...)
     format    hex | rgb | hsl: format of the submitted value
     alpha     enables the opacity slider (otherwise the output is always opaque)
-    swatches  list of preset colors (CSS colors)
     disabled  disables the picker
     label     accessible label of the trigger and the popover
     areaLabel, saturationLabel, brightnessLabel, hueLabel, opacityLabel, fieldLabel, eyedropperLabel, swatchesLabel   accessible names inside the popover
+
+  Blocks
+    (slot)    <twig:ColorPicker:Swatch> preset colors
+
+  Requires the shadcn recipes popover, button and input (installed from the shadcn kit).
 #}
-{%- props name = null, value = '#3b82f6', format = 'hex', alpha = false, swatches = [], disabled = false, label = 'Pick a color', areaLabel = 'Saturation and brightness', saturationLabel = 'Saturation', brightnessLabel = 'Brightness', hueLabel = 'Hue', opacityLabel = 'Opacity', fieldLabel = 'Color value', eyedropperLabel = 'Pick a color from the screen', swatchesLabel = 'Preset colors' -%}
-{%- set extra_class = attributes.render('class') -%}
+{%- props name = null, value = '#3b82f6', format = 'hex', alpha = false, disabled = false, label = 'Pick a color', areaLabel = 'Saturation and brightness', saturationLabel = 'Saturation', brightnessLabel = 'Brightness', hueLabel = 'Hue', opacityLabel = 'Opacity', fieldLabel = 'Color value', eyedropperLabel = 'Pick a color from the screen', swatchesLabel = 'Preset colors' -%}
+{%- set swatches -%}{% block content %}{% endblock %}{%- endset -%}
 {%- set data = {
+    class: 'w-auto',
     'data-controller': 'color-picker',
     'data-color-picker-value-value': value,
     'data-color-picker-format-value': format,
@@ -23,16 +28,15 @@
     'data-color-picker-brightness-label-value': brightnessLabel,
 } -%}
 {%- set thumb = '[&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:ring-1 [&::-webkit-slider-thumb]:ring-black/30 [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-white' -%}
-<div class="{{ ('relative inline-block ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
-    <button type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="{{ label }}" {{ disabled ? 'disabled' }}
-            class="inline-flex h-9 items-center gap-2 rounded-md border border-border bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
-            data-color-picker-target="trigger" data-action="color-picker#toggle">
-        <span class="size-5 rounded border border-black/10" data-color-picker-target="chip"></span>
-        <span class="font-mono text-xs uppercase tabular-nums" data-color-picker-target="text"></span>
-    </button>
+<twig:Popover {{ ...attributes.defaults(data) }}>
+    <twig:Popover:Trigger>
+        <twig:Button variant="outline" aria-label="{{ label }}" disabled="{{ disabled ? 'disabled' : false }}" data-color-picker-target="trigger" {{ ...popover_trigger_attrs }}>
+            <span class="size-4 rounded border border-black/10" data-color-picker-target="chip"></span>
+            <span class="font-mono text-xs uppercase tabular-nums" data-color-picker-target="text"></span>
+        </twig:Button>
+    </twig:Popover:Trigger>
     <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-color-picker-target="hidden">
-    <div role="dialog" aria-label="{{ label }}" hidden class="absolute left-0 top-full z-50 mt-1 w-64 space-y-3 rounded-md border border-border bg-background p-3 shadow-md"
-         data-color-picker-target="panel" data-action="keydown->color-picker#panelKeydown">
+    <twig:Popover:Content align="start" aria-label="{{ label }}" class="w-64!">
         <div role="slider" tabindex="0" aria-label="{{ areaLabel }}" class="relative h-36 w-full cursor-crosshair touch-none rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
              data-color-picker-target="area" data-action="pointerdown->color-picker#areaDown keydown->color-picker#areaKey">
             <span class="pointer-events-none absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow ring-1 ring-black/30" data-color-picker-target="areaThumb"></span>
@@ -45,20 +49,13 @@
                    class="h-3 w-full cursor-pointer appearance-none rounded-full bg-transparent {{ thumb }}">
         {%- endif %}
         <div class="flex items-center gap-2">
-            <input type="text" aria-label="{{ fieldLabel }}" spellcheck="false" autocomplete="off" class="h-8 min-w-0 flex-1 rounded-md border border-border bg-background px-2 font-mono text-xs outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                   data-color-picker-target="field" data-action="change->color-picker#fieldChange keydown->color-picker#fieldKey">
-            <button type="button" hidden aria-label="{{ eyedropperLabel }}" class="flex size-8 shrink-0 items-center justify-center rounded-md border border-border hover:bg-muted"
-                    data-color-picker-target="eyedropper" data-action="color-picker#eyedrop">
-                <twig:ux:icon name="lucide:pipette" class="size-4" aria-hidden="true" />
-            </button>
+            <twig:Input aria-label="{{ fieldLabel }}" spellcheck="false" autocomplete="off" class="min-w-0 flex-1 font-mono text-xs" data-color-picker-target="field" data-action="change->color-picker#fieldChange keydown->color-picker#fieldKey" />
+            <twig:Button variant="outline" size="icon" hidden aria-label="{{ eyedropperLabel }}" data-color-picker-target="eyedropper" data-action="color-picker#eyedrop">
+                <twig:ux:icon name="lucide:pipette" aria-hidden="true" />
+            </twig:Button>
         </div>
-        {%- if swatches %}
-            <div role="listbox" aria-label="{{ swatchesLabel }}" class="flex flex-wrap gap-1.5">
-                {%- for swatch in swatches %}
-                    <button type="button" role="option" aria-selected="false" aria-label="{{ swatch }}" title="{{ swatch }}" data-color="{{ swatch }}" style="background: {{ swatch }}"
-                            class="size-6 rounded-md border border-black/10 outline-none focus-visible:ring-2 focus-visible:ring-ring" data-action="color-picker#swatch"></button>
-                {%- endfor %}
-            </div>
+        {%- if swatches|trim is not empty %}
+            <div role="listbox" aria-label="{{ swatchesLabel }}" class="flex flex-wrap gap-1.5">{{ swatches }}</div>
         {%- endif %}
-    </div>
-</div>
+    </twig:Popover:Content>
+</twig:Popover>

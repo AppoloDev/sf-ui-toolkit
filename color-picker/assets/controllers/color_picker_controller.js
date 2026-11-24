@@ -7,7 +7,7 @@ import { Controller } from '@hotwired/stimulus';
  * `color-picker:commit` once per interaction (release, key press, swatch, field change).
  */
 export default class extends Controller {
-    static targets = ['trigger', 'chip', 'text', 'hidden', 'panel', 'area', 'areaThumb', 'hue', 'opacity', 'field', 'eyedropper'];
+    static targets = ['trigger', 'chip', 'text', 'hidden', 'area', 'areaThumb', 'hue', 'opacity', 'field', 'eyedropper'];
     static values = {
         value: String,
         format: { type: String, default: 'hex' },
@@ -18,42 +18,11 @@ export default class extends Controller {
 
     connect() {
         this.state = this.toState(this.valueValue) ?? { h: 217, s: 0.76, v: 0.96, a: 1 };
-        this.onOutsideClick = (event) => {
-            if (!this.element.contains(event.target)) this.close();
-        };
         if ('EyeDropper' in window) this.eyedropperTarget.hidden = false;
         this.render();
     }
 
-    disconnect() {
-        document.removeEventListener('pointerdown', this.onOutsideClick);
-    }
-
-    toggle() {
-        this.panelTarget.hidden ? this.open() : this.close();
-    }
-
-    open() {
-        this.panelTarget.hidden = false;
-        this.triggerTarget.setAttribute('aria-expanded', 'true');
-        document.addEventListener('pointerdown', this.onOutsideClick);
-        this.areaTarget.focus();
-    }
-
-    close(restoreFocus = false) {
-        if (this.panelTarget.hidden) return;
-        this.panelTarget.hidden = true;
-        this.triggerTarget.setAttribute('aria-expanded', 'false');
-        document.removeEventListener('pointerdown', this.onOutsideClick);
-        if (restoreFocus) this.triggerTarget.focus();
-    }
-
-    panelKeydown(event) {
-        if ('Escape' === event.key) {
-            event.preventDefault();
-            this.close(true);
-        }
-    }
+    // Opening, closing (outside click, Escape) and focus are handled by the shadcn Popover this element is.
 
     // --- interactions -----------------------------------------------------------------------
 
