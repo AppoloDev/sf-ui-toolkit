@@ -70,6 +70,20 @@ final class BuildDocsCommand extends Command
             $pages[$slug] = $page;
         }
 
+        // A recipe that overrides a component of the official kit (badge, alert...) also shows the examples of that
+        // component, so its page is complete on its own; the new examples come first.
+        foreach ($pages as $slug => $page) {
+            if ('ux' === $page['kind'] || !isset($pages['ux-'.$slug])) {
+                continue;
+            }
+            foreach ($pages['ux-'.$slug]['examples'] as $example) {
+                if ('RTL' === $example['title']) {
+                    continue;
+                }
+                $pages[$slug]['examples'][] = ['added' => false, 'inherited' => true] + $example;
+            }
+        }
+
         $this->buildControllers($root, $outDir);
         $imports = $this->importMap($pages);
         copy($this->projectDir.'/assets/docs.js', $outDir.'/docs.js');
@@ -82,7 +96,7 @@ final class BuildDocsCommand extends Command
                     $example['html'] = $this->twig->createTemplate($example['code'])->render();
                 } catch (\Throwable $exception) {
                     // The examples of the official kit are not ours: one that cannot be rendered here is shown as code only.
-                    if ('ux' !== $page['kind']) {
+                    if ('ux' !== $page['kind'] && !($example['inherited'] ?? false)) {
                         throw $exception;
                     }
                     $example['error'] = strtok($exception->getMessage(), "\n");
