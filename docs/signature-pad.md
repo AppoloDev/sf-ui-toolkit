@@ -80,10 +80,10 @@ Drawing needs a pointer. A text input wired to `signature-pad#typeName` renders 
 
 ```twig
 <twig:SignaturePad name="signature" class="max-w-md">
-    <label class="grid gap-1.5 text-sm">
-        <span class="font-medium">Or type your name</span>
-        <input type="text" autocomplete="name" class="h-9 rounded-md border border-border bg-background px-3 outline-none focus-visible:ring-2 focus-visible:ring-ring" data-action="input->signature-pad#typeName">
-    </label>
+    <twig:Field>
+        <twig:Field:Label for="typed-name">Or type your name</twig:Field:Label>
+        <twig:Input id="typed-name" autocomplete="name" data-action="input->signature-pad#typeName" />
+    </twig:Field>
 </twig:SignaturePad>
 ```
 

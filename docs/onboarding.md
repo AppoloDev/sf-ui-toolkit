@@ -29,23 +29,24 @@ Set `interactive` and put one `Onboarding:Step` per step in the default slot: th
         <p class="text-sm text-muted-foreground">It takes less than a minute.</p>
     </twig:Onboarding:Step>
     <twig:Onboarding:Step title="Create your workspace" description="Pick a name your team will recognize.">
-        <div class="grid gap-1.5">
-            <twig:Label for="workspace">Workspace name</twig:Label>
+        <twig:Field>
+            <twig:Field:Label for="workspace">Workspace name</twig:Field:Label>
             <twig:Input id="workspace" placeholder="Acme Inc." />
-        </div>
-        <div class="grid gap-1.5">
-            <twig:Label for="size">Team size</twig:Label>
+        </twig:Field>
+        <twig:Field>
+            <twig:Field:Label for="size">Team size</twig:Field:Label>
             <twig:NativeSelect id="size" class="w-full">
                 <twig:NativeSelect:Option value="1">Just me</twig:NativeSelect:Option>
                 <twig:NativeSelect:Option value="10">2 to 10</twig:NativeSelect:Option>
                 <twig:NativeSelect:Option value="50">11 to 50</twig:NativeSelect:Option>
             </twig:NativeSelect>
-        </div>
+        </twig:Field>
     </twig:Onboarding:Step>
     <twig:Onboarding:Step title="Almost there" description="Choose how we keep you posted.">
-        <label class="flex items-center gap-2 text-sm">
-            <twig:Checkbox checked /> Send me product updates
-        </label>
+        <twig:Field orientation="horizontal">
+            <twig:Checkbox id="updates" checked />
+            <twig:Field:Label for="updates">Send me product updates</twig:Field:Label>
+        </twig:Field>
     </twig:Onboarding:Step>
     <twig:block name="footer">
         <twig:Button variant="outline" data-onboarding-target="back">Back</twig:Button>
@@ -61,18 +62,18 @@ The default indicator is a progress bar with the step counter under it.
 
 ```twig
 <twig:Onboarding :step="2" :steps="4" title="Create your workspace" description="Pick a name your team will recognize.">
-    <div class="grid gap-1.5">
-        <twig:Label for="ws-name">Workspace name</twig:Label>
+    <twig:Field>
+        <twig:Field:Label for="ws-name">Workspace name</twig:Field:Label>
         <twig:Input id="ws-name" placeholder="Acme Inc." />
-    </div>
-    <div class="grid gap-1.5">
-        <twig:Label for="ws-size">Team size</twig:Label>
+    </twig:Field>
+    <twig:Field>
+        <twig:Field:Label for="ws-size">Team size</twig:Field:Label>
         <twig:NativeSelect id="ws-size" class="w-full">
             <twig:NativeSelect:Option value="1">Just me</twig:NativeSelect:Option>
             <twig:NativeSelect:Option value="10">2 to 10</twig:NativeSelect:Option>
             <twig:NativeSelect:Option value="50">11 to 50</twig:NativeSelect:Option>
         </twig:NativeSelect>
-    </div>
+    </twig:Field>
     <twig:block name="footer">
         <twig:Button as="a" href="#" variant="outline">Back</twig:Button>
         <twig:Button as="a" href="#">Continue</twig:Button>

@@ -43,10 +43,10 @@ An E.164 `value` selects the country from its dial code and fills the national n
 ### With an external label
 
 ```twig
-<div class="grid w-fit gap-1.5">
-    <label for="mobile" class="text-sm font-medium">Mobile</label>
+<twig:Field class="w-fit">
+    <twig:Field:Label for="mobile">Mobile</twig:Field:Label>
     <twig:PhoneInput id="mobile" name="mobile" defaultCountry="GB" />
-</div>
+</twig:Field>
 ```
 
 ### Disabled
