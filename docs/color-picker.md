@@ -41,6 +41,19 @@ Put `ColorPicker:Swatch` elements in the slot to add a row of preset colors.
 </twig:ColorPicker>
 ```
 
+### With an external label
+
+`label` is the accessible name of the trigger and is not displayed. For a visible label, compose the picker with the shadcn `Field` and point the label at `id`.
+
+<!-- height: 400 -->
+
+```twig
+<twig:Field class="w-fit">
+    <twig:Field:Label for="brand">Brand color</twig:Field:Label>
+    <twig:ColorPicker id="brand" name="brand" value="#3b82f6" label="Brand color" />
+</twig:Field>
+```
+
 ### Opacity
 
 `alpha` enables the opacity slider; the output then includes the alpha channel when the color is not opaque.
@@ -91,7 +104,8 @@ Put `ColorPicker:Swatch` elements in the slot to add a row of preset colors.
 | `format` | `hex`, `rgb`, `hsl` | `hex` | Format of the submitted value. |
 | `alpha` | bool | `false` | Enables the opacity slider. Without it, the output is always opaque. |
 | `disabled` | bool | `false` | Disables the picker. |
-| `label` | string | `Pick a color` | Accessible label of the trigger and the popover. |
+| `label` | string | `Pick a color` | Accessible label of the trigger and the popover (not displayed). |
+| `id` | string | `null` | Id of the trigger, for an external `<label for>`. |
 | `areaLabel` | string | `Saturation and brightness` | Accessible name of the color area. |
 | `saturationLabel` | string | `Saturation` | Word used in the area's spoken value. |
 | `brightnessLabel` | string | `Brightness` | Word used in the area's spoken value. |

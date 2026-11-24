@@ -4,6 +4,8 @@
 
 ## Usage
 
+The panel is the shadcn `Popover`, with its `Button`, `Input` and `NativeSelect`: install them first with `php bin/console ux:install popover button input native-select --kit=shadcn`.
+
 ```twig
 <twig:EmojiPicker name="reaction" />
 ```
@@ -18,6 +20,19 @@ The trigger shows the chosen emoji. Search ranks by name, tag and shortcode; `â†
 
 ```twig
 <twig:EmojiPicker name="reaction" value="ðŸ‘" />
+```
+
+### With an external label
+
+`label` is the accessible name of the trigger and is not displayed. For a visible label, compose the picker with the shadcn `Field` and point the label at `id`.
+
+<!-- height: 480 -->
+
+```twig
+<twig:Field class="w-fit">
+    <twig:Field:Label for="mood">Mood</twig:Field:Label>
+    <twig:EmojiPicker id="mood" name="mood" label="Mood" />
+</twig:Field>
 ```
 
 ### Inline

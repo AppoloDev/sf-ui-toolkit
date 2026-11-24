@@ -44,16 +44,28 @@ export default class extends Controller {
         this.category = 'recent';
         this.toneIndex = Number(localStorage.getItem(TONE_KEY) ?? 0) || 0;
         this.toneTarget.value = String(this.toneIndex);
-        this.onOutsideClick = (event) => {
-            if (!this.element.contains(event.target)) this.close();
-        };
         this.hiddenTarget.value = this.valueValue;
         this.renderChosen();
-        if (this.inlineValue) this.ensureLoaded();
+        if (this.inlineValue) {
+            this.ensureLoaded();
+
+            return;
+        }
+        // The panel is a shadcn Popover on the same element: load the data when it opens. A click re-renders the tabs
+        // and the grid, so the clicked node is detached before the event reaches the window, where the Popover
+        // would take it for a click outside: stop it at the panel.
+        this.panelTarget.addEventListener('click', (event) => event.stopPropagation());
+        this.wasOpen = this.isOpen;
+        this.observer = new MutationObserver(() => {
+            if (this.isOpen === this.wasOpen) return;
+            this.wasOpen = this.isOpen;
+            if (this.isOpen) this.ensureLoaded().then(() => this.searchTarget.focus());
+        });
+        this.observer.observe(this.element, { attributes: true, attributeFilter: ['data-state'] });
     }
 
     disconnect() {
-        document.removeEventListener('pointerdown', this.onOutsideClick);
+        this.observer?.disconnect();
     }
 
     // --- data -------------------------------------------------------------------------------
@@ -92,23 +104,13 @@ export default class extends Controller {
 
     // --- popover ----------------------------------------------------------------------------
 
-    toggle() {
-        this.panelTarget.hidden ? this.open() : this.close();
-    }
-
-    open() {
-        this.panelTarget.hidden = false;
-        this.triggerTarget.setAttribute('aria-expanded', 'true');
-        document.addEventListener('pointerdown', this.onOutsideClick);
-        this.ensureLoaded().then(() => this.searchTarget.focus());
-        this.searchTarget.focus();
+    get isOpen() {
+        return 'open' === this.element.dataset.state;
     }
 
     close(restoreFocus = false) {
-        if (this.inlineValue || this.panelTarget.hidden) return;
-        this.panelTarget.hidden = true;
-        this.triggerTarget.setAttribute('aria-expanded', 'false');
-        document.removeEventListener('pointerdown', this.onOutsideClick);
+        if (this.inlineValue || !this.isOpen) return;
+        this.element.dataset.popoverOpenValue = 'false';
         if (restoreFocus) this.triggerTarget.focus();
     }
 
@@ -247,12 +249,6 @@ export default class extends Controller {
     // --- keyboard ---------------------------------------------------------------------------
 
     panelKey(event) {
-        if ('Escape' === event.key) {
-            event.preventDefault();
-            this.close(true);
-
-            return;
-        }
         const options = [...this.gridTarget.querySelectorAll('[role=option]')];
         const at = options.indexOf(document.activeElement);
         if (document.activeElement === this.searchTarget) {
