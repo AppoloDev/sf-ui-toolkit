@@ -99,7 +99,7 @@ final class BuildDocsCommand extends Command
 
             file_put_contents(
                 sprintf('%s/%s.html', $outDir, $page['slug']),
-                $this->twig->render('docs/page.html.twig', ['page' => $page, 'pages' => $pages, 'kit' => $kit, 'current_kind' => $page['kind']]),
+                $this->twig->render('docs/page.html.twig', ['page' => $page, 'pages' => $pages, 'kit' => $kit, 'current_kind' => $page['kind'], 'imports' => $imports]),
             );
             $output->writeln(sprintf('  <info>%s.html</info> (%d examples)', $page['slug'], count($page['examples'])));
         }
@@ -107,10 +107,10 @@ final class BuildDocsCommand extends Command
             $output->writeln(sprintf('<comment>%d examples of the official kit were not rendered (shown as code).</comment>', $failed));
         }
 
-        file_put_contents($outDir.'/index.html', $this->twig->render('docs/index.html.twig', ['pages' => $pages, 'kit' => $kit]));
-        file_put_contents($outDir.'/components.html', $this->twig->render('docs/components.html.twig', ['pages' => $pages, 'kit' => $kit]));
-        file_put_contents($outDir.'/symfony-ux.html', $this->twig->render('docs/symfony-ux.html.twig', ['pages' => $pages, 'kit' => $kit, 'current_kind' => 'ux']));
-        file_put_contents($outDir.'/blocks.html', $this->twig->render('docs/blocks.html.twig', ['pages' => $pages, 'kit' => $kit]));
+        file_put_contents($outDir.'/index.html', $this->twig->render('docs/index.html.twig', ['pages' => $pages, 'kit' => $kit, 'current_kind' => 'kit', 'current_page' => 'index', 'imports' => $imports]));
+        file_put_contents($outDir.'/components.html', $this->twig->render('docs/components.html.twig', ['pages' => $pages, 'kit' => $kit, 'current_kind' => 'component', 'current_page' => 'components', 'imports' => $imports]));
+        file_put_contents($outDir.'/symfony-ux.html', $this->twig->render('docs/symfony-ux.html.twig', ['pages' => $pages, 'kit' => $kit, 'current_kind' => 'ux', 'current_page' => 'symfony-ux', 'imports' => $imports]));
+        file_put_contents($outDir.'/blocks.html', $this->twig->render('docs/blocks.html.twig', ['pages' => $pages, 'kit' => $kit, 'current_kind' => 'block', 'current_page' => 'blocks', 'imports' => $imports]));
         $output->writeln(sprintf('<info>%d components documented in %s</info>', count($pages), $outDir));
 
         return Command::SUCCESS;

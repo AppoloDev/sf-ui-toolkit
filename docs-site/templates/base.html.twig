@@ -3,58 +3,67 @@
 <head>
     {% include '_head.html.twig' %}
     <title>{% block title %}Appolo UI{% endblock %}</title>
+    <script type="importmap">{{ {imports: imports|default({})}|json_encode|raw }}</script>
+    <script type="module" src="controllers.js"></script>
     <script src="docs.js" defer></script>
 </head>
 <body class="bg-background text-foreground antialiased">
-<header class="border-b border-border">
-    <div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-6">
-        <a href="index.html" class="font-semibold">Appolo UI</a>
-        <div class="flex items-center gap-4">
-            <div role="group" aria-label="Theme" class="flex items-center gap-0.5 rounded-md border border-border p-0.5 text-xs">
+{#- The page is captured here, at the top level, because a {% block %} cannot live inside a component tag. -#}
+{%- set pageBody -%}{% block body %}{% endblock %}{%- endset -%}
+{%- set kind = current_kind|default('kit') -%}
+{%- set activeGroup = {component: 'components', block: 'blocks', ux: 'ux'}[kind] ?? 'kit' -%}
+{%- set here = page.slug|default(current_page|default('')) -%}
+{%- set linkClass = 'flex items-center justify-between gap-2 rounded-md px-2 py-1.5 hover:bg-accent hover:text-accent-foreground' -%}
+{%- set activeClass = ' bg-accent font-medium text-accent-foreground' -%}
+<twig:AppShell storageKey="docs:sidebar">
+    <twig:AppShell:Sidebar>
+        <twig:AppShell:Rail label="Sections">
+            <twig:block name="brand"><a href="index.html" aria-label="Appolo UI" class="rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"><twig:ux:icon name="lucide:hexagon" class="size-6 text-primary" /></a></twig:block>
+            <twig:AppShell:RailItem label="Getting started" group="kit" :active="'kit' == activeGroup"><twig:ux:icon name="lucide:book-open" class="size-5" /></twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Components" group="components" :active="'components' == activeGroup"><twig:ux:icon name="lucide:puzzle" class="size-5" /></twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Blocks" group="blocks" :active="'blocks' == activeGroup"><twig:ux:icon name="lucide:layout-template" class="size-5" /></twig:AppShell:RailItem>
+            <twig:AppShell:RailItem label="Symfony UX" group="ux" :active="'ux' == activeGroup"><twig:ux:icon name="lucide:layers" class="size-5" /></twig:AppShell:RailItem>
+            <twig:block name="footer"><twig:AppShell:RailItem label="GitHub" href="https://github.com/AppoloDev/sf-ui-toolkit"><twig:ux:icon name="lucide:git-branch" class="size-5" /></twig:AppShell:RailItem></twig:block>
+        </twig:AppShell:Rail>
+        <twig:AppShell:Panel label="Documentation" width="15rem">
+            <twig:AppShell:PanelGroup group="kit" title="Kit" :active="'kit' == activeGroup" class="grid gap-0.5">
+                {% for href, label in {'index': 'Getting started', 'components': 'Components', 'blocks': 'Blocks', 'symfony-ux': 'Symfony UX'} %}
+                    <a href="{{ href }}.html" class="{{ linkClass }}{{ href == here ? activeClass : '' }}" {% if href == here %}aria-current="page"{% endif %}>{{ label }}</a>
+                {% endfor %}
+            </twig:AppShell:PanelGroup>
+            <twig:AppShell:PanelGroup group="components" title="Components" :active="'components' == activeGroup" class="grid gap-0.5">
+                {% for slug, item in pages|filter(item => item.kind == 'component') %}
+                    <a href="{{ slug }}.html" class="{{ linkClass }}{{ slug == here ? activeClass : '' }}" {% if slug == here %}aria-current="page"{% endif %}>{{ item.title }}</a>
+                {% endfor %}
+            </twig:AppShell:PanelGroup>
+            <twig:AppShell:PanelGroup group="blocks" title="Blocks" :active="'blocks' == activeGroup" class="grid gap-0.5">
+                {% for slug, item in pages|filter(item => item.kind == 'block') %}
+                    <a href="{{ slug }}.html" class="{{ linkClass }}{{ slug == here ? activeClass : '' }}" {% if slug == here %}aria-current="page"{% endif %}>{{ item.title }}</a>
+                {% endfor %}
+            </twig:AppShell:PanelGroup>
+            <twig:AppShell:PanelGroup group="ux" title="Symfony UX" :active="'ux' == activeGroup" class="grid gap-0.5">
+                {% for slug, item in pages|filter(item => item.kind == 'ux') %}
+                    <a href="{{ slug }}.html" class="{{ linkClass }}{{ slug == here ? activeClass : '' }}" {% if slug == here %}aria-current="page"{% endif %}><span>{{ item.title }}</span>{% if item.added_count %}<span class="rounded-full bg-emerald-600 px-1.5 text-xs font-semibold text-white">+{{ item.added_count }}</span>{% endif %}</a>
+                {% endfor %}
+            </twig:AppShell:PanelGroup>
+        </twig:AppShell:Panel>
+    </twig:AppShell:Sidebar>
+    <twig:AppShell:Main>
+        <twig:AppShell:Header sticky>
+            <twig:AppShell:MenuButton />
+            <twig:AppShell:Toggle />
+            <span class="mx-2 hidden h-4 w-px bg-border md:block"></span>
+            <a href="index.html" class="text-sm font-semibold">Appolo UI</a>
+            <div role="group" aria-label="Theme" class="ms-auto flex items-center gap-0.5 rounded-md border border-border p-0.5 text-xs">
                 {% for mode, label in {light: 'Light', dark: 'Dark', system: 'System'} %}
                     <button type="button" data-theme-set="{{ mode }}" aria-pressed="false" class="rounded px-2 py-1 text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring aria-pressed:bg-muted aria-pressed:text-foreground">{{ label }}</button>
                 {% endfor %}
             </div>
-            <a href="https://github.com/AppoloDev/sf-ui-toolkit" class="text-sm text-muted-foreground hover:text-foreground">GitHub</a>
-        </div>
-    </div>
-</header>
-<div class="mx-auto flex max-w-7xl gap-10 px-6 py-8">
-    <nav class="hidden w-52 shrink-0 text-sm md:block">
-        <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Kit</p>
-        <ul class="mb-6 space-y-1">
-            <li><a href="index.html" class="block rounded-md px-2 py-1 hover:bg-muted">Getting started</a></li>
-            <li><a href="components.html" class="block rounded-md px-2 py-1 hover:bg-muted">Components</a></li>
-            <li><a href="blocks.html" class="block rounded-md px-2 py-1 hover:bg-muted">Blocks</a></li>
-            <li><a href="symfony-ux.html" class="block rounded-md px-2 py-1 hover:bg-muted">Symfony UX</a></li>
-        </ul>
-        {% if current_kind|default('') == 'ux' %}
-            <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Symfony UX</p>
-            <ul class="space-y-1">
-                {% for slug, item in pages|filter(item => item.kind == 'ux') %}
-                    <li><a href="{{ slug }}.html" class="flex items-center justify-between gap-2 rounded-md px-2 py-1 hover:bg-muted"><span>{{ item.title }}</span>{% if item.added_count %}<span class="rounded-full bg-emerald-600 px-1.5 text-xs font-semibold text-white">+{{ item.added_count }}</span>{% endif %}</a></li>
-                {% endfor %}
-            </ul>
-        {% else %}
-        <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Components</p>
-        <ul class="space-y-1">
-            {% for slug, item in pages|filter(item => item.kind == 'component') %}
-                <li><a href="{{ slug }}.html" class="block rounded-md px-2 py-1 hover:bg-muted">{{ item.title }}</a></li>
-            {% endfor %}
-        </ul>
-        {% if pages|filter(item => item.kind == 'block')|length %}
-            <p class="mb-2 mt-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Blocks</p>
-            <ul class="space-y-1">
-                {% for slug, item in pages|filter(item => item.kind == 'block') %}
-                    <li><a href="{{ slug }}.html" class="block rounded-md px-2 py-1 hover:bg-muted">{{ item.title }}</a></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        {% endif %}
-    </nav>
-    <main class="min-w-0 flex-1">
-        {% block body %}{% endblock %}
-    </main>
-</div>
+        </twig:AppShell:Header>
+        <twig:AppShell:Content>
+            <div class="mx-auto max-w-5xl">{{ pageBody|raw }}</div>
+        </twig:AppShell:Content>
+    </twig:AppShell:Main>
+</twig:AppShell>
 </body>
 </html>
