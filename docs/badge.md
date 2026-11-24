@@ -16,7 +16,7 @@ This recipe replaces the `Badge` of the official kit: its 6 variants and its `as
 
 ### Colors
 
-The solid colors: `default` is the primary color, `success`, `info` and `warning` are added. `destructive` keeps the soft red of the official kit.
+The solid colors: `default` is the primary color, `success`, `info` and `warning` are added. Without `appearance`, `destructive` keeps the soft red of the official kit; `appearance="solid"` makes it a solid red like the others.
 
 ```twig
 <div class="flex flex-wrap items-center gap-2">
@@ -24,7 +24,7 @@ The solid colors: `default` is the primary color, `success`, `info` and `warning
     <twig:Badge variant="success">Success</twig:Badge>
     <twig:Badge variant="info">Info</twig:Badge>
     <twig:Badge variant="warning">Warning</twig:Badge>
-    <twig:Badge variant="destructive">Destructive</twig:Badge>
+    <twig:Badge variant="destructive" appearance="solid">Destructive</twig:Badge>
 </div>
 ```
 
@@ -96,7 +96,7 @@ The default is the pill of the official kit; `sm`, `md` and `full` change the co
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `variant` | `string` | `default` | `default`, `secondary`, `destructive`, `outline`, `ghost`, `link`, `success`, `info` or `warning`. |
-| `appearance` | `string` | `solid` | `solid`, `outline` or `light`; applies to default, destructive, success, info and warning. |
+| `appearance` | `string` | `null` | `solid`, `outline` or `light`; applies to default, destructive, success, info and warning. Without it the badge is solid, except `destructive` which keeps the soft red of the official kit. |
 | `size` | `string` | `default` | `xs`, `default` or `lg`. |
 | `radius` | `string` | `default` | `default` (pill), `sm`, `md` or `full`. |
 | `as` | `string` | `span` | `span`, or `a` when the badge navigates. |
