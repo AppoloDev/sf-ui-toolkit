@@ -62,8 +62,8 @@ Steps before the current one are completed automatically. Panels stay in the DOM
     <twig:Stepper:Content step="2" class="rounded-md border border-border p-4 text-sm">Profile details.</twig:Stepper:Content>
     <twig:Stepper:Content step="3" class="rounded-md border border-border p-4 text-sm">Review and confirm.</twig:Stepper:Content>
     <div class="flex justify-between">
-        <button type="button" class="rounded-md border border-border px-3 py-1.5 text-sm disabled:opacity-50" data-stepper-target="prev" data-action="click->stepper#prev">Previous</button>
-        <button type="button" class="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground disabled:opacity-50" data-stepper-target="next" data-action="click->stepper#next">Next</button>
+        <twig:Button variant="outline" data-stepper-target="prev" data-action="click->stepper#prev">Previous</twig:Button>
+        <twig:Button data-stepper-target="next" data-action="click->stepper#next">Next</twig:Button>
     </div>
 </twig:Stepper>
 ```
