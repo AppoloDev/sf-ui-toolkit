@@ -32,7 +32,8 @@ export default class extends Controller {
         this.current = null;
         this.typed = '';
         this.weight = 1;
-        this.ink = this.colorValue || null;
+        this.ink = this.colorValue || this.colorTargets[0]?.dataset.signaturePadColorParam || null;
+        this.colorTargets.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.signaturePadColorParam === this.ink)));
         this.loadValue();
         this.observer = new ResizeObserver(() => this.resize());
         this.observer.observe(this.frameTarget);

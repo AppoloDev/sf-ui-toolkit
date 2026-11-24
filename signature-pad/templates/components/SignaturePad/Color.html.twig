@@ -1,0 +1,11 @@
+{#
+  SignaturePad:Color: an ink color of a <twig:SignaturePad>; put it in the `colors` block. The first one is the
+  initial ink.
+
+  Props
+    color  any CSS color
+#}
+{%- props color -%}
+<button type="button" aria-label="{{ color }}" title="{{ color }}" aria-pressed="false" style="background: {{ color }}"
+        data-signature-pad-target="color" data-signature-pad-color-param="{{ color }}"
+        {{ attributes.defaults({class: 'size-6 rounded-full border border-black/10 outline-none focus-visible:ring-2 focus-visible:ring-ring aria-pressed:ring-2 aria-pressed:ring-ring aria-pressed:ring-offset-2', 'data-action': 'signature-pad#setColor'}) }}></button>

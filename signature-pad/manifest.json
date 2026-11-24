@@ -3,12 +3,15 @@
     "name": "SignaturePad",
     "description": "Handwritten signature captured with a mouse, a finger or a stylus, exported as PNG, JPEG, SVG or JSON.",
     "copy-files": {
-        "templates/": "templates/",
-        "assets/": "assets/"
+        "templates/components/": "%COMPONENTS_DIR%/",
+        "assets/controllers/": "%CONTROLLERS_DIR%/"
     },
     "dependencies": {
         "composer": [
-            "symfony/ux-icons"
+            "symfony/ux-icons",
+            "twig/extra-bundle",
+            "twig/html-extra:^3.24.0",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
         ]
     }
 }

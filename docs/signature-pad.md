@@ -2,6 +2,10 @@
 
 > Handwritten signature captured with a mouse, a finger or a stylus, exported as PNG, JPEG, SVG or JSON.
 
+## Installation
+
+- button
+
 ## Usage
 
 ```twig
@@ -34,8 +38,8 @@ The pad submits its value through `name`. With `required` the browser blocks the
 <form class="grid max-w-md gap-3" onsubmit="event.preventDefault(); this.querySelector('output').textContent = this.signature.value ? this.signature.value.length + ' characters of SVG submitted' : ''">
     <twig:SignaturePad name="signature" format="svg" required />
     <div class="flex items-center gap-2">
-        <button type="submit" class="h-9 rounded-md bg-primary px-4 text-sm text-primary-foreground">Sign</button>
-        <button type="reset" class="h-9 rounded-md border border-border px-4 text-sm">Reset</button>
+        <twig:Button type="submit">Sign</twig:Button>
+        <twig:Button variant="outline" type="reset">Reset</twig:Button>
         <output class="text-sm text-muted-foreground"></output>
     </div>
 </form>
@@ -43,14 +47,19 @@ The pad submits its value through `name`. With `required` the browser blocks the
 
 ### Ink colors, line weights and replay
 
-`colors` adds ink color buttons and `weights` adds thin, regular and bold. Each stroke keeps its own color and weight. The content of the component is rendered under the toolbar: use it for your own controls, wired with Stimulus actions such as `signature-pad#replay` and `signature-pad#download`.
+Put `SignaturePad:Color` elements in the `colors` block to add ink color buttons (the first one is the initial ink), and `weights` adds thin, regular and bold. Each stroke keeps its own color and weight. The content of the component is rendered under the toolbar: use it for your own controls, wired with Stimulus actions such as `signature-pad#replay` and `signature-pad#download`.
 
 ```twig
-<twig:SignaturePad name="signature" :colors="['#111827', '#1d4ed8', '#dc2626']" weights class="max-w-md">
+<twig:SignaturePad name="signature" weights class="max-w-md">
+    <twig:block name="colors">
+        <twig:SignaturePad:Color color="#111827" />
+        <twig:SignaturePad:Color color="#1d4ed8" />
+        <twig:SignaturePad:Color color="#dc2626" />
+    </twig:block>
     <div class="flex gap-2">
-        <button type="button" class="h-8 rounded-md border border-border px-2.5 text-sm hover:bg-muted" data-action="signature-pad#replay">Replay</button>
-        <button type="button" class="h-8 rounded-md border border-border px-2.5 text-sm hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="png">Download PNG</button>
-        <button type="button" class="h-8 rounded-md border border-border px-2.5 text-sm hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="svg">Download SVG</button>
+        <twig:Button variant="outline" data-action="signature-pad#replay">Replay</twig:Button>
+        <twig:Button variant="outline" data-action="signature-pad#download" data-signature-pad-format-param="png">Download PNG</twig:Button>
+        <twig:Button variant="outline" data-action="signature-pad#download" data-signature-pad-format-param="svg">Download SVG</twig:Button>
     </div>
 </twig:SignaturePad>
 ```
@@ -65,10 +74,10 @@ The pad submits its value through `name`. With `required` the browser blocks the
         <img alt="Signature preview" hidden class="h-12 rounded bg-muted object-contain" data-signature-pad-target="preview">
         <span class="text-sm text-muted-foreground">Payload: <span data-signature-pad-target="size">0 B</span></span>
         <span class="ml-auto flex gap-1">
-            <button type="button" class="h-7 rounded-md border border-border px-2 text-xs hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="png">PNG</button>
-            <button type="button" class="h-7 rounded-md border border-border px-2 text-xs hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="jpeg">JPEG</button>
-            <button type="button" class="h-7 rounded-md border border-border px-2 text-xs hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="svg">SVG</button>
-            <button type="button" class="h-7 rounded-md border border-border px-2 text-xs hover:bg-muted" data-action="signature-pad#download" data-signature-pad-format-param="json">JSON</button>
+            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="png">PNG</twig:Button>
+            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="jpeg">JPEG</twig:Button>
+            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="svg">SVG</twig:Button>
+            <twig:Button variant="outline" size="sm" data-action="signature-pad#download" data-signature-pad-format-param="json">JSON</twig:Button>
         </span>
     </div>
 </twig:SignaturePad>
@@ -96,8 +105,8 @@ Drawing needs a pointer. A text input wired to `signature-pad#typeName` renders 
     <p class="text-sm">I have read and accept the terms of the agreement.</p>
     <twig:SignaturePad name="agreement" format="svg">
         <div class="flex items-center gap-3">
-            <button type="button" class="h-8 rounded-md bg-primary px-3 text-sm text-primary-foreground" data-action="signature-pad#lock"
-                    onclick="this.nextElementSibling.textContent = 'Signed on ' + new Date().toLocaleDateString()">Sign and date</button>
+            <twig:Button data-action="signature-pad#lock"
+                    onclick="this.nextElementSibling.textContent = 'Signed on ' + new Date().toLocaleDateString()">Sign and date</twig:Button>
             <span class="text-sm text-muted-foreground"></span>
         </div>
     </twig:SignaturePad>
@@ -144,7 +153,7 @@ The submitted field is a plain input named `name`, so any script can read it. He
 <div class="grid max-w-md gap-3">
     <twig:SignaturePad name="signature" id="sig" />
     <div class="flex items-center gap-2">
-        <button type="button" id="attach" class="h-8 rounded-md border border-border px-3 text-sm hover:bg-muted">Attach as file</button>
+        <twig:Button variant="outline" id="attach">Attach as file</twig:Button>
         <span id="attached" class="text-sm text-muted-foreground"></span>
     </div>
 </div>
@@ -189,7 +198,6 @@ Pass a stored `json` export as `value` to show or continue a signature. `readonl
 | `format` | `png`, `jpeg`, `svg`, `json` | `png` | Submitted format. `json` keeps the strokes (color, weight, points) so the signature can be redrawn. |
 | `value` | string | `''` | A stored `json` export to display. |
 | `background` | string | `null` | Fill of exports (any CSS color). Transparent by default, white for `jpeg`. |
-| `colors` | array | `[]` | Ink colors offered in the toolbar. Without it there is one ink: the text color on screen, black in exports. |
 | `weights` | bool | `false` | Shows the thin, regular and bold buttons. |
 | `toolbar` | bool | `true` | Shows the undo, redo and clear buttons. |
 | `minWidth` | number | `0.8` | Thinnest stroke width, in px. |
@@ -212,3 +220,9 @@ Pass a stored `json` export as `value` to show or continue a signature. `readonl
 ### Content, actions and targets
 
 The content of the component is rendered under the toolbar. Controls placed there can use these Stimulus actions: `signature-pad#undo`, `#redo`, `#clear`, `#replay`, `#lock`, `#download` (with `data-signature-pad-format-param`), `#setColor` (`data-signature-pad-color-param`), `#setWeight` (`data-signature-pad-weight-param`) and `#typeName` (on an `input`). Two targets are filled for you: `data-signature-pad-target="preview"` (an `img`) and `data-signature-pad-target="size"` (payload size).
+
+### `<twig:SignaturePad:Color>`
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `color` | string | | Ink color (any CSS color). Put it in the `colors` block of the pad; the first one is the initial ink. Without any, there is one ink: the text color on screen, black in exports. |
