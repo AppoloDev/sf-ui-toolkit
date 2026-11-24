@@ -5,6 +5,6 @@
  # `Sonner` it wraps. Put `<template>` elements in the slot, one per toast, and fire them from any element
  # with `data-action="click->sonner-html#show"` and `data-sonner-html-template-param="#id"`.
  #}
-<twig:Sonner {{ ...attributes }} data-controller="sonner sonner-html">
-    {%- block content %}{% endblock -%}
+<twig:Sonner {{ ...attributes }} data-controller="sonner-html">
+    {{ block(outerBlocks.content) }}
 </twig:Sonner>
