@@ -115,3 +115,44 @@
     <twig:Progress value="70" class="[&>div]:bg-violet-500" />
 </div>
 ```
+
+### Status Messages
+
+A bar that fills in a loop, and messages that follow one another while it does. The animation is plain CSS: nothing here reads a real progress, so use it for a wait of unknown length.
+
+```twig
+<style>
+    @keyframes status-fill {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(0); }
+    }
+    @keyframes status-first {
+        0%, 30% { opacity: 1; }
+        34%, 100% { opacity: 0; }
+    }
+    @keyframes status-second {
+        0%, 30% { opacity: 0; }
+        34%, 64% { opacity: 1; }
+        68%, 100% { opacity: 0; }
+    }
+    @keyframes status-third {
+        0%, 64% { opacity: 0; }
+        68%, 98% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+</style>
+<div class="mx-auto grid w-full max-w-sm gap-3">
+    <div class="relative h-5 text-sm text-muted-foreground">
+        <p class="absolute inset-0 animate-[status-first_9s_linear_infinite]">
+            Preparing your workspace…
+        </p>
+        <p class="absolute inset-0 animate-[status-second_9s_linear_infinite] motion-reduce:hidden">
+            Installing dependencies…
+        </p>
+        <p class="absolute inset-0 animate-[status-third_9s_linear_infinite] motion-reduce:hidden">
+            Almost there…
+        </p>
+    </div>
+    <twig:Progress :value="0" class="[&>[data-slot=progress-indicator]]:animate-[status-fill_9s_linear_infinite] motion-reduce:[&>[data-slot=progress-indicator]]:animate-none" />
+</div>
+```

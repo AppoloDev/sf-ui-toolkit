@@ -491,3 +491,47 @@
     </twig:DropdownMenu>
 </div>
 ```
+
+### AI Model Selector
+
+The menu lists models, each with its brand logo in color.
+
+```twig
+<div class="flex items-start justify-center pt-6" style="min-height: 300px">
+    <twig:DropdownMenu id="ai-model-selector">
+        <twig:DropdownMenu:Trigger>
+            <twig:Button variant="outline" {{ ...dropdown_menu_trigger_attrs }}>
+                <twig:ux:icon name="lucide:sparkles" />
+                Choose a model
+            </twig:Button>
+        </twig:DropdownMenu:Trigger>
+        <twig:DropdownMenu:Content class="min-w-56">
+            <twig:DropdownMenu:Label>
+                Model
+            </twig:DropdownMenu:Label>
+            <twig:DropdownMenu:RadioGroup value="claude">
+                <twig:DropdownMenu:RadioItem value="claude" checked>
+                    <twig:ux:icon name="simple-icons:anthropic" class="size-4 text-[#D97757]" />
+                    Claude
+                </twig:DropdownMenu:RadioItem>
+                <twig:DropdownMenu:RadioItem value="gemini">
+                    <twig:ux:icon name="simple-icons:googlegemini" class="size-4 text-[#8E75B2]" />
+                    Gemini
+                </twig:DropdownMenu:RadioItem>
+                <twig:DropdownMenu:RadioItem value="mistral">
+                    <twig:ux:icon name="simple-icons:mistralai" class="size-4 text-[#FA520F]" />
+                    Mistral
+                </twig:DropdownMenu:RadioItem>
+                <twig:DropdownMenu:RadioItem value="perplexity">
+                    <twig:ux:icon name="simple-icons:perplexity" class="size-4 text-[#20808D]" />
+                    Perplexity
+                </twig:DropdownMenu:RadioItem>
+                <twig:DropdownMenu:RadioItem value="llama">
+                    <twig:ux:icon name="simple-icons:meta" class="size-4 text-[#0467DF]" />
+                    Llama
+                </twig:DropdownMenu:RadioItem>
+            </twig:DropdownMenu:RadioGroup>
+        </twig:DropdownMenu:Content>
+    </twig:DropdownMenu>
+</div>
+```

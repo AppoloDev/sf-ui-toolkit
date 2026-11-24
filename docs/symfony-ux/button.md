@@ -423,3 +423,53 @@ A `Toggle` is pressed for the dark theme: the sun and the moon cross-fade and ro
     <twig:ux:icon name="lucide:moon" class="absolute scale-0 rotate-90 opacity-0 transition-all duration-300 group-aria-pressed/toggle:scale-100 group-aria-pressed/toggle:rotate-0 group-aria-pressed/toggle:opacity-100" aria-hidden="true" />
 </twig:Toggle>
 ```
+
+### Colored Social Icons
+
+Brand logos come from the `simple-icons` set, which draws each logo in one color: give it the color of the brand with a text color class.
+
+```twig
+<div class="flex flex-wrap gap-2">
+    <twig:Button variant="outline" size="icon" aria-label="Google">
+        <twig:ux:icon name="simple-icons:google" class="size-4 text-[#4285F4]" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Facebook">
+        <twig:ux:icon name="simple-icons:facebook" class="size-4 text-[#0866FF]" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="X">
+        <twig:ux:icon name="simple-icons:x" class="size-4 text-foreground" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="LinkedIn">
+        <twig:ux:icon name="simple-icons:linkedin" class="size-4 text-[#0A66C2]" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Discord">
+        <twig:ux:icon name="simple-icons:discord" class="size-4 text-[#5865F2]" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="GitHub">
+        <twig:ux:icon name="simple-icons:github" class="size-4 text-foreground" />
+    </twig:Button>
+</div>
+```
+
+### Social Login Stack
+
+```twig
+<div class="mx-auto grid w-full max-w-xs gap-2">
+    <twig:Button variant="outline" class="w-full">
+        <twig:ux:icon name="simple-icons:google" class="text-[#4285F4]" />
+        Continue with Google
+    </twig:Button>
+    <twig:Button variant="outline" class="w-full">
+        <twig:ux:icon name="simple-icons:github" class="text-foreground" />
+        Continue with GitHub
+    </twig:Button>
+    <twig:Button variant="outline" class="w-full">
+        <twig:ux:icon name="simple-icons:gitlab" class="text-[#FC6D26]" />
+        Continue with GitLab
+    </twig:Button>
+    <twig:Button variant="outline" class="w-full">
+        <twig:ux:icon name="simple-icons:apple" class="text-foreground" />
+        Continue with Apple
+    </twig:Button>
+</div>
+```
