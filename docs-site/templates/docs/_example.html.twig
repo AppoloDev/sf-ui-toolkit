@@ -2,8 +2,17 @@
 <div class="overflow-hidden rounded-lg border border-border">
     <p class="border-b border-border bg-muted/50 px-3 py-2 text-xs text-muted-foreground">This example cannot be rendered in the documentation build, so only its code is shown.</p>
     <div class="relative">
-        <button type="button" data-copy="code-{{ id }}" class="absolute right-2 top-2 rounded border border-border bg-background px-2 py-1 text-xs hover:bg-muted">Copy</button>
-        <div id="code-{{ id }}" class="[&>pre]:rounded-none [&>pre]:border-0 [&>pre]:bg-transparent"><twig:CodeHighlight language="twig" :code="example.code" /></div>
+        <twig:CodeBlock class="rounded-none! border-0!">
+            <twig:CodeBlock:Header>
+                <twig:CodeBlock:Title>
+                    Twig
+                </twig:CodeBlock:Title>
+                <twig:CodeBlock:Actions>
+                    <twig:CodeBlock:CopyButton :value="example.code" />
+                </twig:CodeBlock:Actions>
+            </twig:CodeBlock:Header>
+            <twig:CodeHighlight language="twig" :code="example.code" class="rounded-none! border-0! bg-transparent!" />
+        </twig:CodeBlock>
     </div>
 </div>
 {% else %}
@@ -23,8 +32,17 @@
         <iframe data-preview src="{{ example.preview }}" title="Preview: {{ example.title }}" loading="lazy" class="mx-auto block max-w-full rounded border border-dashed border-border bg-background" style="width: 100%; height: 160px; min-height: {{ example.min_height|default(0) }}px"></iframe>
     </div>
     <div data-panel="code" class="relative" hidden>
-        <button type="button" data-copy="code-{{ id }}" class="absolute right-2 top-2 rounded border border-border bg-background px-2 py-1 text-xs hover:bg-muted">Copy</button>
-        <div id="code-{{ id }}" class="[&>pre]:rounded-none [&>pre]:border-0 [&>pre]:bg-transparent"><twig:CodeHighlight language="twig" :code="example.code" /></div>
+        <twig:CodeBlock class="rounded-none! border-0!">
+            <twig:CodeBlock:Header>
+                <twig:CodeBlock:Title>
+                    Twig
+                </twig:CodeBlock:Title>
+                <twig:CodeBlock:Actions>
+                    <twig:CodeBlock:CopyButton :value="example.code" />
+                </twig:CodeBlock:Actions>
+            </twig:CodeBlock:Header>
+            <twig:CodeHighlight language="twig" :code="example.code" class="rounded-none! border-0! bg-transparent!" />
+        </twig:CodeBlock>
     </div>
 </div>
 {% endif %}

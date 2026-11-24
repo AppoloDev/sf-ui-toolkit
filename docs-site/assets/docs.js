@@ -8,17 +8,6 @@ document.addEventListener('click', (event) => {
         return;
     }
 
-    const copy = event.target.closest('[data-copy]');
-    if (copy) {
-        const source = document.getElementById(copy.dataset.copy);
-        navigator.clipboard.writeText(source.textContent).then(() => {
-            const label = copy.textContent;
-            copy.textContent = 'Copied';
-            setTimeout(() => { copy.textContent = label; }, 1500);
-        });
-        return;
-    }
-
     const width = event.target.closest('[data-width]');
     if (width) {
         const example = width.closest('[data-example]');
