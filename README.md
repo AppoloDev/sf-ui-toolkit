@@ -56,6 +56,7 @@ The props of each component are listed in its documentation.
 | `icon-tile` | Square or circular tile giving an icon a fixed size, radius and surface: outline, elevated or frame. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/icon-tile.html) |
 | `kanban` | Board of columns with draggable cards, moved by pointer or keyboard, with the board carried by the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/kanban.html) |
 | `number-field` | Numeric input with decrement and increment buttons, keyboard steps, press-and-hold repeat and min/max clamping. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/number-field.html) |
+| `password-strength` | A strength meter for the password typed in a field, with an optional list of the requirements it meets. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/password-strength.html) |
 | `password-toggle` | A button that shows or hides the password typed in an input, for use in an input group or next to any field. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/password-toggle.html) |
 | `phone-input` | International phone field with a searchable country selector and an E.164 value. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/phone-input.html) |
 | `rating` | Star rating: read-only display (partial stars) or input with radio buttons, half stars and hover preview. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/rating.html) |
