@@ -68,8 +68,8 @@ These examples use `Frame` from this kit. The whole header row toggles the relea
 ```twig
 <twig:Frame stacked dense spacing="sm" class="max-w-xs">
     <twig:Collapsible open>
-        <twig:Collapsible:Trigger class="flex w-full">
-            <span class="flex w-full items-center justify-between gap-2 px-4 py-3 text-sm font-medium" {{ ...collapsible_trigger_attrs }}>Deployment successful <twig:ux:icon name="lucide:chevron-right" class="size-4 text-muted-foreground" /></span>
+        <twig:Collapsible:Trigger>
+            <twig:Button variant="ghost" class="h-auto w-full justify-between rounded-none px-4 py-3 text-sm font-medium" {{ ...collapsible_trigger_attrs }}>Deployment successful <twig:ux:icon name="lucide:chevron-right" class="size-4 text-muted-foreground" /></twig:Button>
         </twig:Collapsible:Trigger>
         <twig:Collapsible:Content>
             <twig:Frame:Panel><p class="text-xs leading-relaxed text-muted-foreground">Updated the core authentication logic and fixed a minor bug in the login flow.</p></twig:Frame:Panel>
