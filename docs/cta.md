@@ -2,6 +2,10 @@
 
 > Call-to-action section with eyebrow, title, description, actions and optional media: centered, split or inline, in four tones.
 
+## Installation
+
+- badge
+
 ## Usage
 
 The component is layout only: actions are the slot, so use your own `Button` components (the examples use plain links so they work anywhere).

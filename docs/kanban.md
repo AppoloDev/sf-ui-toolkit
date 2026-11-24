@@ -2,6 +2,10 @@
 
 > Board of columns with draggable cards, moved by pointer or keyboard, with the board carried by the form.
 
+## Installation
+
+- badge
+
 ## Usage
 
 ```twig

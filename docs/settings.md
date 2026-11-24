@@ -2,6 +2,10 @@
 
 > Settings page layout: optional side navigation, titled sections and rows with label, description, badge and one control.
 
+## Installation
+
+- badge
+
 ## Usage
 
 A page is `Settings`, holding `Settings:Section` elements, each holding `Settings:Row` elements. A row is a label and a description on one side and one control (the slot) on the other. Nothing is saved by the component: the controls are yours, usually inside a Symfony form.

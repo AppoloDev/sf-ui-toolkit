@@ -4,13 +4,15 @@
   Props
     value  identifier of the column (reported in events and in the submitted name)
     title  heading of the column
+
+  Requires the shadcn recipe badge (installed from the shadcn kit).
 #}
 {%- props value, title -%}
 {%- set extra_class = attributes.render('class') -%}
 <section class="{{ ('flex w-72 shrink-0 flex-col gap-2 rounded-xl bg-muted/50 p-2 ' ~ extra_class)|trim }}" data-kanban-target="column" data-value="{{ value }}" aria-labelledby="kanban-col-{{ value }}" {{ attributes }}>
     <h3 id="kanban-col-{{ value }}" class="flex items-center justify-between px-2 pt-1 text-sm font-medium" data-title>
         <span>{{ title }}</span>
-        <span class="rounded-full bg-background px-2 text-xs font-normal text-muted-foreground tabular-nums" data-count></span>
+        <twig:Badge variant="secondary" class="bg-background! font-normal tabular-nums" data-count />
     </h3>
     <div role="list" class="flex min-h-12 flex-col gap-2 rounded-lg data-[over=true]:bg-muted" data-cards>
         {%- block content %}{% endblock -%}

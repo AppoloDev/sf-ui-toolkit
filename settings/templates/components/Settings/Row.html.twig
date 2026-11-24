@@ -9,6 +9,7 @@
     danger       destructive setting: the label is shown in the destructive color
 
   The slot is the control (switch, select, input, button...).
+  Requires the shadcn recipe badge (installed from the shadcn kit).
 #}
 {%- props label, description = null, badge = null, for = null, danger = false -%}
 {%- set uid = 'setting-' ~ random(1000000) -%}
@@ -20,7 +21,7 @@
             {%- else %}
                 <span id="{{ uid }}" class="text-sm font-medium {{ danger ? 'text-destructive' : 'text-foreground' }}">{{ label }}</span>
             {%- endif %}
-            {%- if badge %}<span class="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">{{ badge }}</span>{% endif %}
+            {%- if badge %}<twig:Badge variant="secondary">{{ badge }}</twig:Badge>{% endif %}
         </div>
         {%- if description %}<p class="text-sm text-muted-foreground">{{ description }}</p>{% endif %}
     </div>

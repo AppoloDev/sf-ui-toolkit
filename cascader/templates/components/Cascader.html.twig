@@ -15,7 +15,7 @@
     placeholder, searchLabel, emptyLabel, backLabel, selectedLabel ({count}), label   texts
     id             id of the trigger (for an external <label for>)
 
-  Requires the shadcn recipes popover and button (installed from the shadcn kit).
+  Requires the shadcn recipes popover, button and input (installed from the shadcn kit).
 #}
 {%- props name = null, value = null, multiple = false, max = null, selectable = 'leaf', cascade = false, mode = 'columns', separator = ' / ', required = false, disabled = false, placeholder = 'Select…', searchLabel = 'Search', emptyLabel = 'No results.', backLabel = 'Back', selectedLabel = '{count} selected', label = 'Options', id = null -%}
 {%- set data = {
@@ -44,8 +44,8 @@
         </twig:Button>
     </twig:Popover:Trigger>
     <twig:Popover:Content align="start" aria-label="{{ label }}" class="w-auto! min-w-64 gap-0! p-0!" data-action="keydown->cascader#panelKey">
-        <input type="search" role="searchbox" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off"
-               class="h-9 w-full rounded-t-lg border-b border-border bg-transparent px-3 text-sm outline-none" data-cascader-target="search" data-action="input->cascader#search">
+        <twig:Input type="search" role="searchbox" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off"
+            class="h-9 rounded-none! rounded-t-lg! border-0! border-b! bg-transparent! shadow-none! focus-visible:ring-0!" data-cascader-target="search" data-action="input->cascader#search" />
         <div class="flex max-h-64 min-h-0 w-max min-w-full max-w-[calc(100vw-2rem)] divide-x divide-border overflow-x-auto" data-cascader-target="columns"></div>
         <p class="sr-only" role="status" aria-live="polite" data-cascader-target="status"></p>
     </twig:Popover:Content>
