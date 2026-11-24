@@ -4,6 +4,8 @@
 
 ## Usage
 
+The panel is the shadcn `Popover` and the trigger its `Button`: install the `popover` and `button` components from the shadcn kit first (a recipe cannot depend on another kit).
+
 ```twig
 <twig:Cascader name="category">
     <twig:Cascader:Option value="fruit" label="Fruit">

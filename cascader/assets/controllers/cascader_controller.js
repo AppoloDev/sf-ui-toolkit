@@ -6,7 +6,7 @@ import { Controller } from '@hotwired/stimulus';
  * back, Enter chooses or opens, Escape closes. `cascader:change` fires with { values }.
  */
 export default class extends Controller {
-    static targets = ['trigger', 'display', 'panel', 'search', 'columns', 'status', 'inputs', 'validity', 'source', 'icon'];
+    static targets = ['trigger', 'display', 'search', 'columns', 'status', 'inputs', 'validity', 'source', 'icon'];
     static values = {
         selected: Array,
         name: String,
@@ -35,9 +35,15 @@ export default class extends Controller {
         walk(this.options, []);
         this.chosen = new Set(this.selectedValue.map(String).filter((value) => this.index.has(value)));
         this.trail = [];
-        this.onOutsideClick = (event) => {
-            if (!this.element.contains(event.target)) this.close();
-        };
+        // The panel is a shadcn Popover on the same element: react to its open state.
+        this.wasOpen = this.isOpen;
+        this.observer = new MutationObserver(() => {
+            if (this.isOpen === this.wasOpen) return;
+            this.wasOpen = this.isOpen;
+            if (this.isOpen) this.opened();
+        });
+        this.observer.observe(this.element, { attributes: true, attributeFilter: ['data-state'] });
+        this.triggerTarget.addEventListener('keydown', this.triggerKey);
         this.sync(false);
     }
 
@@ -52,7 +58,8 @@ export default class extends Controller {
     }
 
     disconnect() {
-        document.removeEventListener('pointerdown', this.onOutsideClick);
+        this.observer?.disconnect();
+        this.triggerTarget.removeEventListener('keydown', this.triggerKey);
     }
 
     // --- helpers ----------------------------------------------------------------------------
@@ -90,35 +97,34 @@ export default class extends Controller {
 
     // --- popover ----------------------------------------------------------------------------
 
-    toggle() {
-        this.panelTarget.hidden ? this.open() : this.close();
+    get isOpen() {
+        return 'open' === this.element.dataset.state;
     }
 
-    open() {
+    setOpen(open) {
+        this.element.dataset.popoverOpenValue = open ? 'true' : 'false';
+    }
+
+    // Called once the popover has opened: start from the chosen branch, with an empty search.
+    opened() {
         const first = [...this.chosen][0];
         this.trail = first ? this.index.get(first).path.slice(0, -1).map((node) => String(node.value)) : [];
         this.searchTarget.value = '';
-        this.panelTarget.hidden = false;
-        this.triggerTarget.setAttribute('aria-expanded', 'true');
-        document.addEventListener('pointerdown', this.onOutsideClick);
         this.render();
-        this.searchTarget.focus();
     }
 
     close(restoreFocus = false) {
-        if (this.panelTarget.hidden) return;
-        this.panelTarget.hidden = true;
-        this.triggerTarget.setAttribute('aria-expanded', 'false');
-        document.removeEventListener('pointerdown', this.onOutsideClick);
+        if (!this.isOpen) return;
+        this.setOpen(false);
         if (restoreFocus) this.triggerTarget.focus();
     }
 
-    triggerKey(event) {
-        if ('ArrowDown' === event.key && this.panelTarget.hidden) {
+    triggerKey = (event) => {
+        if ('ArrowDown' === event.key && !this.isOpen) {
             event.preventDefault();
-            this.open();
+            this.setOpen(true);
         }
-    }
+    };
 
     search() {
         this.render();
@@ -273,12 +279,6 @@ export default class extends Controller {
     // --- keyboard ---------------------------------------------------------------------------
 
     panelKey(event) {
-        if ('Escape' === event.key) {
-            event.preventDefault();
-            this.close(true);
-
-            return;
-        }
         const target = document.activeElement;
         const isSearch = target === this.searchTarget;
         const searching = '' !== this.searchTarget.value.trim();

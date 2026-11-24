@@ -36,6 +36,8 @@ The model is `rich-text-editor`, which depends on TipTap (`@tiptap/core` and `@t
 
 ## Rules that bite
 
+- Reuse the shadcn kit before writing UI mechanics: panels are `Popover` (trigger attributes via `{{ ...popover_trigger_attrs }}`, open state through `data-state` and `data-popover-open-value` on the root), searchable lists `Combobox`/`Command`, buttons `Button`, fields `Field`/`Input`. Our controller then only holds the logic of the component and runs next to the popover controller (`data-controller="cascader"` is appended to `popover`). A recipe cannot list another kit's recipe in `dependencies.recipe` (the installer throws): state the required shadcn components in the Usage text of the docs page. `Cascader` is the model.
+
 - Lists of entries (options, items, tools, swatches) are never an array prop: they are child components (`<twig:Cascader:Option value="..." label="...">`, nested for hierarchies). A child is an anonymous template that only renders markup (`<li data-value data-label>`, hidden under the parent), and the Stimulus controller reads that markup. Content goes in the child's slot, so Twig loops and rich content work. `Cascader` is the model.
 
 - One commit per component, short imperative English message, push every time.

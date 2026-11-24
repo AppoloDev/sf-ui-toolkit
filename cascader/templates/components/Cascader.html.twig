@@ -14,10 +14,12 @@
     required, disabled
     placeholder, searchLabel, emptyLabel, backLabel, selectedLabel ({count}), label   texts
     id             id of the trigger (for an external <label for>)
+
+  Requires the shadcn recipes popover and button (installed from the shadcn kit).
 #}
 {%- props name = null, value = null, multiple = false, max = null, selectable = 'leaf', cascade = false, mode = 'columns', separator = ' / ', required = false, disabled = false, placeholder = 'Select…', searchLabel = 'Search', emptyLabel = 'No results.', backLabel = 'Back', selectedLabel = '{count} selected', label = 'Options', id = null -%}
-{%- set extra_class = attributes.render('class') -%}
 {%- set data = {
+    class: 'w-64',
     'data-controller': 'cascader',
     'data-cascader-selected-value': (multiple ? (value ?? []) : (value is null or value == '' ? [] : [value]))|json_encode,
     'data-cascader-name-value': name ?? '',
@@ -32,20 +34,21 @@
     'data-cascader-back-label-value': backLabel,
     'data-cascader-selected-label-value': selectedLabel,
 } -%}
-<div class="{{ ('relative inline-block w-64 ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
-    <button type="button" aria-haspopup="dialog" aria-expanded="false" {% if id %}id="{{ id }}" {% endif %}{{ disabled ? 'disabled' }}
-            class="flex h-9 w-full items-center justify-between gap-2 rounded-md border border-border bg-background px-3 text-left text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
-            data-cascader-target="trigger" data-action="cascader#toggle keydown->cascader#triggerKey">
-        <span class="truncate" data-cascader-target="display"></span>
-        <span class="inline-flex shrink-0 items-center text-muted-foreground [&_svg]:size-4" aria-hidden="true" data-cascader-target="icon"><twig:ux:icon name="lucide:chevrons-up-down" /></span>
-    </button>
-    <div role="dialog" aria-label="{{ label }}" hidden class="absolute left-0 top-full z-50 mt-1 min-w-full rounded-md border border-border bg-background shadow-md" data-cascader-target="panel" data-action="keydown->cascader#panelKey">
+{%- set trigger = {'data-cascader-target': 'trigger'}|merge(id ? {id: id} : {})|merge(disabled ? {disabled: true} : {}) -%}
+<twig:Popover {{ ...attributes.defaults(data) }}>
+    <twig:Popover:Trigger>
+        <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...trigger }} {{ ...popover_trigger_attrs }}>
+            <span class="truncate" data-cascader-target="display"></span>
+            <span class="inline-flex shrink-0 items-center text-muted-foreground [&_svg]:size-4" aria-hidden="true" data-cascader-target="icon"><twig:ux:icon name="lucide:chevrons-up-down" /></span>
+        </twig:Button>
+    </twig:Popover:Trigger>
+    <twig:Popover:Content align="start" aria-label="{{ label }}" class="w-auto! min-w-full gap-0! p-0!" data-action="keydown->cascader#panelKey">
         <input type="search" role="searchbox" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off"
-               class="h-9 w-full rounded-t-md border-b border-border bg-transparent px-3 text-sm outline-none" data-cascader-target="search" data-action="input->cascader#search">
+               class="h-9 w-full rounded-t-lg border-b border-border bg-transparent px-3 text-sm outline-none" data-cascader-target="search" data-action="input->cascader#search">
         <div class="flex max-h-64 divide-x divide-border overflow-x-auto" data-cascader-target="columns"></div>
         <p class="sr-only" role="status" aria-live="polite" data-cascader-target="status"></p>
-    </div>
+    </twig:Popover:Content>
     <ul hidden data-cascader-target="source">{% block content %}{% endblock %}</ul>
     <span data-cascader-target="inputs" hidden></span>
     <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" data-cascader-target="validity" {{ required ? 'required' }}>
-</div>
+</twig:Popover>
