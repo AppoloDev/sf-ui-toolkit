@@ -18,6 +18,10 @@ The committed rules are in `CLAUDE.md` (language, commits, kit structure, docume
 7. **Ship:** `.claude/skills/sf-ui-toolkit-recipe/scripts/ship.sh "Add <Name> component"` commits as the repository owner, pushes `main` and waits for the docs build. Fix and push again if it fails: the docs build in CI is the check.
 8. **Report:** what was added, what differs from what was expected, what was not verified.
 
+## Complete an official component
+
+If the shadcn kit has the component but lacks a feature (rows that expand in `Table`, for example), the recipe ships only the new sub-components (`<slug>/templates/components/<Name>/<Part>.html.twig`) and, when needed, a Stimulus controller. A user puts `data-controller` on the official component, which passes attributes through, so the official file is never overridden. The docs page lists the official recipe under `## Installation`; the build adds the official README examples to it. Describe Stimulus values, actions and events in `## Usage`, since `## API` only reads `Prop` and `Block` tables. Examples that need no new file go in `docs/symfony-ux/<component>.md`.
+
 ## Add a block
 
 Same as a component, plus `--block` on `readme-row.py`, and `"type": "block"` in the manifest (the docs read the kind from it, there is no marker in the page). Blocks are layout only: actions are slots, data comes from props, so the recipes do not depend on shadcn components (only their docs examples use them).
@@ -35,6 +39,9 @@ The model is `rich-text-editor`, which depends on TipTap (`@tiptap/core` and `@t
 `docs-site/` is a Symfony app: `src/Command/BuildDocsCommand.php` parses the Markdown, `templates/` renders it, `assets/docs.js` handles tabs, copy, widths and the theme switch. Twig 3 rules apply (no `for ... if`, use `|filter`). After the deploy, check https://appolodev.github.io/sf-ui-toolkit/<slug>.html and `preview/<slug>-<n>.html` (a minute after the push the cache can still serve the old page).
 
 ## Rules that bite
+
+- `ship.sh` runs `git add -A`: finish or stash (`git stash push -u -- <paths>`) any unfinished recipe before shipping another one.
+- The browser caches `controllers.js`: when testing a controller after a deploy, `fetch(url, {cache: 'reload'})` it and reload.
 
 - Reuse the shadcn kit before writing UI mechanics: panels are `Popover` (trigger attributes via `{{ ...popover_trigger_attrs }}`, open state through `data-state` and `data-popover-open-value` on the root), searchable lists `Combobox`/`Command`, buttons `Button`, fields `Field`/`Input`. Our controller then only holds the logic of the component and runs next to the popover controller (`data-controller="cascader"` is appended to `popover`). A recipe cannot list another kit's recipe in `dependencies.recipe` (the installer throws): list the required shadcn components in an `## Installation` section of the docs page, one bullet per recipe (`- popover`): the docs site turns it into the `ux:install ... --kit=shadcn` command of the Installation block (Automatic and Manual tabs), and everything the component needs to work (shadcn components, Composer, npm) belongs there. `Cascader` is the model.
 

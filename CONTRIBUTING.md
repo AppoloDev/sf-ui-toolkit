@@ -19,8 +19,13 @@ docs-site/               # small Symfony app that renders the docs as static HTM
    - `## Usage`: one ```twig block
    - `## Examples`: one `### Title` per example, each with a ```twig block (add `<!-- height: 320 -->` in the section when the example opens a popover that overflows the preview)
    - `## Accessibility`: a bullet list
+   - `## Installation` (optional): one bullet per official shadcn recipe the component needs
    - `## API`: one `### \`<twig:Name>\`` per component, with a `| Prop | Type | Default | Description |` table
 3. Add the component to the table in `README.md`.
+
+## Completing an official component
+
+When the shadcn kit has a component but lacks a feature, add a recipe that ships only the new files next to it (for example `table/templates/components/Table/RowExpansion.html.twig`), and list the official recipe under `## Installation` of its docs page. Extra examples for an official component that needs no new file go in `docs/symfony-ux/<component>.md`, one `### Title` and one ```twig block each.
 
 ## Documentation site (GitHub Pages)
 
