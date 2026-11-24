@@ -69,8 +69,16 @@ Without a rail it is a classic collapsible sidebar. `header` and `footer` blocks
         </twig:AppShell:Panel>
     </twig:AppShell:Sidebar>
     <twig:AppShell:Main>
-{header}
-{content}
+        <twig:AppShell:Header>
+            <twig:AppShell:MenuButton />
+            <twig:AppShell:Toggle />
+            <span class="mx-2 hidden h-4 w-px bg-border md:block"></span>
+            <span class="text-sm text-muted-foreground">Dashboard</span>
+        </twig:AppShell:Header>
+        <twig:AppShell:Content>
+            <h1 class="text-lg font-semibold">Dashboard</h1>
+            <p class="text-sm text-muted-foreground">Page content goes here.</p>
+        </twig:AppShell:Content>
     </twig:AppShell:Main>
 </twig:AppShell>
 ```
