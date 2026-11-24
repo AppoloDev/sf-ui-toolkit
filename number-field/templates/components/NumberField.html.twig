@@ -11,23 +11,27 @@
     label        accessible label (use it when no <label for> points to the input)
     id           id of the inner input (for an external <label for>)
     decreaseLabel / increaseLabel   accessible names of the buttons
+
+  Requires the shadcn recipes input-group and button (installed from the shadcn kit).
 #}
 {%- props name = null, value = null, min = null, max = null, step = 1, placeholder = '', disabled = false, label = null, id = null, decreaseLabel = 'Decrease', increaseLabel = 'Increase' -%}
-{%- set extra_class = attributes.render('class') -%}
-{%- set data = {'data-controller': 'number-field', 'data-number-field-step-value': step} -%}
+{%- set data = {'class': 'w-auto', 'data-controller': 'number-field', 'data-number-field-step-value': step, 'data-disabled': disabled ? 'true' : false} -%}
 {%- if min is not null -%}{%- set data = data|merge({'data-number-field-min-value': min}) -%}{%- endif -%}
 {%- if max is not null -%}{%- set data = data|merge({'data-number-field-max-value': max}) -%}{%- endif -%}
-{%- set button_class = 'flex w-9 shrink-0 items-center justify-center text-muted-foreground select-none hover:bg-muted disabled:pointer-events-none disabled:opacity-50' -%}
-<div class="{{ ('inline-flex h-9 items-stretch overflow-hidden rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring aria-disabled:opacity-50 ' ~ extra_class)|trim }}" {{ disabled ? 'aria-disabled=true' }} {{ attributes.defaults(data) }}>
-    <button type="button" tabindex="-1" aria-label="{{ decreaseLabel }}" class="{{ button_class }} border-r border-border" data-number-field-target="decrement" data-action="pointerdown->number-field#holdDecrement" {{ disabled ? 'disabled' }}>
-        <twig:ux:icon name="lucide:minus" class="size-4" aria-hidden="true" />
-    </button>
-    <input type="text" inputmode="decimal" autocomplete="off" role="spinbutton"
-           class="w-20 min-w-0 flex-1 bg-transparent px-2 text-center text-sm tabular-nums outline-none"
-           {% if id %}id="{{ id }}" {% endif %}{% if name %}name="{{ name }}" {% endif %}{% if label %}aria-label="{{ label }}" {% endif %}
-           value="{{ value }}" placeholder="{{ placeholder }}" {{ disabled ? 'disabled' }}
-           data-number-field-target="input" data-action="keydown->number-field#keydown input->number-field#sanitize blur->number-field#commit">
-    <button type="button" tabindex="-1" aria-label="{{ increaseLabel }}" class="{{ button_class }} border-l border-border" data-number-field-target="increment" data-action="pointerdown->number-field#holdIncrement" {{ disabled ? 'disabled' }}>
-        <twig:ux:icon name="lucide:plus" class="size-4" aria-hidden="true" />
-    </button>
-</div>
+{%- set field = {'data-number-field-target': 'input'}|merge(id ? {id: id} : {})|merge(name ? {name: name} : {})|merge(label ? {'aria-label': label} : {})|merge(disabled ? {disabled: true} : {}) -%}
+{%- set off = disabled ? {disabled: true} : {} -%}
+<twig:InputGroup {{ ...attributes.defaults(data) }}>
+    <twig:InputGroup:Addon>
+        <twig:InputGroup:Button size="icon-xs" tabindex="-1" aria-label="{{ decreaseLabel }}" data-number-field-target="decrement" data-action="pointerdown->number-field#holdDecrement" {{ ...off }}>
+            <twig:ux:icon name="lucide:minus" aria-hidden="true" />
+        </twig:InputGroup:Button>
+    </twig:InputGroup:Addon>
+    <twig:InputGroup:Input type="text" inputmode="decimal" autocomplete="off" role="spinbutton" class="w-20 text-center tabular-nums"
+        value="{{ value }}" placeholder="{{ placeholder }}" {{ ...field }}
+        data-action="keydown->number-field#keydown input->number-field#sanitize blur->number-field#commit" />
+    <twig:InputGroup:Addon align="inline-end">
+        <twig:InputGroup:Button size="icon-xs" tabindex="-1" aria-label="{{ increaseLabel }}" data-number-field-target="increment" data-action="pointerdown->number-field#holdIncrement" {{ ...off }}>
+            <twig:ux:icon name="lucide:plus" aria-hidden="true" />
+        </twig:InputGroup:Button>
+    </twig:InputGroup:Addon>
+</twig:InputGroup>

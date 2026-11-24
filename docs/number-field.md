@@ -2,6 +2,11 @@
 
 > Numeric input with decrement and increment buttons, keyboard steps, press-and-hold repeat and min/max clamping.
 
+## Installation
+
+- input-group
+- button
+
 ## Usage
 
 ```twig
