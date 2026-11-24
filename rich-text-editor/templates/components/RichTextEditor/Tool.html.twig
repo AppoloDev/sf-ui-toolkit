@@ -4,22 +4,38 @@
   Props
     name   built-in tool (bold, italic, underline, strike, heading2, heading3, bulletList, orderedList, blockquote,
            code, codeBlock, link, undo, redo) or the name of a tool registered in JS
+    label  accessible name and tooltip
     icon   Symfony UX Icon name; built-in tools have one
-    label  accessible name and tooltip; built-in tools have one (the editor's `toolLabels` can translate it)
+
+  The slot is optional: when it has content, the button opens a Popover holding it (the `link` tool takes a
+  <twig:RichTextEditor:LinkForm>; a custom tool can hold any panel).
 #}
-{%- props name, icon = null, label = null -%}
+{%- props name, label, icon = null -%}
 {%- set controller = inject('rich-text-editor.controller', 'rich-text-editor') -%}
-{%- set names = inject('rich-text-editor.names', {}) -%}
 {%- set icons = {
     bold: 'lucide:bold', italic: 'lucide:italic', underline: 'lucide:underline', strike: 'lucide:strikethrough', heading2: 'lucide:heading-2', heading3: 'lucide:heading-3',
     bulletList: 'lucide:list', orderedList: 'lucide:list-ordered', blockquote: 'lucide:quote', code: 'lucide:code', codeBlock: 'lucide:square-code',
     link: 'lucide:link', undo: 'lucide:undo-2', redo: 'lucide:redo-2',
 } -%}
 {%- set glyph = icon ?? icons[name] ?? null -%}
-{%- set text = label ?? names[name] ?? name -%}
-{%- if glyph %}
-    <twig:Button variant="ghost" size="icon-sm" aria-label="{{ text }}" title="{{ text }}" aria-pressed="false" tabindex="-1" disabled class="aria-pressed:bg-muted aria-pressed:text-foreground"
-        data-tool="{{ name }}" data-action="{{ controller }}#command" {{ ...{('data-' ~ controller ~ '-target'): 'tool', ('data-' ~ controller ~ '-tool-param'): name} }}>
-        <twig:ux:icon :name="glyph" aria-hidden="true" />
+{%- set panel -%}{% block content %}{% endblock %}{%- endset -%}
+{%- set button_data = {
+    'data-tool': name,
+    ('data-' ~ controller ~ '-target'): 'tool',
+} -%}
+{%- if panel|trim is empty %}
+    <twig:Button variant="ghost" size="icon-sm" aria-label="{{ label }}" title="{{ label }}" aria-pressed="false" tabindex="-1" disabled class="aria-pressed:bg-muted aria-pressed:text-foreground"
+        data-action="{{ controller }}#command" {{ ...button_data|merge({('data-' ~ controller ~ '-tool-param'): name}) }}>
+        {%- if glyph %}<twig:ux:icon :name="glyph" aria-hidden="true" />{% endif -%}
     </twig:Button>
+{%- else %}
+    <twig:Popover>
+        <twig:Popover:Trigger>
+            <twig:Button variant="ghost" size="icon-sm" aria-label="{{ label }}" title="{{ label }}" aria-pressed="false" tabindex="-1" disabled class="aria-pressed:bg-muted aria-pressed:text-foreground"
+                {{ ...popover_trigger_attrs|merge(button_data) }}>
+                {%- if glyph %}<twig:ux:icon :name="glyph" aria-hidden="true" />{% endif -%}
+            </twig:Button>
+        </twig:Popover:Trigger>
+        <twig:Popover:Content align="start" class="w-80 gap-0! p-2!">{{ panel }}</twig:Popover:Content>
+    </twig:Popover>
 {%- endif %}

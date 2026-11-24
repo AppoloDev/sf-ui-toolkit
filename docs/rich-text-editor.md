@@ -6,49 +6,77 @@
 
 - button
 - input
+- popover
 
 ## Usage
 
-The editor needs two JavaScript packages: with AssetMapper, run `php bin/console importmap:require @tiptap/core@3.35.0 @tiptap/starter-kit@3.35.0`. Then use it like any form field. The submitted value is the HTML of the document: sanitize it on the server (for example with `symfony/html-sanitizer`) before storing or displaying it.
+The toolbar is the slot: one `RichTextEditor:Tool` per button, in order, and `RichTextEditor:Separator` between groups. Without any tool there is no toolbar. Each tool needs a `label` (its accessible name and tooltip), so the texts are yours to translate. The submitted value is HTML: sanitize it on the server.
 
 ```twig
-<twig:RichTextEditor name="body" value="<p>Hello</p>" />
+<twig:RichTextEditor name="body" value="<p>Hello</p>">
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
+</twig:RichTextEditor>
 ```
 
 ## Examples
 
 ### Basic
 
-The default toolbar has bold, italic, underline, strikethrough, two heading levels, lists, quote, code block, link, undo and redo. The usual shortcuts work (`Ctrl`/`Cmd` + `B`, `I`, `U`, `Z`).
+This toolbar has bold, italic, underline, strikethrough, two heading levels, lists, quote, code block, link, undo and redo. The usual shortcuts work (`Ctrl`/`Cmd` + `B`, `I`, `U`, `Z`).
 
 ```twig
-<twig:RichTextEditor name="body" placeholder="Write something…" value="<h2>Release notes</h2><p>The editor supports <strong>bold</strong>, <em>italic</em> and <a href='https://symfony.com'>links</a>.</p><ul><li>Lists</li><li>Quotes</li></ul>" />
+<twig:RichTextEditor name="body" placeholder="Write something…" value="<h2>Release notes</h2><p>The editor supports <strong>bold</strong>, <em>italic</em> and <a href='https://symfony.com'>links</a>.</p><ul><li>Lists</li><li>Quotes</li></ul>">
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
+    <twig:RichTextEditor:Tool name="underline" label="Underline" />
+    <twig:RichTextEditor:Tool name="strike" label="Strikethrough" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="heading2" label="Heading 2" />
+    <twig:RichTextEditor:Tool name="heading3" label="Heading 3" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="bulletList" label="Bulleted list" />
+    <twig:RichTextEditor:Tool name="orderedList" label="Numbered list" />
+    <twig:RichTextEditor:Tool name="blockquote" label="Quote" />
+    <twig:RichTextEditor:Tool name="codeBlock" label="Code block" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="link" label="Link">
+        <twig:RichTextEditor:LinkForm />
+    </twig:RichTextEditor:Tool>
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="undo" label="Undo" />
+    <twig:RichTextEditor:Tool name="redo" label="Redo" />
+</twig:RichTextEditor>
 ```
 
 ### Custom toolbar
 
-Put `RichTextEditor:Tool` elements in the slot to set the buttons in order, and `RichTextEditor:Separator` between groups (without any, the default toolbar is used). Built-in tools: `bold`, `italic`, `underline`, `strike`, `heading2`, `heading3`, `bulletList`, `orderedList`, `blockquote`, `code`, `codeBlock`, `link`, `undo`, `redo`.
+Put `RichTextEditor:Tool` elements in the slot to set the buttons in order, and `RichTextEditor:Separator` between groups (without any, there is no toolbar). Built-in tools: `bold`, `italic`, `underline`, `strike`, `heading2`, `heading3`, `bulletList`, `orderedList`, `blockquote`, `code`, `codeBlock`, `link`, `undo`, `redo`.
 
 ```twig
 <twig:RichTextEditor name="comment" minHeight="min-h-24" placeholder="Add a comment…">
-    <twig:RichTextEditor:Tool name="bold" />
-    <twig:RichTextEditor:Tool name="italic" />
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
     <twig:RichTextEditor:Separator />
-    <twig:RichTextEditor:Tool name="bulletList" />
-    <twig:RichTextEditor:Tool name="orderedList" />
+    <twig:RichTextEditor:Tool name="bulletList" label="Bulleted list" />
+    <twig:RichTextEditor:Tool name="orderedList" label="Numbered list" />
     <twig:RichTextEditor:Separator />
-    <twig:RichTextEditor:Tool name="link" />
+    <twig:RichTextEditor:Tool name="link" label="Link">
+        <twig:RichTextEditor:LinkForm />
+    </twig:RichTextEditor:Tool>
 </twig:RichTextEditor>
 ```
 
 ### Links
 
-The link button opens a small field under the toolbar to set or remove the link of the selection (`Enter` applies, `Esc` closes).
+The `link` tool takes a `RichTextEditor:LinkForm` in its slot: the button then opens a popover with a URL field to set or remove the link of the selection (`Enter` applies, `Esc` closes). Any tool can hold a panel the same way.
 
 ```twig
 <twig:RichTextEditor name="links" value="<p>Select a word and use the link button.</p>" minHeight="min-h-20">
-    <twig:RichTextEditor:Tool name="bold" />
-    <twig:RichTextEditor:Tool name="link" />
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="link" label="Link">
+        <twig:RichTextEditor:LinkForm />
+    </twig:RichTextEditor:Tool>
 </twig:RichTextEditor>
 ```
 
@@ -58,7 +86,27 @@ The link button opens a small field under the toolbar to set or remove the link 
 
 ```twig
 <form class="grid gap-3" onsubmit="event.preventDefault(); this.querySelector('output').textContent = this.body.value">
-    <twig:RichTextEditor name="body" required placeholder="Required" minHeight="min-h-24" />
+    <twig:RichTextEditor name="body" required placeholder="Required" minHeight="min-h-24">
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
+    <twig:RichTextEditor:Tool name="underline" label="Underline" />
+    <twig:RichTextEditor:Tool name="strike" label="Strikethrough" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="heading2" label="Heading 2" />
+    <twig:RichTextEditor:Tool name="heading3" label="Heading 3" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="bulletList" label="Bulleted list" />
+    <twig:RichTextEditor:Tool name="orderedList" label="Numbered list" />
+    <twig:RichTextEditor:Tool name="blockquote" label="Quote" />
+    <twig:RichTextEditor:Tool name="codeBlock" label="Code block" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="link" label="Link">
+        <twig:RichTextEditor:LinkForm />
+    </twig:RichTextEditor:Tool>
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="undo" label="Undo" />
+    <twig:RichTextEditor:Tool name="redo" label="Redo" />
+</twig:RichTextEditor>
     <div class="flex items-center gap-2">
         <twig:Button type="submit">Submit</twig:Button>
         <twig:Button type="reset" variant="outline">Reset</twig:Button>
@@ -96,8 +144,8 @@ A tool is added in two places: the toolbar entry (`name`, `icon`, `label`) and i
     });
 </script>
 <twig:RichTextEditor data-example="custom-tools" name="custom" minHeight="min-h-24" value="<p>Select some <strong>formatted</strong> text, then clear it.</p>">
-    <twig:RichTextEditor:Tool name="bold" />
-    <twig:RichTextEditor:Tool name="italic" />
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
     <twig:RichTextEditor:Separator />
     <twig:RichTextEditor:Tool name="horizontalRule" icon="lucide:minus" label="Horizontal rule" />
     <twig:RichTextEditor:Tool name="clearFormat" icon="lucide:remove-formatting" label="Clear formatting" />
@@ -106,15 +154,16 @@ A tool is added in two places: the toolbar entry (`name`, `icon`, `label`) and i
 
 ### Translated texts
 
-The accessible names of the tools come from `toolLabels` (the tool names, plus `linkUrl`, `linkApply` and `linkRemove`); only the keys you pass are replaced.
+Every text is a prop: `label` on each tool, and the three texts of the link form.
 
 ```twig
-<twig:RichTextEditor name="texte" label="Contenu" toolbarLabel="Mise en forme" placeholder="Écrivez ici…" minHeight="min-h-24"
-    :toolLabels="{bold: 'Gras', italic: 'Italique', link: 'Lien', linkUrl: 'Adresse du lien', linkApply: 'Appliquer', linkRemove: 'Retirer le lien'}">
-    <twig:RichTextEditor:Tool name="bold" />
-    <twig:RichTextEditor:Tool name="italic" />
+<twig:RichTextEditor name="texte" label="Contenu" toolbarLabel="Mise en forme" placeholder="Écrivez ici…" minHeight="min-h-24">
+    <twig:RichTextEditor:Tool name="bold" label="Gras" />
+    <twig:RichTextEditor:Tool name="italic" label="Italique" />
     <twig:RichTextEditor:Separator />
-    <twig:RichTextEditor:Tool name="link" />
+    <twig:RichTextEditor:Tool name="link" label="Lien">
+        <twig:RichTextEditor:LinkForm urlLabel="Adresse du lien" applyLabel="Appliquer" removeLabel="Retirer le lien" />
+    </twig:RichTextEditor:Tool>
 </twig:RichTextEditor>
 ```
 
@@ -143,8 +192,8 @@ document.addEventListener('rich-text-editor:configure', (event) => {
 
 ```twig Vanilla
 <twig:RichTextEditor name="body">
-    <twig:RichTextEditor:Tool name="bold" />
-    <twig:RichTextEditor:Tool name="italic" />
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
     <twig:RichTextEditor:Tool name="highlight" icon="lucide:highlighter" label="Highlight" />
 </twig:RichTextEditor>
 ```
@@ -176,8 +225,8 @@ export default class extends RichTextEditor {
 
 ```twig Stimulus
 <twig:RichTextEditor name="body" controller="rich-text-highlight">
-    <twig:RichTextEditor:Tool name="bold" />
-    <twig:RichTextEditor:Tool name="italic" />
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
     <twig:RichTextEditor:Tool name="highlight" icon="lucide:highlighter" label="Highlight" />
 </twig:RichTextEditor>
 ```
@@ -206,8 +255,8 @@ document.addEventListener('rich-text-editor:configure', (event) => {
 
 ```twig Vanilla
 <twig:RichTextEditor name="body">
-    <twig:RichTextEditor:Tool name="bold" />
-    <twig:RichTextEditor:Tool name="italic" />
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
     <twig:RichTextEditor:Separator />
     <twig:RichTextEditor:Tool name="image" icon="lucide:image" label="Image" />
 </twig:RichTextEditor>
@@ -243,8 +292,8 @@ export default class extends RichTextEditor {
 
 ```twig Stimulus
 <twig:RichTextEditor name="body" controller="rich-text-image">
-    <twig:RichTextEditor:Tool name="bold" />
-    <twig:RichTextEditor:Tool name="italic" />
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
     <twig:RichTextEditor:Separator />
     <twig:RichTextEditor:Tool name="image" icon="lucide:image" label="Image" />
 </twig:RichTextEditor>
@@ -308,7 +357,27 @@ export default class extends RichTextEditor {
 ```
 
 ```twig
-<twig:RichTextEditor name="body" controller="rich-text-counter" data-rich-text-counter-words-label-value="{count} mots" />
+<twig:RichTextEditor name="body" controller="rich-text-counter" data-rich-text-counter-words-label-value="{count} mots">
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
+    <twig:RichTextEditor:Tool name="underline" label="Underline" />
+    <twig:RichTextEditor:Tool name="strike" label="Strikethrough" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="heading2" label="Heading 2" />
+    <twig:RichTextEditor:Tool name="heading3" label="Heading 3" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="bulletList" label="Bulleted list" />
+    <twig:RichTextEditor:Tool name="orderedList" label="Numbered list" />
+    <twig:RichTextEditor:Tool name="blockquote" label="Quote" />
+    <twig:RichTextEditor:Tool name="codeBlock" label="Code block" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="link" label="Link">
+        <twig:RichTextEditor:LinkForm />
+    </twig:RichTextEditor:Tool>
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="undo" label="Undo" />
+    <twig:RichTextEditor:Tool name="redo" label="Redo" />
+</twig:RichTextEditor>
 ```
 
 The events are named after the controller identifier: with a controller registered as `rich-text-counter`, they are `rich-text-counter:change` and `rich-text-counter:configure`.
@@ -317,7 +386,7 @@ The events are named after the controller identifier: with a controller register
 
 - The writing area is a `textbox` (`aria-multiline`) named by `label`; the toolbar is a `toolbar` named by `toolbarLabel`, with a roving tabindex: `Tab` enters it, `←` / `→` / `Home` / `End` move between tools.
 - Toggle tools expose `aria-pressed`, and tools that do not apply to the current selection are disabled.
-- The link field is a labelled `url` input; `Esc` closes it and returns focus to the editor.
+- The link field is a labelled `url` input in a popover; `Esc` closes it and returns focus to the editor.
 - `readonly` and `disabled` editors are not editable.
 - TipTap is loaded on first use through a dynamic `import()`, so pages without an editor never download it.
 - Events: `rich-text-editor:change` fires on every edit with `detail.html` and `detail.empty`; `rich-text-editor:configure` is the extension point (see Extending).
@@ -337,7 +406,6 @@ The events are named after the controller identifier: with a controller register
 | `minHeight` | string | `min-h-40` | Tailwind class for the minimum height of the writing area. |
 | `label` | string | `Content` | Accessible name of the writing area. |
 | `toolbarLabel` | string | `Formatting` | Accessible name of the toolbar. |
-| `toolLabels` | object | `{}` | Accessible names of the tools, keyed by tool name, plus `linkUrl`, `linkApply` and `linkRemove`. |
 | `id` | string | `null` | Id of the writing area, for an external `<label for>`. |
 | `controller` | string | `rich-text-editor` | Stimulus identifier. Set it to use a controller that extends this one (see Extending). |
 
@@ -347,8 +415,18 @@ The events are named after the controller identifier: with a controller register
 |---|---|---|---|
 | `name` | string | | Built-in tool (`bold`, `italic`, `underline`, `strike`, `heading2`, `heading3`, `bulletList`, `orderedList`, `blockquote`, `code`, `codeBlock`, `link`, `undo`, `redo`) or the name of a tool registered in JavaScript. |
 | `icon` | string | `null` | Symfony UX Icon name. Built-in tools have one; a custom tool needs it. |
-| `label` | string | `null` | Accessible name and tooltip. Built-in tools have one (translate it with `toolLabels`); a custom tool needs it. |
+| `label` | string | | Accessible name and tooltip. |
 
 ### `<twig:RichTextEditor:Separator>`
 
 No prop. A vertical line between groups of tools.
+
+The default slot is optional: when it has content, the button opens a popover holding it.
+
+### `<twig:RichTextEditor:LinkForm>`
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `urlLabel` | string | `Link URL` | Accessible name of the URL field. |
+| `applyLabel` | string | `Apply` | Text of the apply button. |
+| `removeLabel` | string | `Remove link` | Text of the remove button. |

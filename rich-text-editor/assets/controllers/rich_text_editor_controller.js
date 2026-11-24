@@ -27,7 +27,7 @@ export const TOOLS = {
  * Toolbar: Left/Right/Home/End move between the tools (roving tabindex).
  */
 export default class extends Controller {
-    static targets = ['toolbar', 'tool', 'editor', 'field', 'placeholder', 'linkForm', 'linkInput'];
+    static targets = ['toolbar', 'tool', 'editor', 'field', 'placeholder', 'linkInput'];
     static values = { value: String, editable: { type: Boolean, default: true }, label: String, id: String };
 
     async connect() {
@@ -53,6 +53,7 @@ export default class extends Controller {
         this.form?.addEventListener('reset', this.onReset);
         this.changed(false);
         this.refresh();
+        this.watchLinkPanel();
     }
 
     // Hooks for subclasses: both can be overridden (call super to keep the defaults).
@@ -86,6 +87,7 @@ export default class extends Controller {
     disconnect() {
         this.form?.removeEventListener('reset', this.onReset);
         this.fieldTarget.removeEventListener('invalid', this.onInvalid);
+        this.linkObserver?.disconnect();
         this.editor?.destroy();
     }
 
@@ -94,27 +96,26 @@ export default class extends Controller {
     command(event) {
         if (!this.editor) return;
         const tool = event.params.tool;
-        if ('link' === tool) {
-            this.toggleLinkForm();
-
-            return;
-        }
         this.tools[tool]?.run(this.editor.chain().focus(), this.editor).run();
     }
 
-    toggleLinkForm() {
-        if (!this.linkFormTarget.hidden) {
-            this.closeLinkForm();
-
-            return;
-        }
-        this.linkFormTarget.hidden = false;
-        this.linkInputTarget.value = this.editor.getAttributes('link').href ?? '';
-        this.linkInputTarget.focus();
+    // The link tool opens a Popover (shadcn) around the form: fill and focus the field when it opens.
+    watchLinkPanel() {
+        this.linkObserver?.disconnect();
+        this.linkObserver = new MutationObserver((records) => {
+            records.forEach((record) => {
+                const popover = record.target;
+                if ('open' !== popover.dataset.state || !popover.contains(this.hasLinkInputTarget ? this.linkInputTarget : null)) return;
+                this.linkInputTarget.value = this.editor.getAttributes('link').href ?? '';
+                requestAnimationFrame(() => this.linkInputTarget.focus());
+            });
+        });
+        this.element.querySelectorAll('[data-slot=popover]').forEach((popover) => this.linkObserver.observe(popover, { attributes: true, attributeFilter: ['data-state'] }));
     }
 
     closeLinkForm() {
-        this.linkFormTarget.hidden = true;
+        const popover = this.linkInputTarget.closest('[data-slot=popover]');
+        if (popover) popover.dataset.popoverOpenValue = 'false';
         this.editor.commands.focus();
     }
 

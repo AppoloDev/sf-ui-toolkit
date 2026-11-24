@@ -3,10 +3,10 @@
   always sanitize it on the server (for example with symfony/html-sanitizer) before storing or showing it.
 
   Blocks
-    (slot)       the toolbar: <twig:RichTextEditor:Tool name icon label> and <twig:RichTextEditor:Separator />, in order.
-                 Built-in tools: bold, italic, underline, strike, heading2, heading3, bulletList, orderedList, blockquote,
-                 code, codeBlock, link, undo, redo. A custom tool needs an icon and a label, and its behavior is
-                 registered in JS (see the docs, "Extending"). Without any, the default toolbar is rendered.
+    (slot)       the toolbar: <twig:RichTextEditor:Tool name label> and <twig:RichTextEditor:Separator />, in order.
+                 Without any tool there is no toolbar. Built-in tools: bold, italic, underline, strike, heading2, heading3,
+                 bulletList, orderedList, blockquote, code, codeBlock, link, undo, redo. A custom tool needs an icon too,
+                 and its behavior is registered in JS (see the docs, "Extending").
 
   Props
     name         field name; the submitted value is the HTML of the document
@@ -18,22 +18,13 @@
     minHeight    CSS min-height of the writing area (a Tailwind class, e.g. `min-h-40`)
     label        accessible name of the writing area
     toolbarLabel accessible name of the toolbar
-    toolLabels   accessible names of the tools, keyed by tool name, plus linkUrl, linkApply and linkRemove
-                 (defaults are English, e.g. {bold: 'Bold'})
     id           id of the writing area (for an external <label for>)
     controller   Stimulus identifier; set it to the name of a controller that extends this one (see the docs, "Extending")
 
-  Requires the shadcn recipes button and input (installed from the shadcn kit).
+  Requires the shadcn recipes button, input and popover (installed from the shadcn kit).
 #}
-{%- props name = null, value = '', placeholder = '', required = false, readonly = false, disabled = false, minHeight = 'min-h-40', controller = 'rich-text-editor', label = 'Content', toolbarLabel = 'Formatting', toolLabels = {}, id = null -%}
-{%- set defaults = {
-    bold: 'Bold', italic: 'Italic', underline: 'Underline', strike: 'Strikethrough', heading2: 'Heading 2', heading3: 'Heading 3',
-    bulletList: 'Bulleted list', orderedList: 'Numbered list', blockquote: 'Quote', code: 'Inline code', codeBlock: 'Code block',
-    link: 'Link', undo: 'Undo', redo: 'Redo', linkUrl: 'Link URL', linkApply: 'Apply', linkRemove: 'Remove link',
-} -%}
-{%- set names = defaults|merge(toolLabels) -%}
+{%- props name = null, value = '', placeholder = '', required = false, readonly = false, disabled = false, minHeight = 'min-h-40', controller = 'rich-text-editor', label = 'Content', toolbarLabel = 'Formatting', id = null -%}
 {%- do provide('rich-text-editor.controller', controller) -%}
-{%- do provide('rich-text-editor.names', names) -%}
 {%- set custom_tools -%}{% block content %}{% endblock %}{%- endset -%}
 {%- set inactive = readonly or disabled -%}
 {%- set data = {
@@ -45,21 +36,10 @@
     ('data-' ~ controller ~ '-id-value'): id ?? '',
 } -%}
 <div {{ attributes.defaults(data) }}>
-    {%- if not inactive %}
+    {%- if not inactive and custom_tools|trim is not empty %}
         <div role="toolbar" aria-label="{{ toolbarLabel }}" class="flex flex-wrap items-center gap-0.5 border-b border-border bg-muted/40 p-1" data-{{ controller }}-target="toolbar" data-action="keydown->{{ controller }}#toolbarKey">
-            {%- if custom_tools|trim is not empty %}
-                {{ custom_tools }}
-            {%- else %}
-                {%- for item in ['bold', 'italic', 'underline', 'strike', '|', 'heading2', 'heading3', '|', 'bulletList', 'orderedList', 'blockquote', 'codeBlock', '|', 'link', '|', 'undo', 'redo'] %}
-                    {%- if item == '|' %}<twig:RichTextEditor:Separator />{% else %}<twig:RichTextEditor:Tool :name="item" />{% endif %}
-                {%- endfor %}
-            {%- endif %}
+            {{ custom_tools }}
         </div>
-        <form hidden class="flex items-center gap-1 border-b border-border p-1" data-{{ controller }}-target="linkForm" data-action="submit->{{ controller }}#applyLink keydown->{{ controller }}#linkKey">
-            <twig:Input type="url" aria-label="{{ names.linkUrl }}" placeholder="https://" class="min-w-0 flex-1" {{ ...{('data-' ~ controller ~ '-target'): 'linkInput'} }} />
-            <twig:Button type="submit">{{ names.linkApply }}</twig:Button>
-            <twig:Button variant="outline" data-action="{{ controller }}#removeLink">{{ names.linkRemove }}</twig:Button>
-        </form>
     {%- endif %}
     <div class="relative">
         {%- if placeholder %}

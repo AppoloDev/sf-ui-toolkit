@@ -1,0 +1,18 @@
+{#
+  RichTextEditor:LinkForm: the panel of the `link` tool: a URL field to set or remove the link of the selection.
+  `Enter` applies, `Esc` closes.
+
+  Props
+    urlLabel     accessible name of the URL field
+    applyLabel   text of the apply button
+    removeLabel  text of the remove button
+
+  Requires the shadcn recipes button and input (installed from the shadcn kit).
+#}
+{%- props urlLabel = 'Link URL', applyLabel = 'Apply', removeLabel = 'Remove link' -%}
+{%- set controller = inject('rich-text-editor.controller', 'rich-text-editor') -%}
+<form class="flex items-center gap-1" data-action="submit->{{ controller }}#applyLink keydown->{{ controller }}#linkKey" {{ attributes }}>
+    <twig:Input type="url" aria-label="{{ urlLabel }}" placeholder="https://" class="min-w-0 flex-1" {{ ...{('data-' ~ controller ~ '-target'): 'linkInput'} }} />
+    <twig:Button type="submit">{{ applyLabel }}</twig:Button>
+    <twig:Button variant="outline" data-action="{{ controller }}#removeLink">{{ removeLabel }}</twig:Button>
+</form>
