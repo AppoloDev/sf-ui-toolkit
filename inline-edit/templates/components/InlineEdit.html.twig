@@ -1,0 +1,59 @@
+{#
+ # A text that becomes an input when clicked. Enter or the save button keeps the change, Escape or the cancel
+ # button drops it, and leaving the field keeps it. The input is always in the page, so it is submitted with its form.
+ #
+ # Props: value, name, label, placeholder, editLabel, saveLabel, cancelLabel, inputClass.
+ #}
+{%- props
+    ## string The current text.
+    value = '',
+    ## string|null The name of the input, to submit it with a form.
+    name = null,
+    ## string The accessible name of the input.
+    label = 'Value',
+    ## string|null The text shown, in a muted style, when the value is empty, and the placeholder of the input.
+    placeholder = null,
+    ## string The accessible name of the button that starts the edit.
+    editLabel = 'Edit',
+    ## string The accessible name of the save button.
+    saveLabel = 'Save',
+    ## string The accessible name of the cancel button.
+    cancelLabel = 'Cancel',
+    ## string Classes added to the input.
+    inputClass = ''
+-%}
+<div
+    data-slot="inline-edit"
+    data-controller="inline-edit"
+    data-state="viewing"
+    {{ attributes.defaults({class: 'group/inline-edit'|tailwind_classes}) }}
+>
+    <button
+        type="button"
+        data-slot="inline-edit-view"
+        data-inline-edit-target="view"
+        data-action="click->inline-edit#edit"
+        class="group/view -mx-1.5 inline-flex max-w-full cursor-text items-center gap-2 rounded-md px-1.5 py-0.5 text-start outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50"
+    >
+        <span data-inline-edit-target="text" data-placeholder="{{ placeholder }}" class="min-w-0 truncate data-[empty=true]:text-muted-foreground">{{ value }}</span>
+        <twig:ux:icon name="lucide:pencil" class="size-3.5 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover/view:opacity-100 group-focus-visible/view:opacity-100" aria-hidden="true" />
+        <span class="sr-only">{{ editLabel }}</span>
+    </button>
+    <div data-slot="inline-edit-editor" data-inline-edit-target="editor" class="flex items-center gap-1.5" hidden>
+        <twig:Input
+            :name="name"
+            :value="value"
+            :placeholder="placeholder"
+            aria-label="{{ label }}"
+            data-inline-edit-target="input"
+            data-action="keydown->inline-edit#key"
+            class="{{ ('h-8 ' ~ inputClass)|trim }}"
+        />
+        <twig:Button type="button" size="icon-sm" variant="ghost" aria-label="{{ saveLabel }}" data-action="click->inline-edit#save">
+            <twig:ux:icon name="lucide:check" aria-hidden="true" />
+        </twig:Button>
+        <twig:Button type="button" size="icon-sm" variant="ghost" aria-label="{{ cancelLabel }}" data-action="click->inline-edit#cancel">
+            <twig:ux:icon name="lucide:x" aria-hidden="true" />
+        </twig:Button>
+    </div>
+</div>
