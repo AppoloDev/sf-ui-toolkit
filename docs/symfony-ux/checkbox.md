@@ -67,12 +67,12 @@ A whole card that toggles the checkbox.
 
 ```twig
 <twig:Card class="max-w-sm gap-0 py-0">
-    {% for channel in [{id: 'email', label: 'Email', icon: 'mail'}, {id: 'sms', label: 'SMS', icon: 'smartphone'}, {id: 'push', label: 'Push', icon: 'bell'}] %}
-        {% if not loop.first %}<twig:Separator />{% endif %}
+    {% for channel in [{id: 'email', label: 'Email', icon: 'mail', on: true, first: true}, {id: 'sms', label: 'SMS', icon: 'smartphone', on: false, first: false}, {id: 'push', label: 'Push', icon: 'bell', on: false, first: false}] %}
+        {% if not channel.first %}<twig:Separator />{% endif %}
         <twig:Field:Label for="cb-row-{{ channel.id }}" class="flex w-full cursor-pointer items-center gap-3 px-4 py-3">
             <twig:ux:icon name="lucide:{{ channel.icon }}" class="size-4 text-muted-foreground" />
             <span class="flex-1 font-normal">{{ channel.label }}</span>
-            <twig:Checkbox id="cb-row-{{ channel.id }}" name="{{ channel.id }}" checked="{{ loop.first }}" />
+            <twig:Checkbox id="cb-row-{{ channel.id }}" name="{{ channel.id }}" checked="{{ channel.on }}" />
         </twig:Field:Label>
     {% endfor %}
 </twig:Card>
@@ -84,9 +84,9 @@ A whole card that toggles the checkbox.
 <twig:Field:Set>
     <twig:Field:Legend variant="label">Permissions</twig:Field:Legend>
     <twig:Field:Group class="flex-row! flex-wrap gap-4">
-        {% for p in ['Read', 'Write', 'Delete'] %}
+        {% for p, on in {Read: true, Write: false, Delete: false} %}
             <twig:Field orientation="horizontal" class="w-auto">
-                <twig:Checkbox id="cb-inline-{{ p|lower }}" name="{{ p|lower }}" checked="{{ loop.first }}" />
+                <twig:Checkbox id="cb-inline-{{ p|lower }}" name="{{ p|lower }}" checked="{{ on }}" />
                 <twig:Field:Label for="cb-inline-{{ p|lower }}" class="font-normal">{{ p }}</twig:Field:Label>
             </twig:Field>
         {% endfor %}
@@ -118,7 +118,9 @@ A whole card that toggles the checkbox.
         <twig:Field:Label for="cb-help" class="font-normal">Send usage statistics</twig:Field:Label>
         <twig:Tooltip id="cb-help-tip">
             <twig:Tooltip:Trigger>
-                <twig:ux:icon name="lucide:circle-help" class="size-4 text-muted-foreground" tabindex="0" {{ ...tooltip_trigger_attrs }} />
+                <twig:Button variant="ghost" size="icon-xs" aria-label="More information" {{ ...tooltip_trigger_attrs }}>
+                    <twig:ux:icon name="lucide:circle-help" class="text-muted-foreground" />
+                </twig:Button>
             </twig:Tooltip:Trigger>
             <twig:Tooltip:Content side="right">Anonymous data helps us improve the product.</twig:Tooltip:Content>
         </twig:Tooltip>
