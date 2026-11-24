@@ -1,0 +1,9 @@
+{#
+  Filters:Option: one choice of a select or multiselect <twig:Filters:Field>.
+
+  Props
+    value  submitted value
+    label  displayed text
+#}
+{%- props value, label -%}
+<li data-value="{{ value }}" data-label="{{ label }}" {{ attributes }}></li>

@@ -9,29 +9,37 @@ const OPERATORS = {
     date: [['eq', 'is'], ['before', 'before'], ['after', 'after']],
 };
 
-const CONTROL = 'h-full bg-transparent px-2 text-sm outline-none focus-visible:bg-muted';
-
 /*
- * Filter bar. `fields` describes the available filters, `values` the active ones. The state is
- * mirrored into hidden inputs (`<field>` and `<field>__op`) so the surrounding GET form carries it
- * in the URL. `filters:change` fires with the full list of active filters on every change.
+ * Filter bar. <twig:Filters:Fields> describes the available filters and <twig:Filters:Values> the active ones; the
+ * controller reads that markup. The state is mirrored into hidden inputs (`<field>` and `<field>__op`) so the
+ * surrounding GET form carries it in the URL. `filters:change` fires with the full list of active filters on every
+ * change. The controls (select, input, buttons, popovers) are cloned from the shadcn components rendered by Twig
+ * into the <template> targets; opening and closing the popovers is the shadcn Popover's job.
  */
 export default class extends Controller {
-    static targets = ['chips', 'addButton', 'menu', 'clear', 'inputs', 'removeIcon'];
-    static values = { fields: Array, values: Array, labels: Object, autoSubmit: { type: Boolean, default: true } };
+    static targets = ['fields', 'values', 'chips', 'addButton', 'menuRoot', 'menu', 'clear', 'inputs', 'tplMenuItem', 'tplSelect', 'tplInput', 'tplRemove', 'tplMulti', 'tplOption'];
+    static values = { labels: Object, autoSubmit: { type: Boolean, default: true } };
 
     connect() {
-        this.filters = this.valuesValue
-            .filter((filter) => this.field(filter.field))
-            .map((filter) => ({ field: filter.field, operator: filter.operator ?? this.operators(filter.field)[0][0], value: filter.value ?? this.emptyValue(filter.field) }));
-        this.onOutsideClick = (event) => {
-            if (!this.element.contains(event.target)) this.closeMenu();
-        };
+        this.fields = Array.from(this.fieldsTarget.children).filter((item) => 'LI' === item.tagName).map((item) => ({
+            name: item.dataset.name,
+            label: item.dataset.label,
+            type: item.dataset.type || 'text',
+            options: Object.fromEntries(Array.from(item.querySelectorAll(':scope > ul > li')).map((option) => [option.dataset.value, option.dataset.label])),
+        }));
+        this.filters = Array.from(this.valuesTarget.children)
+            .filter((item) => 'LI' === item.tagName && this.field(item.dataset.field))
+            .map((item) => ({
+                field: item.dataset.field,
+                operator: item.dataset.operator || this.operators(item.dataset.field)[0][0],
+                value: JSON.parse(item.dataset.value ?? '""') ?? this.emptyValue(item.dataset.field),
+            }));
+        this.observers = [];
         this.render();
     }
 
     disconnect() {
-        document.removeEventListener('pointerdown', this.onOutsideClick);
+        this.observers.forEach((observer) => observer.disconnect());
     }
 
     // Texts come from the Twig props (English defaults); {placeholders} are replaced.
@@ -49,7 +57,7 @@ export default class extends Controller {
     }
 
     field(name) {
-        return this.fieldsValue.find((field) => field.name === name);
+        return this.fields.find((field) => field.name === name);
     }
 
     operators(name) {
@@ -62,42 +70,31 @@ export default class extends Controller {
         return 'multiselect' === type ? [] : 'boolean' === type ? '1' : '';
     }
 
-    // --- add menu ---------------------------------------------------------------------------
-
-    toggleMenu() {
-        this.menuTarget.hidden ? this.openMenu() : this.closeMenu();
+    clone(target) {
+        return target.content.firstElementChild.cloneNode(true);
     }
 
-    openMenu() {
-        const available = this.fieldsValue.filter((field) => !this.filters.some((filter) => filter.field === field.name));
+    // --- add menu ---------------------------------------------------------------------------
+
+    buildMenu() {
+        const available = this.fields.filter((field) => !this.filters.some((filter) => filter.field === field.name));
         this.menuTarget.replaceChildren(...available.map((field) => {
-            const item = document.createElement('button');
-            item.type = 'button';
-            item.setAttribute('role', 'menuitem');
+            const item = this.clone(this.tplMenuItemTarget);
             item.textContent = field.label;
-            item.className = 'flex w-full items-center rounded-sm px-2 py-1.5 text-left outline-none hover:bg-muted focus-visible:bg-muted';
             item.addEventListener('click', () => this.add(field.name));
 
             return item;
         }));
         if (!available.length) {
             const empty = document.createElement('p');
-            empty.className = 'px-2 py-1.5 text-muted-foreground';
+            empty.className = 'px-2 py-1.5 text-sm text-muted-foreground';
             empty.textContent = this.text('empty');
             this.menuTarget.replaceChildren(empty);
         }
-        this.menuTarget.hidden = false;
-        this.addButtonTarget.setAttribute('aria-expanded', 'true');
-        document.addEventListener('pointerdown', this.onOutsideClick);
-        this.menuTarget.querySelector('button')?.focus();
     }
 
-    closeMenu(restoreFocus = false) {
-        if (this.menuTarget.hidden) return;
-        this.menuTarget.hidden = true;
-        this.addButtonTarget.setAttribute('aria-expanded', 'false');
-        document.removeEventListener('pointerdown', this.onOutsideClick);
-        if (restoreFocus) this.addButtonTarget.focus();
+    closeMenu() {
+        this.menuRootTarget.dataset.popoverOpenValue = 'false';
     }
 
     menuKey(event) {
@@ -106,9 +103,6 @@ export default class extends Controller {
         if ('ArrowDown' === event.key || 'ArrowUp' === event.key) {
             event.preventDefault();
             items[(index + ('ArrowDown' === event.key ? 1 : -1) + items.length) % items.length]?.focus();
-        } else if ('Escape' === event.key) {
-            event.preventDefault();
-            this.closeMenu(true);
         }
     }
 
@@ -136,8 +130,11 @@ export default class extends Controller {
     // --- rendering --------------------------------------------------------------------------
 
     render(focusField = null) {
+        this.observers.forEach((observer) => observer.disconnect());
+        this.observers = [];
         this.chipsTarget.replaceChildren(...this.filters.map((filter) => this.chip(filter)));
         this.clearTarget.hidden = 0 === this.filters.length;
+        this.buildMenu();
         this.syncInputs();
         if (focusField) this.chipsTarget.querySelector(`[data-field="${focusField}"] [data-editor]`)?.focus();
     }
@@ -148,16 +145,17 @@ export default class extends Controller {
         chip.setAttribute('role', 'group');
         chip.setAttribute('aria-label', field.label);
         chip.dataset.field = filter.field;
-        chip.className = 'inline-flex h-8 items-stretch divide-x divide-border overflow-hidden rounded-md border border-border bg-background text-sm';
+        chip.className = 'inline-flex h-8 items-stretch divide-x divide-border overflow-hidden rounded-lg border border-border bg-background text-sm';
 
         const name = document.createElement('span');
         name.className = 'flex items-center px-2 font-medium';
         name.textContent = field.label;
 
         const operators = this.operators(filter.field);
-        const operator = document.createElement('select');
+        const operatorBox = this.clone(this.tplSelectTarget);
+        const operator = operatorBox.querySelector('select');
         operator.setAttribute('aria-label', this.text('operator', { field: field.label }));
-        operator.className = `${CONTROL} text-muted-foreground`;
+        operator.classList.add('text-muted-foreground');
         this.operatorOptions(filter.field).forEach(([text, value]) => operator.append(new Option(text, value, false, value === filter.operator)));
         operator.disabled = 1 === operators.length;
         operator.addEventListener('change', () => {
@@ -166,14 +164,11 @@ export default class extends Controller {
             this.changed();
         });
 
-        const remove = document.createElement('button');
-        remove.type = 'button';
+        const remove = this.clone(this.tplRemoveTarget);
         remove.setAttribute('aria-label', this.text('remove', { field: field.label }));
-        remove.className = 'flex w-7 items-center justify-center text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:bg-muted';
-        remove.append(this.removeIconTarget.content.cloneNode(true));
         remove.addEventListener('click', () => this.remove(filter.field));
 
-        chip.append(name, operator, this.editor(filter, field), remove);
+        chip.append(name, operatorBox, this.editor(filter, field), remove);
 
         return chip;
     }
@@ -184,23 +179,27 @@ export default class extends Controller {
             this.syncInputs();
         };
         const options = Object.entries(field.options ?? {});
-        let control;
 
+        if ('multiselect' === field.type) {
+            return this.multiEditor(filter, field, options, commit);
+        }
+
+        let box;
+        let control;
         if ('select' === field.type || 'boolean' === field.type) {
-            control = document.createElement('select');
+            box = this.clone(this.tplSelectTarget);
+            control = box.querySelector('select');
             const list = 'boolean' === field.type ? [['1', this.text('yes')], ['0', this.text('no')]] : [['', this.text('select')], ...options];
             list.forEach(([value, text]) => control.append(new Option(text, value, false, String(value) === String(filter.value))));
             control.addEventListener('change', () => {
                 commit(control.value);
                 this.changed();
             });
-        } else if ('multiselect' === field.type) {
-            return this.multiEditor(filter, field, options, commit);
         } else {
-            control = document.createElement('input');
+            box = this.clone(this.tplInputTarget);
+            control = box;
             control.type = { number: 'number', date: 'date' }[field.type] ?? 'text';
             control.value = filter.value;
-            control.className = 'w-32';
             control.addEventListener('input', () => commit(control.value));
             control.addEventListener('change', () => this.changed());
             control.addEventListener('keydown', (event) => {
@@ -213,74 +212,49 @@ export default class extends Controller {
         }
         control.dataset.editor = '';
         control.setAttribute('aria-label', this.text('value', { field: field.label }));
-        control.classList.add(...CONTROL.split(' '));
 
-        return control;
+        return box;
     }
 
     multiEditor(filter, field, options, commit) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'relative flex';
-        const button = document.createElement('button');
-        button.type = 'button';
+        const root = this.clone(this.tplMultiTarget);
+        const button = root.querySelector('[data-part=trigger]');
+        const list = root.querySelector('[data-part=list]');
         button.dataset.editor = '';
-        button.setAttribute('aria-haspopup', 'listbox');
-        button.setAttribute('aria-expanded', 'false');
         button.setAttribute('aria-label', this.text('value', { field: field.label }));
-        button.className = `${CONTROL} max-w-48 truncate text-left`;
-
-        const list = document.createElement('div');
-        list.setAttribute('role', 'listbox');
-        list.setAttribute('aria-multiselectable', 'true');
         list.setAttribute('aria-label', field.label);
-        list.hidden = true;
-        list.className = 'absolute left-0 top-full z-50 mt-1 min-w-40 rounded-md border border-border bg-background p-1 shadow-md';
 
         const summary = () => {
             const labels = filter.value.map((value) => field.options[value] ?? value);
             button.textContent = 0 === labels.length ? this.text('select') : labels.length <= 2 ? labels.join(', ') : this.text('selected', { count: labels.length });
         };
-        const outside = (event) => {
-            if (!wrapper.contains(event.target)) setOpen(false);
-        };
-        const setOpen = (open) => {
-            list.hidden = !open;
-            button.setAttribute('aria-expanded', String(open));
-            document[open ? 'addEventListener' : 'removeEventListener']('pointerdown', outside);
-            if (!open) this.changed();
-        };
 
         options.forEach(([value, text]) => {
-            const option = document.createElement('label');
-            option.setAttribute('role', 'option');
+            const option = this.clone(this.tplOptionTarget);
+            const box = option.querySelector('input');
             option.setAttribute('aria-selected', String(filter.value.includes(value)));
-            option.className = 'flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 hover:bg-muted';
-            const box = document.createElement('input');
-            box.type = 'checkbox';
             box.checked = filter.value.includes(value);
             box.addEventListener('change', () => {
                 commit(box.checked ? [...filter.value, value] : filter.value.filter((item) => item !== value));
                 option.setAttribute('aria-selected', String(box.checked));
                 summary();
             });
-            const span = document.createElement('span');
-            span.textContent = text;
-            option.append(box, span);
+            option.querySelector('[data-part=text]').textContent = text;
             list.append(option);
         });
 
-        button.addEventListener('click', () => setOpen(list.hidden));
-        wrapper.addEventListener('keydown', (event) => {
-            if ('Escape' === event.key && !list.hidden) {
-                event.preventDefault();
-                setOpen(false);
-                button.focus();
-            }
+        // The popover is the shadcn one; the filters are applied when it closes.
+        let wasOpen = false;
+        const observer = new MutationObserver(() => {
+            const open = 'open' === root.dataset.state;
+            if (wasOpen && !open) this.changed();
+            wasOpen = open;
         });
+        observer.observe(root, { attributes: true, attributeFilter: ['data-state'] });
+        this.observers.push(observer);
         summary();
-        wrapper.append(button, list);
 
-        return wrapper;
+        return root;
     }
 
     // --- state ------------------------------------------------------------------------------

@@ -2,11 +2,11 @@
   Filters: schema-driven filter bar. Each active filter is a chip (field, operator, value, remove).
   The state is exposed as hidden inputs in a GET form, so it round-trips through the URL query.
 
+  Blocks
+    (slot)   <twig:Filters:Fields> (<twig:Filters:Field name label type> with <twig:Filters:Option value label> for
+             select and multiselect) and <twig:Filters:Values> (<twig:Filters:Value field operator value>)
+
   Props
-    fields      list of { name, label, type, options? }
-                type: text | number | select | multiselect | boolean | date
-                options (select, multiselect): { value: label } map
-    values      active filters: list of { field, operator, value } (value is an array for multiselect)
     action      form action (default: current URL)
     autoSubmit  submit the form whenever a filter changes (default true)
     label       accessible label of the filter bar
@@ -21,37 +21,55 @@
   Submitted names
     <field>            the value (<field>[] for multiselect)
     <field>__op        the operator (eq, neq, contains, gt, lt, in, before, after...)
+
+  Requires the shadcn recipes popover, button, input, native-select and checkbox (installed from the shadcn kit).
 #}
-{%- props fields = [], values = [], action = null, autoSubmit = true, label = 'Filters',
+{%- props action = null, autoSubmit = true, label = 'Filters',
     addLabel = 'Add filter', clearLabel = 'Clear', applyLabel = 'Apply', emptyLabel = 'No more filters', selectLabel = 'Select…', yesLabel = 'Yes', noLabel = 'No',
     selectedLabel = '{count} selected', removeLabel = 'Remove {field} filter', operatorLabel = '{field} operator', valueLabel = '{field} value', operatorLabels = {} -%}
-{%- set extra_class = attributes.render('class') -%}
+{%- set entries -%}{% block content %}{% endblock %}{%- endset -%}
 {%- set data = {
+    class: 'flex flex-wrap items-center gap-2',
     'data-controller': 'filters',
-    'data-filters-fields-value': fields|json_encode,
-    'data-filters-values-value': values|json_encode,
     'data-filters-auto-submit-value': autoSubmit ? 'true' : 'false',
     'data-filters-labels-value': {
         empty: emptyLabel, select: selectLabel, yes: yesLabel, no: noLabel, selected: selectedLabel,
         remove: removeLabel, operator: operatorLabel, value: valueLabel, operators: operatorLabels,
     }|json_encode,
 } -%}
-<form method="get" {% if action %}action="{{ action }}" {% endif %}role="group" aria-label="{{ label }}" class="{{ ('flex flex-wrap items-center gap-2 ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+<form method="get" {% if action %}action="{{ action }}" {% endif %}role="group" aria-label="{{ label }}" {{ attributes.defaults(data) }}>
+    {{ entries }}
     <div class="contents" data-filters-target="chips"></div>
-    <div class="relative">
-        <button type="button" aria-haspopup="menu" aria-expanded="false" class="inline-flex h-8 items-center gap-1.5 rounded-md border border-dashed border-border px-2.5 text-sm text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
-                data-filters-target="addButton" data-action="filters#toggleMenu">
-            <twig:ux:icon name="lucide:list-filter" class="size-3.5" aria-hidden="true" />
-            {{ addLabel }}
-        </button>
-        <div role="menu" hidden class="absolute left-0 top-full z-50 mt-1 min-w-44 rounded-md border border-border bg-background p-1 text-sm shadow-md" data-filters-target="menu" data-action="keydown->filters#menuKey"></div>
-    </div>
-    <button type="button" hidden class="inline-flex h-8 items-center gap-1 rounded-md px-2 text-sm text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
-            data-filters-target="clear" data-action="filters#clear">
-        <twig:ux:icon name="lucide:x" class="size-3.5" aria-hidden="true" />
+    <twig:Popover class="w-auto" data-filters-target="menuRoot">
+        <twig:Popover:Trigger>
+            <twig:Button variant="outline" class="border-dashed text-muted-foreground" data-filters-target="addButton" {{ ...popover_trigger_attrs }}>
+                <twig:ux:icon name="lucide:list-filter" aria-hidden="true" />
+                {{ addLabel }}
+            </twig:Button>
+        </twig:Popover:Trigger>
+        <twig:Popover:Content align="start" class="w-auto! min-w-44 gap-0! p-1!">
+            <div role="menu" class="grid" data-filters-target="menu" data-action="keydown->filters#menuKey"></div>
+        </twig:Popover:Content>
+    </twig:Popover>
+    <twig:Button variant="ghost" hidden data-filters-target="clear" data-action="filters#clear">
+        <twig:ux:icon name="lucide:x" aria-hidden="true" />
         {{ clearLabel }}
-    </button>
+    </twig:Button>
     <div hidden data-filters-target="inputs"></div>
-    <template data-filters-target="removeIcon"><twig:ux:icon name="lucide:x" class="size-3.5" aria-hidden="true" /></template>
-    <noscript><button type="submit" class="h-8 rounded-md border border-border px-2.5 text-sm">{{ applyLabel }}</button></noscript>
+    <template data-filters-target="tplMenuItem"><twig:Button variant="ghost" role="menuitem" class="w-full justify-start font-normal" /></template>
+    <template data-filters-target="tplSelect"><twig:NativeSelect size="sm" class="h-full w-auto [&_select]:h-full! [&_select]:rounded-none! [&_select]:border-0! [&_select]:bg-transparent! [&_select]:shadow-none!" /></template>
+    <template data-filters-target="tplInput"><twig:Input class="h-full! w-32! rounded-none! border-0! bg-transparent! shadow-none! focus-visible:ring-0!" /></template>
+    <template data-filters-target="tplRemove"><twig:Button variant="ghost" size="icon-xs" class="h-full! w-7! rounded-none!"><twig:ux:icon name="lucide:x" aria-hidden="true" /></twig:Button></template>
+    <template data-filters-target="tplMulti">
+        <twig:Popover class="h-full w-auto">
+            <twig:Popover:Trigger>
+                <twig:Button variant="ghost" class="h-full! max-w-48 justify-start rounded-none! font-normal" data-part="trigger" {{ ...popover_trigger_attrs }} />
+            </twig:Popover:Trigger>
+            <twig:Popover:Content align="start" class="w-auto! min-w-40 gap-0! p-1!">
+                <div role="listbox" aria-multiselectable="true" class="grid" data-part="list"></div>
+            </twig:Popover:Content>
+        </twig:Popover>
+    </template>
+    <template data-filters-target="tplOption"><label role="option" class="flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-muted"><twig:Checkbox /><span data-part="text"></span></label></template>
+    <noscript><twig:Button type="submit" variant="outline">{{ applyLabel }}</twig:Button></noscript>
 </form>

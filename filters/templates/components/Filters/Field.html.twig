@@ -1,0 +1,16 @@
+{#
+  Filters:Field: one available filter.
+
+  Props
+    name   field name, submitted as the query parameter
+    label  displayed name
+    type   text | number | select | multiselect | boolean | date
+
+  Blocks
+    (slot)   <twig:Filters:Option> elements (select and multiselect)
+#}
+{%- props name, label, type = 'text' -%}
+{%- set options -%}{% block content %}{% endblock %}{%- endset -%}
+<li data-name="{{ name }}" data-label="{{ label }}" data-type="{{ type }}" {{ attributes }}>
+    {%- if options|trim is not empty %}<ul>{{ options }}</ul>{% endif -%}
+</li>

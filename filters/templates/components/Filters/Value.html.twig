@@ -1,0 +1,10 @@
+{#
+  Filters:Value: one active filter.
+
+  Props
+    field     name of a <twig:Filters:Field>
+    operator  eq, neq, contains, gt, lt, in, nin, before, after (default: the first operator of the type)
+    value     the value; a list for multiselect
+#}
+{%- props field, operator = null, value = '' -%}
+<li data-field="{{ field }}" {% if operator %}data-operator="{{ operator }}" {% endif %}data-value="{{ value|json_encode }}" {{ attributes }}></li>

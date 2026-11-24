@@ -3,12 +3,15 @@
     "name": "Filters",
     "description": "Schema-driven filter bar: chips with operator and value editors, add and clear, state carried in the URL query.",
     "copy-files": {
-        "templates/": "templates/",
-        "assets/": "assets/"
+        "templates/components/": "%COMPONENTS_DIR%/",
+        "assets/controllers/": "%CONTROLLERS_DIR%/"
     },
     "dependencies": {
         "composer": [
-            "symfony/ux-icons"
+            "symfony/ux-icons",
+            "twig/extra-bundle",
+            "twig/html-extra:^3.24.0",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
         ]
     }
 }
