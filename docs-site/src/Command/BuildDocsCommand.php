@@ -104,7 +104,16 @@ final class BuildDocsCommand extends Command
     {
         $imports = [];
         $registrations = [];
-        foreach (glob($root.'/*/assets/controllers/*_controller.js') ?: [] as $file) {
+        // The shadcn kit controllers (popover, ...) are registered too, as in an app that installed them; the ones
+        // importing a package the previews do not load (carousel) are left out.
+        $files = array_merge(
+            glob($root.'/*/assets/controllers/*_controller.js') ?: [],
+            array_filter(
+                glob($this->projectDir.'/var/ux/src/Toolkit/kits/shadcn/*/assets/controllers/*_controller.js') ?: [],
+                static fn (string $file): bool => 1 === preg_match_all('/^import .* from /m', (string) file_get_contents($file)),
+            ),
+        );
+        foreach ($files as $file) {
             $base = basename($file);
             $name = str_replace('_', '-', substr($base, 0, -strlen('_controller.js')));
             copy($file, $outDir.'/controllers/'.$base);
