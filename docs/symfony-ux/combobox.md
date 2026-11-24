@@ -611,3 +611,88 @@ Icons for the teams.
     </div>
 </div>
 ```
+
+### Clear Button in a Popup
+
+A second button next to the one that opens the list resets the selection. `Combobox:Clear` hides it while nothing is selected.
+
+```twig
+<div style="min-height: 340px">
+    <div class="w-64">
+        <twig:Combobox id="clear-popup" value="France">
+            <twig:ButtonGroup>
+                <twig:Combobox:Trigger>
+                    <twig:Button variant="outline" class="flex-1 justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                        <twig:Combobox:Value placeholder="Select country" />
+                        <twig:ux:icon name="lucide:chevrons-up-down" class="text-muted-foreground" />
+                    </twig:Button>
+                </twig:Combobox:Trigger>
+                <twig:Combobox:Clear>
+                    <twig:Button variant="outline" size="icon" {{ ...combobox_clear_attrs }}>
+                        <twig:ux:icon name="lucide:x" />
+                    </twig:Button>
+                </twig:Combobox:Clear>
+            </twig:ButtonGroup>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search" :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No countries found.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Item value="France">
+                        France
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Germany">
+                        Germany
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Japan">
+                        Japan
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Spain">
+                        Spain
+                    </twig:Combobox:Item>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Multiple Selection in a Popup
+
+`multiple` on the root lets several items be checked in the list, and the button lists them.
+
+```twig
+<div style="min-height: 340px">
+    <div class="w-64">
+        <twig:Combobox id="multiple-popup" multiple :value="['Apple', 'Mango']">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select fruits" />
+                    <twig:ux:icon name="lucide:chevrons-up-down" class="text-muted-foreground" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search" :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No fruits found.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Item value="Apple">
+                        Apple
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Banana">
+                        Banana
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Cherry">
+                        Cherry
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Mango">
+                        Mango
+                    </twig:Combobox:Item>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
