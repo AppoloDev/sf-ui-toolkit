@@ -128,7 +128,7 @@ A font weight selector built from custom toggle group items.
 
 ```twig
 <twig:ToggleGroup type="single" variant="outline">
-    {% for n in 1..4 %}<twig:ToggleGroup:Item value="{{ n }}" pressed="{{ n == 2 }}" aria-label="{{ n }} columns"><twig:ux:icon name="lucide:columns-{{ n }}" /></twig:ToggleGroup:Item>{% endfor %}
+    {% for n in 1..4 %}<twig:ToggleGroup:Item value="{{ n }}" pressed="{{ n == 2 }}" aria-label="{{ n }} columns">{{ n }}</twig:ToggleGroup:Item>{% endfor %}
 </twig:ToggleGroup>
 ```
 
