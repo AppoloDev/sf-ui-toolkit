@@ -1,0 +1,39 @@
+{#- Code block colored on the server by the `highlight` filter (src/Twig/HighlightExtension.php). The colors are
+    Tailwind classes on the block, with a light and a dark value: no stylesheet to import. -#}
+{%- props
+    ## string The language of the code: php, twig, html, css, scss, javascript (js), typescript (ts), jsx, tsx, json, yaml, sql, bash, diff, xml, markdown and others; an unknown value is shown as plain text.
+    language = 'text',
+    ## string|null The code. Without it, the content of the component is the code.
+    code = null,
+    ## string|null The accessible name of the block, announced by screen readers since the block can scroll.
+    label = null
+-%}
+{%- set _source -%}
+    {%- if code is not null -%}
+        {{- code|raw -}}
+    {%- else -%}
+        {%- block content %}{% endblock -%}
+    {%- endif -%}
+{%- endset -%}
+{%- set _tokens = [
+    '[&_.hl-keyword]:text-[#cf222e] dark:[&_.hl-keyword]:text-[#ff7b72]',
+    '[&_.hl-type]:text-[#953800] dark:[&_.hl-type]:text-[#ffa657]',
+    '[&_.hl-property]:text-[#0550ae] dark:[&_.hl-property]:text-[#79c0ff]',
+    '[&_.hl-attribute]:text-[#116329] dark:[&_.hl-attribute]:text-[#7ee787]',
+    '[&_.hl-generic]:text-[#8250df] dark:[&_.hl-generic]:text-[#d2a8ff]',
+    '[&_.hl-value]:text-[#0a3069] dark:[&_.hl-value]:text-[#a5d6ff]',
+    '[&_.hl-number]:text-[#0550ae] dark:[&_.hl-number]:text-[#79c0ff]',
+    '[&_.hl-literal]:text-[#0550ae] dark:[&_.hl-literal]:text-[#79c0ff]',
+    '[&_.hl-variable]:text-[#953800] dark:[&_.hl-variable]:text-[#ffa657]',
+    '[&_.hl-comment]:text-[#6e7781] [&_.hl-comment]:italic dark:[&_.hl-comment]:text-[#8b949e]',
+    '[&_.hl-addition]:bg-emerald-500/15 [&_.hl-deletion]:bg-red-500/15',
+]|join(' ') -%}
+<pre
+    data-slot="code-highlight"
+    data-language="{{ language }}"
+    tabindex="0"
+    {% if label %}role="region" aria-label="{{ label }}"{% endif %}
+    {{ attributes.defaults({
+        class: ('overflow-x-auto rounded-lg border border-border bg-muted/40 p-4 font-mono text-sm leading-relaxed text-foreground notranslate ' ~ _tokens)|tailwind_classes,
+    }) }}
+><code>{{ ('' ~ _source)|highlight(language) }}</code></pre>

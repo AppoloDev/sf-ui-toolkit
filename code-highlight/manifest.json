@@ -1,0 +1,18 @@
+{
+    "type": "component",
+    "name": "Code Highlight",
+    "description": "Server-side syntax highlighting for code blocks: a Twig filter and a component with a language prop, no JavaScript.",
+    "copy-files": {
+        "src/": "src/",
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "tempest/highlight:^2.0",
+            "twig/extra-bundle",
+            "twig/html-extra:^3.24.0",
+            "symfony/ux-twig-component:^3.5",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+        ]
+    }
+}

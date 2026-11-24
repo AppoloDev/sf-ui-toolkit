@@ -20,7 +20,7 @@
     <h2 class="mt-12 text-xl font-semibold">Installation</h2>
     {% if page.kind == 'ux' %}
         <p class="mt-2 text-sm text-muted-foreground">This component is part of the official shadcn kit of Symfony UX Toolkit.</p>
-        <pre class="mt-3 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>{{ page.install.command }}</code></pre>
+        <twig:CodeHighlight language="bash" :code="(page.install.command)" class="mt-3" />
     {% else %}
     <div data-tabs class="mt-3">
         <div class="flex gap-1 border-b border-border text-sm" role="tablist">
@@ -30,12 +30,12 @@
         <div data-panel="auto" class="pt-4">
             {% if page.shadcn %}
                 <p class="mb-2 text-sm text-muted-foreground">This {{ page.kind }} is built on components of the official shadcn kit (a recipe cannot depend on another kit): install them first.</p>
-                <pre class="mb-4 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>php bin/console ux:install {{ page.shadcn|join(' ') }} --kit=shadcn</code></pre>
+                <twig:CodeHighlight language="bash" :code="'php bin/console ux:install ' ~ (page.shadcn|join(' ')) ~ ' --kit=shadcn'" class="mb-4" />
             {% endif %}
-            <pre class="overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>{{ page.install.command }}</code></pre>
+            <twig:CodeHighlight language="bash" :code="(page.install.command)" />
             {% if page.install.npm %}
                 <p class="mt-3 text-sm text-muted-foreground">This component needs JavaScript packages. With AssetMapper, add them to your import map:</p>
-                <pre class="mt-2 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>php bin/console importmap:require {{ page.install.npm|join(' ') }}</code></pre>
+                <twig:CodeHighlight language="bash" :code="'php bin/console importmap:require ' ~ (page.install.npm|join(' '))" class="mt-2" />
             {% endif %}
         </div>
         <div data-panel="manual" class="space-y-4 pt-4" hidden>
@@ -50,7 +50,7 @@
             {% if page.install.composer %}
                 <div>
                     <p class="text-sm font-medium">Composer packages</p>
-                    <pre class="mt-2 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>composer require {{ page.install.composer|join(' ') }}</code></pre>
+                    <twig:CodeHighlight language="bash" :code="'composer require ' ~ (page.install.composer|join(' '))" class="mt-2" />
                 </div>
             {% else %}
                 <p class="text-sm text-muted-foreground">No Composer package required.</p>
@@ -58,7 +58,7 @@
             {% if page.install.npm %}
                 <div>
                     <p class="text-sm font-medium">JavaScript packages (AssetMapper)</p>
-                    <pre class="mt-2 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>php bin/console importmap:require {{ page.install.npm|join(' ') }}</code></pre>
+                    <twig:CodeHighlight language="bash" :code="'php bin/console importmap:require ' ~ (page.install.npm|join(' '))" class="mt-2" />
                     <p class="mt-2 text-sm text-muted-foreground">With npm instead: <code class="rounded bg-muted px-1.5 py-0.5">npm install {{ page.install.npm|join(' ') }}</code></p>
                 </div>
             {% endif %}
@@ -77,7 +77,7 @@
     {% if page.usage %}
         <h2 class="mt-12 text-xl font-semibold">Usage</h2>
         {% if page.usage.text %}<p class="mt-1 text-sm text-muted-foreground">{{ page.usage.text|raw }}</p>{% endif %}
-        <pre class="mt-3 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>{{ page.usage.code }}</code></pre>
+        <twig:CodeHighlight language="twig" :code="page.usage.code" class="mt-3" />
     {% endif %}
 
     <h2 class="mt-12 text-xl font-semibold">Examples</h2>
@@ -96,7 +96,7 @@
             {% for paragraph in section.paragraphs %}<p class="mt-2 text-sm text-muted-foreground">{{ paragraph|raw }}</p>{% endfor %}
             {% for item in section.items %}
                 {% if item.tabs is null %}
-                    <pre class="mt-3 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>{{ item.block.code }}</code></pre>
+                    <twig:CodeHighlight :language="item.block.lang ?: 'text'" :code="item.block.code" class="mt-3" />
                 {% else %}
                     <div data-tabs class="mt-3">
                         <div class="flex gap-1 border-b border-border text-sm" role="tablist">
@@ -106,7 +106,7 @@
                         </div>
                         {% for label, blocks in item.tabs %}
                             <div data-panel="{{ label|lower|replace({' ': '-'}) }}" class="space-y-3 pt-3" {{ loop.first ? '' : 'hidden' }}>
-                                {% for block in blocks %}<pre class="overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>{{ block.code }}</code></pre>{% endfor %}
+                                {% for block in blocks %}<twig:CodeHighlight :language="block.lang ?: 'text'" :code="block.code" />{% endfor %}
                             </div>
                         {% endfor %}
                     </div>

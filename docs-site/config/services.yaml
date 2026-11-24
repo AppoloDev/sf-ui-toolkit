@@ -7,3 +7,7 @@ services:
         resource: '../src/'
         exclude:
             - '../src/Kernel.php'
+
+    # The `highlight` filter comes from the code-highlight recipe, loaded as an application that installed it would.
+    App\Twig\:
+        resource: '../../code-highlight/src/Twig/'

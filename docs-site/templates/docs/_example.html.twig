@@ -3,7 +3,7 @@
     <p class="border-b border-border bg-muted/50 px-3 py-2 text-xs text-muted-foreground">This example cannot be rendered in the documentation build, so only its code is shown.</p>
     <div class="relative">
         <button type="button" data-copy="code-{{ id }}" class="absolute right-2 top-2 rounded border border-border bg-background px-2 py-1 text-xs hover:bg-muted">Copy</button>
-        <pre class="overflow-x-auto p-4 text-sm"><code id="code-{{ id }}">{{ example.code }}</code></pre>
+        <div id="code-{{ id }}" class="[&>pre]:rounded-none [&>pre]:border-0 [&>pre]:bg-transparent"><twig:CodeHighlight language="twig" :code="example.code" /></div>
     </div>
 </div>
 {% else %}
@@ -24,7 +24,7 @@
     </div>
     <div data-panel="code" class="relative" hidden>
         <button type="button" data-copy="code-{{ id }}" class="absolute right-2 top-2 rounded border border-border bg-background px-2 py-1 text-xs hover:bg-muted">Copy</button>
-        <pre class="overflow-x-auto p-4 text-sm"><code id="code-{{ id }}">{{ example.code }}</code></pre>
+        <div id="code-{{ id }}" class="[&>pre]:rounded-none [&>pre]:border-0 [&>pre]:bg-transparent"><twig:CodeHighlight language="twig" :code="example.code" /></div>
     </div>
 </div>
 {% endif %}
