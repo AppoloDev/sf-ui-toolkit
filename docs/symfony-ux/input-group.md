@@ -262,6 +262,8 @@ A comment box with actions in the bottom row.
 
 ### Password Toggle
 
+The `PasswordToggle` component of this kit is the button. It finds the input of its group by itself.
+
 ```twig
 <twig:InputGroup class="max-w-sm">
     <twig:InputGroup:Addon>
@@ -269,9 +271,7 @@ A comment box with actions in the bottom row.
     </twig:InputGroup:Addon>
     <twig:InputGroup:Input type="password" value="secret-password" />
     <twig:InputGroup:Addon align="inline-end">
-        <twig:InputGroup:Button variant="ghost" size="icon-xs" aria-label="Show password">
-            <twig:ux:icon name="lucide:eye" />
-        </twig:InputGroup:Button>
+        <twig:PasswordToggle />
     </twig:InputGroup:Addon>
 </twig:InputGroup>
 ```
