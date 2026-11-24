@@ -38,14 +38,18 @@ A text color class on the component tints the layers and the shadow; the icon ca
 
 ### Empty state
 
+The tile is the media of the shadcn `Empty` component.
+
 ```twig
-<div class="flex max-w-sm flex-col items-center gap-3 rounded-lg border border-dashed border-border p-8 text-center">
-    <twig:IconStack size="lg"><twig:ux:icon name="lucide:inbox" /></twig:IconStack>
-    <div>
-        <p class="text-sm font-medium">No messages yet</p>
-        <p class="text-sm text-muted-foreground">New messages will show up here.</p>
-    </div>
-</div>
+<twig:Empty class="max-w-sm border">
+    <twig:Empty:Header>
+        <twig:Empty:Media>
+            <twig:IconStack size="lg"><twig:ux:icon name="lucide:inbox" /></twig:IconStack>
+        </twig:Empty:Media>
+        <twig:Empty:Title>No messages yet</twig:Empty:Title>
+        <twig:Empty:Description>New messages will show up here.</twig:Empty:Description>
+    </twig:Empty:Header>
+</twig:Empty>
 ```
 
 ## Accessibility
