@@ -1,0 +1,11 @@
+{
+    "type": "component",
+    "name": "Onboarding",
+    "description": "Setup flow shell: step counter, progress bar or dot indicator, title, description, content and footer actions.",
+    "copy-files": {
+        "templates/": "templates/"
+    },
+    "dependencies": {
+        "composer": []
+    }
+}

@@ -1,0 +1,52 @@
+{#
+  Onboarding: shell of one step of a setup flow. It shows where the person is and holds the step content;
+  moving between steps (routes, Turbo, a form) is yours.
+
+  Props
+    step           current step, from 1
+    steps          total number of steps
+    title          heading of the step
+    description    text under the heading
+    indicator      bar (progress bar) | dots (one dot per step)
+    align          center | start
+    stepLabel      "Step {current} of {total}": the placeholders are replaced
+    progressLabel  accessible name of the progress bar
+    titleTag       h1 | h2 | h3 (default h2)
+
+  Blocks
+    footer   actions under the content (Back, Continue, Skip)
+    (slot)   the content of the step
+#}
+{%- props step = 1, steps = 1, title = null, description = null, indicator = 'bar', align = 'center', stepLabel = 'Step {current} of {total}', progressLabel = 'Setup progress', titleTag = 'h2' -%}
+{%- set extra_class = attributes.render('class') -%}
+{%- set tag = titleTag in ['h1', 'h2', 'h3'] ? titleTag : 'h2' -%}
+{%- set total = max(1, steps) -%}
+{%- set current = max(1, min(total, step)) -%}
+{%- set centered = align != 'start' -%}
+{%- set footer -%}{% block footer %}{% endblock %}{%- endset -%}
+<div class="{{ ('mx-auto grid w-full max-w-md gap-6 ' ~ (centered ? 'text-center' : 'text-left') ~ ' ' ~ extra_class)|trim }}" {{ attributes }}>
+    <div class="grid gap-2">
+        {%- if indicator == 'dots' %}
+            <ol class="flex items-center gap-2 {{ centered ? 'justify-center' : '' }}">
+                {%- for index in 1..total %}
+                    <li {% if index == current %}aria-current="step"{% endif %} class="h-2 rounded-full transition-all {{ index == current ? 'w-6 bg-primary' : (index < current ? 'w-2 bg-primary/60' : 'w-2 bg-muted') }}"><span class="sr-only">{{ stepLabel|replace({'{current}': index, '{total}': total}) }}</span></li>
+                {%- endfor %}
+            </ol>
+        {%- else %}
+            <div role="progressbar" aria-label="{{ progressLabel }}" aria-valuemin="1" aria-valuemax="{{ total }}" aria-valuenow="{{ current }}" aria-valuetext="{{ stepLabel|replace({'{current}': current, '{total}': total}) }}" class="h-1.5 overflow-hidden rounded-full bg-muted">
+                <div class="h-full rounded-full bg-primary transition-all" style="width: {{ (current / total * 100)|round(1) }}%"></div>
+            </div>
+        {%- endif %}
+        <p class="text-xs font-medium text-muted-foreground">{{ stepLabel|replace({'{current}': current, '{total}': total}) }}</p>
+    </div>
+    {%- if title or description %}
+        <div class="grid gap-1.5">
+            {%- if title %}<{{ tag }} class="text-2xl font-semibold tracking-tight text-foreground">{{ title }}</{{ tag }}>{% endif %}
+            {%- if description %}<p class="text-sm text-muted-foreground">{{ description }}</p>{% endif %}
+        </div>
+    {%- endif %}
+    <div class="grid gap-4 text-left">{% block content %}{% endblock %}</div>
+    {%- if footer|trim is not empty %}
+        <div class="flex flex-wrap items-center gap-2 {{ centered ? 'justify-center' : 'justify-between' }}">{{ footer }}</div>
+    {%- endif %}
+</div>
