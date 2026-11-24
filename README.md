@@ -60,6 +60,7 @@ Page sections built from a few props and slots. They are installed like any comp
 |---|---|---|
 | `cta` | Call-to-action section with eyebrow, title, description, actions and optional media: centered, split or inline, in four tones. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/cta.html) |
 | `faq` | Frequently asked questions as a native accordion: single or split layout, multiple or exclusive answers, optional FAQPage structured data. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/faq.html) |
+| `navbar` | Application bar with start, center and end areas, an optional row of tabs, sticky and bordered options, and link items with active state and count. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/navbar.html) |
 | `pricing` | Pricing plan cards in a responsive grid: price, period, included and excluded features, badge, highlighted plan and a call-to-action slot. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/pricing.html) |
 | `settings` | Settings page layout: optional side navigation, titled sections and rows with label, description, badge and one control. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/settings.html) |
 | `stats` | KPI cards in a responsive grid: label, value, trend badge, comparison line, optional icon and progress meter. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/stats.html) |
