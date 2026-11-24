@@ -2,7 +2,7 @@
   Cascader: pick a value in a hierarchy through columns (or one level at a time), with search.
 
   Props
-    (slot)         <twig:Cascader:Option value label disabled> elements, nested for children; every value must be unique
+    (slot)         <twig:Cascader:Icon> (optional, replaces the chevron), <twig:Cascader:Option value label disabled> elements, nested for children; every value must be unique
     name           field name; multiple: `name[]`
     value          selected value (multiple: list of values)
     multiple       checkboxes instead of a single choice; the popover stays open
@@ -37,7 +37,7 @@
             class="flex h-9 w-full items-center justify-between gap-2 rounded-md border border-border bg-background px-3 text-left text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
             data-cascader-target="trigger" data-action="cascader#toggle keydown->cascader#triggerKey">
         <span class="truncate" data-cascader-target="display"></span>
-        <twig:ux:icon name="lucide:chevrons-up-down" class="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+        <span class="inline-flex shrink-0 items-center text-muted-foreground [&_svg]:size-4" aria-hidden="true" data-cascader-target="icon"><twig:ux:icon name="lucide:chevrons-up-down" /></span>
     </button>
     <div role="dialog" aria-label="{{ label }}" hidden class="absolute left-0 top-full z-50 mt-1 min-w-full rounded-md border border-border bg-background shadow-md" data-cascader-target="panel" data-action="keydown->cascader#panelKey">
         <input type="search" role="searchbox" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off"

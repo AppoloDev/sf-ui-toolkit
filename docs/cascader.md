@@ -119,6 +119,18 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 </twig:Cascader>
 ```
 
+### Custom icon
+
+`Cascader:Icon` replaces the chevron of the trigger; put any Symfony UX Icon in it.
+
+```twig
+<twig:Cascader name="folder" placeholder="Choose a folder">
+    <twig:Cascader:Icon><twig:ux:icon name="lucide:folder" /></twig:Cascader:Icon>
+    <twig:Cascader:Option value="docs" label="Documents" />
+    <twig:Cascader:Option value="media" label="Media" />
+</twig:Cascader>
+```
+
 ### Required and disabled
 
 ```twig
@@ -174,3 +186,7 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 | `disabled` | bool | `false` | The entry cannot be chosen. |
 
 Blocks: the default slot holds nested `<twig:Cascader:Option>` elements, which make the entry a branch. Options can be generated with a regular Twig `for` loop.
+
+### `<twig:Cascader:Icon>`
+
+No prop. The default slot holds the icon shown in the trigger in place of the chevron.

@@ -6,7 +6,7 @@ import { Controller } from '@hotwired/stimulus';
  * back, Enter chooses or opens, Escape closes. `cascader:change` fires with { values }.
  */
 export default class extends Controller {
-    static targets = ['trigger', 'display', 'panel', 'search', 'columns', 'status', 'inputs', 'validity', 'source'];
+    static targets = ['trigger', 'display', 'panel', 'search', 'columns', 'status', 'inputs', 'validity', 'source', 'icon'];
     static values = {
         selected: Array,
         name: String,
@@ -29,6 +29,8 @@ export default class extends Controller {
             this.index.set(String(node.value), { node, path });
             if (node.children?.length) walk(node.children, path);
         });
+        const icon = this.sourceTarget.querySelector(':scope > template[data-cascader-icon]');
+        if (icon && this.hasIconTarget) this.iconTarget.replaceChildren(icon.content.cloneNode(true));
         this.options = this.read(this.sourceTarget);
         walk(this.options, []);
         this.chosen = new Set(this.selectedValue.map(String).filter((value) => this.index.has(value)));
