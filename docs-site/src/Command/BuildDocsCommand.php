@@ -66,15 +66,30 @@ final class BuildDocsCommand extends Command
             $pages[$slug] = $page;
         }
         ksort($pages);
+        foreach ($this->kitPages($root) as $slug => $page) {
+            $pages[$slug] = $page;
+        }
 
         $this->buildControllers($root, $outDir);
         $imports = $this->importMap($pages);
         copy($this->projectDir.'/assets/docs.js', $outDir.'/docs.js');
 
+        $failed = 0;
         foreach ($pages as $page) {
             foreach ($page['examples'] as $index => &$example) {
-                $example['html'] = $this->twig->createTemplate($example['code'])->render();
                 $example['preview'] = sprintf('preview/%s-%d.html', $page['slug'], $index + 1);
+                try {
+                    $example['html'] = $this->twig->createTemplate($example['code'])->render();
+                } catch (\Throwable $exception) {
+                    // The examples of the official kit are not ours: one that cannot be rendered here is shown as code only.
+                    if ('ux' !== $page['kind']) {
+                        throw $exception;
+                    }
+                    $example['error'] = strtok($exception->getMessage(), "\n");
+                    $output->writeln(sprintf('  <comment>%s: "%s" not rendered: %s</comment>', $page['slug'], $example['title'], $example['error']));
+                    ++$failed;
+                    continue;
+                }
                 file_put_contents(
                     $outDir.'/'.$example['preview'],
                     $this->twig->render('docs/preview.html.twig', ['html' => $example['html'], 'imports' => $imports]),
@@ -84,17 +99,102 @@ final class BuildDocsCommand extends Command
 
             file_put_contents(
                 sprintf('%s/%s.html', $outDir, $page['slug']),
-                $this->twig->render('docs/page.html.twig', ['page' => $page, 'pages' => $pages, 'kit' => $kit]),
+                $this->twig->render('docs/page.html.twig', ['page' => $page, 'pages' => $pages, 'kit' => $kit, 'current_kind' => $page['kind']]),
             );
             $output->writeln(sprintf('  <info>%s.html</info> (%d examples)', $page['slug'], count($page['examples'])));
+        }
+        if ($failed > 0) {
+            $output->writeln(sprintf('<comment>%d examples of the official kit were not rendered (shown as code).</comment>', $failed));
         }
 
         file_put_contents($outDir.'/index.html', $this->twig->render('docs/index.html.twig', ['pages' => $pages, 'kit' => $kit]));
         file_put_contents($outDir.'/components.html', $this->twig->render('docs/components.html.twig', ['pages' => $pages, 'kit' => $kit]));
+        file_put_contents($outDir.'/symfony-ux.html', $this->twig->render('docs/symfony-ux.html.twig', ['pages' => $pages, 'kit' => $kit, 'current_kind' => 'ux']));
         file_put_contents($outDir.'/blocks.html', $this->twig->render('docs/blocks.html.twig', ['pages' => $pages, 'kit' => $kit]));
         $output->writeln(sprintf('<info>%d components documented in %s</info>', count($pages), $outDir));
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * The "Symfony UX" section: one page per component of the official shadcn kit, generated from its README (title,
+     * description, usage, examples, accessibility), plus the examples of docs/symfony-ux/<component>.md, which are
+     * added here because shadcn/ui documents them and the official kit does not.
+     *
+     * @return array<string, array<string, mixed>>
+     */
+    private function kitPages(string $root): array
+    {
+        $pages = [];
+        $files = glob($this->projectDir.'/var/ux/src/Toolkit/kits/shadcn/*/README.md') ?: [];
+        sort($files);
+        foreach ($files as $file) {
+            $name = basename(dirname($file));
+            // login-01, signup-01 and sidebar-01 are page blocks of the kit, not components.
+            if (1 === preg_match('/^(login|signup|sidebar)-\d+$/', $name)) {
+                continue;
+            }
+            $page = $this->kitPage((string) file_get_contents($file));
+            $page['slug'] = 'ux-'.$name;
+            $page['name'] = $name;
+            $page['kind'] = 'ux';
+            $page['shadcn'] = [$name];
+            $page['install'] = ['command' => sprintf('php bin/console ux:install %s --kit=shadcn', $name), 'description' => '', 'composer' => [], 'npm' => [], 'files' => []];
+
+            $added = $root.'/docs/symfony-ux/'.$name.'.md';
+            if (is_file($added)) {
+                foreach ($this->parse((string) file_get_contents($added))['examples'] as $example) {
+                    $page['examples'][] = $example + ['added' => true];
+                }
+            }
+            $page['added_count'] = count(array_filter($page['examples'], static fn (array $example): bool => $example['added'] ?? false));
+            $pages[$page['slug']] = $page;
+        }
+
+        return $pages;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function kitPage(string $readme): array
+    {
+        $page = ['title' => 'Untitled', 'kind' => 'ux', 'description' => '', 'usage' => null, 'examples' => [], 'extending' => [], 'shadcn' => [], 'accessibility' => [], 'api' => []];
+        $twig = static fn (string $body): ?string => preg_match('/```twig[^\n]*\n(.*?)```/s', $body, $match) ? rtrim($match[1]) : null;
+        $text = static fn (string $body): string => trim((string) preg_replace(['/```.*?```/s', '/<!--.*?-->/s', '/^:::.*$/m'], '', $body));
+
+        $tokens = preg_split('/^(#{1,3}) +(.+)$/m', $readme, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
+        $part = null;
+        for ($i = 1; $i + 2 < count($tokens) + 1; $i += 3) {
+            $level = strlen($tokens[$i]);
+            $heading = trim($tokens[$i + 1] ?? '');
+            $body = $tokens[$i + 2] ?? '';
+
+            if (1 === $level) {
+                $page['title'] = $heading;
+                $page['description'] = trim((string) preg_replace('/\s+/', ' ', $text($body)));
+                if (null !== ($hero = $twig($body))) {
+                    $page['examples'][] = ['title' => 'Default', 'description' => '', 'code' => $hero, 'min_height' => 0];
+                }
+                continue;
+            }
+            if (2 === $level) {
+                $part = mb_strtolower($heading);
+                if ('usage' === $part) {
+                    $page['usage'] = ['text' => $this->inline($text($body)), 'code' => $twig($body)];
+                } elseif ('accessibility' === $part) {
+                    preg_match_all('/^- (.+)$/m', $body, $items);
+                    $page['accessibility'] = array_map($this->inline(...), $items[1]);
+                }
+                continue;
+            }
+            if ('examples' === $part && null !== ($code = $twig($body))) {
+                $page['examples'][] = ['title' => $heading, 'description' => $this->inline($text($body)), 'code' => $code, 'min_height' => 0];
+            }
+        }
+        $page['description_html'] = $this->inline($page['description']);
+
+        return $page;
     }
 
     /**

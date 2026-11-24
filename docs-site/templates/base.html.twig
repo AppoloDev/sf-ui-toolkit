@@ -26,10 +26,19 @@
             <li><a href="index.html" class="block rounded-md px-2 py-1 hover:bg-muted">Getting started</a></li>
             <li><a href="components.html" class="block rounded-md px-2 py-1 hover:bg-muted">Components</a></li>
             <li><a href="blocks.html" class="block rounded-md px-2 py-1 hover:bg-muted">Blocks</a></li>
+            <li><a href="symfony-ux.html" class="block rounded-md px-2 py-1 hover:bg-muted">Symfony UX</a></li>
         </ul>
+        {% if current_kind|default('') == 'ux' %}
+            <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Symfony UX</p>
+            <ul class="space-y-1">
+                {% for slug, item in pages|filter(item => item.kind == 'ux') %}
+                    <li><a href="{{ slug }}.html" class="flex items-center justify-between gap-2 rounded-md px-2 py-1 hover:bg-muted"><span>{{ item.title }}</span>{% if item.added_count %}<span class="rounded-full bg-muted px-1.5 text-xs text-muted-foreground">+{{ item.added_count }}</span>{% endif %}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
         <p class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Components</p>
         <ul class="space-y-1">
-            {% for slug, item in pages|filter(item => item.kind != 'block') %}
+            {% for slug, item in pages|filter(item => item.kind == 'component') %}
                 <li><a href="{{ slug }}.html" class="block rounded-md px-2 py-1 hover:bg-muted">{{ item.title }}</a></li>
             {% endfor %}
         </ul>
@@ -40,6 +49,7 @@
                     <li><a href="{{ slug }}.html" class="block rounded-md px-2 py-1 hover:bg-muted">{{ item.title }}</a></li>
                 {% endfor %}
             </ul>
+        {% endif %}
         {% endif %}
     </nav>
     <main class="min-w-0 flex-1">

@@ -7,5 +7,5 @@
     <h1 class="text-3xl font-bold tracking-tight">Components</h1>
     <p class="mt-2 text-muted-foreground">The building blocks of the Appolo UI kit. Looking for page sections? See the <a href="blocks.html" class="underline underline-offset-4">blocks</a>.</p>
 
-    {% include 'docs/_list.html.twig' with {items: pages|filter(item => item.kind != 'block')} only %}
+    {% include 'docs/_list.html.twig' with {items: pages|filter(item => item.kind == 'component')} only %}
 {% endblock %}
