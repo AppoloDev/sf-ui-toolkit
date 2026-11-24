@@ -58,6 +58,7 @@ The props of each component are listed in its documentation.
 | `password-toggle` | A button that shows or hides the password typed in an input, for use in an input group or next to any field. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/password-toggle.html) |
 | `phone-input` | International phone field with a searchable country selector and an E.164 value. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/phone-input.html) |
 | `rating` | Star rating: read-only display (partial stars) or input with radio buttons, half stars and hover preview. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/rating.html) |
+| `relative-time` | A date shown as a relative time such as "3 minutes ago", kept up to date while the page stays open. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/relative-time.html) |
 | `rich-text-editor` | Rich text field built on TipTap with a configurable toolbar, links and an HTML value for the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/rich-text-editor.html) |
 | `scrollspy` | Table-of-contents navigation that highlights the section currently in view. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/scrollspy.html) |
 | `signature-pad` | Handwritten signature captured with a mouse, a finger or a stylus, exported as PNG, JPEG, SVG or JSON. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/signature-pad.html) |

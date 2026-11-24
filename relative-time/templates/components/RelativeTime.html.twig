@@ -1,0 +1,32 @@
+{#
+ # A date shown as a relative time, in the language of the page, and kept up to date.
+ #
+ # Props: datetime, locale, numeric, style, absoluteTitle.
+ # Slot: the text shown before the script runs, and when it cannot run (the date, written out).
+ #}
+{%- props
+    ## string|DateTimeInterface The date, as an ISO 8601 string or a date. `now` is the moment the component is displayed.
+    datetime,
+    ## string|null The language of the text, a BCP 47 tag such as `fr`. The language of the page when `null`.
+    locale = null,
+    ## 'auto'|'always' With `auto`, the text can be "yesterday" or "now"; with `always`, it is always a number: "1 day ago".
+    numeric = 'auto',
+    ## 'long'|'short'|'narrow' The length of the text: "3 minutes ago", "3 min. ago" or "3m ago".
+    style = 'long',
+    ## boolean Whether the full date is the `title` of the element, shown on hover.
+    absoluteTitle = true
+-%}
+{%- set _iso = datetime is same as 'now' ? 'now' : datetime|date('c') -%}
+<time
+    data-slot="relative-time"
+    data-controller="relative-time"
+    data-relative-time-datetime-value="{{ _iso }}"
+    data-relative-time-numeric-value="{{ numeric }}"
+    data-relative-time-style-value="{{ style }}"
+    data-relative-time-absolute-title-value="{{ absoluteTitle ? 'true' : 'false' }}"
+    {%- if locale is not null %} data-relative-time-locale-value="{{ locale }}"{% endif %}
+    {%- if _iso != 'now' %} datetime="{{ _iso }}"{% endif %}
+    {{ attributes }}
+>
+    {%- block content %}{% endblock -%}
+</time>
