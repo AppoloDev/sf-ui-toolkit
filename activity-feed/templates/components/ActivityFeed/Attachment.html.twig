@@ -1,0 +1,15 @@
+{#
+  ActivityFeed:Attachment: a file attached to an item of the feed, built on the shadcn Badge.
+
+  Props
+    name  file name
+    href  link to the file; plain text when omitted
+    size  size as displayed ("1.2 MB")
+#}
+{%- props name, href = null, size = null -%}
+<li>
+    <twig:Badge variant="outline" :as="href ? 'a' : 'span'" {{ ...(href ? {href: href} : {}) }} class="h-auto gap-1.5 rounded-md px-2 py-1">
+        <twig:ux:icon name="lucide:paperclip" class="text-muted-foreground" aria-hidden="true" />
+        {{ name }}{% if size %} <span class="text-muted-foreground">{{ size }}</span>{% endif %}
+    </twig:Badge>
+</li>

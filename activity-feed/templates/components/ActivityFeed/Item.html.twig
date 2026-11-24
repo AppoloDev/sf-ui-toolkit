@@ -1,0 +1,47 @@
+{#
+  ActivityFeed:Item: one event of the feed, built on the shadcn Avatar.
+
+  Props
+    actor     who did it (bold)
+    action    what happened ("commented on")
+    target    what it happened to (bold)
+    time      time as displayed ("2 h ago")
+    datetime  machine-readable date for the <time> element (ISO 8601)
+    avatar    image URL of the actor
+    initials  shown when there is no avatar (the first letters of the actor by default)
+    icon      Symfony UX Icons name, for a system event (replaces the avatar)
+
+  Slots
+    (default)    description under the line, for a comment or a note
+    attachments  <twig:ActivityFeed:Attachment> elements
+
+  Requires the shadcn recipes avatar and badge (installed from the shadcn kit).
+#}
+{%- props actor = null, action = null, target = null, time = null, datetime = null, avatar = null, initials = null, icon = null -%}
+{%- set description -%}{% block content %}{% endblock %}{%- endset -%}
+{%- set files -%}{% block attachments %}{% endblock %}{%- endset -%}
+<li {{ attributes.defaults({class: 'group relative flex gap-3 pb-6 last:pb-0'}) }}>
+    <span class="absolute left-4 top-9 -ml-px h-[calc(100%-2.25rem)] w-px bg-border group-last:hidden" aria-hidden="true"></span>
+    {%- if icon %}
+        <span class="relative flex size-8 shrink-0 items-center justify-center rounded-full border border-border bg-muted text-muted-foreground">
+            <twig:ux:icon :name="icon" class="size-4" aria-hidden="true" />
+        </span>
+    {%- else %}
+        <twig:Avatar class="relative" aria-hidden="true">
+            {%- if avatar %}<twig:Avatar:Image src="{{ avatar }}" />{% endif %}
+            <twig:Avatar:Fallback class="text-xs font-medium">{{ initials ?? ((actor ?? '?')|slice(0, 2)|upper) }}</twig:Avatar:Fallback>
+        </twig:Avatar>
+    {%- endif %}
+    <div class="grid min-w-0 flex-1 content-start gap-1.5 pt-1">
+        <p class="text-sm text-foreground">
+            {%- if actor %}<span class="font-medium">{{ actor }}</span> {% endif -%}
+            {%- if action %}<span class="text-muted-foreground">{{ action }}</span>{% endif -%}
+            {%- if target %} <span class="font-medium">{{ target }}</span>{% endif -%}
+            {%- if time %}<time class="ml-2 whitespace-nowrap text-xs text-muted-foreground"{% if datetime %} datetime="{{ datetime }}"{% endif %}>{{ time }}</time>{% endif -%}
+        </p>
+        {%- if description|trim is not empty %}
+            <div class="rounded-lg border border-border bg-muted/40 px-3 py-2 text-sm text-muted-foreground">{{ description }}</div>
+        {%- endif %}
+        {%- if files|trim is not empty %}<ul class="flex flex-wrap gap-2">{{ files }}</ul>{% endif %}
+    </div>
+</li>

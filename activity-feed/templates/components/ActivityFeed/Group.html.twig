@@ -1,0 +1,15 @@
+{#
+  ActivityFeed:Group: a section of the feed, usually one day; the slot holds <twig:ActivityFeed:Item> elements.
+
+  Props
+    label  heading of the group ("Today"); without it the group is a plain list
+    tag    h2 | h3 | h4 (default h3)
+#}
+{%- props label = null, tag = 'h3' -%}
+{%- set heading = tag in ['h2', 'h3', 'h4'] ? tag : 'h3' -%}
+<section {{ attributes.defaults({class: 'grid gap-3'}) }}>
+    {%- if label %}<{{ heading }} class="text-xs font-medium uppercase tracking-wide text-muted-foreground">{{ label }}</{{ heading }}>{% endif %}
+    <ol class="grid">
+        {%- block content %}{% endblock -%}
+    </ol>
+</section>

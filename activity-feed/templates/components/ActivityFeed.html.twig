@@ -1,80 +1,12 @@
 {#
   ActivityFeed: chronological log of events, optionally grouped by day, with a connector line.
 
-  Props
-    groups    list of {label, items}; label is the day heading ("Today"). Without labels the feed is one list
-    items     flat list of items, used when `groups` is empty
-    groupTag  h2 | h3 | h4 (default h3)
-
-  An item is {actor, action, target, description, time, datetime, avatar, initials, icon, attachments}
-    actor        who did it (bold)
-    action       what happened ("commented on")
-    target       what it happened to (bold)
-    description  text under the line, for a comment or a note
-    time         time as displayed ("2 h ago")
-    datetime     machine-readable date for the <time> element (ISO 8601)
-    avatar       image URL of the actor
-    initials     shown when there is no avatar
-    icon         Symfony UX Icons name, for a system event (replaces the avatar)
-    attachments  list of {name, href, size}
-
-  The slot is shown under the list: a "Load more" button.
+  Slots
+    (default)  <twig:ActivityFeed:Group> elements (one per day, or a single one without label)
+    more       shown under the list: a "Load more" button
 #}
-{%- props groups = [], items = [], groupTag = 'h3' -%}
-{%- set tag = groupTag in ['h2', 'h3', 'h4'] ? groupTag : 'h3' -%}
-{%- set sections = groups ?: (items ? [{label: null, items: items}] : []) -%}
-{%- set more -%}{% block content %}{% endblock %}{%- endset -%}
-<div {{ attributes.defaults({class: ('grid gap-6 ')|tailwind_classes}) }}>
-    {%- for group in sections %}
-        <section class="grid gap-3">
-            {%- if group.label %}<{{ tag }} class="text-xs font-medium uppercase tracking-wide text-muted-foreground">{{ group.label }}</{{ tag }}>{% endif %}
-            <ol class="grid">
-                {%- for item in group.items %}
-                    <li class="relative flex gap-3 pb-6 last:pb-0">
-                        {%- if not loop.last %}<span class="absolute left-4 top-9 -ml-px h-[calc(100%-2.25rem)] w-px bg-border" aria-hidden="true"></span>{% endif %}
-                        {%- if item.icon is defined and item.icon %}
-                            <span class="relative flex size-8 shrink-0 items-center justify-center rounded-full border border-border bg-muted text-muted-foreground">
-                                <twig:ux:icon :name="item.icon" class="size-4" aria-hidden="true" />
-                            </span>
-                        {%- elseif item.avatar is defined and item.avatar %}
-                            <img src="{{ item.avatar }}" alt="" class="relative size-8 shrink-0 rounded-full border border-border object-cover">
-                        {%- else %}
-                            <span class="relative flex size-8 shrink-0 items-center justify-center rounded-full border border-border bg-muted text-xs font-medium text-muted-foreground" aria-hidden="true">{{ item.initials ?? ((item.actor ?? '?')|slice(0, 2)|upper) }}</span>
-                        {%- endif %}
-                        <div class="grid min-w-0 flex-1 content-start gap-1.5 pt-1">
-                            <p class="text-sm text-foreground">
-                                {%- if item.actor is defined and item.actor %}<span class="font-medium">{{ item.actor }}</span> {% endif -%}
-                                {%- if item.action is defined %}<span class="text-muted-foreground">{{ item.action }}</span>{% endif -%}
-                                {%- if item.target is defined and item.target %} <span class="font-medium">{{ item.target }}</span>{% endif -%}
-                                {%- if item.time is defined and item.time %}
-                                    <time class="ml-2 whitespace-nowrap text-xs text-muted-foreground"{% if item.datetime is defined %} datetime="{{ item.datetime }}"{% endif %}>{{ item.time }}</time>
-                                {%- endif %}
-                            </p>
-                            {%- if item.description is defined and item.description %}
-                                <p class="rounded-lg border border-border bg-muted/40 px-3 py-2 text-sm text-muted-foreground">{{ item.description }}</p>
-                            {%- endif %}
-                            {%- if item.attachments is defined and item.attachments %}
-                                <ul class="flex flex-wrap gap-2">
-                                    {%- for file in item.attachments %}
-                                        <li>
-                                            {%- set file_label -%}
-                                                <twig:ux:icon name="lucide:paperclip" class="size-3.5 text-muted-foreground" aria-hidden="true" />
-                                                {{ file.name }}{% if file.size is defined and file.size %} <span class="text-muted-foreground">{{ file.size }}</span>{% endif %}
-                                            {%- endset -%}
-                                            {%- if file.href is defined and file.href %}
-                                                <a href="{{ file.href }}" class="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1 text-xs outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring">{{ file_label }}</a>
-                                            {%- else %}
-                                                <span class="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1 text-xs">{{ file_label }}</span>
-                                            {%- endif %}
-                                        </li>
-                                    {%- endfor %}
-                                </ul>
-                            {%- endif %}
-                        </div>
-                    </li>
-                {%- endfor %}
-            </ol>
-        </section>
-    {%- endfor %}
+<div {{ attributes.defaults({class: 'grid gap-6'}) }}>
+    {%- block content %}{% endblock -%}
+    {%- set more -%}{% block more %}{% endblock %}{%- endset -%}
     {%- if more|trim is not empty %}<div class="flex justify-center">{{ more }}</div>{% endif %}
 </div>
