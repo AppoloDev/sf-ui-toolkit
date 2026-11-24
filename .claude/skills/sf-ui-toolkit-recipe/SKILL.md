@@ -13,14 +13,16 @@ The committed rules are in `CLAUDE.md` (language, commits, kit structure, docume
 2. **Manifest:** `python3 .claude/skills/sf-ui-toolkit-recipe/scripts/new-recipe.py <slug> <Name> "<description>" [--assets] [--icons] [--npm name@version]`.
 3. **Template:** `<slug>/templates/components/<Name>.html.twig` (sub-components in `<Name>/<Part>.html.twig`, used as `<twig:Name:Part>`). Start with a `{# ... #}` comment listing props and slots. Use `{%- props a = 1, b -%}`, `attributes.render('class')` for the extra class and `{{ attributes }}` on the root. Texts are props with English defaults; icons are `<twig:ux:icon name="lucide:...">`.
 4. **Stimulus controller** (only if needed): `<slug>/assets/controllers/<slug_with_underscores>_controller.js`. Texts come from Stimulus values, `{count}`-style placeholders are replaced in JS; dispatch events with `this.dispatch(...)`; load npm packages with a lazy `import()`.
-5. **Docs:** `docs/<slug>.md` with `# Title`, `> description`, `## Usage` (one ```twig block), `## Examples` (one `###` + one ```twig block each, self-contained: no shadcn `Button`, plain links with Tailwind classes; `<!-- height: N -->` for tall examples), `## Accessibility` (bullets) and `## API` (`### \`<twig:Name>\`` + `| Prop | Type | Default | Description |` table, no `|` inside cells).
+5. **Docs:** `docs/<slug>.md` with `# Title`, `> description`, `## Usage` (one ```twig block), `## Examples` (one `###` + one ```twig block each, use the shadcn kit components for controls (`<twig:Button>`, `<twig:Input>`, `<twig:Label>`, `<twig:Switch>`, `<twig:NativeSelect>`, `<twig:Checkbox>`, `<twig:Textarea>`; `as="a"` for links), they are available in the docs build; a forced width needs `!` (`class="w-56!"`); `<!-- height: N -->` for tall examples), `## Accessibility` (bullets) and `## API` (`### \`<twig:Name>\`` + `| Prop | Type | Default | Description |` table, no `|` inside cells).
 6. **README row:** `python3 .claude/skills/sf-ui-toolkit-recipe/scripts/readme-row.py <slug> "<description>"`.
 7. **Ship:** `.claude/skills/sf-ui-toolkit-recipe/scripts/ship.sh "Add <Name> component"` commits as the repository owner, pushes `main` and waits for the docs build. Fix and push again if it fails: the docs build in CI is the check.
 8. **Report:** what was added, what differs from what was expected, what was not verified.
 
 ## Add a block
 
-Same as a component, plus `--block` on `readme-row.py` and `<!-- kind: block -->` right after the `> description` line of the docs page. Blocks are layout only: actions are slots, data comes from props. Their manifests keep `"type": "component"`.
+Same as a component, plus `--block` on `readme-row.py`, and `"type": "block"` in the manifest (the docs read the kind from it, there is no marker in the page). Blocks are layout only: actions are slots, data comes from props, so the recipes do not depend on shadcn components (only their docs examples use them).
+
+Templates merge classes with `attributes.defaults({class: (...)|tailwind_classes})` and use `html_cva(base:, variants:)` with `style.apply({...})|tailwind_classes` for variants, like the shadcn kit; add `twig/extra-bundle`, `twig/html-extra:^3.24.0` and `tales-from-a-dev/twig-tailwind-extra:^1.3.0` to `dependencies.composer`. Use `%COMPONENTS_DIR%/` and `%CONTROLLERS_DIR%/` in `copy-files` (`"templates/components/": "%COMPONENTS_DIR%/"`). Npm packages go in `dependencies.npm`, other recipes in `dependencies.recipe`.
 
 ## Component with JavaScript packages
 
