@@ -1,7 +1,7 @@
 {
     "type": "block",
     "name": "Faq",
-    "description": "Frequently asked questions as a native accordion: single or split layout, multiple or exclusive answers, optional FAQPage structured data.",
+    "description": "Frequently asked questions built on the shadcn Accordion: single or split layout, multiple or exclusive answers, optional FAQPage microdata.",
     "copy-files": {
         "templates/components/": "%COMPONENTS_DIR%/"
     },
@@ -10,7 +10,8 @@
             "symfony/ux-icons",
             "twig/extra-bundle",
             "twig/html-extra:^3.24.0",
-            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0",
+            "symfony/ux-twig-component:^3.5"
         ]
     }
 }

@@ -1,24 +1,30 @@
 {#
-  Faq: frequently asked questions as a native accordion (<details>): no JavaScript.
+  Faq: frequently asked questions, built on the shadcn Accordion.
 
   Props
-    items           list of {question, answer, open?}; answers are escaped, pass markup marked safe (`'<b>x</b>'|raw`) for rich text
     title           heading of the section
     description     text under the heading
     layout          single (centered column) | split (intro on the left, list on the right)
-    multiple        several answers can be open at once; false closes the others (same-name <details>)
-    name            group name used when `multiple` is false (unique per page; random when omitted)
-    structuredData  adds the schema.org FAQPage JSON-LD for search engines
+    multiple        several answers can be open at once; false closes the others
+    id              id of the accordion (random when omitted; unique per page)
+    structuredData  marks the questions up with schema.org FAQPage microdata for search engines
     titleTag        h2 | h3 | h4 (default h2)
 
-  The slot is shown under the list (single) or the intro (split): a support call-to-action.
+  Slots
+    (default)       <twig:Faq:Item question="..."> elements; the item slot is the answer
+    footer          shown under the list (single) or the intro (split): a support call-to-action
+
+  Requires the shadcn recipe accordion (installed from the shadcn kit).
 #}
-{%- props items = [], title = null, description = null, layout = 'single', multiple = true, name = null, structuredData = false, titleTag = 'h2' -%}
+{%- props title = null, description = null, layout = 'single', multiple = true, id = null, structuredData = false, titleTag = 'h2' -%}
 {%- set tag = titleTag in ['h2', 'h3', 'h4'] ? titleTag : 'h2' -%}
 {%- set split = layout == 'split' -%}
-{%- set group = multiple ? null : (name ?? ('faq-' ~ random(1000000))) -%}
-{%- set footer -%}{% block content %}{% endblock %}{%- endset -%}
-<section {{ attributes.defaults({class: ('grid gap-8 ' ~ (split ? 'lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-12' : 'mx-auto max-w-3xl'))|tailwind_classes}) }}>
+{%- set accordion_id = id ?? ('faq-' ~ random(1000000)) -%}
+{%- do provide('faq.structured', structuredData) -%}
+{%- set list -%}{% block content %}{% endblock %}{%- endset -%}
+{%- set footer -%}{% block footer %}{% endblock %}{%- endset -%}
+{%- set root = {class: ('grid gap-8 ' ~ (split ? 'lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-12' : 'mx-auto max-w-3xl'))|tailwind_classes} -%}
+<section {{ attributes.defaults(structuredData ? root|merge({itemscope: true, itemtype: 'https://schema.org/FAQPage'}) : root) }}>
     {%- if title or description or (split and footer|trim is not empty) %}
         <header class="grid content-start gap-3 {{ split ? 'lg:sticky lg:top-8 lg:self-start' : 'text-center' }}">
             {%- if title %}<{{ tag }} class="text-2xl font-semibold tracking-tight text-foreground">{{ title }}</{{ tag }}>{% endif %}
@@ -27,24 +33,9 @@
         </header>
     {%- endif %}
     <div>
-        <div class="divide-y divide-border border-y border-border">
-            {%- for item in items %}
-                <details class="group" {% if group %}name="{{ group }}" {% endif %}{{ item.open ?? false ? 'open' }}>
-                    <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-left text-sm font-medium text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
-                        {{ item.question }}
-                        <twig:ux:icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" aria-hidden="true" />
-                    </summary>
-                    <div class="pb-4 pr-8 text-sm text-muted-foreground">{{ item.answer }}</div>
-                </details>
-            {%- endfor %}
-        </div>
+        <twig:Accordion :id="accordion_id" :multiple="multiple" class="border-y border-border">
+            {{ list }}
+        </twig:Accordion>
         {%- if not split and footer|trim is not empty %}<div class="mt-8">{{ footer }}</div>{% endif %}
     </div>
-    {%- if structuredData %}
-        {%- set entities = [] -%}
-        {%- for item in items %}
-            {%- set entities = entities|merge([{'@type': 'Question', 'name': item.question|striptags, 'acceptedAnswer': {'@type': 'Answer', 'text': item.answer|striptags}}]) -%}
-        {%- endfor %}
-        <script type="application/ld+json">{{ {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': entities}|json_encode(constant('JSON_HEX_TAG') b-or constant('JSON_UNESCAPED_UNICODE'))|raw }}</script>
-    {%- endif %}
 </section>

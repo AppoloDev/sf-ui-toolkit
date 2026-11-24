@@ -1,0 +1,20 @@
+{#
+  Faq:Item: a question of a <twig:Faq>; the slot is the answer.
+
+  Props
+    question  text of the question
+    value     identifier of the item (derived from the question when omitted; unique within the FAQ)
+    open      open from the start
+#}
+{%- props question, value = null, open = false -%}
+{%- set structured = inject('faq.structured', false) -%}
+{%- set key = value ?? (question|striptags|lower|url_encode|replace({'%': ''})) -%}
+{%- set answer -%}{% block content %}{% endblock %}{%- endset -%}
+{%- set item_data = structured ? {itemscope: true, itemprop: 'mainEntity', itemtype: 'https://schema.org/Question'} : {} -%}
+{%- set name_data = structured ? {itemprop: 'name'} : {} -%}
+{%- set answer_data = structured ? {itemscope: true, itemprop: 'acceptedAnswer', itemtype: 'https://schema.org/Answer'} : {} -%}
+{%- set text_data = structured ? {itemprop: 'text'} : {} -%}
+<twig:Accordion:Item :value="key" :open="open" {{ ...item_data }} {{ ...attributes.without('class') }}>
+    <twig:Accordion:Trigger><span {{ ...name_data }}>{{ question }}</span></twig:Accordion:Trigger>
+    <twig:Accordion:Content {{ ...answer_data }}><div {{ ...text_data }}>{{ answer }}</div></twig:Accordion:Content>
+</twig:Accordion:Item>
