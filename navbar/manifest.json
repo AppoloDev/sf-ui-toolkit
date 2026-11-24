@@ -1,7 +1,7 @@
 {
     "type": "block",
     "name": "Navbar",
-    "description": "Application bar with start, center and end areas, an optional row of tabs, sticky and bordered options, and link items with active state and count.",
+    "description": "Application bar with start, center and end areas, an optional row of tabs, sticky and bordered options, and link items with active state.",
     "copy-files": {
         "templates/components/": "%COMPONENTS_DIR%/"
     },

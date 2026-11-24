@@ -1,6 +1,10 @@
 # Navbar
 
-> Application bar with start, center and end areas, an optional row of tabs, sticky and bordered options, and link items with active state and count.
+> Application bar with start, center and end areas, an optional row of tabs, sticky and bordered options, and link items with active state.
+
+## Installation
+
+- badge
 
 ## Usage
 
@@ -42,15 +46,15 @@ The default slot takes the remaining width. Wrap the links in a named `nav`.
 
 ### Tabs row with counts
 
-The `tabs` block is a second row under the bar, for `variant="tab"` links; `count` shows a figure after the text.
+The `tabs` block is a second row under the bar, for `variant="tab"` links; a count is a shadcn `Badge` placed in the link, so its variant and color are yours to choose.
 
 ```twig
 <twig:Navbar>
     <twig:block name="start"><span class="text-sm font-semibold">Apollo / Website redesign</span></twig:block>
     <twig:block name="end"><twig:Button as="a" href="#">Create task</twig:Button></twig:block>
     <twig:block name="tabs">
-        <twig:Navbar:Link variant="tab" href="#" active :count="24">Tasks</twig:Navbar:Link>
-        <twig:Navbar:Link variant="tab" href="#" :count="3">Reviews</twig:Navbar:Link>
+        <twig:Navbar:Link variant="tab" href="#" active>Tasks <twig:Badge variant="secondary">24</twig:Badge></twig:Navbar:Link>
+        <twig:Navbar:Link variant="tab" href="#" >Reviews <twig:Badge variant="destructive">3</twig:Badge></twig:Navbar:Link>
         <twig:Navbar:Link variant="tab" href="#">Files</twig:Navbar:Link>
         <twig:Navbar:Link variant="tab" href="#">Settings</twig:Navbar:Link>
     </twig:block>
@@ -101,6 +105,5 @@ Blocks: `start` (brand, breadcrumb), the default slot (takes the remaining width
 | `active` | bool | `false` | Current page: `aria-current="page"` and the active style. |
 | `variant` | `pill`, `tab` | `pill` | Rounded link for the bar, or underlined link for the tabs row. |
 | `icon` | string | `null` | Symfony UX Icons name shown before the text. |
-| `count` | string or number | `null` | Small figure after the text. |
 
 The default slot is the text of the link.

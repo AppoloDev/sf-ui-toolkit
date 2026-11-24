@@ -6,11 +6,10 @@
     active   current page: sets aria-current="page" and the active style
     variant  pill (default, for links in the bar) | tab (underlined, for the tabs row)
     icon     Symfony UX Icons name shown before the text
-    count    small figure after the text (a count of items)
 
-  The slot is the text of the link.
+  The slot is the text of the link; it can also hold a shadcn Badge for a count (`Tasks <twig:Badge variant="secondary">24</twig:Badge>`).
 #}
-{%- props href = '#', active = false, variant = 'pill', icon = null, count = null -%}
+{%- props href = '#', active = false, variant = 'pill', icon = null -%}
 {%- set style = html_cva(
     base: 'inline-flex items-center gap-2 whitespace-nowrap text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring',
     variants: {
@@ -25,5 +24,4 @@
 <a href="{{ href }}" {% if active %}aria-current="page"{% endif %} {{ attributes.defaults({class: style.apply({state: (variant == 'tab' ? 'tab' : 'pill') ~ (active ? '-active' : '-idle')})|tailwind_classes}) }}>
     {%- if icon %}<twig:ux:icon :name="icon" class="size-4" aria-hidden="true" />{% endif %}
     {%- block content %}{% endblock %}
-    {%- if count is not null %}<span class="rounded-full bg-muted px-1.5 text-xs tabular-nums text-muted-foreground">{{ count }}</span>{% endif %}
 </a>
