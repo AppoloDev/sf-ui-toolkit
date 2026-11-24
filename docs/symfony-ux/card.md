@@ -339,8 +339,10 @@ The `Card` clips its content, so the two layers behind it are siblings of the ca
 
 ```twig
 <div class="relative isolate mx-auto max-w-sm pb-4">
-    <div class="absolute inset-x-6 top-4 bottom-0 -z-20 rounded-xl bg-card ring-1 ring-foreground/10"></div>
-    <div class="absolute inset-x-3 top-2 bottom-2 -z-10 rounded-xl bg-card ring-1 ring-foreground/10"></div>
+    <div class="absolute inset-x-6 top-4 bottom-0 -z-20 rounded-xl bg-card ring-1 ring-foreground/10">
+    </div>
+    <div class="absolute inset-x-3 top-2 bottom-2 -z-10 rounded-xl bg-card ring-1 ring-foreground/10">
+    </div>
     <twig:Card>
         <twig:Card:Header>
             <twig:Card:Title>
