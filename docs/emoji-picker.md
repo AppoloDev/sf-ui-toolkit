@@ -2,9 +2,14 @@
 
 > Searchable emoji grid in a popover or inline, with categories, skin tones and recents.
 
-## Usage
+## Installation
 
-The panel is the shadcn `Popover`, with its `Button`, `Input` and `NativeSelect`: install them first with `php bin/console ux:install popover button input native-select --kit=shadcn`.
+- popover
+- button
+- input
+- native-select
+
+## Usage
 
 ```twig
 <twig:EmojiPicker name="reaction" />

@@ -2,9 +2,13 @@
 
 > Typed time field with a popover of scrollable columns (hours, minutes, seconds, AM/PM), steps, min/max and 12/24h display.
 
-## Usage
+## Installation
 
-The field is the shadcn `InputGroup` and the panel its `Popover`: install them first with `php bin/console ux:install popover input-group button --kit=shadcn`.
+- popover
+- input-group
+- button
+
+## Usage
 
 ```twig
 <twig:TimePicker name="starts_at" value="09:30" label="Start time" />

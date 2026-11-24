@@ -19,14 +19,12 @@ Components that display icons use [Symfony UX Icons](https://symfony.com/bundles
 
 ## Requirements
 
-Some components are built on components of the official `shadcn` kit rather than reimplementing them (a popover panel, a button...). Their documentation page lists what to install first, for example:
+Some components are built on components of the official `shadcn` kit rather than reimplementing them (a popover panel, a button...). A recipe cannot depend on another kit, so the Installation section of their documentation page lists the shadcn components to install first, for example:
 
 ```bash
 php bin/console ux:install popover button --kit=shadcn
 php bin/console ux:install cascader --kit=github.com/AppoloDev/sf-ui-toolkit
 ```
-
-Currently: `cascader` needs `popover` and `button`.
 
 ## Translations
 

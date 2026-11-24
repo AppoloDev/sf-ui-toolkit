@@ -2,9 +2,12 @@
 
 > Pick a value in a hierarchy through columns or one level at a time, with search, single or multiple choice.
 
-## Usage
+## Installation
 
-The panel is the shadcn `Popover` and the trigger its `Button`: install them from the shadcn kit first with `php bin/console ux:install popover button --kit=shadcn` (a recipe cannot depend on another kit).
+- popover
+- button
+
+## Usage
 
 ```twig
 <twig:Cascader name="category">

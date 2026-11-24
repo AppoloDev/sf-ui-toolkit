@@ -185,7 +185,7 @@ final class BuildDocsCommand extends Command
      */
     private function parse(string $markdown): array
     {
-        $page = ['title' => 'Untitled', 'kind' => 'component', 'description' => '', 'usage' => null, 'examples' => [], 'extending' => [], 'accessibility' => [], 'api' => []];
+        $page = ['title' => 'Untitled', 'kind' => 'component', 'description' => '', 'usage' => null, 'examples' => [], 'extending' => [], 'shadcn' => [], 'accessibility' => [], 'api' => []];
 
         $tokens = preg_split('/^(#{1,3}) +(.+)$/m', $markdown, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
         $part = null;
@@ -207,6 +207,9 @@ final class BuildDocsCommand extends Command
                     $page['usage'] = $this->block($body);
                 } elseif ('extending' === $part) {
                     $page['extending'][] = ['title' => null] + $this->section($body);
+                } elseif ('installation' === $part) {
+                    preg_match_all('/^- `?([\w-]+)`?\s*$/m', $body, $recipes);
+                    $page['shadcn'] = $recipes[1];
                 } elseif ('accessibility' === $part) {
                     preg_match_all('/^- (.+)$/m', $body, $items);
                     $page['accessibility'] = array_map($this->inline(...), $items[1]);

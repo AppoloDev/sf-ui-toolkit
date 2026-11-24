@@ -24,6 +24,10 @@
             <button type="button" role="tab" data-tab="manual" aria-selected="false" class="-mb-px border-b-2 border-transparent px-3 py-2 aria-selected:border-foreground aria-selected:font-medium">Manual</button>
         </div>
         <div data-panel="auto" class="pt-4">
+            {% if page.shadcn %}
+                <p class="mb-2 text-sm text-muted-foreground">This {{ page.kind }} is built on components of the official shadcn kit (a recipe cannot depend on another kit): install them first.</p>
+                <pre class="mb-4 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>php bin/console ux:install {{ page.shadcn|join(' ') }} --kit=shadcn</code></pre>
+            {% endif %}
             <pre class="overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"><code>{{ page.install.command }}</code></pre>
             {% if page.install.npm %}
                 <p class="mt-3 text-sm text-muted-foreground">This component needs JavaScript packages. With AssetMapper, add them to your import map:</p>
@@ -31,6 +35,14 @@
             {% endif %}
         </div>
         <div data-panel="manual" class="space-y-4 pt-4" hidden>
+            {% if page.shadcn %}
+                <div>
+                    <p class="text-sm font-medium">Components of the shadcn kit</p>
+                    <ul class="mt-2 space-y-1 text-sm">
+                        {% for recipe in page.shadcn %}<li><code class="rounded bg-muted px-1.5 py-0.5">{{ recipe }}</code></li>{% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
             {% if page.install.composer %}
                 <div>
                     <p class="text-sm font-medium">Composer packages</p>

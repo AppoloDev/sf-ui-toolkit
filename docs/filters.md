@@ -2,9 +2,15 @@
 
 > Schema-driven filter bar: chips with operator and value editors, add and clear, state carried in the URL query.
 
-## Usage
+## Installation
 
-The bar is built on the shadcn `Popover`, `Button`, `Input`, `NativeSelect` and `Checkbox`: install them first with `php bin/console ux:install popover button input native-select checkbox --kit=shadcn`.
+- popover
+- button
+- input
+- native-select
+- checkbox
+
+## Usage
 
 ```twig
 <twig:Filters>

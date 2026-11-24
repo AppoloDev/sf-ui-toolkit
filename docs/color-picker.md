@@ -2,9 +2,13 @@
 
 > Color field with a popover: saturation/brightness area, hue and opacity sliders, typed CSS colors, swatches and eye dropper.
 
-## Usage
+## Installation
 
-The panel is the shadcn `Popover`, with its `Button` and `Input`: install them first with `php bin/console ux:install popover button input --kit=shadcn`.
+- popover
+- button
+- input
+
+## Usage
 
 ```twig
 <twig:ColorPicker name="brand_color" value="#3b82f6" />
