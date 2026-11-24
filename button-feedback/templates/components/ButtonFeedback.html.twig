@@ -1,0 +1,60 @@
+{#
+ # A `Button` with four states around an action: idle, pending, done and failed.
+ #
+ # Props: action, text, from, url, method, duration, variant, size, doneAnnouncement, failedAnnouncement.
+ # Blocks: default (idle), pending, done, failed. A block left out gets an icon: a spinner, a check, a cross.
+ #}
+{%- props
+    ## 'copy'|'request' What a click does: copy a text to the clipboard, or send a request and wait for the answer.
+    action = 'copy',
+    ## string|null The text to copy.
+    text = null,
+    ## string|null A CSS selector for the element to copy: its value for a field, its text otherwise. Used when `text` is `null`.
+    from = null,
+    ## string|null The URL of the request, for the `request` action.
+    url = null,
+    ## string The HTTP method of the request.
+    method = 'GET',
+    ## int How long, in milliseconds, the done and failed states stay before the button goes back to idle.
+    duration = 2000,
+    ## 'default'|'secondary'|'destructive'|'outline'|'ghost'|'link' The visual style variant of the button.
+    variant = 'outline',
+    ## 'default'|'xs'|'sm'|'lg'|'icon'|'icon-xs'|'icon-sm'|'icon-lg' The size of the button.
+    size = 'default',
+    ## string What is announced to screen readers when the action succeeds.
+    doneAnnouncement = 'Done',
+    ## string What is announced to screen readers when the action fails.
+    failedAnnouncement = 'Failed'
+-%}
+{%- set _data = {
+    'data-slot': 'button-feedback',
+    'data-controller': 'button-feedback',
+    'data-state': 'idle',
+    'data-action': 'click->button-feedback#' ~ (action == 'request' ? 'run' : 'copy'),
+    'data-button-feedback-duration-value': duration,
+    'data-button-feedback-method-value': method,
+    'data-button-feedback-done-announcement-value': doneAnnouncement,
+    'data-button-feedback-failed-announcement-value': failedAnnouncement,
+} -%}
+{%- if text is not null %}{% set _data = _data|merge({'data-button-feedback-text-value': text}) %}{% endif -%}
+{%- if from is not null %}{% set _data = _data|merge({'data-button-feedback-from-value': from}) %}{% endif -%}
+{%- if url is not null %}{% set _data = _data|merge({'data-button-feedback-url-value': url}) %}{% endif -%}
+<twig:Button
+    :variant="variant"
+    :size="size"
+    {{ ...attributes.defaults(_data) }}
+>
+    <span data-state-view="idle" class="contents">
+        {{- block(outerBlocks.content) -}}
+    </span>
+    <span data-state-view="pending" class="contents" hidden>
+        {%- if outerBlocks.pending is defined %}{{ block(outerBlocks.pending) }}{% else %}<twig:ux:icon name="lucide:loader-circle" class="animate-spin" aria-hidden="true" />{% endif -%}
+    </span>
+    <span data-state-view="done" class="contents" hidden>
+        {%- if outerBlocks.done is defined %}{{ block(outerBlocks.done) }}{% else %}<twig:ux:icon name="lucide:check" aria-hidden="true" />{% endif -%}
+    </span>
+    <span data-state-view="failed" class="contents" hidden>
+        {%- if outerBlocks.failed is defined %}{{ block(outerBlocks.failed) }}{% else %}<twig:ux:icon name="lucide:x" aria-hidden="true" />{% endif -%}
+    </span>
+    <span data-button-feedback-target="status" role="status" class="sr-only"></span>
+</twig:Button>

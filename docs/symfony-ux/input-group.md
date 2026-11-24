@@ -283,7 +283,7 @@ An editable link with an access menu and a copy button.
 ```twig
 <div style="min-height: 240px">
     <twig:InputGroup class="max-w-md">
-        <twig:InputGroup:Input value="https://example.com/s/abc123" />
+        <twig:InputGroup:Input id="share-link" value="https://example.com/s/abc123" />
         <twig:InputGroup:Addon align="inline-end">
             <twig:DropdownMenu id="input-group-access" align="end">
                 <twig:DropdownMenu:Trigger>
@@ -306,9 +306,9 @@ An editable link with an access menu and a copy button.
                     </twig:DropdownMenu:RadioGroup>
                 </twig:DropdownMenu:Content>
             </twig:DropdownMenu>
-            <twig:InputGroup:Button variant="ghost" size="icon-xs" aria-label="Copy">
+            <twig:ButtonFeedback from="#share-link" variant="ghost" size="icon-xs" aria-label="Copy the link" doneAnnouncement="Link copied">
                 <twig:ux:icon name="lucide:copy" />
-            </twig:InputGroup:Button>
+            </twig:ButtonFeedback>
         </twig:InputGroup:Addon>
     </twig:InputGroup>
 </div>
