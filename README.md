@@ -40,7 +40,7 @@ The props of each component are listed in its documentation.
 
 | Component | Description | Docs |
 |---|---|---|
-| `alert` | The shadcn Alert with info, success, warning and invert variants. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/alert.html) |
+| `alert` | The shadcn Alert with info, success, warning and invert variants, in solid or light appearance. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/alert.html) |
 | `badge` | The shadcn Badge with success, info and warning colors, solid, outline and light appearances, sizes and radius. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/badge.html) |
 | `cascader` | Pick a value in a hierarchy through columns or one level at a time, with search, single or multiple choice. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/cascader.html) |
 | `color-picker` | Color field with a popover: saturation/brightness area, hue and opacity sliders, typed CSS colors, swatches and eye dropper. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/color-picker.html) |

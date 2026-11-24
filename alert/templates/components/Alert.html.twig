@@ -1,29 +1,49 @@
 {#- Override of the shadcn Alert (same file name, so installing this recipe replaces it): default and destructive
-    are unchanged; info, success, warning and invert are added. Alert:Title, Alert:Description and Alert:Action
-    come from the official `alert` recipe. -#}
+    are unchanged; info, success, warning and invert variants and the appearance prop are added.
+    Alert:Title, Alert:Description and Alert:Action come from the official `alert` recipe. -#}
 {%- props
-    ## 'default'|'destructive'|'info'|'success'|'warning'|'invert' The visual style variant.
-    variant = 'default'
+    ## 'default'|'destructive'|'info'|'success'|'warning'|'invert' The color of the alert.
+    variant = 'default',
+    ## null|'solid'|'light' How the color is drawn; null is the kit style: a card for default and destructive, a tint for info, success and warning. Ignored by invert.
+    appearance = null
 -%}
-{%- set style = html_cva(
-    base: "group/alert relative grid w-full gap-0.5 rounded-lg border px-2.5 py-2 text-start text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pe-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4",
-    variants: {
-        variant: {
-            default: 'bg-card text-card-foreground',
-            destructive: 'bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current',
-            info: 'border-sky-500/30 bg-sky-500/10 text-sky-800 *:data-[slot=alert-description]:text-sky-800/85 dark:text-sky-200 dark:*:data-[slot=alert-description]:text-sky-200/85',
-            success: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-800 *:data-[slot=alert-description]:text-emerald-800/85 dark:text-emerald-200 dark:*:data-[slot=alert-description]:text-emerald-200/85',
-            warning: 'border-amber-500/40 bg-amber-500/10 text-amber-900 *:data-[slot=alert-description]:text-amber-900/85 dark:text-amber-200 dark:*:data-[slot=alert-description]:text-amber-200/85',
-            invert: 'border-transparent bg-foreground text-background *:data-[slot=alert-description]:text-background/75',
-        },
+{%- set colors = {
+    default: {
+        base: 'bg-card text-card-foreground',
+        light: 'border-primary/30 bg-primary/10 text-primary *:data-[slot=alert-description]:text-primary/85',
+        solid: 'border-transparent bg-primary text-primary-foreground *:data-[slot=alert-description]:text-primary-foreground/80',
     },
-) -%}
+    destructive: {
+        base: 'bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current',
+        light: 'border-destructive/30 bg-destructive/10 text-destructive *:data-[slot=alert-description]:text-destructive/85',
+        solid: 'border-transparent bg-destructive text-white *:data-[slot=alert-description]:text-white/85',
+    },
+    info: {
+        light: 'border-sky-500/30 bg-sky-500/10 text-sky-800 *:data-[slot=alert-description]:text-sky-800/85 dark:text-sky-200 dark:*:data-[slot=alert-description]:text-sky-200/85',
+        solid: 'border-transparent bg-sky-600 text-white *:data-[slot=alert-description]:text-white/85',
+    },
+    success: {
+        light: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-800 *:data-[slot=alert-description]:text-emerald-800/85 dark:text-emerald-200 dark:*:data-[slot=alert-description]:text-emerald-200/85',
+        solid: 'border-transparent bg-emerald-600 text-white *:data-[slot=alert-description]:text-white/85',
+    },
+    warning: {
+        light: 'border-amber-500/40 bg-amber-500/10 text-amber-900 *:data-[slot=alert-description]:text-amber-900/85 dark:text-amber-200 dark:*:data-[slot=alert-description]:text-amber-200/85',
+        solid: 'border-transparent bg-amber-500 text-amber-950 *:data-[slot=alert-description]:text-amber-950/80',
+    },
+    invert: {
+        base: 'border-transparent bg-foreground text-background *:data-[slot=alert-description]:text-background/75',
+    },
+} -%}
+{%- set mode = appearance ?? (variant in ['default', 'destructive', 'invert'] ? 'base' : 'light') -%}
+{%- set tone = colors[variant][mode] ?? colors[variant].base ?? colors[variant].light ?? colors.default.base -%}
+{%- set classes = "group/alert relative grid w-full gap-0.5 rounded-lg border px-2.5 py-2 text-start text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pe-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4" -%}
 
 <div
     data-slot="alert"
     role="alert"
+    data-variant="{{ variant }}"
     {{ attributes.defaults({
-        class: style.apply({variant: variant})|tailwind_classes,
+        class: (classes ~ ' ' ~ tone)|tailwind_classes,
     }) }}
 >
     {##- The alert content, typically includes `Alert:Title` and `Alert:Description`. -#}

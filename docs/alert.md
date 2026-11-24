@@ -1,8 +1,8 @@
 # Alert
 
-> The shadcn Alert with info, success, warning and invert variants.
+> The shadcn Alert with info, success, warning and invert variants, in solid or light appearance.
 
-<!-- order: Default, Basic, Title and Description, Leading Icon, Destructive, Info, Success, Warning, Invert, All variants, Action, Icon and Actions, Title and Actions, Pro upsell, Payment Failure, Direct Message, Urgent Billing, Service Status, Custom Colors -->
+<!-- order: Default, Basic, Title and Description, Leading Icon, Destructive, Info, Success, Warning, Invert, Solid, Light, All variants, Action, Icon and Actions, Title and Actions, Pro upsell, Payment Failure, Direct Message, Urgent Billing, Service Status, Custom Colors -->
 
 ## Installation
 
@@ -75,6 +75,30 @@ A solid bar in the foreground color, readable in light and dark themes.
 </twig:Alert>
 ```
 
+### Solid
+
+`appearance="solid"` fills the alert with the color.
+
+```twig
+<div class="flex max-w-md flex-col gap-3">
+    {% for v in ['default', 'destructive', 'info', 'success', 'warning'] %}
+        <twig:Alert variant="{{ v }}" appearance="solid"><twig:ux:icon name="lucide:bell" /><twig:Alert:Title class="capitalize">{{ v }}</twig:Alert:Title><twig:Alert:Description>A short message.</twig:Alert:Description></twig:Alert>
+    {% endfor %}
+</div>
+```
+
+### Light
+
+`appearance="light"` is a soft tint. Info, success and warning are light by default; default and destructive are cards unless you ask for it.
+
+```twig
+<div class="flex max-w-md flex-col gap-3">
+    {% for v in ['default', 'destructive', 'info', 'success', 'warning'] %}
+        <twig:Alert variant="{{ v }}" appearance="light"><twig:ux:icon name="lucide:bell" /><twig:Alert:Title class="capitalize">{{ v }}</twig:Alert:Title><twig:Alert:Description>A short message.</twig:Alert:Description></twig:Alert>
+    {% endfor %}
+</div>
+```
+
 ### All variants
 
 ```twig
@@ -97,6 +121,7 @@ A solid bar in the foreground color, readable in light and dark themes.
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `variant` | `string` | `default` | `default`, `destructive`, `info`, `success`, `warning` or `invert`. |
+| `appearance` | `string` | `null` | `solid` or `light`. Without it: a card for default and destructive, a tint for info, success and warning. Ignored by invert. |
 
 | Block | Description |
 | --- | --- |

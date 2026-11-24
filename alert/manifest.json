@@ -1,7 +1,7 @@
 {
     "type": "component",
     "name": "Alert",
-    "description": "Alert override with info, success, warning and invert variants.",
+    "description": "Alert override with info, success, warning and invert variants, in solid or light appearance.",
     "copy-files": {
         "templates/components/": "%COMPONENTS_DIR%/"
     },
