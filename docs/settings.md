@@ -10,7 +10,7 @@ A page is `Settings`, holding `Settings:Section` elements, each holding `Setting
 <twig:Settings>
     <twig:Settings:Section title="Notifications" description="Choose what you hear about.">
         <twig:Settings:Row label="Email digest" description="A summary of the week, every Monday.">
-            <input type="checkbox" role="switch" aria-label="Email digest" checked>
+            <twig:Switch aria-label="Email digest" checked />
         </twig:Settings:Row>
     </twig:Settings:Section>
 </twig:Settings>
@@ -26,13 +26,13 @@ Rows hold any control. `for` turns the label into a real `<label>` of that contr
 <twig:Settings>
     <twig:Settings:Section title="Profile" description="How you appear to your team.">
         <twig:Settings:Row label="Display name" description="Shown on comments and mentions." for="display-name">
-            <input id="display-name" type="text" value="Ada Lovelace" class="h-9 w-56 rounded-md border border-border bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            <twig:Input id="display-name" value="Ada Lovelace" class="w-56!" />
         </twig:Settings:Row>
         <twig:Settings:Row label="Language" description="Used for dates and numbers." for="language">
-            <select id="language" class="h-9 rounded-md border border-border bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                <option>English</option>
-                <option>Français</option>
-            </select>
+            <twig:NativeSelect id="language">
+                <twig:NativeSelect:Option>English</twig:NativeSelect:Option>
+                <twig:NativeSelect:Option>Français</twig:NativeSelect:Option>
+            </twig:NativeSelect>
         </twig:Settings:Row>
         <twig:Settings:Row label="Priority support" description="Answers within two hours." badge="Pro">
             <span class="text-sm text-muted-foreground">Not on your plan</span>
@@ -41,7 +41,7 @@ Rows hold any control. `for` turns the label into a real `<label>` of that contr
 
     <twig:Settings:Section title="Danger zone">
         <twig:Settings:Row label="Delete account" description="Removes your data for good." danger>
-            <a href="#" class="inline-flex h-9 items-center rounded-md border border-destructive px-3 text-sm font-medium text-destructive hover:bg-muted">Delete</a>
+            <twig:Button as="a" href="#" variant="destructive">Delete</twig:Button>
         </twig:Settings:Row>
     </twig:Settings:Section>
 </twig:Settings>
@@ -61,17 +61,17 @@ The `nav` block puts a rail beside the content from the large breakpoint up, and
         </nav>
     </twig:block>
     <twig:Settings:Section id="profile" title="Profile" description="Your public information.">
-        <twig:block name="actions"><a href="#" class="inline-flex h-9 items-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground">Save</a></twig:block>
+        <twig:block name="actions"><twig:Button as="a" href="#">Save</twig:Button></twig:block>
         <twig:Settings:Row label="Username" for="username">
-            <input id="username" type="text" value="ada" class="h-9 w-48 rounded-md border border-border bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            <twig:Input id="username" value="ada" class="w-48!" />
         </twig:Settings:Row>
         <twig:Settings:Row label="Public profile" description="Anyone with the link can see it.">
-            <input type="checkbox" role="switch" aria-label="Public profile">
+            <twig:Switch aria-label="Public profile" />
         </twig:Settings:Row>
     </twig:Settings:Section>
     <twig:Settings:Section id="security" title="Security">
         <twig:Settings:Row label="Two-factor authentication" description="Ask for a code at sign-in." badge="Recommended">
-            <input type="checkbox" role="switch" aria-label="Two-factor authentication">
+            <twig:Switch aria-label="Two-factor authentication" />
         </twig:Settings:Row>
     </twig:Settings:Section>
 </twig:Settings>
@@ -85,10 +85,10 @@ The `nav` block puts a rail beside the content from the large breakpoint up, and
 <twig:Settings>
     <twig:Settings:Section title="Display" :framed="false">
         <twig:Settings:Row label="Compact mode" description="Tighter spacing in lists.">
-            <input type="checkbox" role="switch" aria-label="Compact mode">
+            <twig:Switch aria-label="Compact mode" />
         </twig:Settings:Row>
         <twig:Settings:Row label="Show avatars">
-            <input type="checkbox" role="switch" aria-label="Show avatars" checked>
+            <twig:Switch aria-label="Show avatars" checked />
         </twig:Settings:Row>
     </twig:Settings:Section>
 </twig:Settings>

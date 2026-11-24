@@ -44,8 +44,8 @@ The link button opens a small field under the toolbar to set or remove the link 
 <form class="grid gap-3" onsubmit="event.preventDefault(); this.querySelector('output').textContent = this.body.value">
     <twig:RichTextEditor name="body" required placeholder="Required" minHeight="min-h-24" />
     <div class="flex items-center gap-2">
-        <button type="submit" class="h-9 rounded-md bg-primary px-4 text-sm text-primary-foreground">Submit</button>
-        <button type="reset" class="h-9 rounded-md border border-border px-4 text-sm">Reset</button>
+        <twig:Button type="submit">Submit</twig:Button>
+        <twig:Button type="reset" variant="outline">Reset</twig:Button>
     </div>
     <output class="break-all font-mono text-xs text-muted-foreground"></output>
 </form>

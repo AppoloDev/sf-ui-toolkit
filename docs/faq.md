@@ -50,7 +50,7 @@ The intro sits on the left and stays in view while the list scrolls; the slot (h
     {question: 'Can I invite my team?', answer: 'Yes, unlimited members on every paid plan.'},
     {question: 'Is there an API?', answer: 'A REST API is included on all plans.'},
 ]">
-    <a href="#" class="inline-flex h-9 items-center rounded-md border border-border px-4 text-sm font-medium hover:bg-muted">Contact support</a>
+    <twig:Button as="a" href="#" variant="outline">Contact support</twig:Button>
 </twig:Faq>
 ```
 

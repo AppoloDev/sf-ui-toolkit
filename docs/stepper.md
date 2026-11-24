@@ -219,7 +219,7 @@ The `stepper:change` event is cancelable: call `preventDefault()` to refuse the 
         </twig:Stepper:Item>
     </twig:Stepper:Nav>
     <twig:Stepper:Content step="1">
-        <input name="name" required class="h-9 w-full rounded-md border border-border px-3 text-sm" placeholder="Required to continue">
+        <twig:Input name="name" required placeholder="Required to continue" />
     </twig:Stepper:Content>
     <twig:Stepper:Content step="2" class="text-sm">Thanks!</twig:Stepper:Content>
 </twig:Stepper>

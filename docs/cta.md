@@ -8,7 +8,7 @@ The component is layout only: actions are the slot, so use your own `Button` com
 
 ```twig
 <twig:Cta title="Ready to get started?" description="Create your account in a minute.">
-    <a href="#" class="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground">Get started</a>
+    <twig:Button as="a" href="#">Get started</twig:Button>
 </twig:Cta>
 ```
 
@@ -18,8 +18,8 @@ The component is layout only: actions are the slot, so use your own `Button` com
 
 ```twig
 <twig:Cta eyebrow="Free for 14 days" title="Build faster with your whole team" description="Plan, ship and review in one place. No credit card required.">
-    <a href="#" class="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground">Start for free</a>
-    <a href="#" class="inline-flex h-10 items-center rounded-md border border-border px-5 text-sm font-medium hover:bg-muted">Book a demo</a>
+    <twig:Button as="a" href="#">Start for free</twig:Button>
+    <twig:Button as="a" href="#" variant="outline">Book a demo</twig:Button>
 </twig:Cta>
 ```
 
@@ -29,8 +29,8 @@ The copy sits on the left and the actions on the right, for a banner at the end 
 
 ```twig
 <twig:Cta layout="inline" tone="muted" title="Talk to our sales team" description="Custom plans, volume pricing and onboarding for larger teams.">
-    <a href="#" class="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground">Contact sales</a>
-    <a href="#" class="inline-flex h-10 items-center rounded-md border border-border bg-background px-5 text-sm font-medium hover:bg-muted">View pricing</a>
+    <twig:Button as="a" href="#">Contact sales</twig:Button>
+    <twig:Button as="a" href="#" variant="outline">View pricing</twig:Button>
 </twig:Cta>
 ```
 
@@ -43,7 +43,7 @@ The `media` block sits beside the copy in the split layout; it is hidden from th
     <twig:block name="media">
         <div class="grid aspect-video place-items-center rounded-xl border border-border bg-background text-sm text-muted-foreground">Your image here</div>
     </twig:block>
-    <a href="#" class="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground">Download the app</a>
+    <twig:Button as="a" href="#">Download the app</twig:Button>
 </twig:Cta>
 ```
 
@@ -54,10 +54,10 @@ The `media` block sits beside the copy in the split layout; it is hidden from th
 ```twig
 <div class="grid gap-4">
     <twig:Cta tone="primary" title="Upgrade to Pro" description="Unlimited projects and priority support.">
-        <a href="#" class="inline-flex h-10 items-center rounded-md bg-background px-5 text-sm font-medium text-foreground">See plans</a>
+        <twig:Button as="a" href="#">See plans</twig:Button>
     </twig:Cta>
     <twig:Cta tone="dark" title="Join the beta" description="Be the first to try what we are building.">
-        <a href="#" class="inline-flex h-10 items-center rounded-md bg-white px-5 text-sm font-medium text-zinc-950">Request access</a>
+        <twig:Button as="a" href="#">Request access</twig:Button>
     </twig:Cta>
 </div>
 ```

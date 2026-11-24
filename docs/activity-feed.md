@@ -31,7 +31,7 @@ Each group has a heading; items show an avatar, initials or an icon for a system
         {actor: 'Margaret H.', action: 'closed', target: 'Ticket 887', time: '09:05'},
     ]},
 ]">
-    <a href="#" class="inline-flex h-9 items-center rounded-md border border-border px-4 text-sm font-medium hover:bg-muted">Load more</a>
+    <twig:Button as="a" href="#" variant="outline">Load more</twig:Button>
 </twig:ActivityFeed>
 ```
 

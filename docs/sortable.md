@@ -63,7 +63,7 @@ With a `name`, the order is submitted as hidden inputs `priorities[]`, in the di
         <twig:Sortable:Item value="cost"><twig:Sortable:Handle /> Cost</twig:Sortable:Item>
         <twig:Sortable:Item value="quality"><twig:Sortable:Handle /> Quality</twig:Sortable:Item>
     </twig:Sortable>
-    <button type="submit" class="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground">Submit</button>
+    <twig:Button type="submit">Submit</twig:Button>
     <output class="block break-all text-xs text-muted-foreground"></output>
 </form>
 ```

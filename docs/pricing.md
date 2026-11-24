@@ -9,10 +9,10 @@ Prices are passed already formatted, so the component never guesses a currency o
 ```twig
 <twig:Pricing :columns="2">
     <twig:Pricing:Plan name="Free" price="$0" period="/month" :features="['3 projects', 'Community support']">
-        <a href="#" class="inline-flex h-10 items-center justify-center rounded-md border border-border text-sm font-medium">Start free</a>
+        <twig:Button as="a" href="#" variant="outline">Start free</twig:Button>
     </twig:Pricing:Plan>
     <twig:Pricing:Plan name="Pro" price="$29" period="/month" highlighted badge="Best value" :features="['Unlimited projects', 'Priority support']">
-        <a href="#" class="inline-flex h-10 items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground">Go Pro</a>
+        <twig:Button as="a" href="#">Go Pro</twig:Button>
     </twig:Pricing:Plan>
 </twig:Pricing>
 ```
@@ -26,13 +26,13 @@ Prices are passed already formatted, so the component never guesses a currency o
 ```twig
 <twig:Pricing>
     <twig:Pricing:Plan name="Starter" price="$0" period="/month" description="For side projects." :features="['3 projects', '1 GB storage', 'Community support']">
-        <a href="#" class="inline-flex h-10 items-center justify-center rounded-md border border-border text-sm font-medium hover:bg-muted">Start free</a>
+        <twig:Button as="a" href="#" variant="outline">Start free</twig:Button>
     </twig:Pricing:Plan>
     <twig:Pricing:Plan name="Business" price="$29" period="/month" description="For growing teams." highlighted badge="Best value" :features="['Unlimited projects', '100 GB storage', 'Priority support', 'Advanced permissions']">
-        <a href="#" class="inline-flex h-10 items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground">Choose Business</a>
+        <twig:Button as="a" href="#">Choose Business</twig:Button>
     </twig:Pricing:Plan>
     <twig:Pricing:Plan name="Enterprise" price="Custom" description="For large organizations." :features="['Everything in Business', 'SSO and audit log', 'Dedicated manager']">
-        <a href="#" class="inline-flex h-10 items-center justify-center rounded-md border border-border text-sm font-medium hover:bg-muted">Contact sales</a>
+        <twig:Button as="a" href="#" variant="outline">Contact sales</twig:Button>
     </twig:Pricing:Plan>
 </twig:Pricing>
 ```
@@ -48,14 +48,14 @@ A feature `{label, included: false}` shows a minus and reads as "not included" t
         {label: 'Custom domain', included: false},
         {label: 'Priority support', included: false},
     ]">
-        <a href="#" class="inline-flex h-10 items-center justify-center rounded-md border border-border text-sm font-medium hover:bg-muted">Choose Basic</a>
+        <twig:Button as="a" href="#" variant="outline">Choose Basic</twig:Button>
     </twig:Pricing:Plan>
     <twig:Pricing:Plan name="Plus" price="$19" period="/month" highlighted :features="[
         'Up to 25 members',
         'Custom domain',
         {label: 'Priority support', included: false},
     ]">
-        <a href="#" class="inline-flex h-10 items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground">Choose Plus</a>
+        <twig:Button as="a" href="#">Choose Plus</twig:Button>
     </twig:Pricing:Plan>
 </twig:Pricing>
 ```

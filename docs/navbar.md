@@ -13,7 +13,7 @@ The bar is layout only: you put the brand, the navigation and the actions in its
         <twig:Navbar:Link href="/" active>Dashboard</twig:Navbar:Link>
         <twig:Navbar:Link href="/reports">Reports</twig:Navbar:Link>
     </nav>
-    <twig:block name="end"><a href="/new" class="inline-flex h-9 items-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground">New</a></twig:block>
+    <twig:block name="end"><twig:Button as="a" href="/new">New</twig:Button></twig:block>
 </twig:Navbar>
 ```
 
@@ -34,8 +34,8 @@ The default slot takes the remaining width. Wrap the links in a named `nav`.
         <twig:Navbar:Link href="#" icon="lucide:users">Team</twig:Navbar:Link>
     </nav>
     <twig:block name="end">
-        <a href="#" class="inline-flex h-9 items-center rounded-md border border-border px-3 text-sm font-medium hover:bg-muted">Share</a>
-        <a href="#" class="inline-flex h-9 items-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground">New project</a>
+        <twig:Button as="a" href="#" variant="outline">Share</twig:Button>
+        <twig:Button as="a" href="#">New project</twig:Button>
     </twig:block>
 </twig:Navbar>
 ```
@@ -47,7 +47,7 @@ The `tabs` block is a second row under the bar, for `variant="tab"` links; `coun
 ```twig
 <twig:Navbar>
     <twig:block name="start"><span class="text-sm font-semibold">Apollo / Website redesign</span></twig:block>
-    <twig:block name="end"><a href="#" class="inline-flex h-9 items-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground">Create task</a></twig:block>
+    <twig:block name="end"><twig:Button as="a" href="#">Create task</twig:Button></twig:block>
     <twig:block name="tabs">
         <twig:Navbar:Link variant="tab" href="#" active :count="24">Tasks</twig:Navbar:Link>
         <twig:Navbar:Link variant="tab" href="#" :count="3">Reviews</twig:Navbar:Link>
