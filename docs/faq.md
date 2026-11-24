@@ -2,8 +2,6 @@
 
 > Frequently asked questions as a native accordion: single or split layout, multiple or exclusive answers, optional FAQPage structured data.
 
-<!-- kind: block -->
-
 ## Usage
 
 Questions are plain data. The accordion is built on `<details>`, so it works without JavaScript.

@@ -1,11 +1,15 @@
 {
-    "type": "component",
+    "type": "block",
     "name": "Onboarding",
     "description": "Setup flow shell: step counter, progress bar or dot indicator, title, description, content and footer actions.",
     "copy-files": {
-        "templates/": "templates/"
+        "templates/components/": "%COMPONENTS_DIR%/"
     },
     "dependencies": {
-        "composer": []
+        "composer": [
+            "twig/extra-bundle",
+            "twig/html-extra:^3.24.0",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+        ]
     }
 }

@@ -13,12 +13,11 @@
     tabs     second row under the bar, for Navbar:Link variant="tab"
 #}
 {%- props sticky = false, bordered = true, label = null -%}
-{%- set extra_class = attributes.render('class') -%}
 {%- set start -%}{% block start %}{% endblock %}{%- endset -%}
 {%- set middle -%}{% block content %}{% endblock %}{%- endset -%}
 {%- set end -%}{% block end %}{% endblock %}{%- endset -%}
 {%- set tabs -%}{% block tabs %}{% endblock %}{%- endset -%}
-<header class="{{ ('bg-background ' ~ (sticky ? 'sticky top-0 z-30 ' : '') ~ (bordered ? 'border-b border-border ' : '') ~ extra_class)|trim }}" {% if label %}aria-label="{{ label }}"{% endif %} {{ attributes }}>
+<header {{ attributes.defaults({class: ('bg-background ' ~ (sticky ? 'sticky top-0 z-30 ' : '') ~ (bordered ? 'border-b border-border ' : ''))|tailwind_classes}) }} {% if label %}aria-label="{{ label }}"{% endif %}>
     <div class="flex min-h-14 items-center gap-3 px-4">
         {%- if start|trim is not empty %}<div class="flex shrink-0 items-center gap-2">{{ start }}</div>{% endif %}
         <div class="flex min-w-0 flex-1 items-center gap-1">{{ middle }}</div>

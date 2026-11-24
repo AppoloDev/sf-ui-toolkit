@@ -11,11 +11,18 @@
   The slot is the text of the link.
 #}
 {%- props href = '#', active = false, variant = 'pill', icon = null, count = null -%}
-{%- set extra_class = attributes.render('class') -%}
-{%- set style = variant == 'tab'
-    ? ('-mb-px border-b-2 px-3 py-3 ' ~ (active ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'))
-    : ('rounded-md px-3 py-1.5 ' ~ (active ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted hover:text-foreground')) -%}
-<a href="{{ href }}" {% if active %}aria-current="page"{% endif %} class="{{ ('inline-flex items-center gap-2 whitespace-nowrap text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring ' ~ style ~ ' ' ~ extra_class)|trim }}" {{ attributes }}>
+{%- set style = html_cva(
+    base: 'inline-flex items-center gap-2 whitespace-nowrap text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring',
+    variants: {
+        state: {
+            'pill-active': 'rounded-md px-3 py-1.5 bg-muted text-foreground',
+            'pill-idle': 'rounded-md px-3 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground',
+            'tab-active': '-mb-px border-b-2 px-3 py-3 border-primary text-foreground',
+            'tab-idle': '-mb-px border-b-2 px-3 py-3 border-transparent text-muted-foreground hover:text-foreground',
+        },
+    },
+) -%}
+<a href="{{ href }}" {% if active %}aria-current="page"{% endif %} {{ attributes.defaults({class: style.apply({state: (variant == 'tab' ? 'tab' : 'pill') ~ (active ? '-active' : '-idle')})|tailwind_classes}) }}>
     {%- if icon %}<twig:ux:icon :name="icon" class="size-4" aria-hidden="true" />{% endif %}
     {%- block content %}{% endblock %}
     {%- if count is not null %}<span class="rounded-full bg-muted px-1.5 text-xs tabular-nums text-muted-foreground">{{ count }}</span>{% endif %}

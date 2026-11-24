@@ -60,6 +60,8 @@ final class BuildDocsCommand extends Command
             $slug = basename($file, '.md');
             $page = $this->parse((string) file_get_contents($file));
             $page['slug'] = $slug;
+            $recipe = json_decode((string) @file_get_contents($root.'/'.$slug.'/manifest.json'), true) ?: [];
+            $page['kind'] = 'block' === ($recipe['type'] ?? null) ? 'block' : 'component';
             $page['install'] = $this->install($root, $slug);
             $pages[$slug] = $page;
         }
@@ -174,7 +176,7 @@ final class BuildDocsCommand extends Command
      */
     private function parse(string $markdown): array
     {
-        $page = ['title' => 'Untitled', 'kind' => preg_match('/<!--\s*kind:\s*block\s*-->/', $markdown) ? 'block' : 'component', 'description' => '', 'usage' => null, 'examples' => [], 'extending' => [], 'accessibility' => [], 'api' => []];
+        $page = ['title' => 'Untitled', 'kind' => 'component', 'description' => '', 'usage' => null, 'examples' => [], 'extending' => [], 'accessibility' => [], 'api' => []];
 
         $tokens = preg_split('/^(#{1,3}) +(.+)$/m', $markdown, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
         $part = null;

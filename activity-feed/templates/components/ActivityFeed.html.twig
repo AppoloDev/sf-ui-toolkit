@@ -21,11 +21,10 @@
   The slot is shown under the list: a "Load more" button.
 #}
 {%- props groups = [], items = [], groupTag = 'h3' -%}
-{%- set extra_class = attributes.render('class') -%}
 {%- set tag = groupTag in ['h2', 'h3', 'h4'] ? groupTag : 'h3' -%}
 {%- set sections = groups ?: (items ? [{label: null, items: items}] : []) -%}
 {%- set more -%}{% block content %}{% endblock %}{%- endset -%}
-<div class="{{ ('grid gap-6 ' ~ extra_class)|trim }}" {{ attributes }}>
+<div {{ attributes.defaults({class: ('grid gap-6 ')|tailwind_classes}) }}>
     {%- for group in sections %}
         <section class="grid gap-3">
             {%- if group.label %}<{{ tag }} class="text-xs font-medium uppercase tracking-wide text-muted-foreground">{{ group.label }}</{{ tag }}>{% endif %}

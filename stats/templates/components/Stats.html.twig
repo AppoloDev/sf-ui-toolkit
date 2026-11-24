@@ -8,8 +8,7 @@
   The slot holds Stats:Card elements.
 #}
 {%- props columns = 4, divided = false -%}
-{%- set extra_class = attributes.render('class') -%}
 {%- set cols = {1: 'grid-cols-1', 2: 'grid-cols-1 sm:grid-cols-2', 3: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3', 4: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'}[columns] ?? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' -%}
-<div class="{{ ('group/stats grid ' ~ cols ~ ' ' ~ (divided ? 'gap-px overflow-hidden rounded-xl border border-border bg-border' : 'gap-4') ~ ' ' ~ extra_class)|trim }}" data-divided="{{ divided ? 'true' : 'false' }}" {{ attributes }}>
+<div {{ attributes.defaults({class: ('group/stats grid ' ~ cols ~ ' ' ~ (divided ? 'gap-px overflow-hidden rounded-xl border border-border bg-border' : 'gap-4'))|tailwind_classes}) }} data-divided="{{ divided ? 'true' : 'false' }}">
     {%- block content %}{% endblock -%}
 </div>

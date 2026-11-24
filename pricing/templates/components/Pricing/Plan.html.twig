@@ -16,10 +16,9 @@
   The slot is the call-to-action at the bottom of the card (a button or a link).
 #}
 {%- props name, price, period = null, description = null, features = [], badge = null, highlighted = false, includedLabel = 'Included', notIncludedLabel = 'Not included', nameTag = 'h3' -%}
-{%- set extra_class = attributes.render('class') -%}
 {%- set tag = nameTag in ['h2', 'h3', 'h4'] ? nameTag : 'h3' -%}
 {%- set action -%}{% block content %}{% endblock %}{%- endset -%}
-<div class="{{ ('relative flex flex-col gap-6 rounded-xl border bg-background p-6 ' ~ (highlighted ? 'border-primary ring-1 ring-primary' : 'border-border') ~ ' ' ~ extra_class)|trim }}" {{ attributes }}>
+<div {{ attributes.defaults({class: ('relative flex flex-col gap-6 rounded-xl border bg-background p-6 ' ~ (highlighted ? 'border-primary ring-1 ring-primary' : 'border-border'))|tailwind_classes}) }}>
     {%- if badge %}
         <span class="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground" aria-hidden="true">{{ badge }}</span>
     {%- endif %}

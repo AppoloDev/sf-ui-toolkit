@@ -18,13 +18,12 @@
     (slot)   the content of the step
 #}
 {%- props step = 1, steps = 1, title = null, description = null, indicator = 'bar', align = 'center', stepLabel = 'Step {current} of {total}', progressLabel = 'Setup progress', titleTag = 'h2' -%}
-{%- set extra_class = attributes.render('class') -%}
 {%- set tag = titleTag in ['h1', 'h2', 'h3'] ? titleTag : 'h2' -%}
 {%- set total = max(1, steps) -%}
 {%- set current = max(1, min(total, step)) -%}
 {%- set centered = align != 'start' -%}
 {%- set footer -%}{% block footer %}{% endblock %}{%- endset -%}
-<div class="{{ ('mx-auto grid w-full max-w-md gap-6 ' ~ (centered ? 'text-center' : 'text-left') ~ ' ' ~ extra_class)|trim }}" {{ attributes }}>
+<div {{ attributes.defaults({class: ('mx-auto grid w-full max-w-md gap-6 ' ~ (centered ? 'text-center' : 'text-left'))|tailwind_classes}) }}>
     <div class="grid gap-2">
         {%- if indicator == 'dots' %}
             <ol class="flex items-center gap-2 {{ centered ? 'justify-center' : '' }}">

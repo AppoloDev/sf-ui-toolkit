@@ -2,8 +2,6 @@
 
 > Application bar with start, center and end areas, an optional row of tabs, sticky and bordered options, and link items with active state and count.
 
-<!-- kind: block -->
-
 ## Usage
 
 The bar is layout only: you put the brand, the navigation and the actions in its areas. `Navbar:Link` is a link with an active state, for the middle area or for the tabs row.

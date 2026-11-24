@@ -5,9 +5,8 @@
     nav      side navigation (links, tabs...); the page becomes two columns from the large breakpoint up
     (slot)   the Settings:Section elements
 #}
-{%- set extra_class = attributes.render('class') -%}
 {%- set nav -%}{% block nav %}{% endblock %}{%- endset -%}
-<div class="{{ ('grid gap-8 ' ~ (nav|trim is not empty ? 'lg:grid-cols-[14rem_minmax(0,1fr)]' : '') ~ ' ' ~ extra_class)|trim }}" {{ attributes }}>
+<div {{ attributes.defaults({class: ('grid gap-8 ' ~ (nav|trim is not empty ? 'lg:grid-cols-[14rem_minmax(0,1fr)]' : ''))|tailwind_classes}) }}>
     {%- if nav|trim is not empty %}
         <div class="lg:sticky lg:top-8 lg:self-start">{{ nav }}</div>
     {%- endif %}

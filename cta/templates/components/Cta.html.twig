@@ -14,25 +14,29 @@
     (slot)   actions: buttons or links (style them for the tone you choose)
 #}
 {%- props eyebrow = null, title = null, description = null, layout = 'centered', tone = 'default', titleTag = 'h2' -%}
-{%- set extra_class = attributes.render('class') -%}
 {%- set tag = titleTag in ['h2', 'h3', 'h4'] ? titleTag : 'h2' -%}
-{%- set tones = {
-    default: 'border border-border bg-background text-foreground',
-    muted: 'bg-muted text-foreground',
-    primary: 'bg-primary text-primary-foreground',
-    dark: 'dark bg-zinc-950 text-zinc-50',
-} -%}
+{%- set style = html_cva(
+    base: 'rounded-2xl p-8 md:p-12',
+    variants: {
+        tone: {
+            default: 'border border-border bg-background text-foreground',
+            muted: 'bg-muted text-foreground',
+            primary: 'bg-primary text-primary-foreground',
+            dark: 'dark bg-zinc-950 text-zinc-50',
+        },
+        layout: {
+            centered: 'flex flex-col items-center text-center',
+            split: 'grid gap-8 md:grid-cols-2 md:items-center',
+            inline: 'flex flex-col gap-6 md:flex-row md:items-center md:justify-between',
+        },
+    },
+) -%}
 {%- set soft = {default: 'text-muted-foreground', muted: 'text-muted-foreground', primary: 'text-primary-foreground/80', dark: 'text-zinc-400'}[tone] ?? 'text-muted-foreground' -%}
 {%- set chip = {default: 'bg-muted text-muted-foreground', muted: 'bg-background text-muted-foreground', primary: 'bg-primary-foreground/15 text-primary-foreground', dark: 'bg-zinc-800 text-zinc-300'}[tone] ?? 'bg-muted text-muted-foreground' -%}
 {%- set centered = layout == 'centered' -%}
-{%- set layouts = {
-    centered: 'flex flex-col items-center text-center',
-    split: 'grid gap-8 md:grid-cols-2 md:items-center',
-    inline: 'flex flex-col gap-6 md:flex-row md:items-center md:justify-between',
-}[layout] ?? 'flex flex-col items-center text-center' -%}
 {%- set media -%}{% block media %}{% endblock %}{%- endset -%}
 {%- set actions -%}{% block content %}{% endblock %}{%- endset -%}
-<section class="{{ ('rounded-2xl p-8 md:p-12 ' ~ (tones[tone] ?? tones.default) ~ ' ' ~ layouts ~ ' ' ~ extra_class)|trim }}" {{ attributes }}>
+<section {{ attributes.defaults({class: style.apply({tone: tone, layout: layout})|tailwind_classes}) }}>
     <div class="grid max-w-xl content-start gap-3 {{ centered ? 'justify-items-center' : '' }}">
         {%- if eyebrow %}<span class="w-fit rounded-full px-3 py-1 text-xs font-medium {{ chip }}">{{ eyebrow }}</span>{% endif %}
         {%- if title %}<{{ tag }} class="text-3xl font-semibold tracking-tight text-balance">{{ title }}</{{ tag }}>{% endif %}

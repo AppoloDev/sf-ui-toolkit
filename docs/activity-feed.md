@@ -2,8 +2,6 @@
 
 > Activity feed grouped by day: actor avatar or icon, action text, time, description, attachments and a slot for a load-more button.
 
-<!-- kind: block -->
-
 ## Usage
 
 The feed is data: a list of events, optionally grouped by day. Texts are escaped. The component renders what it is given; loading older events is up to you (the slot holds a "Load more" link or button).

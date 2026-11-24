@@ -14,12 +14,11 @@
   The slot is shown under the list (single) or the intro (split): a support call-to-action.
 #}
 {%- props items = [], title = null, description = null, layout = 'single', multiple = true, name = null, structuredData = false, titleTag = 'h2' -%}
-{%- set extra_class = attributes.render('class') -%}
 {%- set tag = titleTag in ['h2', 'h3', 'h4'] ? titleTag : 'h2' -%}
 {%- set split = layout == 'split' -%}
 {%- set group = multiple ? null : (name ?? ('faq-' ~ random(1000000))) -%}
 {%- set footer -%}{% block content %}{% endblock %}{%- endset -%}
-<section class="{{ ('grid gap-8 ' ~ (split ? 'lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-12' : 'mx-auto max-w-3xl') ~ ' ' ~ extra_class)|trim }}" {{ attributes }}>
+<section {{ attributes.defaults({class: ('grid gap-8 ' ~ (split ? 'lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-12' : 'mx-auto max-w-3xl'))|tailwind_classes}) }}>
     {%- if title or description or (split and footer|trim is not empty) %}
         <header class="grid content-start gap-3 {{ split ? 'lg:sticky lg:top-8 lg:self-start' : 'text-center' }}">
             {%- if title %}<{{ tag }} class="text-2xl font-semibold tracking-tight text-foreground">{{ title }}</{{ tag }}>{% endif %}

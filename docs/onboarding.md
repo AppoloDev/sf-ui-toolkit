@@ -2,8 +2,6 @@
 
 > Setup flow shell: step counter, progress bar or dot indicator, title, description, content and footer actions.
 
-<!-- kind: block -->
-
 ## Usage
 
 The block is the frame of one step: where the person is, the title, the content and the actions. Moving between steps (one route per step, Turbo, a multi-step form) is yours; render the block again with the next `step`.

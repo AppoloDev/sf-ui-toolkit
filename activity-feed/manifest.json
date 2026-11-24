@@ -1,13 +1,16 @@
 {
-    "type": "component",
+    "type": "block",
     "name": "ActivityFeed",
     "description": "Activity feed grouped by day: actor avatar or icon, action text, time, description, attachments and a slot for a load-more button.",
     "copy-files": {
-        "templates/": "templates/"
+        "templates/components/": "%COMPONENTS_DIR%/"
     },
     "dependencies": {
         "composer": [
-            "symfony/ux-icons"
+            "symfony/ux-icons",
+            "twig/extra-bundle",
+            "twig/html-extra:^3.24.0",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
         ]
     }
 }

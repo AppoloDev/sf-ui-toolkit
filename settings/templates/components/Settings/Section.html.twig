@@ -12,10 +12,9 @@
     (slot)   the Settings:Row elements
 #}
 {%- props title = null, description = null, framed = true, titleTag = 'h2' -%}
-{%- set extra_class = attributes.render('class') -%}
 {%- set tag = titleTag in ['h2', 'h3', 'h4'] ? titleTag : 'h2' -%}
 {%- set actions -%}{% block actions %}{% endblock %}{%- endset -%}
-<section class="{{ ('grid gap-4 ' ~ extra_class)|trim }}" {{ attributes }}>
+<section {{ attributes.defaults({class: ('grid gap-4 ')|tailwind_classes}) }}>
     {%- if title or description or actions|trim is not empty %}
         <header class="flex flex-wrap items-start justify-between gap-3">
             <div class="grid gap-1">

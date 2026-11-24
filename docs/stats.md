@@ -2,8 +2,6 @@
 
 > KPI cards in a responsive grid: label, value, trend badge, comparison line, optional icon and progress meter.
 
-<!-- kind: block -->
-
 ## Usage
 
 Figures and deltas are passed already formatted, so the component never guesses a locale or a currency.

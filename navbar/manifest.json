@@ -1,13 +1,16 @@
 {
-    "type": "component",
+    "type": "block",
     "name": "Navbar",
     "description": "Application bar with start, center and end areas, an optional row of tabs, sticky and bordered options, and link items with active state and count.",
     "copy-files": {
-        "templates/": "templates/"
+        "templates/components/": "%COMPONENTS_DIR%/"
     },
     "dependencies": {
         "composer": [
-            "symfony/ux-icons"
+            "symfony/ux-icons",
+            "twig/extra-bundle",
+            "twig/html-extra:^3.24.0",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
         ]
     }
 }

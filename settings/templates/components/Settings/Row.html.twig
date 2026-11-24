@@ -11,9 +11,8 @@
   The slot is the control (switch, select, input, button...).
 #}
 {%- props label, description = null, badge = null, for = null, danger = false -%}
-{%- set extra_class = attributes.render('class') -%}
 {%- set uid = 'setting-' ~ random(1000000) -%}
-<div class="{{ ('flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 ' ~ extra_class)|trim }}" {{ attributes }}>
+<div {{ attributes.defaults({class: ('flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 ')|tailwind_classes}) }}>
     <div class="grid min-w-0 gap-0.5">
         <div class="flex flex-wrap items-center gap-2">
             {%- if for %}
