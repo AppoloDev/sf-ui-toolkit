@@ -34,6 +34,7 @@
     'data-cascader-back-label-value': backLabel,
     'data-cascader-selected-label-value': selectedLabel,
 } -%}
+{%- set entries -%}{% block content %}{% endblock %}{%- endset -%}
 {%- set trigger = {'data-cascader-target': 'trigger'}|merge(id ? {id: id} : {})|merge(disabled ? {disabled: true} : {}) -%}
 <twig:Popover {{ ...attributes.defaults(data) }}>
     <twig:Popover:Trigger>
@@ -48,7 +49,7 @@
         <div class="flex max-h-64 divide-x divide-border overflow-x-auto" data-cascader-target="columns"></div>
         <p class="sr-only" role="status" aria-live="polite" data-cascader-target="status"></p>
     </twig:Popover:Content>
-    <ul hidden data-cascader-target="source">{% block content %}{% endblock %}</ul>
+    <ul hidden data-cascader-target="source">{{ entries }}</ul>
     <span data-cascader-target="inputs" hidden></span>
     <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" data-cascader-target="validity" {{ required ? 'required' }}>
 </twig:Popover>
