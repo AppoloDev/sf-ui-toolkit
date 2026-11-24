@@ -4,6 +4,8 @@
 
 ## Usage
 
+The field is the shadcn `InputGroup` and the panel its `Popover`: install them first with `php bin/console ux:install popover input-group button --kit=shadcn`.
+
 ```twig
 <twig:TimePicker name="starts_at" value="09:30" label="Start time" />
 ```
@@ -78,7 +80,7 @@ With `requireConfirm`, changes are held as a draft until OK is pressed; closing 
 
 - Each column is a `listbox` named by its header (Hours, Minutes, Seconds, AM/PM), and the options carry `aria-selected` / `aria-disabled`.
 - In a column: `↑` / `↓` change the selection, `Home` / `End` jump to the first and last value, `Page Up` / `Page Down` move by five, typing digits jumps to a matching value, `←` / `→` switch columns.
-- `Esc` closes the popover and returns focus to the clock button; a click outside closes it too.
+- `Esc` closes the popover and returns focus to the clock button; a click outside closes it too (both handled by the shadcn `Popover`).
 - In the typed field, `↑` / `↓` move to the previous or next allowed time.
 - Give the field a visible `<label for>` (with `id`) or pass `label`.
 

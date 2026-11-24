@@ -27,34 +27,44 @@ export default class extends Controller {
     connect() {
         this.time = this.parseTime(this.valueValue);
         this.draft = this.time ? { ...this.time } : null;
-        this.onOutsideClick = (event) => {
-            if (!this.element.contains(event.target)) this.close();
-        };
         this.writeFields();
+        // The panel is a shadcn Popover on the same element: react to its open state. A click re-renders the
+        // columns, so the clicked node is detached before the event reaches the window, where the Popover would
+        // take it for a click outside: stop it at the panel.
+        this.panelTarget.addEventListener('click', (event) => event.stopPropagation());
+        this.wasOpen = this.isOpen;
+        this.observer = new MutationObserver(() => {
+            if (this.isOpen === this.wasOpen) return;
+            this.wasOpen = this.isOpen;
+            if (this.isOpen) this.opened();
+        });
+        this.observer.observe(this.element, { attributes: true, attributeFilter: ['data-state'] });
     }
 
     disconnect() {
-        document.removeEventListener('pointerdown', this.onOutsideClick);
+        this.observer?.disconnect();
     }
 
-    toggle() {
-        this.panelTarget.hidden ? this.open() : this.close();
+    get isOpen() {
+        return 'open' === this.element.dataset.state;
     }
 
-    open() {
+    opened() {
         this.draft = this.time ? { ...this.time } : null;
-        this.panelTarget.hidden = false;
-        this.triggerTarget.setAttribute('aria-expanded', 'true');
         this.render();
-        document.addEventListener('pointerdown', this.onOutsideClick);
-        (this.columnsTarget.querySelector('[role="listbox"]'))?.focus();
+        // The panel stays invisible for a frame while it transitions in: retry until the list takes the focus.
+        const focusList = (tries = 0) => {
+            const list = this.columnsTarget.querySelector('[role="listbox"]');
+            if (!this.isOpen || !list || tries > 20) return;
+            list.focus();
+            if (document.activeElement !== list) requestAnimationFrame(() => focusList(tries + 1));
+        };
+        requestAnimationFrame(() => focusList());
     }
 
     close(restoreFocus = false) {
-        if (this.panelTarget.hidden) return;
-        this.panelTarget.hidden = true;
-        this.triggerTarget.setAttribute('aria-expanded', 'false');
-        document.removeEventListener('pointerdown', this.onOutsideClick);
+        if (!this.isOpen) return;
+        this.element.dataset.popoverOpenValue = 'false';
         if (restoreFocus) this.triggerTarget.focus();
     }
 
@@ -73,13 +83,6 @@ export default class extends Controller {
         this.draft = null;
         this.commit(null);
         this.render();
-    }
-
-    panelKeydown(event) {
-        if ('Escape' === event.key) {
-            event.preventDefault();
-            this.close(true);
-        }
     }
 
     inputKeydown(event) {

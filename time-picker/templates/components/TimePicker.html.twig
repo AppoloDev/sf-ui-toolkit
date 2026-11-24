@@ -17,10 +17,14 @@
     id              id of the typed field (for an external <label for>)
     openLabel, dialogLabel, nowLabel, clearLabel, confirmLabel   texts of the trigger and the popover
     hoursLabel, minutesLabel, secondsLabel, periodLabel          accessible names of the columns
+
+  Requires the shadcn recipes popover, input-group, button (installed from the shadcn kit).
 #}
 {%- props name = null, value = null, hourCycle = 24, hourStep = 1, minuteStep = 1, secondStep = 1, seconds = false, min = null, max = null, requireConfirm = false, placeholder = '', disabled = false, label = null, id = null, openLabel = 'Open the time picker', dialogLabel = 'Choose a time', nowLabel = 'Now', clearLabel = 'Clear', confirmLabel = 'OK', hoursLabel = 'Hours', minutesLabel = 'Minutes', secondsLabel = 'Seconds', periodLabel = 'AM/PM' -%}
-{%- set extra_class = attributes.render('class') -%}
+{%- set field = {'data-time-picker-target': 'input'}|merge(id ? {id: id} : {})|merge(label ? {'aria-label': label} : {})|merge(disabled ? {disabled: true} : {}) -%}
+{%- set opener = {'data-time-picker-target': 'trigger'}|merge(disabled ? {disabled: true} : {}) -%}
 {%- set data = {
+    class: 'w-auto',
     'data-controller': 'time-picker',
     'data-time-picker-value-value': value ?? '',
     'data-time-picker-hour-cycle-value': hourCycle,
@@ -36,24 +40,26 @@
     'data-time-picker-seconds-label-value': secondsLabel,
     'data-time-picker-period-label-value': periodLabel,
 } -%}
-<div class="{{ ('relative inline-block ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
-    <div class="inline-flex h-9 items-center rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring{{ disabled ? ' opacity-50' }}">
-        <input type="text" inputmode="numeric" autocomplete="off" class="h-full w-24 bg-transparent px-3 text-sm tabular-nums outline-none"
-               {% if id %}id="{{ id }}" {% endif %}{% if label %}aria-label="{{ label }}" {% endif %}placeholder="{{ placeholder }}" {{ disabled ? 'disabled' }}
-               data-time-picker-target="input" data-action="keydown->time-picker#inputKeydown blur->time-picker#parseInput">
-        <button type="button" class="flex h-full w-9 items-center justify-center border-l border-border text-muted-foreground hover:bg-muted disabled:pointer-events-none" aria-label="{{ openLabel }}" aria-haspopup="dialog" aria-expanded="false" {{ disabled ? 'disabled' }}
-                data-time-picker-target="trigger" data-action="time-picker#toggle">
-            <twig:ux:icon name="lucide:clock" class="size-4" aria-hidden="true" />
-        </button>
-    </div>
+<twig:Popover {{ ...attributes.defaults(data) }}>
+    <twig:InputGroup class="w-auto{{ disabled ? ' opacity-50' }}">
+        <twig:InputGroup:Input type="text" inputmode="numeric" autocomplete="off" class="w-24 tabular-nums"
+            placeholder="{{ placeholder }}" {{ ...field }}
+            data-action="keydown->time-picker#inputKeydown blur->time-picker#parseInput" />
+        <twig:InputGroup:Addon align="inline-end">
+            <twig:Popover:Trigger>
+                <twig:InputGroup:Button size="icon-xs" aria-label="{{ openLabel }}" {{ ...opener }} {{ ...popover_trigger_attrs }}>
+                    <twig:ux:icon name="lucide:clock" aria-hidden="true" />
+                </twig:InputGroup:Button>
+            </twig:Popover:Trigger>
+        </twig:InputGroup:Addon>
+    </twig:InputGroup>
     <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-time-picker-target="hidden">
-    <div role="dialog" aria-label="{{ dialogLabel }}" hidden class="absolute left-0 top-full z-50 mt-1 rounded-md border border-border bg-background p-2 shadow-md"
-         data-time-picker-target="panel" data-action="keydown->time-picker#panelKeydown">
+    <twig:Popover:Content align="start" aria-label="{{ dialogLabel }}" class="w-auto!" data-time-picker-target="panel">
         <div class="flex gap-1" data-time-picker-target="columns"></div>
-        <div class="mt-2 flex items-center justify-between gap-2 border-t border-border pt-2 text-sm">
-            <button type="button" class="rounded px-2 py-1 hover:bg-muted" data-action="time-picker#now">{{ nowLabel }}</button>
-            <button type="button" class="rounded px-2 py-1 hover:bg-muted" data-action="time-picker#clear">{{ clearLabel }}</button>
-            <button type="button" class="rounded bg-primary px-3 py-1 text-primary-foreground" data-action="time-picker#confirm">{{ confirmLabel }}</button>
+        <div class="flex items-center justify-between gap-2 border-t border-border pt-2">
+            <twig:Button variant="ghost" size="sm" data-action="time-picker#now">{{ nowLabel }}</twig:Button>
+            <twig:Button variant="ghost" size="sm" data-action="time-picker#clear">{{ clearLabel }}</twig:Button>
+            <twig:Button size="sm" data-action="time-picker#confirm">{{ confirmLabel }}</twig:Button>
         </div>
-    </div>
-</div>
+    </twig:Popover:Content>
+</twig:Popover>

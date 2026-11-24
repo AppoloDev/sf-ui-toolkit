@@ -18,7 +18,7 @@
   Requires the shadcn recipes popover, button and input (installed from the shadcn kit).
 #}
 {%- props name = null, value = '#3b82f6', format = 'hex', alpha = false, disabled = false, label = 'Pick a color', areaLabel = 'Saturation and brightness', saturationLabel = 'Saturation', brightnessLabel = 'Brightness', hueLabel = 'Hue', opacityLabel = 'Opacity', fieldLabel = 'Color value', eyedropperLabel = 'Pick a color from the screen', swatchesLabel = 'Preset colors', id = null -%}
-{%- set trigger = {'data-color-picker-target': 'trigger'}|merge(id ? {id: id} : {}) -%}
+{%- set trigger = {'data-color-picker-target': 'trigger'}|merge(id ? {id: id} : {})|merge(disabled ? {disabled: true} : {}) -%}
 {%- set swatches -%}{% block content %}{% endblock %}{%- endset -%}
 {%- set data = {
     class: 'w-auto',
@@ -32,7 +32,7 @@
 {%- set thumb = '[&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:ring-1 [&::-webkit-slider-thumb]:ring-black/30 [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-white' -%}
 <twig:Popover {{ ...attributes.defaults(data) }}>
     <twig:Popover:Trigger>
-        <twig:Button variant="outline" aria-label="{{ label }}" disabled="{{ disabled ? 'disabled' : false }}" {{ ...trigger }} {{ ...popover_trigger_attrs }}>
+        <twig:Button variant="outline" aria-label="{{ label }}" {{ ...trigger }} {{ ...popover_trigger_attrs }}>
             <span class="size-4 rounded border border-black/10" data-color-picker-target="chip"></span>
             <span class="font-mono text-xs uppercase tabular-nums" data-color-picker-target="text"></span>
         </twig:Button>
