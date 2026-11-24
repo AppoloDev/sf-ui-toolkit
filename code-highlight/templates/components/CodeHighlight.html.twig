@@ -42,4 +42,4 @@
         class: ((lineNumbers ? 'flex ' : '') ~ 'overflow-x-auto rounded-lg border border-border bg-muted/40 p-4 font-mono text-sm leading-relaxed text-foreground notranslate ' ~ _tokens)|tailwind_classes,
     }) }}
 >{%- if lineNumbers %}<span data-slot="code-highlight-lines" aria-hidden="true" class="me-4 shrink-0 text-end text-muted-foreground select-none">{{ range(startLine, startLine + (("" ~ _html)|split("\n")|length) - 1)|join("\n") }}</span>{% endif -%}
-<code class="min-w-0 grow">{{ _html }}</code></pre>
+<code class="min-w-0 grow">{{ _html|raw }}</code></pre>
