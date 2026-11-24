@@ -43,10 +43,10 @@
             <span class="inline-flex shrink-0 items-center text-muted-foreground [&_svg]:size-4" aria-hidden="true" data-cascader-target="icon"><twig:ux:icon name="lucide:chevrons-up-down" /></span>
         </twig:Button>
     </twig:Popover:Trigger>
-    <twig:Popover:Content align="start" aria-label="{{ label }}" class="w-auto! min-w-full gap-0! p-0!" data-action="keydown->cascader#panelKey">
+    <twig:Popover:Content align="start" aria-label="{{ label }}" class="w-auto! min-w-64 gap-0! p-0!" data-action="keydown->cascader#panelKey">
         <input type="search" role="searchbox" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off"
                class="h-9 w-full rounded-t-lg border-b border-border bg-transparent px-3 text-sm outline-none" data-cascader-target="search" data-action="input->cascader#search">
-        <div class="flex max-h-64 min-h-0 w-full divide-x divide-border overflow-x-auto" data-cascader-target="columns"></div>
+        <div class="flex max-h-64 min-h-0 w-max max-w-[calc(100vw-2rem)] divide-x divide-border overflow-x-auto" data-cascader-target="columns"></div>
         <p class="sr-only" role="status" aria-live="polite" data-cascader-target="status"></p>
     </twig:Popover:Content>
     <ul hidden data-cascader-target="source">{{ entries }}</ul>
