@@ -533,7 +533,7 @@ A pill trigger with avatar, name and chevron.
 
 ### Custom Badge
 
-The badge is a Lucide icon, filled and pinned to the corner. A ring in the page color separates it from the picture.
+The badge is a Lucide icon, its shape filled through the inner group, and pinned to the corner. A ring in the page color separates it from the picture.
 
 ```twig
 <div class="relative w-fit">
@@ -544,7 +544,7 @@ The badge is a Lucide icon, filled and pinned to the corner. A ring in the page 
         </twig:Avatar:Fallback>
     </twig:Avatar>
     <span class="absolute -end-1.5 -bottom-1.5 flex rounded-full bg-background p-px">
-        <twig:ux:icon name="lucide:badge-check" class="size-5 fill-blue-500 text-white" aria-label="Verified" />
+        <twig:ux:icon name="lucide:badge-check" class="size-5 text-white [&>g]:fill-blue-500" aria-label="Verified" />
     </span>
 </div>
 ```
