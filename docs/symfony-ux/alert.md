@@ -66,47 +66,6 @@ A destructive alert with a checklist.
 </twig:Alert>
 ```
 
-### Status Alerts
-
-Tinted alerts built with color classes.
-
-```twig
-<div class="flex max-w-md flex-col gap-3">
-    <twig:Alert class="border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300">
-        <twig:ux:icon name="lucide:info" />
-        <twig:Alert:Title>Information</twig:Alert:Title>
-        <twig:Alert:Description class="text-blue-700/80 dark:text-blue-300/80">A notice worth reading closely.</twig:Alert:Description>
-    </twig:Alert>
-    <twig:Alert class="border-green-500/30 bg-green-500/10 text-green-700 dark:text-green-300">
-        <twig:ux:icon name="lucide:circle-check" />
-        <twig:Alert:Title>Success</twig:Alert:Title>
-        <twig:Alert:Description class="text-green-700/80 dark:text-green-300/80">Everything works, carry on.</twig:Alert:Description>
-    </twig:Alert>
-    <twig:Alert class="border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300">
-        <twig:ux:icon name="lucide:triangle-alert" />
-        <twig:Alert:Title>Warning</twig:Alert:Title>
-        <twig:Alert:Description class="text-amber-700/80 dark:text-amber-300/80">Check your settings or contact support.</twig:Alert:Description>
-    </twig:Alert>
-    <twig:Alert variant="destructive">
-        <twig:ux:icon name="lucide:circle-x" />
-        <twig:Alert:Title>Error</twig:Alert:Title>
-        <twig:Alert:Description>The action failed, try again.</twig:Alert:Description>
-    </twig:Alert>
-</div>
-```
-
-### Invert
-
-A dark solid bar.
-
-```twig
-<twig:Alert class="max-w-md border-transparent bg-foreground text-background">
-    <twig:ux:icon name="lucide:circle-check" class="text-green-400" />
-    <twig:Alert:Title>Deployment complete</twig:Alert:Title>
-    <twig:Alert:Description class="text-background/70">Your site is live.</twig:Alert:Description>
-</twig:Alert>
-```
-
 ### Direct Message
 
 ```twig

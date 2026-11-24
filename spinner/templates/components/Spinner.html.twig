@@ -1,0 +1,15 @@
+{#- Override of the shadcn Spinner (same file name, so installing this recipe replaces it): the icon prop is added. -#}
+{%- props
+    ## string The accessible label announced to assistive technologies.
+    label = 'Loading',
+    ## string The Symfony UX Icons name of the spinning icon.
+    icon = 'lucide:loader-2'
+-%}
+<twig:ux:icon
+    name="{{ icon }}"
+    data-slot="spinner"
+    role="status"
+    aria-label="{{ label }}"
+    class="{{ ('size-4 animate-spin ' ~ attributes.render('class'))|tailwind_merge }}"
+    {{ ...attributes.without('class') }}
+/>

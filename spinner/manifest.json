@@ -1,0 +1,14 @@
+{
+    "type": "component",
+    "name": "Spinner",
+    "description": "Spinner override with an icon prop to swap the spinning icon.",
+    "copy-files": {
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "symfony/ux-icons",
+            "tales-from-a-dev/twig-tailwind-extra:^1.0.0"
+        ]
+    }
+}

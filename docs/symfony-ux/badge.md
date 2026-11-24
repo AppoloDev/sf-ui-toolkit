@@ -2,53 +2,6 @@
 
 ## Examples
 
-### Sizes
-
-```twig
-<div class="flex items-center gap-2.5">
-    <twig:Badge class="h-4 px-1.5 text-[10px]">Small</twig:Badge>
-    <twig:Badge>Default</twig:Badge>
-    <twig:Badge class="h-6 px-2.5 text-sm">Large</twig:Badge>
-</div>
-```
-
-### Tinted Variants
-
-Soft and outlined status colors built with utility classes.
-
-```twig
-<div class="flex flex-wrap items-center gap-2">
-    <twig:Badge class="border-green-500/30 bg-green-500/10 text-green-700 dark:text-green-400">Success</twig:Badge>
-    <twig:Badge class="border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-400">Info</twig:Badge>
-    <twig:Badge class="border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400">Warning</twig:Badge>
-    <twig:Badge class="border-destructive/30 bg-destructive/10 text-destructive">Destructive</twig:Badge>
-    <twig:Badge variant="outline" class="text-green-700 dark:text-green-400">Success</twig:Badge>
-    <twig:Badge variant="outline" class="text-blue-700 dark:text-blue-400">Info</twig:Badge>
-    <twig:Badge variant="outline" class="text-amber-700 dark:text-amber-400">Warning</twig:Badge>
-    <twig:Badge variant="outline" class="text-destructive">Destructive</twig:Badge>
-</div>
-```
-
-### Solid Colors
-
-```twig
-<div class="flex flex-wrap items-center gap-2">
-    <twig:Badge class="bg-green-600 text-white">Success</twig:Badge>
-    <twig:Badge class="bg-blue-600 text-white">Info</twig:Badge>
-    <twig:Badge class="bg-amber-500 text-white">Warning</twig:Badge>
-</div>
-```
-
-### Full Radius Counts
-
-```twig
-<div class="flex items-center gap-2.5">
-    <twig:Badge class="min-w-5 justify-center rounded-full px-1.5">3</twig:Badge>
-    <twig:Badge variant="secondary" class="rounded-full">New</twig:Badge>
-    <twig:Badge variant="outline" class="rounded-full">New</twig:Badge>
-</div>
-```
-
 ### Dismiss Button
 
 A removable tag.
