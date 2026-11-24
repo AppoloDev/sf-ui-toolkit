@@ -163,12 +163,21 @@ final class BuildDocsCommand extends Command
         $twig = static fn (string $body): ?string => preg_match('/```twig[^\n]*\n(.*?)```/s', $body, $match) ? rtrim($match[1]) : null;
         $text = static fn (string $body): string => trim((string) preg_replace(['/```.*?```/s', '/<!--.*?-->/s', '/^:::.*$/m'], '', $body));
 
+        // Comments of a yaml or shell block start with "#": hide the code blocks while headings are split.
+        $fences = [];
+        $readme = (string) preg_replace_callback('/```.*?```/s', static function (array $match) use (&$fences): string {
+            $fences[] = $match[0];
+
+            return sprintf('@@FENCE%d@@', count($fences) - 1);
+        }, $readme);
+        $restore = static fn (string $body): string => (string) preg_replace_callback('/@@FENCE(\d+)@@/', static fn (array $match): string => $fences[(int) $match[1]], $body);
+
         $tokens = preg_split('/^(#{1,3}) +(.+)$/m', $readme, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
         $part = null;
         for ($i = 1; $i + 2 < count($tokens) + 1; $i += 3) {
             $level = strlen($tokens[$i]);
             $heading = trim($tokens[$i + 1] ?? '');
-            $body = $tokens[$i + 2] ?? '';
+            $body = $restore($tokens[$i + 2] ?? '');
 
             if (1 === $level) {
                 $page['title'] = $heading;
