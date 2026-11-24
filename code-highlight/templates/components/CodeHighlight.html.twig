@@ -32,7 +32,7 @@
     '[&_.hl-comment]:text-[#6e7781] [&_.hl-comment]:italic dark:[&_.hl-comment]:text-[#8b949e]',
     '[&_.hl-addition]:bg-emerald-500/15 [&_.hl-deletion]:bg-red-500/15',
 ]|join(' ') -%}
-{%- set _html = ('' ~ _source)|highlight(language) -%}
+{%- set _html = ('' ~ _source)|highlight(language, code is null) -%}
 <pre
     data-slot="code-highlight"
     data-language="{{ language }}"

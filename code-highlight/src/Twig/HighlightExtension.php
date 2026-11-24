@@ -12,6 +12,9 @@ use Twig\TwigFilter;
  * Adds the `highlight` Twig filter: `{{ code|highlight('php') }}` returns the code as HTML, each token wrapped in
  * a `<span class="hl-…">`. The code is escaped, the blank lines around it and its common indentation are removed.
  * An unknown language is rendered as plain text.
+ *
+ * With `$fromSlot`, the code is the content of a Twig component: its first line has lost its indentation, so the
+ * indentation of the other lines decides what is removed.
  */
 final class HighlightExtension extends AbstractExtension
 {
@@ -24,9 +27,9 @@ final class HighlightExtension extends AbstractExtension
         ];
     }
 
-    public function highlight(string|\Stringable|null $code, string $language = 'text'): string
+    public function highlight(string|\Stringable|null $code, string $language = 'text', bool $fromSlot = false): string
     {
-        return $this->highlighter()->parse($this->dedent((string) $code), strtolower($language));
+        return $this->highlighter()->parse($this->dedent((string) $code, $fromSlot), strtolower($language));
     }
 
     private function highlighter(): Highlighter
@@ -35,7 +38,7 @@ final class HighlightExtension extends AbstractExtension
         return $this->highlighter ??= new Highlighter();
     }
 
-    private function dedent(string $code): string
+    private function dedent(string $code, bool $fromSlot): string
     {
         $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", $code));
         while ([] !== $lines && '' === trim($lines[0])) {
@@ -46,14 +49,19 @@ final class HighlightExtension extends AbstractExtension
         }
 
         $indent = null;
-        foreach ($lines as $line) {
-            if ('' === trim($line)) {
+        foreach ($lines as $index => $line) {
+            if ('' === trim($line) || ($fromSlot && 0 === $index && count($lines) > 1)) {
                 continue;
             }
             $length = strlen($line) - strlen(ltrim($line, " \t"));
             $indent = null === $indent ? $length : min($indent, $length);
         }
+        $indent ??= 0;
 
-        return implode("\n", array_map(static fn (string $line): string => substr($line, min($indent ?? 0, strlen($line))), $lines));
+        return implode("\n", array_map(static function (string $line) use ($indent): string {
+            $own = strlen($line) - strlen(ltrim($line, " \t"));
+
+            return substr($line, min($indent, $own, strlen($line)));
+        }, $lines));
     }
 }
