@@ -200,6 +200,28 @@ The nodes can be nested as deep as needed: a group is mixed when part of its per
 </twig:CheckboxTree>
 ```
 
+### With a Tree
+
+With the `Tree` of this kit, `checkbox` puts a checkbox in the row of each node: branches open and close, the keyboard navigation of the tree is kept (`Space` checks the box), and `CheckboxTree` keeps the boxes consistent. Install the `tree` recipe of this kit too.
+
+```twig
+<twig:CheckboxTree>
+    <twig:Tree label="Files to back up" class="w-72">
+        <twig:Tree:Item label="Documents" name="folders[]" value="documents" :checkbox="true" :expanded="true">
+            <twig:Tree:Item label="Invoices" name="folders[]" value="invoices" :checkbox="true" :expanded="true">
+                <twig:Tree:Item label="2024" name="folders[]" value="invoices-2024" :checkbox="true" :checked="true" />
+                <twig:Tree:Item label="2025" name="folders[]" value="invoices-2025" :checkbox="true" :checked="true" />
+            </twig:Tree:Item>
+            <twig:Tree:Item label="Contracts" name="folders[]" value="contracts" :checkbox="true" />
+        </twig:Tree:Item>
+        <twig:Tree:Item label="Photos" name="folders[]" value="photos" :checkbox="true" :expanded="true">
+            <twig:Tree:Item label="Holidays" name="folders[]" value="holidays" :checkbox="true" />
+            <twig:Tree:Item label="Family" name="folders[]" value="family" :checkbox="true" />
+        </twig:Tree:Item>
+    </twig:Tree>
+</twig:CheckboxTree>
+```
+
 ## Accessibility
 
 - The mixed state is the native `indeterminate` state of the checkbox: browsers and screen readers expose it as « partially checked ». It is drawn as a dash.

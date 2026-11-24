@@ -71,10 +71,26 @@ Nest `Tree:Item` inside `Tree:Item` to build branches. Click the chevron to togg
 </twig:Tree>
 ```
 
+### Checkboxes
+
+`checkbox` adds a checkbox to the row. Inside a `CheckboxTree`, a parent checks and unchecks its children, and is mixed when only some of them are checked. Clicking the box does not select the row.
+
+```twig
+<twig:CheckboxTree>
+    <twig:Tree label="Files to back up" class="w-64">
+        <twig:Tree:Item label="Documents" name="folders[]" value="documents" :checkbox="true" :expanded="true">
+            <twig:Tree:Item label="Invoices" name="folders[]" value="invoices" :checkbox="true" :checked="true" />
+            <twig:Tree:Item label="Contracts" name="folders[]" value="contracts" :checkbox="true" />
+        </twig:Tree:Item>
+        <twig:Tree:Item label="Photos" name="folders[]" value="photos" :checkbox="true" />
+    </twig:Tree>
+</twig:CheckboxTree>
+```
+
 ## Accessibility
 
 - The component implements the WAI-ARIA `tree` / `treeitem` / `group` roles, with `aria-expanded` on branches and `aria-selected` on the selected node. A single node is in the tab order (roving tabindex).
-- Keyboard: `↓` / `↑` move between visible nodes; `→` expands a branch, or moves to its first child; `←` collapses an open branch, or moves to the parent; `Home` / `End` jump to the first and last visible node; `Enter` / `Space` toggle a branch and select the node; typing a character jumps to the next node whose name starts with it.
+- Keyboard: `↓` / `↑` move between visible nodes; `→` expands a branch, or moves to its first child; `←` collapses an open branch, or moves to the parent; `Home` / `End` jump to the first and last visible node; `Enter` toggles a branch and selects the node, and `Space` does the same, except on a node with a checkbox, where it checks the box; typing a character jumps to the next node whose name starts with it.
 - Each node has an `aria-label` equal to its `label`.
 - The controller dispatches `tree:select` and `tree:toggle` events.
 
@@ -99,6 +115,10 @@ Nest `Tree:Item` inside `Tree:Item` to build branches. Click the chevron to togg
 | `expanded` | bool | `false` | Branch open by default. |
 | `selected` | bool | `false` | Node selected by default. |
 | `href` | string | `null` | Makes the node a link. |
+| `checkbox` | bool | `false` | Adds a checkbox to the row. Wrap the tree in a `CheckboxTree` to have a parent check its children. |
+| `name` | string | `null` | Name of the checkbox. |
+| `value` | string | `1` | Value of the checkbox. |
+| `checked` | bool | `false` | Checkbox checked by default. |
 
 | Block | Description |
 |---|---|

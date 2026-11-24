@@ -18,6 +18,8 @@ export default class extends Controller {
     }
 
     click(event) {
+        // A checkbox in the row keeps its own click: it must not select the row.
+        if (event.target.closest('[data-tree-checkbox]')) return;
         const item = event.currentTarget.closest('[role="treeitem"]');
         this.focusItem(item);
         if (event.target.closest('[data-tree-chevron]')) {
@@ -49,8 +51,16 @@ export default class extends Controller {
                 if (this.isBranch(item) && 'true' === item.getAttribute('aria-expanded')) this.toggle(item, false);
                 else target = item.parentElement.closest('[role="treeitem"]');
                 break;
+            case ' ': {
+                // On a row with a checkbox, Space checks it; the row is still selected with Enter.
+                const box = item.querySelector(':scope > [data-tree-row] [data-tree-checkbox] input');
+                if (box) {
+                    box.click();
+                    break;
+                }
+            }
+            // falls through
             case 'Enter':
-            case ' ':
                 if (this.isBranch(item)) this.toggle(item);
                 this.select(item);
                 break;

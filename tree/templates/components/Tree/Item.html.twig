@@ -4,16 +4,21 @@
     expanded  opened by default (branches only)
     selected  selected by default
     href      makes the node a link
+    checkbox  adds a checkbox to the row (needs the official `checkbox` recipe); wrap the tree in a `CheckboxTree`
+              so that a parent checks and unchecks its children
+    name      name of the checkbox
+    value     value of the checkbox
+    checked   checkbox checked by default
 
   The slot holds the children (nested Tree:Item). A node without children is a leaf.
 #}
-{%- props label, expanded = false, selected = false, href = null -%}
+{%- props label, expanded = false, selected = false, href = null, checkbox = false, name = null, value = '1', checked = false -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- if false -%}{% block content %}{% endblock %}{%- endif -%}
 {%- set children = block('content')|trim -%}
 {%- set branch = children is not empty -%}
 <li role="treeitem" tabindex="-1" aria-label="{{ label }}" aria-selected="{{ selected ? 'true' : 'false' }}"{% if branch %} aria-expanded="{{ expanded ? 'true' : 'false' }}"{% endif %}
-    class="{{ ('outline-none ' ~ extra_class)|trim }}" data-tree-target="item" {{ attributes }}>
+    class="{{ ('outline-none ' ~ extra_class)|trim }}" data-tree-target="item"{% if checkbox %} data-slot="checkbox-tree-node"{% endif %} {{ attributes }}>
     <div class="group/row flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 hover:bg-muted data-[selected=true]:bg-muted data-[selected=true]:font-medium [[role=treeitem]:focus-visible>&]:ring-2 [[role=treeitem]:focus-visible>&]:ring-ring"
          data-tree-row data-selected="{{ selected ? 'true' : 'false' }}" data-expanded="{{ expanded ? 'true' : 'false' }}" data-action="click->tree#click">
         {%- if branch -%}
@@ -21,9 +26,12 @@
         {%- else -%}
             <span class="size-4 shrink-0" aria-hidden="true"></span>
         {%- endif -%}
+        {%- if checkbox -%}
+            <span class="flex shrink-0" data-tree-checkbox><twig:Checkbox :name="name" :value="value" :checked="checked" tabindex="-1" aria-label="{{ label }}" /></span>
+        {%- endif -%}
         {%- if href -%}<a href="{{ href }}" class="min-w-0 flex-1 truncate" tabindex="-1">{{ label }}</a>{%- else -%}<span class="min-w-0 flex-1 truncate">{{ label }}</span>{%- endif -%}
     </div>
     {%- if branch %}
-        <ul role="group" class="m-0 list-none p-0 pl-4" data-tree-group{{ expanded ? '' : ' hidden' }}>{{ children|raw }}</ul>
+        <ul role="group" class="m-0 list-none p-0 pl-4" data-tree-group{% if checkbox %} data-slot="checkbox-tree-children"{% endif %}{{ expanded ? '' : ' hidden' }}>{{ children|raw }}</ul>
     {%- endif %}
 </li>
