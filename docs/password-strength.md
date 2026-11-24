@@ -5,6 +5,7 @@
 ## Installation
 
 - input
+- input-group
 - label
 
 ## Usage
@@ -42,6 +43,27 @@ This is a hint for the person typing, not a security check: validate the passwor
         New password
     </twig:Label>
     <twig:Input id="strength-rules" type="password" placeholder="Type a password" />
+</twig:PasswordStrength>
+```
+
+### With a Password Toggle
+
+The field can be an `InputGroup` with the `PasswordToggle` of this kit: the meter reads the same input, whether the password is shown or not. Install the `password-toggle` recipe too.
+
+```twig
+<twig:PasswordStrength :showRules="true" class="mx-auto max-w-sm">
+    <twig:Label for="strength-toggle" class="text-sm font-medium">
+        New password
+    </twig:Label>
+    <twig:InputGroup>
+        <twig:InputGroup:Addon>
+            <twig:ux:icon name="lucide:lock" />
+        </twig:InputGroup:Addon>
+        <twig:InputGroup:Input id="strength-toggle" type="password" placeholder="Type a password" />
+        <twig:InputGroup:Addon align="inline-end">
+            <twig:PasswordToggle />
+        </twig:InputGroup:Addon>
+    </twig:InputGroup>
 </twig:PasswordStrength>
 ```
 
