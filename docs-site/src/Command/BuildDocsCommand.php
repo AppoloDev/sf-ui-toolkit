@@ -47,6 +47,14 @@ final class BuildDocsCommand extends Command
 
         $kit = json_decode((string) file_get_contents($root.'/manifest.json'), true) ?: [];
 
+        $kitCss = $this->projectDir.'/var/ux/src/Toolkit/kits/shadcn/kit.css';
+        if (!is_file($kitCss)) {
+            $output->writeln('<error>The shadcn kit is missing: run bin/fetch-shadcn-kit.sh first.</error>');
+
+            return Command::FAILURE;
+        }
+        $this->twig->addGlobal('kit_css', (string) file_get_contents($kitCss));
+
         $pages = [];
         foreach (glob($root.'/docs/*.md') ?: [] as $file) {
             $slug = basename($file, '.md');

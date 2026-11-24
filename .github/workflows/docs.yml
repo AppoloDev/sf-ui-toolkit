@@ -29,6 +29,10 @@ jobs:
       - name: Validate manifests
         run: for f in manifest.json */manifest.json; do php -r 'json_decode(file_get_contents($argv[1]), false, 512, JSON_THROW_ON_ERROR);' "$f" && echo "ok $f"; done
 
+      - name: Fetch the shadcn kit
+        run: bin/fetch-shadcn-kit.sh
+        working-directory: docs-site
+
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
         working-directory: docs-site
