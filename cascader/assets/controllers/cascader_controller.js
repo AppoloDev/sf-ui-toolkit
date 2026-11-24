@@ -44,6 +44,9 @@ export default class extends Controller {
         });
         this.observer.observe(this.element, { attributes: true, attributeFilter: ['data-state'] });
         this.triggerTarget.addEventListener('keydown', this.triggerKey);
+        // A click re-renders the columns, so the clicked row is detached before the event reaches the window, where the
+        // Popover would take it for a click outside and close. Stop it here.
+        this.columnsTarget.addEventListener('click', (event) => event.stopPropagation());
         this.sync(false);
     }
 
@@ -160,7 +163,7 @@ export default class extends Controller {
 
     column(nodes, parent, flat, withBack = false) {
         const list = document.createElement('div');
-        list.className = 'min-w-48 flex-1 overflow-y-auto p-1';
+        list.className = 'max-h-64 min-w-48 flex-1 overflow-y-auto p-1';
         list.setAttribute('role', 'listbox');
         list.setAttribute('aria-label', parent ? parent.label : '');
         if (this.multiple) list.setAttribute('aria-multiselectable', 'true');
