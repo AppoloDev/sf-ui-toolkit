@@ -1,0 +1,19 @@
+{#
+  AppShell:Rail: narrow column of icon buttons that never collapses.
+
+  Props
+    label   accessible name of the navigation (default Sections)
+
+  Blocks
+    brand    top of the rail (logo)
+    footer   bottom of the rail (account, help)
+    (slot)   the <twig:AppShell:RailItem> elements
+#}
+{%- props label = 'Sections' -%}
+{%- set brand -%}{% block brand %}{% endblock %}{%- endset -%}
+{%- set footer -%}{% block footer %}{% endblock %}{%- endset -%}
+<div {{ attributes.defaults({ class: 'flex w-14 shrink-0 flex-col items-center border-e border-border bg-background py-4' }) }}>
+    {%- if brand|trim is not empty %}<div class="mb-4 flex shrink-0 items-center justify-center">{{ brand }}</div>{% endif %}
+    <nav aria-label="{{ label }}" class="flex flex-1 flex-col items-center gap-1">{% block content %}{% endblock %}</nav>
+    {%- if footer|trim is not empty %}<div class="mt-2 flex shrink-0 flex-col items-center gap-1">{{ footer }}</div>{% endif %}
+</div>

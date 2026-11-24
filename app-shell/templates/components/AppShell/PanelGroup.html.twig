@@ -1,0 +1,18 @@
+{#
+  AppShell:PanelGroup: content of the panel tied to one rail item (same group name). Only the active
+  group is visible; without a group it is always visible, so a panel without rail needs none.
+
+  Props
+    group    name shared with <twig:AppShell:RailItem group="...">
+    title    small heading above the group
+    active   true: visible at load (set it on the matching rail item too)
+#}
+{%- props group = null, title = null, active = false -%}
+<div {{ attributes.defaults({
+    class: (group and not active) ? 'hidden' : false,
+    'data-app-shell-target': 'group',
+    'data-group': group ?: false,
+}) }}>
+    {%- if title %}<h4 class="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">{{ title }}</h4>{% endif %}
+    {% block content %}{% endblock %}
+</div>

@@ -1,0 +1,9 @@
+{#
+  AppShell:Header: top bar. Put <twig:AppShell:MenuButton>, <twig:AppShell:Toggle>, a separator and a
+  breadcrumb in it; use ms-auto on the last element to push actions to the end.
+
+  Props
+    sticky   true: stays at the top while the content scrolls
+#}
+{%- props sticky = false -%}
+<header {{ attributes.defaults({ class: 'flex items-center gap-1 border-b border-border bg-background px-4 py-3 md:px-8 ' ~ (sticky ? 'sticky top-0 z-30' : '') }) }}>{% block content %}{% endblock %}</header>

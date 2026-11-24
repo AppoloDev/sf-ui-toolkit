@@ -1,0 +1,26 @@
+{#
+  AppShell:RailItem: one button of the rail, named by a tooltip. The slot is the icon.
+
+  Props
+    label    accessible name, also shown as a tooltip (required)
+    group    name of the <twig:AppShell:PanelGroup> it shows; without it the item is a plain button
+    href     makes the item a link; the group is still shown on click
+    active   true: the item (and its group) is the one shown at load
+#}
+{%- props label, group = null, href = null, active = false -%}
+{%- set tag = href ? 'a' : 'button' -%}
+<{{ tag }} {{ attributes.defaults({
+    class: 'group/item relative flex size-10 shrink-0 items-center justify-center rounded-md text-muted-foreground outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring data-[active=true]:bg-primary data-[active=true]:text-primary-foreground',
+    'aria-label': label,
+    'data-active': active ? 'true' : 'false',
+    'data-app-shell-target': 'railItem',
+    'data-app-shell-group-param': group ?: false,
+    'data-action': 'app-shell#select',
+    type: href ? false : 'button',
+    href: href ?: false,
+    'aria-pressed': (not href and group) ? (active ? 'true' : 'false') : false,
+    'aria-current': (href and active) ? 'page' : false,
+}) }}>
+    {% block content %}{% endblock %}
+    <span aria-hidden="true" class="pointer-events-none absolute start-full z-50 ms-2 hidden whitespace-nowrap rounded-md bg-foreground px-2 py-1 text-xs font-medium text-background shadow-md group-hover/item:block group-focus-visible/item:block">{{ label }}</span>
+</{{ tag }}>

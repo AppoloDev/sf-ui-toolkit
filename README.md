@@ -68,6 +68,7 @@ Page sections built from a few props and slots. They are installed like any comp
 | Block | Description | Docs |
 |---|---|---|
 | `activity-feed` | Activity feed grouped by day: actor avatar or icon, action text, time, description, attachments and a slot for a load-more button. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/activity-feed.html) |
+| `app-shell` | Application layout: optional icon rail, collapsible navigation panel, header and content, with a mobile drawer. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/app-shell.html) |
 | `cta` | Call-to-action section with eyebrow, title, description, actions and optional media: centered, split or inline, in four tones. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/cta.html) |
 | `faq` | Frequently asked questions as a native accordion: single or split layout, multiple or exclusive answers, optional FAQPage structured data. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/faq.html) |
 | `navbar` | Application bar with start, center and end areas, an optional row of tabs, sticky and bordered options, and link items with active state. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/navbar.html) |

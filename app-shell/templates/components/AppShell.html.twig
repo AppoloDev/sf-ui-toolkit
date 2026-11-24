@@ -1,0 +1,36 @@
+{#
+  AppShell: application layout. It only holds the state (panel collapsed, mobile drawer open) and the
+  Stimulus controller; the parts are yours to assemble, and every one of them is optional.
+
+  Parts
+    <twig:AppShell:Sidebar>     fixed drawer below md, sticky column from md; holds the rail and/or the panel
+    <twig:AppShell:Rail>        narrow column of icon buttons (<twig:AppShell:RailItem>)
+    <twig:AppShell:Panel>       collapsible navigation panel (<twig:AppShell:PanelGroup> per rail item)
+    <twig:AppShell:Main>        column on the right: header and content
+    <twig:AppShell:Header>      top bar, with <twig:AppShell:Toggle> and <twig:AppShell:MenuButton>
+    <twig:AppShell:Content>     page content and an optional footer
+
+  Props
+    collapsed   true: the panel starts collapsed (a saved choice wins)
+    storageKey  localStorage key remembering the choice; false to not remember it
+    shortcut    letter used with Ctrl or Cmd to toggle the panel (b by default); false for none
+
+  Events (on the root)
+    app-shell:toggle ({ collapsed }), app-shell:select ({ group })
+#}
+{%- props collapsed = false, storageKey = 'app-shell:collapsed', shortcut = 'b' -%}
+<div {{ attributes.defaults({
+    class: 'group/shell flex min-h-screen w-full bg-background text-foreground',
+    'data-controller': 'app-shell',
+    'data-app-shell-storage-key-value': storageKey ?: false,
+    'data-app-shell-shortcut-value': shortcut ?: false,
+    'data-collapsed': collapsed ? 'true' : 'false',
+    'data-open': 'false',
+}) }}>
+    {%- if storageKey %}
+    <script>
+        try { if (null !== localStorage.getItem({{ storageKey|json_encode|raw }})) { document.currentScript.parentElement.dataset.collapsed = '1' === localStorage.getItem({{ storageKey|json_encode|raw }}) ? 'true' : 'false'; } } catch (error) {}
+    </script>
+    {%- endif %}
+    {% block content %}{% endblock %}
+</div>

@@ -1,0 +1,16 @@
+{#
+  AppShell:MenuButton: opens the drawer below md (hidden from md). The slot is the icon; by default lucide:menu.
+
+  Props
+    label   accessible name (default Open menu)
+#}
+{%- props label = 'Open menu' -%}
+<button {{ attributes.defaults({
+    class: 'inline-flex size-9 shrink-0 items-center justify-center rounded-md text-foreground outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring md:hidden',
+    type: 'button',
+    'aria-label': label,
+    'data-action': 'app-shell#open',
+}) }}>
+    {%- set icon %}{% block content %}{% endblock %}{% endset -%}
+    {%- if icon|trim is not empty %}{{ icon }}{% else %}<twig:ux:icon name="lucide:menu" class="size-4" />{% endif %}
+</button>

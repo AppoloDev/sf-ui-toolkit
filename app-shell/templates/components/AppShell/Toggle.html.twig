@@ -1,0 +1,17 @@
+{#
+  AppShell:Toggle: collapses and expands the panel (md and up only; Ctrl or Cmd + B does the same).
+  The slot is the icon; by default lucide:panel-left.
+
+  Props
+    label   accessible name (default Toggle sidebar)
+#}
+{%- props label = 'Toggle sidebar' -%}
+<button {{ attributes.defaults({
+    class: 'hidden size-9 shrink-0 items-center justify-center rounded-md text-foreground outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring md:inline-flex',
+    type: 'button',
+    'aria-label': label,
+    'data-action': 'app-shell#toggle',
+}) }}>
+    {%- set icon %}{% block content %}{% endblock %}{% endset -%}
+    {%- if icon|trim is not empty %}{{ icon }}{% else %}<twig:ux:icon name="lucide:panel-left" class="size-4" />{% endif %}
+</button>

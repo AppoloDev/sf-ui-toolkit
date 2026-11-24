@@ -1,0 +1,25 @@
+{#
+  AppShell:Panel: navigation panel. From md it collapses to zero width (animated, and inert while collapsed);
+  in the drawer it is always shown.
+
+  Props
+    label   accessible name of the navigation (default Navigation)
+    width   width when open, any CSS length (default 16rem)
+    tag     nav | div | aside (default nav)
+
+  Blocks
+    header   top of the panel (brand when there is no rail, workspace switcher)
+    footer   bottom of the panel (user menu, upgrade prompt)
+    (slot)   the content: <twig:AppShell:PanelGroup> elements or anything else
+#}
+{%- props label = 'Navigation', width = '16rem', tag = 'nav' -%}
+{%- set tag = tag in ['nav', 'div', 'aside'] ? tag : 'nav' -%}
+{%- set header -%}{% block header %}{% endblock %}{%- endset -%}
+{%- set footer -%}{% block footer %}{% endblock %}{%- endset -%}
+<div data-app-shell-target="panelWrapper" style="--app-shell-panel-width: {{ width }}" class="w-(--app-shell-panel-width) shrink-0 overflow-hidden border-e border-border bg-background transition-[width] duration-200 md:group-data-[collapsed=true]/shell:w-0 md:group-data-[collapsed=true]/shell:border-e-0">
+    <{{ tag }} {{ attributes.defaults({ class: 'flex h-full w-(--app-shell-panel-width) flex-col text-sm', 'aria-label': label }) }}>
+        {%- if header|trim is not empty %}<div class="shrink-0 px-4 pt-4">{{ header }}</div>{% endif %}
+        <div class="flex-1 overflow-y-auto px-4 py-4">{% block content %}{% endblock %}</div>
+        {%- if footer|trim is not empty %}<div class="shrink-0 border-t border-border px-4 py-3">{{ footer }}</div>{% endif %}
+    </{{ tag }}>
+</div>

@@ -1,0 +1,12 @@
+{#
+  AppShell:Content: page content.
+
+  Blocks
+    footer   below the content, outside the padding
+    (slot)   the page
+#}
+{%- set footer -%}{% block footer %}{% endblock %}{%- endset -%}
+<div class="flex flex-1 flex-col">
+    <main {{ attributes.defaults({ class: 'flex-1 px-4 py-6 md:px-8' }) }}>{% block content %}{% endblock %}</main>
+    {%- if footer|trim is not empty %}{{ footer }}{% endif %}
+</div>
