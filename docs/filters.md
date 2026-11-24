@@ -58,6 +58,8 @@ Each field has a `type`: `text`, `number`, `select`, `multiselect`, `boolean` or
 
 The component lives in a `GET` form. Each active filter submits its value as `<field>` (`<field>[]` for `multiselect`) and its operator as `<field>__op`, so a request looks like `?status=open&status__op=eq&tags[]=bug&tags__op=in`. Read these from the query and render one `Filters:Value` per active filter to restore the chips; options can come from a Twig loop.
 
+<!-- height: 300 -->
+
 ```twig
 <twig:Filters :autoSubmit="false">
     <twig:Filters:Fields>
@@ -76,6 +78,8 @@ The component lives in a `GET` form. Each active filter submits its value as `<f
 ### Without auto-submit
 
 With `:autoSubmit="false"`, changing a filter only updates the hidden inputs and fires `filters:change`; a surrounding form button can submit when the user is ready.
+
+<!-- height: 300 -->
 
 ```twig
 <twig:Filters :autoSubmit="false">
