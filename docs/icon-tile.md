@@ -72,14 +72,18 @@ The tile accepts any content: initials, a number, a logo.
 
 ### List row
 
+The tile is the media of the shadcn `Item` component.
+
 ```twig
-<div class="flex max-w-sm items-center gap-3 rounded-lg border border-border p-3">
-    <twig:IconTile variant="elevated"><twig:ux:icon name="lucide:file-text" /></twig:IconTile>
-    <div class="text-sm">
-        <p class="font-medium">Weekly report</p>
-        <p class="text-muted-foreground">Updated 2 hours ago</p>
-    </div>
-</div>
+<twig:Item variant="outline" class="max-w-sm">
+    <twig:Item:Media>
+        <twig:IconTile variant="elevated"><twig:ux:icon name="lucide:file-text" /></twig:IconTile>
+    </twig:Item:Media>
+    <twig:Item:Content>
+        <twig:Item:Title>Weekly report</twig:Item:Title>
+        <twig:Item:Description>Updated 2 hours ago</twig:Item:Description>
+    </twig:Item:Content>
+</twig:Item>
 ```
 
 ## Accessibility
