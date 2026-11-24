@@ -176,3 +176,20 @@
     {% endfor %}
 </twig:RadioGroup>
 ```
+
+### In Frame
+
+These examples use `Frame` from this kit.
+
+```twig
+<twig:Frame spacing="sm" class="max-w-xs">
+    <twig:Frame:Panel ghost fit title="Language" class="px-2 py-1 [&>header]:mb-0" />
+    <twig:Frame:Panel class="overflow-hidden p-0">
+        <twig:RadioGroup>
+            {% for v, l in {en: 'English', es: 'Spanish', fr: 'French', de: 'German'} %}
+                <label for="rg-frame-{{ v }}" class="flex cursor-pointer items-center gap-3 p-3 text-sm {{ v != 'en' ? 'border-t border-border' : '' }}"><twig:RadioGroup:Item id="rg-frame-{{ v }}" name="rg-frame" value="{{ v }}" checked="{{ v == 'en' }}" /> {{ l }}</label>
+            {% endfor %}
+        </twig:RadioGroup>
+    </twig:Frame:Panel>
+</twig:Frame>
+```

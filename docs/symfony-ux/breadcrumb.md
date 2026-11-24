@@ -196,3 +196,23 @@ Fold middle levels into an ellipsis menu.
     </twig:Breadcrumb:List>
 </twig:Breadcrumb>
 ```
+
+### Pill In Frame
+
+These examples use `Frame` from this kit.
+
+```twig
+<twig:Frame class="w-fit">
+    <twig:Frame:Panel fit class="px-3 py-2">
+        <twig:Breadcrumb>
+            <twig:Breadcrumb:List>
+                <twig:Breadcrumb:Item><twig:Breadcrumb:Link href="#" class="flex items-center gap-1.5"><twig:ux:icon name="lucide:house" class="size-4" /> Home</twig:Breadcrumb:Link></twig:Breadcrumb:Item>
+                <twig:Breadcrumb:Separator />
+                <twig:Breadcrumb:Item><twig:Breadcrumb:Link href="#">Products</twig:Breadcrumb:Link></twig:Breadcrumb:Item>
+                <twig:Breadcrumb:Separator />
+                <twig:Breadcrumb:Item><twig:Breadcrumb:Page class="font-semibold">Checkout</twig:Breadcrumb:Page></twig:Breadcrumb:Item>
+            </twig:Breadcrumb:List>
+        </twig:Breadcrumb>
+    </twig:Frame:Panel>
+</twig:Frame>
+```

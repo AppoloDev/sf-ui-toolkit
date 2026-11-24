@@ -2,7 +2,7 @@
 
 > The shadcn Alert with info, success, warning and invert variants, in solid or light appearance.
 
-<!-- order: Default, Basic, Title and Description, Leading Icon, Destructive, Info, Success, Warning, Invert, Solid, Light, All variants, Action, Icon and Actions, Title and Actions, Pro upsell, Payment Failure, Direct Message, Urgent Billing, Service Status, Custom Colors -->
+<!-- order: Default, Basic, Title and Description, Leading Icon, Destructive, Info, Success, Warning, Invert, Solid, Light, All variants, Frame reset borders, Stacked in Frame, Frame with actions, Action, Icon and Actions, Title and Actions, Pro upsell, Payment Failure, Direct Message, Urgent Billing, Service Status, Custom Colors -->
 
 ## Installation
 
@@ -97,6 +97,37 @@ A solid bar in the foreground color, readable in light and dark themes.
         <twig:Alert variant="{{ v }}" appearance="light"><twig:ux:icon name="lucide:bell" /><twig:Alert:Title class="capitalize">{{ v }}</twig:Alert:Title><twig:Alert:Description>A short message.</twig:Alert:Description></twig:Alert>
     {% endfor %}
 </div>
+```
+
+### Frame reset borders
+
+Uses `Frame` from this kit: the panel draws the only edge, so the alert loses its border.
+
+```twig
+<twig:Frame class="max-w-lg">
+    <twig:Frame:Panel fit class="overflow-hidden p-0">
+        <twig:Alert class="border-0"><twig:ux:icon name="lucide:info" class="text-destructive" /><twig:Alert:Title>System update</twig:Alert:Title><twig:Alert:Description>A new system update is available. Please restart your application to apply the changes.</twig:Alert:Description></twig:Alert>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Stacked in Frame
+
+```twig
+<twig:Frame stacked class="max-w-lg">
+    <twig:Frame:Panel fit class="p-0"><twig:Alert variant="success" class="rounded-none border-0"><twig:ux:icon name="lucide:circle-check" /><twig:Alert:Title>Deployment successful</twig:Alert:Title><twig:Alert:Description>Your application has been deployed to the production environment.</twig:Alert:Description></twig:Alert></twig:Frame:Panel>
+    <twig:Frame:Panel fit class="p-0"><twig:Alert variant="warning" class="rounded-none border-0"><twig:ux:icon name="lucide:triangle-alert" /><twig:Alert:Title>Resource limit reached</twig:Alert:Title><twig:Alert:Description>Your plan has reached its resource limits. Consider upgrading.</twig:Alert:Description><twig:Alert:Action><twig:Button size="xs">Verify</twig:Button></twig:Alert:Action></twig:Alert></twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Frame with actions
+
+```twig
+<twig:Frame class="max-w-lg">
+    <twig:Frame:Panel fit class="overflow-hidden p-0">
+        <twig:Alert class="border-0"><twig:ux:icon name="lucide:shield-check" class="text-emerald-500" /><twig:Alert:Title>Security update</twig:Alert:Title><twig:Alert:Description>Update your password and enable 2FA to improve your account security.</twig:Alert:Description><twig:Alert:Action><twig:Button variant="outline" size="xs">Dismiss</twig:Button><twig:Button size="xs">Update</twig:Button></twig:Alert:Action></twig:Alert>
+    </twig:Frame:Panel>
+</twig:Frame>
 ```
 
 ### All variants

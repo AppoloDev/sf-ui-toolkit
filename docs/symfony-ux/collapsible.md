@@ -60,3 +60,52 @@
     </twig:Card>
 </twig:Collapsible>
 ```
+
+### In Frame
+
+These examples use `Frame` from this kit. The whole header row toggles the release summary.
+
+```twig
+<twig:Frame stacked dense spacing="sm" class="max-w-xs">
+    <twig:Collapsible open>
+        <twig:Collapsible:Trigger class="flex w-full">
+            <span class="flex w-full items-center justify-between gap-2 px-4 py-3 text-sm font-medium" {{ ...collapsible_trigger_attrs }}>Deployment successful <twig:ux:icon name="lucide:chevron-right" class="size-4 text-muted-foreground" /></span>
+        </twig:Collapsible:Trigger>
+        <twig:Collapsible:Content>
+            <twig:Frame:Panel><p class="text-xs leading-relaxed text-muted-foreground">Updated the core authentication logic and fixed a minor bug in the login flow.</p></twig:Frame:Panel>
+        </twig:Collapsible:Content>
+    </twig:Collapsible>
+</twig:Frame>
+```
+
+### Nested List
+
+These examples use `Frame` from this kit. A list of API keys under a toggling header; each row has a menu.
+
+```twig
+<div style="min-height: 320px">
+<twig:Frame stacked dense spacing="sm" class="max-w-xs">
+    <twig:Collapsible open>
+        <div class="flex items-center gap-1.5 px-3 py-1">
+            <twig:Collapsible:Trigger><twig:Button variant="ghost" size="icon-sm" aria-label="Toggle API keys" {{ ...collapsible_trigger_attrs }}><twig:ux:icon name="lucide:chevron-right" /></twig:Button></twig:Collapsible:Trigger>
+            <span class="text-sm font-medium">API Keys</span>
+            <twig:Button variant="ghost" size="icon-sm" class="ms-auto" aria-label="Add key"><twig:ux:icon name="lucide:plus" /></twig:Button>
+        </div>
+        <twig:Collapsible:Content>
+            <twig:Frame:Panel>
+                <div class="flex flex-col gap-2.5">
+                    {% for n, k in {Production: 'AUDO23••••SDIFPPL', Development: 'DUILO3••••SDIFUIP', Staging: 'IPPODA••••4SDI'} %}
+                        <div class="flex items-center justify-between gap-3 text-xs"><span class="w-24 truncate font-medium">{{ n }}</span><code class="truncate text-muted-foreground">{{ k }}</code>
+                            <twig:DropdownMenu id="keys-{{ n|lower }}" align="end">
+                                <twig:DropdownMenu:Trigger><twig:Button variant="ghost" size="icon-xs" aria-label="Actions for {{ n }}" {{ ...dropdown_menu_trigger_attrs }}><twig:ux:icon name="lucide:ellipsis" /></twig:Button></twig:DropdownMenu:Trigger>
+                                <twig:DropdownMenu:Content><twig:DropdownMenu:Item>Copy key</twig:DropdownMenu:Item><twig:DropdownMenu:Item variant="destructive">Delete</twig:DropdownMenu:Item></twig:DropdownMenu:Content>
+                            </twig:DropdownMenu>
+                        </div>
+                    {% endfor %}
+                </div>
+            </twig:Frame:Panel>
+        </twig:Collapsible:Content>
+    </twig:Collapsible>
+</twig:Frame>
+</div>
+```

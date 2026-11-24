@@ -240,3 +240,18 @@ A pill trigger with avatar, name and chevron.
     </twig:DropdownMenu>
 </div>
 ```
+
+### Compact Social Proof
+
+These examples use `Frame` from this kit.
+
+```twig
+<twig:Frame class="w-fit">
+    <twig:Frame:Panel fit class="flex items-center gap-2 p-2">
+        <div class="flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background">
+            {% for u in ['shadcn', 'maxleiter', 'evilrabbit', 'leerob'] %}<twig:Avatar class="size-7"><twig:Avatar:Image src="https://github.com/{{ u }}.png" alt="{{ u }}" /><twig:Avatar:Fallback>{{ u|first|upper }}</twig:Avatar:Fallback></twig:Avatar>{% endfor %}
+        </div>
+        <p class="me-1.5 text-xs text-muted-foreground">Joined by <span class="font-semibold text-foreground">500+</span> developers.</p>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
