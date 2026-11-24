@@ -382,3 +382,33 @@ A row of icon-only brand buttons.
     </twig:Button>
 </div>
 ```
+
+### More Less Toggle
+
+A `Button` holds no state: a `Toggle` is the component that switches `aria-pressed`, so the label and the chevron change with CSS variants of the toggle.
+
+```twig
+<twig:Toggle aria-label="Toggle details">
+    <span class="group-aria-pressed/toggle:hidden">
+        Show more
+    </span>
+    <span class="hidden group-aria-pressed/toggle:inline">
+        Show less
+    </span>
+    <twig:ux:icon name="lucide:chevron-down" class="group-aria-pressed/toggle:hidden" aria-hidden="true" />
+    <twig:ux:icon name="lucide:chevron-up" class="hidden group-aria-pressed/toggle:block" aria-hidden="true" />
+</twig:Toggle>
+```
+
+### Hamburger Toggle
+
+The two icons are stacked and cross-fade with a rotation. The accessible name stays the same: the state is announced through `aria-pressed`.
+
+```twig
+<twig:Toggle variant="outline" aria-label="Menu">
+    <span class="relative flex size-4 items-center justify-center">
+        <twig:ux:icon name="lucide:menu" class="absolute size-4 transition-all duration-200 group-aria-pressed/toggle:scale-75 group-aria-pressed/toggle:rotate-90 group-aria-pressed/toggle:opacity-0" aria-hidden="true" />
+        <twig:ux:icon name="lucide:x" class="absolute size-4 scale-75 -rotate-90 opacity-0 transition-all duration-200 group-aria-pressed/toggle:scale-100 group-aria-pressed/toggle:rotate-0 group-aria-pressed/toggle:opacity-100" aria-hidden="true" />
+    </span>
+</twig:Toggle>
+```

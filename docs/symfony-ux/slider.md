@@ -148,3 +148,21 @@
     </div>
 </div>
 ```
+
+### Controlled Value
+
+The official `slider-display` controller writes the current values of the slider into its `output` target as the thumbs move; `separator` joins the values of a range.
+
+```twig
+<div class="grid w-full max-w-sm gap-4" data-controller="slider-display" data-slider-display-separator-value=" – ">
+    <div class="flex items-center justify-between gap-2">
+        <twig:Label for="slider-controlled-range" class="text-sm font-medium">
+            Controlled Range
+        </twig:Label>
+        <span class="text-xs font-semibold text-secondary-foreground" data-slider-display-target="output">
+            0.3 – 0.7
+        </span>
+    </div>
+    <twig:Slider id="slider-controlled-range" name="range" min="0" max="1" step="0.1" value="0.3,0.7" data-action="input->slider-display#update" />
+</div>
+```

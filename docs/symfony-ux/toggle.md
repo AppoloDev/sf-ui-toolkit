@@ -144,3 +144,80 @@ An icon that fills in while pressed.
     </twig:Toggle>
 </div>
 ```
+
+### Label Swap
+
+The `Toggle` already switches `aria-pressed`, so the content that changes with the state is plain CSS: `group-aria-pressed/toggle:` variants show or hide each part.
+
+```twig
+<twig:Toggle variant="outline" aria-label="Toggle bookmark">
+    <twig:ux:icon name="lucide:bookmark" class="group-aria-pressed/toggle:hidden" />
+    <twig:ux:icon name="lucide:bookmark-check" class="hidden fill-current group-aria-pressed/toggle:block" />
+    <span class="group-aria-pressed/toggle:hidden">
+        Bookmark
+    </span>
+    <span class="hidden group-aria-pressed/toggle:inline">
+        Bookmarked
+    </span>
+</twig:Toggle>
+```
+
+### Mute Button
+
+```twig
+<twig:Toggle size="lg" variant="outline" aria-label="Toggle mute">
+    <twig:ux:icon name="lucide:volume-2" class="group-aria-pressed/toggle:hidden" />
+    <twig:ux:icon name="lucide:volume-off" class="hidden group-aria-pressed/toggle:block" />
+    <span class="group-aria-pressed/toggle:hidden">
+        Sound
+    </span>
+    <span class="hidden group-aria-pressed/toggle:inline">
+        Muted
+    </span>
+</twig:Toggle>
+```
+
+### Reactions
+
+The counter is swapped the same way: the pressed value is a second element that is hidden until the toggle is pressed.
+
+```twig
+<div class="flex flex-wrap items-center gap-2">
+    <twig:Toggle variant="outline" aria-label="Like">
+        <twig:ux:icon name="lucide:heart" />
+        <span class="group-aria-pressed/toggle:hidden">
+            12
+        </span>
+        <span class="hidden group-aria-pressed/toggle:inline">
+            13
+        </span>
+    </twig:Toggle>
+    <twig:Toggle variant="outline" aria-label="Retweet">
+        <twig:ux:icon name="lucide:repeat-2" />
+        <span class="group-aria-pressed/toggle:hidden">
+            5
+        </span>
+        <span class="hidden group-aria-pressed/toggle:inline">
+            6
+        </span>
+    </twig:Toggle>
+    <twig:Toggle variant="outline" aria-label="Share">
+        <twig:ux:icon name="lucide:share-2" />
+        <span class="group-aria-pressed/toggle:hidden">
+            3
+        </span>
+        <span class="hidden group-aria-pressed/toggle:inline">
+            4
+        </span>
+    </twig:Toggle>
+    <twig:Toggle variant="outline" aria-label="Bookmark">
+        <twig:ux:icon name="lucide:bookmark" />
+        <span class="group-aria-pressed/toggle:hidden">
+            8
+        </span>
+        <span class="hidden group-aria-pressed/toggle:inline">
+            9
+        </span>
+    </twig:Toggle>
+</div>
+```
