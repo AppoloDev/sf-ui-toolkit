@@ -123,6 +123,8 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 
 `Cascader:Icon` replaces the chevron of the trigger; put any Symfony UX Icon in it.
 
+<!-- height: 340 -->
+
 ```twig
 <twig:Cascader name="folder" placeholder="Choose a folder">
     <twig:Cascader:Icon><twig:ux:icon name="lucide:folder" /></twig:Cascader:Icon>
