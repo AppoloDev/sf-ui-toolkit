@@ -1,0 +1,10 @@
+{#
+  Frame:Title: title of a Frame:Header.
+
+  Props
+    tag  h2 | h3 | h4 | p | div (default h3)
+#}
+{%- props tag = 'h3' -%}
+{%- set tag = tag in ['h2', 'h3', 'h4', 'p', 'div'] ? tag : 'h3' -%}
+{%- set extra_class = attributes.render('class') -%}
+<{{ tag }} class="{{ ('text-sm font-medium ' ~ extra_class)|trim }}" {{ attributes }}>{% block content %}{% endblock %}</{{ tag }}>

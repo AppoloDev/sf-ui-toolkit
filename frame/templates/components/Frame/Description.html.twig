@@ -1,0 +1,5 @@
+{#
+  Frame:Description: muted text under a Frame:Title.
+#}
+{%- set extra_class = attributes.render('class') -%}
+<p class="{{ ('text-sm text-muted-foreground ' ~ extra_class)|trim }}" {{ attributes }}>{% block content %}{% endblock %}</p>

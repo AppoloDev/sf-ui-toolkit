@@ -63,8 +63,23 @@ A `ghost` panel has no border, so a heading or a hint can sit on the Frame itsel
 </twig:Frame>
 ```
 
+### Header
+
+`Frame:Header` is a heading area on the Frame itself, above or between panels, with a `Frame:Title` and a `Frame:Description`. In a `dense` Frame it becomes a bar with a rule under it.
+
+```twig
+<twig:Frame class="max-w-md">
+    <twig:Frame:Header>
+        <twig:Frame:Title>Notifications</twig:Frame:Title>
+        <twig:Frame:Description>Choose what you hear about.</twig:Frame:Description>
+    </twig:Frame:Header>
+    <twig:Frame:Panel>Email, weekly digest</twig:Frame:Panel>
+</twig:Frame>
+```
+
 ## Accessibility
 
+- `Frame:Title` renders an `h3` by default; change it with `tag` to keep the heading levels of the page in order.
 - Each panel is a `section`; a `title` renders a heading (`h3`), so keep the heading levels of the page in order or change the markup after install.
 - The Frame adds no role of its own: it is layout only.
 
@@ -95,3 +110,25 @@ A `ghost` panel has no border, so a heading or a hint can sit on the Frame itsel
 |---|---|
 | `default` | The content of the panel. |
 
+
+### `<twig:Frame:Header>`
+
+| Block | Description |
+|---|---|
+| `default` | A `Frame:Title` and a `Frame:Description`, or any content. |
+
+### `<twig:Frame:Title>`
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `tag` | `h2`, `h3`, `h4`, `p`, `div` | `h3` | The HTML tag. |
+
+| Block | Description |
+|---|---|
+| `default` | The title. |
+
+### `<twig:Frame:Description>`
+
+| Block | Description |
+|---|---|
+| `default` | The description. |

@@ -183,7 +183,7 @@ These examples use `Frame` from this kit.
 
 ```twig
 <twig:Frame spacing="sm" class="max-w-xs">
-    <twig:Frame:Panel ghost fit title="Language" class="px-2 py-1 [&>header]:mb-0" />
+    <twig:Frame:Header><twig:Frame:Title>Language</twig:Frame:Title></twig:Frame:Header>
     <twig:Frame:Panel class="overflow-hidden p-0">
         <twig:RadioGroup>
             {% for v, l in {en: 'English', es: 'Spanish', fr: 'French', de: 'German'} %}

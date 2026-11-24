@@ -86,11 +86,11 @@ These examples use `Frame` from this kit. A list of API keys under a toggling he
 <div style="min-height: 320px">
 <twig:Frame stacked dense spacing="sm" class="max-w-xs">
     <twig:Collapsible open>
-        <div class="flex items-center gap-1.5 px-3 py-1">
+        <twig:Frame:Header class="flex-row items-center gap-1.5 py-1">
             <twig:Collapsible:Trigger><twig:Button variant="ghost" size="icon-sm" aria-label="Toggle API keys" {{ ...collapsible_trigger_attrs }}><twig:ux:icon name="lucide:chevron-right" /></twig:Button></twig:Collapsible:Trigger>
-            <span class="text-sm font-medium">API Keys</span>
+            <twig:Frame:Title>API Keys</twig:Frame:Title>
             <twig:Button variant="ghost" size="icon-sm" class="ms-auto" aria-label="Add key"><twig:ux:icon name="lucide:plus" /></twig:Button>
-        </div>
+        </twig:Frame:Header>
         <twig:Collapsible:Content>
             <twig:Frame:Panel>
                 <div class="flex flex-col gap-2.5">
