@@ -7,10 +7,9 @@
     radius   default | full (circular)
 
   The slot is any content: an icon, initials, a number, a logo. The glyph scales with the tile.
-  Override colors with utility classes (for example `class="text-blue-600 bg-blue-50 border-blue-200"`).
+  Override colors with utility classes (for example `class="border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-400"`), with a `dark:` counterpart for each color.
 #}
 {%- props variant = 'outline', size = 'default', radius = 'default' -%}
-{%- set extra_class = attributes.render('class') -%}
 {%- set sizes = {
     xs: 'size-6 text-xs [&_svg]:size-3.5',
     sm: 'size-8 text-sm [&_svg]:size-4',
@@ -25,7 +24,7 @@
 } -%}
 {%- set outer_radius = radius == 'full' ? 'rounded-full' : 'rounded-lg' -%}
 {%- set inner_radius = radius == 'full' ? 'rounded-full' : 'rounded-md' -%}
-<span class="{{ ('inline-flex shrink-0 items-center justify-center text-foreground ' ~ (sizes[size] ?? sizes.default) ~ ' ' ~ (variants[variant] ?? variants.outline) ~ ' ' ~ outer_radius ~ ' ' ~ extra_class)|trim }}" {{ attributes }}>
+<span {{ attributes.defaults({class: ('inline-flex shrink-0 items-center justify-center text-foreground ' ~ (sizes[size] ?? sizes.default) ~ ' ' ~ (variants[variant] ?? variants.outline) ~ ' ' ~ outer_radius)|tailwind_classes}) }}>
     {%- if variant == 'frame' -%}
         <span class="flex size-full items-center justify-center border border-border bg-background shadow-xs {{ inner_radius }}">{% block content %}{% endblock %}</span>
     {%- else -%}

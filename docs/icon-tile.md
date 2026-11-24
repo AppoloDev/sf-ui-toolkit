@@ -49,13 +49,13 @@ The glyph, the padding and the radius follow the size.
 
 ### Colors
 
-Override the colors with utility classes: soft, solid, or any palette color.
+Override the colors with utility classes: soft, solid, or any palette color. Add a `dark:` counterpart for each one so the tile stays readable in dark mode.
 
 ```twig
 <div class="flex items-center gap-4">
-    <twig:IconTile class="border-blue-200 bg-blue-50 text-blue-600"><twig:ux:icon name="lucide:star" /></twig:IconTile>
-    <twig:IconTile class="border-transparent bg-emerald-600 text-white"><twig:ux:icon name="lucide:check" /></twig:IconTile>
-    <twig:IconTile variant="elevated" class="bg-amber-100 text-amber-700"><twig:ux:icon name="lucide:triangle-alert" /></twig:IconTile>
+    <twig:IconTile class="border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-400"><twig:ux:icon name="lucide:star" /></twig:IconTile>
+    <twig:IconTile class="border-transparent bg-emerald-600 text-white dark:bg-emerald-500"><twig:ux:icon name="lucide:check" /></twig:IconTile>
+    <twig:IconTile variant="elevated" class="bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-400"><twig:ux:icon name="lucide:triangle-alert" /></twig:IconTile>
 </div>
 ```
 
