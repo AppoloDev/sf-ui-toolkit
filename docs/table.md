@@ -8,7 +8,7 @@
 
 ## Usage
 
-Put `row-expansion` on the table or on an element around it (around a toolbar too, to use `expandAll` and `collapseAll`). In each row, a `Table:ExpandToggle` points to the `Table:RowExpansion` placed right under it, through the same id. The detail row spans every column of the table. `expandAll` and `collapseAll` open and close every row; with `data-row-expansion-single-value="true"` only one row stays open. A `row-expansion:expand` or `row-expansion:collapse` event, with the `toggle` and the `row` in `event.detail`, is sent each time a row opens or closes.
+Put `row-expansion` on the table or on an element around it (around a toolbar too, to use `expandAll` and `collapseAll`). In each row, a `Table:ExpandToggle` points to the `Table:RowExpansion` placed right under it, through the same id. The detail row spans every column of the table. `expandAll` and `collapseAll` open and close every row; with `data-row-expansion-single-value="true"` only one row stays open. With `data-row-expansion-row-click-value="true"`, a click anywhere on a row opens or closes it, except on a link, a button, a field or an element marked `data-row-expansion-ignore`. A `row-expansion:expand` or `row-expansion:collapse` event, with the `toggle` and the `row` in `event.detail`, is sent each time a row opens or closes.
 
 ```twig
 <twig:Table data-controller="row-expansion">
@@ -316,6 +316,75 @@ Set `open` on the toggle and on its detail row.
         <twig:Table:RowExpansion id="row-d2">
             <p class="text-sm text-muted-foreground">
                 Waiting for the payment, due on 20 March.
+            </p>
+        </twig:Table:RowExpansion>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Clickable Row
+
+With `data-row-expansion-row-click-value`, the whole row is the target, not just the chevron. The link and the button of the last cell keep their own job, and so does selecting text. The chevron stays the keyboard way in.
+
+```twig
+<twig:Table data-controller="row-expansion" data-row-expansion-row-click-value="true">
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head class="w-10">
+                <span class="sr-only">Details</span>
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Customer
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Plan
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                Actions
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Table:ExpandToggle controls="row-f1" expandLabel="Show Amy Brooks" collapseLabel="Hide Amy Brooks" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                Amy Brooks
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Team
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                <twig:Button variant="outline" size="sm" type="button">
+                    Edit
+                </twig:Button>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-f1">
+            <p class="text-sm text-muted-foreground">
+                Customer since 2022. Last invoice paid on 3 March.
+            </p>
+        </twig:Table:RowExpansion>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Table:ExpandToggle controls="row-f2" expandLabel="Show Noah Carter" collapseLabel="Hide Noah Carter" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                Noah Carter
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Starter
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                <twig:Button variant="outline" size="sm" type="button">
+                    Edit
+                </twig:Button>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:RowExpansion id="row-f2">
+            <p class="text-sm text-muted-foreground">
+                Customer since 2024. Trial ends on 20 March.
             </p>
         </twig:Table:RowExpansion>
     </twig:Table:Body>

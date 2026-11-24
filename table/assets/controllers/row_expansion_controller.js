@@ -3,13 +3,14 @@ import { Controller } from '@hotwired/stimulus';
 /**
  * Opens and closes the detail rows of a table. Put it on the table or on an element around it and its toolbar.
  *
- * @value single  Opens one row at a time: opening a row closes the others.
+ * @value single    Opens one row at a time: opening a row closes the others.
+ * @value rowClick  A click anywhere on a row (but on a link, a button, a field...) opens or closes it.
  * @event row-expansion:expand    A row was opened. detail: { toggle, row }
  * @event row-expansion:collapse  A row was closed. detail: { toggle, row }
  * @action toggle, toggleAll, expandAll, collapseAll
  */
 export default class extends Controller {
-    static values = { single: Boolean };
+    static values = { single: Boolean, rowClick: Boolean };
 
     connect() {
         // The toggle is the source of truth: the detail row follows it.
@@ -25,6 +26,27 @@ export default class extends Controller {
             }
         }
         this.#syncAll();
+
+        this.rowListeners = [];
+        if (this.rowClickValue) {
+            for (const toggle of this.#toggles()) {
+                const row = toggle.closest('tr');
+                if (!row) {
+                    continue;
+                }
+                const listener = (event) => this.#rowClicked(event, row, toggle);
+                row.addEventListener('click', listener);
+                row.classList.add('cursor-pointer');
+                this.rowListeners.push([row, listener]);
+            }
+        }
+    }
+
+    disconnect() {
+        for (const [row, listener] of this.rowListeners ?? []) {
+            row.removeEventListener('click', listener);
+        }
+        this.rowListeners = [];
     }
 
     toggle(event) {
@@ -60,6 +82,22 @@ export default class extends Controller {
             this.#apply(toggle, false, true);
         }
         this.#syncAll();
+    }
+
+    // A click on something that does its own job, or the end of a text selection, does not count.
+    #rowClicked(event, row, toggle) {
+        const target = event.target;
+        if (!(target instanceof Element) || toggle.contains(target)) {
+            return;
+        }
+        const own = target.closest('a, button, input, select, textarea, label, summary, [role="button"], [role="checkbox"], [data-row-expansion-ignore]');
+        if (own && row.contains(own)) {
+            return;
+        }
+        if (window.getSelection()?.toString()) {
+            return;
+        }
+        toggle.click();
     }
 
     #toggles() {
