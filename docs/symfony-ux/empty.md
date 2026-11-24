@@ -279,7 +279,7 @@ A dotted canvas, drawn with a radial gradient, and a comment pin that waits for 
 <twig:Empty class="border border-dashed">
     <twig:Empty:Header>
         <twig:Empty:Media>
-            <div class="relative h-20 w-40 rounded-lg bg-[radial-gradient(var(--color-muted-foreground)_1px,transparent_1px)] [background-size:12px_12px] opacity-90 ring-1 ring-foreground/10">
+            <div class="relative h-20 w-40 rounded-lg bg-[radial-gradient(var(--color-muted-foreground)_1.5px,transparent_1.5px)] [background-size:12px_12px] ring-1 ring-foreground/10">
                 <div class="absolute start-6 top-4 flex size-9 items-center justify-center rounded-full rounded-bl-none bg-primary text-primary-foreground shadow-sm">
                     <twig:ux:icon name="lucide:message-square-plus" class="size-4" />
                 </div>

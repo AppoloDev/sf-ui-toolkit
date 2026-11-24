@@ -335,14 +335,12 @@
 
 ### Stacked Depth
 
-The `Card` clips its content, so the two layers behind it are siblings of the card in a `relative isolate` wrapper, not part of it.
+The `Card` clips its content, so the two layers behind it are siblings of the card in a `relative isolate` wrapper, not part of it. The padding at the bottom of the wrapper leaves room for them to show.
 
 ```twig
-<div class="relative isolate mx-auto mb-6 max-w-sm">
-    <div class="absolute inset-x-6 -bottom-4 -z-20 h-full rounded-xl bg-card ring-1 ring-foreground/10">
-    </div>
-    <div class="absolute inset-x-3 -bottom-2 -z-10 h-full rounded-xl bg-card ring-1 ring-foreground/10">
-    </div>
+<div class="relative isolate mx-auto max-w-sm pb-4">
+    <div class="absolute inset-x-6 top-4 bottom-0 -z-20 rounded-xl bg-card ring-1 ring-foreground/10"></div>
+    <div class="absolute inset-x-3 top-2 bottom-2 -z-10 rounded-xl bg-card ring-1 ring-foreground/10"></div>
     <twig:Card>
         <twig:Card:Header>
             <twig:Card:Title>
