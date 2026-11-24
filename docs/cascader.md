@@ -49,7 +49,7 @@ Each level opens in a new column; the trigger shows the full path of the choice.
 
 ### Drill down
 
-`mode="drill"` replaces the level as you go deeper, with a back row: better in narrow spaces.
+`mode="drill"` replaces the level as you go deeper, with a back row: better in narrow spaces. The default `columns` mode switches to drill-down by itself on screens narrower than 640px.
 
 <!-- height: 340 -->
 
@@ -171,7 +171,7 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 | `max` | int | `null` | Maximum number of choices (`multiple`). |
 | `selectable` | `leaf`, `any` | `leaf` | Whether branches can be chosen. |
 | `cascade` | bool | `false` | `multiple` only: choosing a branch chooses its leaves; partial branches are mixed. |
-| `mode` | `columns`, `drill` | `columns` | Miller columns, or one level at a time. |
+| `mode` | `columns`, `drill` | `columns` | Miller columns (drill-down below 640px), or one level at a time. |
 | `separator` | string | ` / ` | Text between the levels of a displayed path. |
 | `required` | bool | `false` | The form cannot be submitted while empty. |
 | `disabled` | bool | `false` | Disables the field. |

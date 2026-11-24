@@ -36,6 +36,11 @@ export default class extends Controller {
         this.chosen = new Set(this.selectedValue.map(String).filter((value) => this.index.has(value)));
         this.trail = [];
         // The panel is a shadcn Popover on the same element: react to its open state.
+        this.narrow = window.matchMedia('(max-width: 639px)');
+        this.onNarrowChange = () => {
+            if (this.isOpen) this.render();
+        };
+        this.narrow.addEventListener('change', this.onNarrowChange);
         this.wasOpen = this.isOpen;
         this.observer = new MutationObserver(() => {
             if (this.isOpen === this.wasOpen) return;
@@ -62,6 +67,7 @@ export default class extends Controller {
 
     disconnect() {
         this.observer?.disconnect();
+        this.narrow?.removeEventListener('change', this.onNarrowChange);
         this.triggerTarget.removeEventListener('keydown', this.triggerKey);
     }
 
@@ -99,6 +105,11 @@ export default class extends Controller {
     }
 
     // --- popover ----------------------------------------------------------------------------
+
+    // Columns fall back to drill-down on narrow screens, where several columns do not fit.
+    get mode() {
+        return 'columns' === this.modeValue && this.narrow?.matches ? 'drill' : this.modeValue;
+    }
 
     get isOpen() {
         return 'open' === this.element.dataset.state;
@@ -154,8 +165,8 @@ export default class extends Controller {
             this.statusTarget.textContent = matches.length ? '' : this.emptyLabelValue;
         } else {
             const levels = this.levels();
-            const shown = 'drill' === this.modeValue ? levels.slice(-1) : levels;
-            shown.forEach((level) => columns.push(this.column(level.nodes, level.parent, false, 'drill' === this.modeValue && this.trail.length > 0)));
+            const shown = 'drill' === this.mode ? levels.slice(-1) : levels;
+            shown.forEach((level) => columns.push(this.column(level.nodes, level.parent, false, 'drill' === this.mode && this.trail.length > 0)));
         }
         this.columnsTarget.replaceChildren(...columns);
         if (focus) this.columnsTarget.querySelector(`[data-value="${CSS.escape(focus)}"]`)?.focus();
@@ -222,7 +233,7 @@ export default class extends Controller {
             row.append(arrow);
         }
         row.addEventListener('click', () => this.activate(node, flat));
-        row.addEventListener('mouseenter', () => { if (branch && 'columns' === this.modeValue && !node.disabled) this.openBranch(node, false); });
+        row.addEventListener('mouseenter', () => { if (branch && 'columns' === this.mode && !node.disabled) this.openBranch(node, false); });
 
         return row;
     }
