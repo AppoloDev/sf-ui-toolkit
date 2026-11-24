@@ -58,10 +58,15 @@
                                 <ul class="flex flex-wrap gap-2">
                                     {%- for file in item.attachments %}
                                         <li>
-                                            <{{ file.href is defined and file.href ? 'a href="' ~ file.href ~ '"' : 'span' }} class="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1 text-xs {{ file.href is defined and file.href ? 'hover:bg-muted' : '' }}">
+                                            {%- set file_label -%}
                                                 <twig:ux:icon name="lucide:paperclip" class="size-3.5 text-muted-foreground" aria-hidden="true" />
                                                 {{ file.name }}{% if file.size is defined and file.size %} <span class="text-muted-foreground">{{ file.size }}</span>{% endif %}
-                                            </{{ file.href is defined and file.href ? 'a' : 'span' }}>
+                                            {%- endset -%}
+                                            {%- if file.href is defined and file.href %}
+                                                <a href="{{ file.href }}" class="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1 text-xs outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring">{{ file_label }}</a>
+                                            {%- else %}
+                                                <span class="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1 text-xs">{{ file_label }}</span>
+                                            {%- endif %}
                                         </li>
                                     {%- endfor %}
                                 </ul>
