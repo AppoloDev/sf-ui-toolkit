@@ -56,7 +56,7 @@
             {%- endif %}
         </div>
         <form hidden class="flex items-center gap-1 border-b border-border p-1" data-{{ controller }}-target="linkForm" data-action="submit->{{ controller }}#applyLink keydown->{{ controller }}#linkKey">
-            <twig:Input type="url" aria-label="{{ names.linkUrl }}" placeholder="https://" class="min-w-0 flex-1" data-{{ controller }}-target="linkInput" />
+            <twig:Input type="url" aria-label="{{ names.linkUrl }}" placeholder="https://" class="min-w-0 flex-1" {{ ...{('data-' ~ controller ~ '-target'): 'linkInput'} }} />
             <twig:Button type="submit">{{ names.linkApply }}</twig:Button>
             <twig:Button variant="outline" data-action="{{ controller }}#removeLink">{{ names.linkRemove }}</twig:Button>
         </form>
