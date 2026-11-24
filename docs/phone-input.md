@@ -2,6 +2,12 @@
 
 > International phone field with a searchable country selector and an E.164 value.
 
+## Installation
+
+- popover
+- input-group
+- button
+
 ## Usage
 
 ```twig

@@ -26,7 +26,7 @@ const flag = (iso) => String.fromCodePoint(...[...iso].map((char) => 127397 + ch
  * is dispatched with { value, country }.
  */
 export default class extends Controller {
-    static targets = ['trigger', 'flag', 'dial', 'national', 'hidden', 'panel', 'search', 'list', 'empty'];
+    static targets = ['trigger', 'flag', 'dial', 'national', 'hidden', 'search', 'list', 'empty'];
     static values = {
         value: String,
         defaultCountry: { type: String, default: 'FR' },
@@ -38,16 +38,21 @@ export default class extends Controller {
         this.countries = this.localizedCountries();
         this.country = this.countries.find(([iso]) => iso === this.defaultCountryValue.toUpperCase()) ?? this.countries[0];
         this.active = -1;
-        this.onOutsideClick = (event) => {
-            if (!this.element.contains(event.target)) this.close();
-        };
         this.parseInitial();
         this.renderList('');
         this.render();
+        // The country panel is a shadcn Popover on the same element: react to its open state.
+        this.wasOpen = this.isOpen;
+        this.observer = new MutationObserver(() => {
+            if (this.isOpen === this.wasOpen) return;
+            this.wasOpen = this.isOpen;
+            if (this.isOpen) this.opened();
+        });
+        this.observer.observe(this.element, { attributes: true, attributeFilter: ['data-state'] });
     }
 
     disconnect() {
-        document.removeEventListener('pointerdown', this.onOutsideClick);
+        this.observer?.disconnect();
     }
 
     // Country names come from the browser (Intl.DisplayNames) in the page language, sorted for that language.
@@ -87,25 +92,19 @@ export default class extends Controller {
 
     // --- popover ----------------------------------------------------------------------------
 
-    toggle() {
-        this.panelTarget.hidden ? this.open() : this.close();
+    get isOpen() {
+        return 'open' === this.element.dataset.state;
     }
 
-    open() {
-        this.panelTarget.hidden = false;
-        this.triggerTarget.setAttribute('aria-expanded', 'true');
-        document.addEventListener('pointerdown', this.onOutsideClick);
+    opened() {
         this.searchTarget.value = '';
         this.renderList('');
-        this.searchTarget.focus();
         this.setActive(this.visible().findIndex((li) => li.dataset.iso === this.country[0]));
     }
 
     close(restoreFocus = false) {
-        if (this.panelTarget.hidden) return;
-        this.panelTarget.hidden = true;
-        this.triggerTarget.setAttribute('aria-expanded', 'false');
-        document.removeEventListener('pointerdown', this.onOutsideClick);
+        if (!this.isOpen) return;
+        this.element.dataset.popoverOpenValue = 'false';
         if (restoreFocus) this.triggerTarget.focus();
     }
 
@@ -123,9 +122,6 @@ export default class extends Controller {
         } else if ('Enter' === event.key) {
             event.preventDefault();
             if (items[this.active]) this.select(items[this.active].dataset.iso);
-        } else if ('Escape' === event.key) {
-            event.preventDefault();
-            this.close(true);
         }
     }
 

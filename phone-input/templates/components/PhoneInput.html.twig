@@ -12,36 +12,38 @@
     id              id of the national number input (for an external <label for>)
     locale          language of the country names (default: the page language, `<html lang>`)
     countryLabel, searchLabel, listLabel, emptyLabel   texts of the country selector
+
+  Requires the shadcn recipes popover, input-group, button (installed from the shadcn kit).
 #}
 {%- props name = null, value = '', defaultCountry = 'FR', placeholder = '', disabled = false, size = 'default', label = 'Phone number', id = null, locale = '', countryLabel = 'Country', searchLabel = 'Search a country', listLabel = 'Countries', emptyLabel = 'No country found.' -%}
-{%- set extra_class = attributes.render('class') -%}
-{%- set height = {sm: 'h-8 text-xs', default: 'h-9 text-sm', lg: 'h-10 text-base'}[size] ?? 'h-9 text-sm' -%}
+{%- set height = {sm: 'h-7', default: 'h-8', lg: 'h-10'}[size] ?? 'h-8' -%}
+{%- set national = {'data-phone-input-target': 'national'}|merge(id ? {id: id} : {})|merge(disabled ? {disabled: true} : {}) -%}
+{%- set opener = {'data-phone-input-target': 'trigger'}|merge(disabled ? {disabled: true} : {}) -%}
 {%- set data = {
+    class: 'inline-flex',
     'data-controller': 'phone-input',
     'data-phone-input-value-value': value,
     'data-phone-input-default-country-value': defaultCountry,
     'data-phone-input-locale-value': locale,
     'data-phone-input-country-label-value': countryLabel,
 } -%}
-<div class="{{ ('relative inline-flex ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
-    <div class="flex w-full items-stretch overflow-hidden rounded-md border border-border bg-background focus-within:ring-2 focus-within:ring-ring {{ height }} {{ disabled ? 'opacity-50' }}">
-        <button type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="{{ countryLabel }}" {{ disabled ? 'disabled' }}
-                class="flex shrink-0 items-center gap-1.5 border-r border-border px-2.5 outline-none hover:bg-muted"
-                data-phone-input-target="trigger" data-action="phone-input#toggle">
-            <span class="text-base leading-none" aria-hidden="true" data-phone-input-target="flag"></span>
-            <span class="tabular-nums text-muted-foreground" data-phone-input-target="dial"></span>
-            <twig:ux:icon name="lucide:chevron-down" class="size-3.5 text-muted-foreground" aria-hidden="true" />
-        </button>
-        <input type="tel" inputmode="tel" autocomplete="tel-national" aria-label="{{ label }}" placeholder="{{ placeholder }}" {{ disabled ? 'disabled' }}
-               {% if id %}id="{{ id }}" {% endif %}class="min-w-0 flex-1 bg-transparent px-3 tabular-nums outline-none"
-               data-phone-input-target="national" data-action="input->phone-input#input blur->phone-input#commit">
-    </div>
+<twig:Popover {{ ...attributes.defaults(data) }}>
+    <twig:InputGroup class="{{ height }}{{ disabled ? ' opacity-50' }}">
+        <twig:InputGroup:Addon>
+            <twig:Popover:Trigger>
+                <twig:InputGroup:Button size="sm" aria-label="{{ countryLabel }}" {{ ...opener }} {{ ...popover_trigger_attrs }}>
+                    <span class="text-base leading-none" aria-hidden="true" data-phone-input-target="flag"></span>
+                    <span class="tabular-nums text-muted-foreground" data-phone-input-target="dial"></span>
+                    <twig:ux:icon name="lucide:chevron-down" aria-hidden="true" />
+                </twig:InputGroup:Button>
+            </twig:Popover:Trigger>
+        </twig:InputGroup:Addon>
+        <twig:InputGroup:Input type="tel" inputmode="tel" autocomplete="tel-national" aria-label="{{ label }}" placeholder="{{ placeholder }}" class="h-full! tabular-nums" {{ ...national }} data-action="input->phone-input#input blur->phone-input#commit" />
+    </twig:InputGroup>
     <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-phone-input-target="hidden">
-    <div hidden class="absolute left-0 top-full z-50 mt-1 w-72 rounded-md border border-border bg-background p-1 shadow-md" data-phone-input-target="panel">
-        <input type="search" role="combobox" aria-expanded="true" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off"
-               class="mb-1 h-8 w-full rounded-sm border-b border-border bg-transparent px-2 text-sm outline-none"
-               data-phone-input-target="search" data-action="input->phone-input#filter keydown->phone-input#searchKey">
+    <twig:Popover:Content align="start" class="w-72! gap-0! p-1!">
+        <twig:Input type="search" role="combobox" aria-expanded="true" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off" class="mb-1 h-8" data-phone-input-target="search" data-action="input->phone-input#filter keydown->phone-input#searchKey" />
         <ul role="listbox" aria-label="{{ listLabel }}" class="max-h-56 overflow-y-auto text-sm" data-phone-input-target="list"></ul>
         <p hidden class="px-2 py-3 text-center text-sm text-muted-foreground" data-phone-input-target="empty">{{ emptyLabel }}</p>
-    </div>
-</div>
+    </twig:Popover:Content>
+</twig:Popover>
