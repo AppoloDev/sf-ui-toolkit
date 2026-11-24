@@ -2,6 +2,8 @@
 
 > The shadcn Alert with info, success, warning and invert variants.
 
+<!-- order: Default, Basic, Title and Description, Leading Icon, Destructive, Info, Success, Warning, Invert, All variants, Action, Icon and Actions, Title and Actions, Pro upsell, Payment Failure, Direct Message, Urgent Billing, Service Status, Custom Colors -->
+
 ## Installation
 
 - alert

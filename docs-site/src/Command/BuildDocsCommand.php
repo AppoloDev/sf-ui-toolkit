@@ -82,7 +82,15 @@ final class BuildDocsCommand extends Command
                     $inherited[] = ['added' => false, 'inherited' => true] + $example;
                 }
             }
-            $pages[$slug]['examples'] = array_merge($inherited, $page['examples']);
+            $examples = array_merge($inherited, $page['examples']);
+            if (isset($page['order'])) {
+                // Stable sort: the examples that are not listed keep their order, after the listed ones.
+                $position = static fn (array $example): int => (false === ($at = array_search($example['title'], $page['order'], true))) ? count($page['order']) : $at;
+                $keyed = array_map(static fn (array $example, int $index): array => [$position($example), $index, $example], $examples, array_keys($examples));
+                usort($keyed, static fn (array $a, array $b): int => [$a[0], $a[1]] <=> [$b[0], $b[1]]);
+                $examples = array_column($keyed, 2);
+            }
+            $pages[$slug]['examples'] = $examples;
         }
 
         $this->buildControllers($root, $outDir);
@@ -322,6 +330,10 @@ final class BuildDocsCommand extends Command
                 $page['title'] = $heading;
                 preg_match_all('/^> ?(.*)$/m', $body, $quote);
                 $page['description'] = trim(implode(' ', $quote[1]));
+                // <!-- order: Default, Variants, ... --> sets the order of the examples, official ones included.
+                if (preg_match('/<!--\s*order:\s*(.+?)\s*-->/s', $body, $order)) {
+                    $page['order'] = array_map('trim', explode(',', $order[1]));
+                }
                 continue;
             }
 

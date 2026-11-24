@@ -2,6 +2,8 @@
 
 > The shadcn Spinner with an icon prop to swap the spinning icon.
 
+<!-- order: Default, Size, Icons, Color Variants, Label, Button, Pending Buttons, Badge, In Badges, Input Group, In Input Group, Empty, Inline Text, Loading Dots, Card Overlay, Overlay With Caption, Full Page -->
+
 ## Usage
 
 This recipe replaces the `Spinner` of the official kit: without `icon` it is the same `lucide:loader-2`.
@@ -32,12 +34,6 @@ The `label` is what assistive technologies announce.
 
 ```twig
 <twig:Spinner icon="lucide:refresh-cw" label="Synchronizing" class="size-6" />
-```
-
-### In a button
-
-```twig
-<twig:Button disabled><twig:Spinner icon="lucide:refresh-cw" data-icon="inline-start" /> Syncing</twig:Button>
 ```
 
 ## Accessibility

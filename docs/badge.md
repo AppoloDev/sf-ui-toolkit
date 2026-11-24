@@ -2,6 +2,8 @@
 
 > The shadcn Badge with success, info and warning colors, solid, outline and light appearances, sizes and radius.
 
+<!-- order: Default, Variants, Colors, Outline, Light, Sizes, Radius, Counts, With Icon, With Spinner, Status Dot, Dismiss Button, With Avatar, With Flag, Link, As Link, Custom Colors -->
+
 ## Usage
 
 This recipe replaces the `Badge` of the official kit: its 6 variants and its `as` prop are unchanged, so existing badges keep working. `variant` picks the color, `appearance` how it is drawn.
@@ -50,19 +52,6 @@ The solid colors: `default` is the primary color, `success`, `info` and `warning
 </div>
 ```
 
-### Official variants
-
-Secondary, outline, ghost and link ignore `appearance`.
-
-```twig
-<div class="flex flex-wrap items-center gap-2">
-    <twig:Badge variant="secondary">Secondary</twig:Badge>
-    <twig:Badge variant="outline">Outline</twig:Badge>
-    <twig:Badge variant="ghost">Ghost</twig:Badge>
-    <twig:Badge variant="link">Link</twig:Badge>
-</div>
-```
-
 ### Sizes
 
 ```twig
@@ -93,12 +82,6 @@ The default is the pill of the official kit; `sm`, `md` and `full` change the co
     <twig:Badge radius="full" variant="warning" class="min-w-5 px-1.5">12</twig:Badge>
     <twig:Badge radius="full" variant="info" appearance="outline" class="min-w-5 px-1.5">99+</twig:Badge>
 </div>
-```
-
-### As a link
-
-```twig
-<twig:Badge as="a" href="#" variant="info" appearance="light">Release notes</twig:Badge>
 ```
 
 ## Accessibility
