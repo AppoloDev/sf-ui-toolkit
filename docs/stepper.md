@@ -1958,52 +1958,54 @@ The panel under the stepper shows the details of the selected stage.
 
 ### Frame Icon Tiles
 
-The steps live in a frame; each one is an icon tile that lifts when current.
+The steps live in the `Frame` component of this kit; each one is an icon tile that lifts when current.
 
 ```twig
 <twig:Stepper :value="2" class="max-w-xl!">
-    <twig:Stepper:Nav class="gap-1! rounded-xl! border! border-border! bg-muted/40! p-1!">
-        <twig:Stepper:Item step="1" class="flex-1! gap-0!">
-            <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
-                <twig:Stepper:Indicator class="size-9! rounded-lg!">
-                    <twig:ux:icon name="lucide:user" class="size-4!" />
-                </twig:Stepper:Indicator>
-                <twig:Stepper:Title>
-                    Account
-                </twig:Stepper:Title>
-            </twig:Stepper:Trigger>
-        </twig:Stepper:Item>
-        <twig:Stepper:Item step="2" class="flex-1! gap-0!">
-            <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
-                <twig:Stepper:Indicator class="size-9! rounded-lg!">
-                    <twig:ux:icon name="lucide:building-2" class="size-4!" />
-                </twig:Stepper:Indicator>
-                <twig:Stepper:Title>
-                    Company
-                </twig:Stepper:Title>
-            </twig:Stepper:Trigger>
-        </twig:Stepper:Item>
-        <twig:Stepper:Item step="3" class="flex-1! gap-0!">
-            <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
-                <twig:Stepper:Indicator class="size-9! rounded-lg!">
-                    <twig:ux:icon name="lucide:credit-card" class="size-4!" />
-                </twig:Stepper:Indicator>
-                <twig:Stepper:Title>
-                    Billing
-                </twig:Stepper:Title>
-            </twig:Stepper:Trigger>
-        </twig:Stepper:Item>
-        <twig:Stepper:Item step="4" class="flex-1! gap-0!">
-            <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
-                <twig:Stepper:Indicator class="size-9! rounded-lg!">
-                    <twig:ux:icon name="lucide:circle-check" class="size-4!" />
-                </twig:Stepper:Indicator>
-                <twig:Stepper:Title>
-                    Review
-                </twig:Stepper:Title>
-            </twig:Stepper:Trigger>
-        </twig:Stepper:Item>
-    </twig:Stepper:Nav>
+    <twig:Frame spacing="sm">
+        <twig:Stepper:Nav class="gap-1!">
+            <twig:Stepper:Item step="1" class="flex-1! gap-0!">
+                <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                    <twig:Stepper:Indicator class="size-9! rounded-lg!">
+                        <twig:ux:icon name="lucide:user" class="size-4!" />
+                    </twig:Stepper:Indicator>
+                    <twig:Stepper:Title>
+                        Account
+                    </twig:Stepper:Title>
+                </twig:Stepper:Trigger>
+            </twig:Stepper:Item>
+            <twig:Stepper:Item step="2" class="flex-1! gap-0!">
+                <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                    <twig:Stepper:Indicator class="size-9! rounded-lg!">
+                        <twig:ux:icon name="lucide:building-2" class="size-4!" />
+                    </twig:Stepper:Indicator>
+                    <twig:Stepper:Title>
+                        Company
+                    </twig:Stepper:Title>
+                </twig:Stepper:Trigger>
+            </twig:Stepper:Item>
+            <twig:Stepper:Item step="3" class="flex-1! gap-0!">
+                <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                    <twig:Stepper:Indicator class="size-9! rounded-lg!">
+                        <twig:ux:icon name="lucide:credit-card" class="size-4!" />
+                    </twig:Stepper:Indicator>
+                    <twig:Stepper:Title>
+                        Billing
+                    </twig:Stepper:Title>
+                </twig:Stepper:Trigger>
+            </twig:Stepper:Item>
+            <twig:Stepper:Item step="4" class="flex-1! gap-0!">
+                <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                    <twig:Stepper:Indicator class="size-9! rounded-lg!">
+                        <twig:ux:icon name="lucide:circle-check" class="size-4!" />
+                    </twig:Stepper:Indicator>
+                    <twig:Stepper:Title>
+                        Review
+                    </twig:Stepper:Title>
+                </twig:Stepper:Trigger>
+            </twig:Stepper:Item>
+        </twig:Stepper:Nav>
+    </twig:Frame>
 </twig:Stepper>
 ```
 

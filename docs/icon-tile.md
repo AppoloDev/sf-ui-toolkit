@@ -249,9 +249,9 @@ A small badge pinned to a corner of the tile.
         <twig:IconTile variant="elevated">
             <twig:ux:icon name="lucide:mail" />
         </twig:IconTile>
-        <span class="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-background bg-destructive px-1 text-[10px] font-semibold text-white">
+        <twig:Badge variant="destructive" class="absolute -right-2 -top-2 h-5 min-w-5 rounded-full border-2 border-background px-1 text-[10px]">
             3
-        </span>
+        </twig:Badge>
     </div>
     <div class="relative">
         <twig:IconTile variant="elevated">

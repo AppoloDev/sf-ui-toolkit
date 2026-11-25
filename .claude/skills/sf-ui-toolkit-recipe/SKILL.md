@@ -40,6 +40,7 @@ The model is `rich-text-editor`, which depends on TipTap (`@tiptap/core` and `@t
 
 ## Rules that bite
 
+- When an example combines the component with another piece, use the component for that piece (official shadcn one, or one from this kit) instead of rebuilding it with raw HTML: `Empty` for empty states, `Card`, `Item`, `Badge`, `Button`, `Field`, `Collapsible`, `Tabs`, `Progress`, `Frame`, `IconTile`, `Kbd`, `Avatar`. Check the shadcn kit and this kit before writing a `<div class="...">` that looks like one of them; raw HTML stays for what no component covers (a one-off layout, a status dot).
 - `ship.sh` runs `git add -A`: finish or stash (`git stash push -u -- <paths>`) any unfinished recipe before shipping another one.
 - The browser caches `controllers.js`: when testing a controller after a deploy, `fetch(url, {cache: 'reload'})` it and reload.
 
