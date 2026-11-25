@@ -123,5 +123,5 @@ An E.164 `value` selects the country from its dial code and fills the national n
 | `listLabel` | string | `Countries` | Accessible name of the country list. |
 | `emptyLabel` | string | `No country found.` | Text shown when the search has no result. |
 | `disabled` | bool | `false` | Disables the field. |
-| `readonly` | bool | `false` | The number can be read and copied but not changed; the country button is disabled. |
+| `readonly` | bool | `false` | The number can be read and copied but not changed; the country button is locked. |
 | `invalid` | bool | `false` | Marks the number field as invalid (`aria-invalid`). |

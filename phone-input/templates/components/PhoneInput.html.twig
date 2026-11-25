@@ -7,7 +7,7 @@
     defaultCountry  ISO 3166-1 alpha-2 code used when `value` is empty
     placeholder     placeholder of the national number field
     disabled        disables the field
-    readonly        the number can be read and copied but not changed; the country button is disabled
+    readonly        the number can be read and copied but not changed; the country button is locked
     invalid         marks the number field as invalid (aria-invalid)
     size            sm | default | lg
     label           accessible label of the national number field
@@ -20,7 +20,7 @@
 {%- props name = null, value = '', defaultCountry = 'FR', placeholder = '', disabled = false, readonly = false, invalid = false, size = 'default', label = 'Phone number', id = null, locale = '', countryLabel = 'Country', searchLabel = 'Search a country', listLabel = 'Countries', emptyLabel = 'No country found.' -%}
 {%- set height = {sm: 'h-7', default: 'h-8', lg: 'h-10'}[size] ?? 'h-8' -%}
 {%- set national = {'data-phone-input-target': 'national'}|merge(id ? {id: id} : {})|merge(disabled ? {disabled: true} : {})|merge(readonly ? {readonly: true} : {})|merge(invalid ? {'aria-invalid': 'true'} : {}) -%}
-{%- set opener = {'data-phone-input-target': 'trigger'}|merge(disabled or readonly ? {disabled: true} : {}) -%}
+{%- set opener = {'data-phone-input-target': 'trigger'}|merge(disabled ? {disabled: true} : {})|merge(readonly ? {'aria-disabled': 'true', tabindex: '-1', class: 'pointer-events-none'} : {}) -%}
 {%- set data = {
     class: 'inline-flex',
     'data-controller': 'phone-input',
