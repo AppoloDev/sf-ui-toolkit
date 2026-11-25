@@ -1,0 +1,46 @@
+{#
+ # FloatLabel: a label that sits inside a field and floats to the top on focus or when the field has a value.
+ #
+ # The field in the slot (an `Input`, a `Textarea`, a `NativeSelect`...) needs `placeholder=" "` (one space):
+ # the label rests while the placeholder is shown and the field is not focused.
+ # The label is placed after the field, so it follows the field state with CSS only (no JavaScript).
+ #}
+{%- props
+    ## string The label text.
+    label,
+    ## string The id of the field the label points to.
+    fieldId,
+    ## 'over'|'in'|'on'|'ifta' Where the label goes when floated: above the field (over), inside the field above the value (in), on the border (on), or always inside above the value without resting position (ifta).
+    variant = 'over'
+-%}
+{%- set style = html_cva(
+    base: 'group/float relative block',
+    variants: {
+        variant: {
+            over: 'mt-5',
+            in: '[&>[data-slot=input]]:h-12 [&>[data-slot=input]]:pt-5 [&>[data-slot=textarea]]:pt-6 [&>[data-slot=native-select]]:h-12 [&>[data-slot=native-select]]:pt-4',
+            on: '',
+            ifta: '[&>[data-slot=input]]:h-12 [&>[data-slot=input]]:pt-5 [&>[data-slot=textarea]]:pt-6 [&>[data-slot=native-select]]:h-12 [&>[data-slot=native-select]]:pt-4',
+        },
+    },
+) -%}
+{%- set labelStyle = html_cva(
+    base: 'pointer-events-none absolute left-2.5 z-10 origin-left truncate text-muted-foreground transition-all duration-150 group-has-[[aria-invalid=true]]/float:text-destructive group-has-[:focus-visible]/float:text-foreground group-has-[[aria-invalid=true]:focus-visible]/float:text-destructive',
+    variants: {
+        variant: {
+            over: 'top-0 -translate-y-full text-xs group-has-[:placeholder-shown:not(:focus)]/float:top-1/2 group-has-[:placeholder-shown:not(:focus)]/float:-translate-y-1/2 group-has-[:placeholder-shown:not(:focus)]/float:text-sm',
+            in: 'top-1.5 text-xs group-has-[:placeholder-shown:not(:focus)]/float:top-1/2 group-has-[:placeholder-shown:not(:focus)]/float:-translate-y-1/2 group-has-[:placeholder-shown:not(:focus)]/float:text-sm',
+            on: 'top-0 -translate-y-1/2 bg-background px-1 text-xs group-has-[:placeholder-shown:not(:focus)]/float:top-1/2 group-has-[:placeholder-shown:not(:focus)]/float:bg-transparent group-has-[:placeholder-shown:not(:focus)]/float:px-0 group-has-[:placeholder-shown:not(:focus)]/float:text-sm',
+            ifta: 'top-1.5 text-xs',
+        },
+    },
+) -%}
+<div
+    data-slot="float-label"
+    data-variant="{{ variant }}"
+    {{ attributes.defaults({class: style.apply({variant: variant})|tailwind_classes}) }}
+>
+    {##- The field, with `placeholder=" "`. -#}
+    {%- block content %}{% endblock -%}
+    <label for="{{ fieldId }}" data-slot="float-label-text" class="{{ labelStyle.apply({variant: variant})|tailwind_classes }}">{{ label }}</label>
+</div>
