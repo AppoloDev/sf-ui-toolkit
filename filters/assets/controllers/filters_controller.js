@@ -27,7 +27,7 @@ export default class extends Controller {
             type: item.dataset.type || 'text',
             options: Object.fromEntries(Array.from(item.querySelectorAll(':scope > ul > li')).map((option) => [option.dataset.value, option.dataset.label])),
         }));
-        this.filters = Array.from(this.valuesTarget.children)
+        this.filters = Array.from(this.hasValuesTarget ? this.valuesTarget.children : [])
             .filter((item) => 'LI' === item.tagName && this.field(item.dataset.field))
             .map((item) => ({
                 field: item.dataset.field,
