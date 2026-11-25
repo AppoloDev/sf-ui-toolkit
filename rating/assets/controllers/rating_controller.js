@@ -5,8 +5,8 @@ import { Controller } from '@hotwired/stimulus';
  * The selection itself stays carried by the native radio buttons (keyboard, forms, screen readers).
  */
 export default class extends Controller {
-    static targets = ['fill'];
-    static values = { value: Number };
+    static targets = ['fill', 'output'];
+    static values = { value: Number, labels: Array };
 
     connect() {
         this.paint(this.valueValue);
@@ -30,5 +30,6 @@ export default class extends Controller {
             const percent = Math.max(0, Math.min(100, (value - index) * 100));
             element.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
         });
+        if (this.hasOutputTarget) this.outputTarget.textContent = this.labelsValue.length ? (this.labelsValue[Math.ceil(value) - 1] ?? '') : value.toFixed(1);
     }
 }

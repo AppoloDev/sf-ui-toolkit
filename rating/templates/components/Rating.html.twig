@@ -9,18 +9,38 @@
     readonly display only
     size     sm | md | lg
     label    accessible label
+    showValue    show the number (one decimal) after the stars
+    valueLabels  list of texts, one per star (Poor, Fair...): the text of the current value is shown after the stars
+    count        number of ratings, shown after the stars as `countLabel`
+    countLabel   text around the count, {count} is replaced (default `({count})`)
+    emojis       list of {emoji, label}: replaces the stars with one emoji per level (the chosen one is highlighted, the value is its position)
 
   The fill is rendered on the server (clip-path); the `rating` Stimulus controller
   only adds the hover preview. Input stays made of native radio buttons.
 #}
-{%- props name = null, value = 0, max = 5, step = 1, readonly = false, size = 'md', label = 'Rating' -%}
+{%- props name = null, value = 0, max = 5, step = 1, readonly = false, size = 'md', label = 'Rating', showValue = false, valueLabels = [], count = null, countLabel = '({count})', emojis = [] -%}
 {%- set size_class = {sm: 'size-4', md: 'size-5', lg: 'size-6'}[size] ?? 'size-5' -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set editable = name is not null and not readonly -%}
 {%- set half = step == 0.5 -%}
 {%- set group_attrs = editable
-    ? 'role="radiogroup" aria-label="' ~ label|e('html_attr') ~ '" data-controller="rating" data-rating-value-value="' ~ value ~ '" data-action="mouseleave->rating#reset"'
+    ? 'role="radiogroup" aria-label="' ~ label|e('html_attr') ~ '" data-controller="rating" data-rating-value-value="' ~ value ~ '" data-rating-labels-value="' ~ valueLabels|json_encode|e('html_attr') ~ '" data-action="mouseleave->rating#reset"'
     : 'role="img" aria-label="' ~ (label ~ ': ' ~ value ~ ' / ' ~ max)|e('html_attr') ~ '"' -%}
+{%- if emojis -%}
+    {%- if editable %}
+        <div role="radiogroup" aria-label="{{ label }}" class="{{ ('inline-flex items-center gap-1 ' ~ extra_class)|trim }}" {{ attributes }}>
+            {%- for item in emojis %}
+                <label class="relative cursor-pointer rounded-md p-1 text-2xl leading-none grayscale transition has-[:checked]:scale-110 has-[:checked]:grayscale-0 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring hover:grayscale-0 opacity-60 hover:opacity-100 has-[:checked]:opacity-100">
+                    <input type="radio" name="{{ name }}" value="{{ loop.index }}" aria-label="{{ item.label }}" class="sr-only" {{ value == loop.index ? 'checked' }}>
+                    <span aria-hidden="true">{{ item.emoji }}</span>
+                </label>
+            {%- endfor %}
+        </div>
+    {%- else %}
+        {%- set current = emojis[max(0, min(emojis|length - 1, (value|round(0, 'ceil')) - 1))] -%}
+        <span role="img" aria-label="{{ label }}: {{ current.label }}" class="{{ ('inline-flex text-2xl leading-none ' ~ extra_class)|trim }}" {{ attributes }}>{{ current.emoji }}</span>
+    {%- endif %}
+{%- else -%}
 <div class="{{ ('inline-flex items-center gap-0.5 ' ~ extra_class)|trim }}" {{ group_attrs|raw }} {{ attributes }}>
     {%- for i in 1..max -%}
         {%- set fill = max(0, min(100, (value - (i - 1)) * 100)) -%}
@@ -35,4 +55,11 @@
             {%- endif -%}
         </span>
     {%- endfor -%}
+    {%- if showValue or valueLabels %}
+        <span class="ml-1.5 text-sm font-medium tabular-nums" aria-hidden="true" data-rating-target="output">{{ valueLabels ? (valueLabels[(value|round(0, 'ceil')) - 1] ?? '') : (value|number_format(1)) }}</span>
+    {%- endif %}
+    {%- if count is not null %}
+        <span class="ml-0.5 text-sm text-muted-foreground tabular-nums">{{ countLabel|replace({'{count}': count}) }}</span>
+    {%- endif %}
 </div>
+{%- endif -%}
