@@ -31,6 +31,6 @@
     'data-kanban-dropped-label-value': droppedLabel,
     'data-kanban-cancelled-label-value': cancelledLabel,
 } -%}
-<div role="group" aria-label="{{ label }}" class="{{ ('group/kanban flex items-start overflow-x-auto ' ~ (variant == 'stacked' ? 'gap-0 rounded-xl bg-muted/50 p-1.5' : 'gap-3') ~ ' ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+<div role="group" aria-label="{{ label }}" class="{{ ('group/kanban flex items-start overflow-x-auto ' ~ (variant == 'stacked' ? 'w-fit max-w-full gap-0 rounded-xl bg-muted/50 p-1.5' : 'gap-3') ~ ' ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
     {%- block content %}{% endblock -%}
 </div>
