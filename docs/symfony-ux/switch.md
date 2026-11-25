@@ -248,3 +248,147 @@
 </div>
 ```
 
+
+### States
+
+```twig
+<div class="flex flex-wrap items-center gap-6">
+    <twig:Switch aria-label="Default" />
+    <twig:Switch checked aria-label="Checked" />
+    <twig:Switch size="sm" aria-label="Small" />
+    <twig:Switch size="sm" checked aria-label="Small checked" />
+    <twig:Switch disabled aria-label="Disabled" />
+    <twig:Switch disabled checked aria-label="Disabled checked" />
+</div>
+```
+
+### Square
+
+The thumb and the track lose their rounded ends.
+
+```twig
+<div class="flex flex-wrap items-center gap-6">
+    <twig:Switch size="sm" class="rounded-sm [&_[data-slot=switch-thumb]]:rounded-[2px]" aria-label="Small square" />
+    <twig:Switch class="rounded-md [&_[data-slot=switch-thumb]]:rounded-[4px]" aria-label="Square" />
+    <twig:Switch checked class="rounded-md data-[size=default]:h-7! data-[size=default]:w-12! [&_[data-slot=switch-thumb]]:size-6! [&_[data-slot=switch-thumb]]:rounded-[4px]" aria-label="Large square" />
+</div>
+```
+
+### Square With Text
+
+```twig
+<div class="group/sw relative inline-flex items-center">
+    <twig:Switch checked aria-label="Mode" class="rounded-md data-[size=default]:h-8! data-[size=default]:w-20! [&_[data-slot=switch-thumb]]:size-7! [&_[data-slot=switch-thumb]]:rounded-[4px] [&_[data-slot=switch-thumb]]:group-has-checked:translate-x-[calc(100%+2px)]" />
+    <span class="pointer-events-none absolute start-2 text-xs font-medium text-primary-foreground opacity-0 group-has-checked/sw:opacity-100">
+        ON
+    </span>
+    <span class="pointer-events-none absolute end-2 text-xs font-medium text-muted-foreground group-has-checked/sw:opacity-0">
+        OFF
+    </span>
+</div>
+```
+
+### Square With Label
+
+```twig
+<twig:Field orientation="horizontal" class="w-fit">
+    <twig:Switch id="sw-square-label" class="rounded-md [&_[data-slot=switch-thumb]]:rounded-[4px]" />
+    <twig:Field:Label for="sw-square-label">
+        Auto-save drafts
+    </twig:Field:Label>
+</twig:Field>
+```
+
+### Theme Toggle
+
+Sun and moon icons sit on the track; the thumb slides over one of them.
+
+```twig
+<div class="group/sw relative inline-flex items-center">
+    <twig:Switch aria-label="Dark mode" class="data-[size=default]:h-7! data-[size=default]:w-14! [&_[data-slot=switch-thumb]]:size-6! [&_[data-slot=switch-thumb]]:group-has-checked:translate-x-[calc(100%+4px)]" />
+    <twig:ux:icon name="lucide:sun" class="pointer-events-none absolute start-1.5 size-4 text-foreground/70" />
+    <twig:ux:icon name="lucide:moon" class="pointer-events-none absolute end-1.5 size-4 text-foreground/70" />
+</div>
+```
+
+### Square Theme Toggle
+
+```twig
+<div class="group/sw relative inline-flex items-center">
+    <twig:Switch aria-label="Dark mode" class="rounded-md data-[size=default]:h-7! data-[size=default]:w-14! [&_[data-slot=switch-thumb]]:size-6! [&_[data-slot=switch-thumb]]:rounded-[4px] [&_[data-slot=switch-thumb]]:group-has-checked:translate-x-[calc(100%+4px)]" />
+    <twig:ux:icon name="lucide:sun" class="pointer-events-none absolute start-1.5 size-4 text-foreground/70" />
+    <twig:ux:icon name="lucide:moon" class="pointer-events-none absolute end-1.5 size-4 text-foreground/70" />
+</div>
+```
+
+### Icon With Label
+
+```twig
+<twig:Field orientation="horizontal" class="w-fit">
+    <twig:Switch id="sw-icon-label" />
+    <twig:Field:Label for="sw-icon-label">
+        <twig:ux:icon name="lucide:bell" class="size-4" />
+        Notifications
+    </twig:Field:Label>
+</twig:Field>
+```
+
+### Volume Toggle
+
+The icon follows the state of the switch.
+
+```twig
+<div class="group/sw flex items-center gap-3">
+    <twig:ux:icon name="lucide:volume-x" class="size-5 text-muted-foreground group-has-checked/sw:hidden" />
+    <twig:ux:icon name="lucide:volume-2" class="hidden size-5 group-has-checked/sw:block" />
+    <twig:Switch checked aria-label="Sound" />
+</div>
+```
+
+### On Label
+
+```twig
+<div class="group/sw flex items-center gap-2">
+    <twig:Switch id="sw-on-label" checked />
+    <twig:Field:Label for="sw-on-label" class="w-6 text-muted-foreground group-has-checked/sw:text-foreground">
+        <span class="group-has-checked/sw:hidden">
+            Off
+        </span>
+        <span class="hidden group-has-checked/sw:inline">
+            On
+        </span>
+    </twig:Field:Label>
+</div>
+```
+
+### State Labels
+
+```twig
+<div class="group/sw flex items-center gap-3">
+    <span class="text-sm text-muted-foreground group-has-checked/sw:opacity-50">
+        Monthly
+    </span>
+    <twig:Switch aria-label="Billing period" />
+    <span class="text-sm text-muted-foreground group-has-checked/sw:text-foreground">
+        Yearly
+    </span>
+</div>
+```
+
+### In an Item
+
+```twig
+<twig:Item variant="outline" class="max-w-md">
+    <twig:Item:Content>
+        <twig:Item:Title>
+            Two-factor authentication
+        </twig:Item:Title>
+        <twig:Item:Description>
+            Ask for a code when you sign in.
+        </twig:Item:Description>
+    </twig:Item:Content>
+    <twig:Item:Actions>
+        <twig:Switch aria-label="Two-factor authentication" />
+    </twig:Item:Actions>
+</twig:Item>
+```
