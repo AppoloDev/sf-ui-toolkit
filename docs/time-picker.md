@@ -80,6 +80,167 @@ With `requireConfirm`, changes are held as a draft until OK is pressed; closing 
 <twig:TimePicker name="locked" value="12:00" disabled label="Locked" />
 ```
 
+### Typable Input
+
+The field is a text input first: type a time in any of the accepted forms and it is parsed on blur or `Enter`.
+
+<!-- height: 160 -->
+
+```twig
+<div class="flex max-w-xs flex-col gap-3">
+    <twig:TimePicker name="typed_at" placeholder="Type 1430, 14h30 or 2:30pm" label="Time" />
+    <p class="text-sm text-muted-foreground">
+        Try <code>1430</code>, <code>14:30</code>, <code>14h30</code> or <code>2:30pm</code>.
+    </p>
+</div>
+```
+
+### Hour Only
+
+A minute step of 60 leaves a single minute value, so only the hour matters.
+
+<!-- height: 360 -->
+
+```twig
+<twig:TimePicker name="hour_at" value="09:00" minuteStep="60" label="Hour" />
+```
+
+### Start & End
+
+Two pickers for a time range, both limited to the working day.
+
+<!-- height: 380 -->
+
+```twig
+<div class="flex flex-wrap items-end gap-4">
+    <twig:Field class="w-auto">
+        <twig:Field:Label for="range-start">
+            Start
+        </twig:Field:Label>
+        <twig:TimePicker id="range-start" name="start" value="09:00" min="08:00" max="18:00" minuteStep="15" />
+    </twig:Field>
+    <twig:Field class="w-auto">
+        <twig:Field:Label for="range-end">
+            End
+        </twig:Field:Label>
+        <twig:TimePicker id="range-end" name="end" value="17:30" min="08:00" max="18:00" minuteStep="15" />
+    </twig:Field>
+</div>
+```
+
+### Time Zone
+
+A native select next to the picker holds the time zone, which is submitted as a second field.
+
+<!-- height: 380 -->
+
+```twig
+<div class="flex flex-wrap items-end gap-4">
+    <twig:Field class="w-auto">
+        <twig:Field:Label for="zone-time">
+            Time
+        </twig:Field:Label>
+        <twig:TimePicker id="zone-time" name="time" value="14:30" />
+    </twig:Field>
+    <twig:Field class="w-auto">
+        <twig:Field:Label for="zone-select">
+            Time zone
+        </twig:Field:Label>
+        <twig:NativeSelect id="zone-select" name="zone">
+            <twig:NativeSelect:Option value="Europe/Paris" selected>
+                Paris (UTC+1)
+            </twig:NativeSelect:Option>
+            <twig:NativeSelect:Option value="Europe/London">
+                London (UTC+0)
+            </twig:NativeSelect:Option>
+            <twig:NativeSelect:Option value="America/New_York">
+                New York (UTC-5)
+            </twig:NativeSelect:Option>
+            <twig:NativeSelect:Option value="Asia/Tokyo">
+                Tokyo (UTC+9)
+            </twig:NativeSelect:Option>
+        </twig:NativeSelect>
+    </twig:Field>
+</div>
+```
+
+### Localized
+
+Every text of the picker is a prop, so it can be translated: here in French, with a 24-hour display.
+
+<!-- height: 380 -->
+
+```twig
+<twig:TimePicker
+    name="heure"
+    value="14:30"
+    placeholder="hh:mm"
+    label="Heure du rendez-vous"
+    openLabel="Ouvrir le sélecteur d'heure"
+    dialogLabel="Choisir une heure"
+    nowLabel="Maintenant"
+    clearLabel="Effacer"
+    confirmLabel="Valider"
+    hoursLabel="Heures"
+    minutesLabel="Minutes"
+    requireConfirm
+/>
+```
+
+### Form Validation
+
+Inside a `Field`, with its label, a description and an error message. The error state is drawn by the `Field`, from the server's validation.
+
+<!-- height: 420 -->
+
+```twig
+<twig:Field data-invalid="true" class="max-w-xs">
+    <twig:Field:Label for="form-time">
+        Pickup time
+    </twig:Field:Label>
+    <twig:TimePicker id="form-time" name="pickup" value="19:30" max="18:00" aria-invalid="true" />
+    <twig:Field:Description>
+        Pickups run until 18:00.
+    </twig:Field:Description>
+    <twig:Field:Error>
+        Choose a time before 18:00.
+    </twig:Field:Error>
+</twig:Field>
+```
+
+### Date & Time
+
+A date picker and a time picker side by side, for a single moment.
+
+<!-- height: 420 -->
+
+```twig
+<div class="flex flex-wrap items-end gap-4">
+    <twig:Field class="w-auto">
+        <twig:Field:Label>
+            Date
+        </twig:Field:Label>
+        <twig:DatePicker>
+            <twig:DatePicker:Trigger>
+                <twig:Button variant="outline" class="w-48 justify-between text-start font-normal data-[empty=true]:text-muted-foreground" {{ ...date_picker_trigger_attrs }}>
+                    <twig:DatePicker:Value placeholder="Pick a date" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:DatePicker:Trigger>
+            <twig:DatePicker:Content>
+                <twig:Calendar mode="single" name="date" />
+            </twig:DatePicker:Content>
+        </twig:DatePicker>
+    </twig:Field>
+    <twig:Field class="w-auto">
+        <twig:Field:Label for="datetime-time">
+            Time
+        </twig:Field:Label>
+        <twig:TimePicker id="datetime-time" name="time" value="10:00" />
+    </twig:Field>
+</div>
+```
+
 ## Accessibility
 
 - Each column is a `listbox` named by its header (Hours, Minutes, Seconds, AM/PM), and the options carry `aria-selected` / `aria-disabled`.
