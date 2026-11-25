@@ -235,6 +235,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -279,6 +280,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -340,6 +342,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -404,6 +407,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -464,6 +468,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -525,6 +530,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -581,6 +587,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -649,6 +656,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -732,6 +740,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -800,6 +809,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -859,6 +869,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -918,6 +929,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -990,6 +1002,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -1049,6 +1062,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -1106,6 +1120,7 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
 
@@ -1159,5 +1174,6 @@ A footer under the links, separated by a border, with a button that leads to the
                 </twig:NavigationMenu:Content>
             </twig:NavigationMenu:Item>
         </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
 </div>
 ```
