@@ -62,6 +62,70 @@ Compose it with the shadcn `Field` and `Field:Label`; the label points at the `i
 </twig:Field>
 ```
 
+### Small Size
+
+`size="sm"` for dense toolbars and tables.
+
+```twig
+<twig:NumberField name="qty_sm" size="sm" :value="2" :min="0" :max="10" label="Quantity" />
+```
+
+### Large Size
+
+`size="lg"` for touch screens and prominent forms.
+
+```twig
+<twig:NumberField name="qty_lg" size="lg" :value="2" :min="0" :max="10" label="Quantity" />
+```
+
+### Buttons on Right
+
+`buttons="right"` groups minus and plus after the value.
+
+```twig
+<twig:NumberField name="qty_right" buttons="right" :value="4" :min="0" :max="20" label="Quantity" />
+```
+
+### Spinner Buttons
+
+`buttons="spinner"` shows small stacked arrows, like a native number input.
+
+```twig
+<twig:NumberField name="qty_spinner" buttons="spinner" :value="4" :min="0" :max="20" label="Quantity" />
+```
+
+### Form Validation
+
+`invalid` marks the field with `aria-invalid`; compose it with `Field` and `Field:Error`. The script validates when the value changes.
+
+<!-- height: 260 -->
+
+```twig
+<div id="number-validation">
+    <twig:Field class="w-fit" data-invalid="true">
+        <twig:Field:Label for="guests">
+            Guests
+        </twig:Field:Label>
+        <twig:NumberField id="guests" name="guests" :value="12" :min="0" :max="30" invalid />
+        <twig:Field:Description>
+            A table seats 2 to 10 guests.
+        </twig:Field:Description>
+        <twig:Field:Error data-error>
+            Choose between 2 and 10 guests.
+        </twig:Field:Error>
+    </twig:Field>
+</div>
+<script>
+    const numberValidation = document.getElementById('number-validation');
+    numberValidation.addEventListener('number-field:change', (event) => {
+        const valid = event.detail.value >= 2 && event.detail.value <= 10;
+        numberValidation.querySelector('[data-slot=field]').dataset.invalid = String(!valid);
+        numberValidation.querySelector('input').setAttribute('aria-invalid', String(!valid));
+        numberValidation.querySelector('[data-error]').hidden = valid;
+    });
+</script>
+```
+
 ## Accessibility
 
 - The inner `input` has `role="spinbutton"` with `aria-valuenow`, `aria-valuemin` and `aria-valuemax` kept in sync.
@@ -82,6 +146,9 @@ Compose it with the shadcn `Field` and `Field:Label`; the label points at the `i
 | `step` | number | `1` | Increment of the buttons and arrow keys. |
 | `placeholder` | string | `''` | Placeholder text. |
 | `disabled` | bool | `false` | Disables the field and the buttons. |
+| `size` | `sm`, `default`, `lg` | `default` | Height and text size. |
+| `buttons` | `sides`, `right`, `spinner` | `sides` | Minus and plus around the value, both on the right, or small stacked arrows on the right. |
+| `invalid` | bool | `false` | Marks the field as invalid (`aria-invalid`). |
 | `label` | string | `null` | Accessible label (`aria-label`). |
 | `id` | string | `null` | Id of the inner input, for an external `<label for>`. |
 | `decreaseLabel` | string | `Decrease` | Accessible name of the decrement button. |

@@ -8,30 +8,60 @@
     step         increment of the buttons and the arrow keys
     placeholder  placeholder text
     disabled     disables the field
+    size         sm | default | lg
+    buttons      sides | right | spinner: minus and plus around the field, both on the right, or small stacked arrows on the right
+    invalid      marks the field as invalid (aria-invalid)
     label        accessible label (use it when no <label for> points to the input)
     id           id of the inner input (for an external <label for>)
     decreaseLabel / increaseLabel   accessible names of the buttons
 
   Requires the shadcn recipes input-group and button (installed from the shadcn kit).
 #}
-{%- props name = null, value = null, min = null, max = null, step = 1, placeholder = '', disabled = false, label = null, id = null, decreaseLabel = 'Decrease', increaseLabel = 'Increase' -%}
+{%- props name = null, value = null, min = null, max = null, step = 1, placeholder = '', disabled = false, size = 'default', buttons = 'sides', invalid = false, label = null, id = null, decreaseLabel = 'Decrease', increaseLabel = 'Increase' -%}
 {%- set data = {'class': 'w-auto', 'data-controller': 'number-field', 'data-number-field-step-value': step, 'data-disabled': disabled ? 'true' : false} -%}
 {%- if min is not null -%}{%- set data = data|merge({'data-number-field-min-value': min}) -%}{%- endif -%}
 {%- if max is not null -%}{%- set data = data|merge({'data-number-field-max-value': max}) -%}{%- endif -%}
 {%- set field = {'data-number-field-target': 'input'}|merge(id ? {id: id} : {})|merge(name ? {name: name} : {})|merge(label ? {'aria-label': label} : {})|merge(disabled ? {disabled: true} : {}) -%}
 {%- set off = disabled ? {disabled: true} : {} -%}
+{%- set rootClass = {sm: 'h-7! text-xs', default: '', lg: 'h-11! text-base'}[size] ?? '' -%}
+{%- set buttonSize = size == 'lg' ? 'icon-sm' : 'icon-xs' -%}
+{%- set data = data|merge({class: ('w-auto ' ~ rootClass)|trim}) -%}
+{%- set inputClass = (buttons == 'sides' ? 'w-20 text-center' : 'w-20 text-left') ~ ' tabular-nums' ~ (size == 'lg' ? ' text-base' : '') -%}
+{%- set field = field|merge(invalid ? {'aria-invalid': 'true'} : {}) -%}
 <twig:InputGroup {{ ...attributes.defaults(data) }}>
-    <twig:InputGroup:Addon>
-        <twig:InputGroup:Button size="icon-xs" tabindex="-1" aria-label="{{ decreaseLabel }}" data-number-field-target="decrement" data-action="pointerdown->number-field#holdDecrement" {{ ...off }}>
-            <twig:ux:icon name="lucide:minus" aria-hidden="true" />
-        </twig:InputGroup:Button>
-    </twig:InputGroup:Addon>
-    <twig:InputGroup:Input type="text" inputmode="decimal" autocomplete="off" role="spinbutton" class="w-20 text-center tabular-nums"
+    {%- if buttons == 'sides' %}
+        <twig:InputGroup:Addon>
+            <twig:InputGroup:Button size="{{ buttonSize }}" tabindex="-1" aria-label="{{ decreaseLabel }}" data-number-field-target="decrement" data-action="pointerdown->number-field#holdDecrement" {{ ...off }}>
+                <twig:ux:icon name="lucide:minus" aria-hidden="true" />
+            </twig:InputGroup:Button>
+        </twig:InputGroup:Addon>
+    {%- endif %}
+    <twig:InputGroup:Input type="text" inputmode="decimal" autocomplete="off" role="spinbutton" class="{{ inputClass }}"
         value="{{ value }}" placeholder="{{ placeholder }}" {{ ...field }}
         data-action="keydown->number-field#keydown input->number-field#sanitize blur->number-field#commit" />
-    <twig:InputGroup:Addon align="inline-end">
-        <twig:InputGroup:Button size="icon-xs" tabindex="-1" aria-label="{{ increaseLabel }}" data-number-field-target="increment" data-action="pointerdown->number-field#holdIncrement" {{ ...off }}>
-            <twig:ux:icon name="lucide:plus" aria-hidden="true" />
-        </twig:InputGroup:Button>
-    </twig:InputGroup:Addon>
+    {%- if buttons == 'sides' %}
+        <twig:InputGroup:Addon align="inline-end">
+            <twig:InputGroup:Button size="{{ buttonSize }}" tabindex="-1" aria-label="{{ increaseLabel }}" data-number-field-target="increment" data-action="pointerdown->number-field#holdIncrement" {{ ...off }}>
+                <twig:ux:icon name="lucide:plus" aria-hidden="true" />
+            </twig:InputGroup:Button>
+        </twig:InputGroup:Addon>
+    {%- elseif buttons == 'right' %}
+        <twig:InputGroup:Addon align="inline-end" class="gap-0.5">
+            <twig:InputGroup:Button size="{{ buttonSize }}" tabindex="-1" aria-label="{{ decreaseLabel }}" data-number-field-target="decrement" data-action="pointerdown->number-field#holdDecrement" {{ ...off }}>
+                <twig:ux:icon name="lucide:minus" aria-hidden="true" />
+            </twig:InputGroup:Button>
+            <twig:InputGroup:Button size="{{ buttonSize }}" tabindex="-1" aria-label="{{ increaseLabel }}" data-number-field-target="increment" data-action="pointerdown->number-field#holdIncrement" {{ ...off }}>
+                <twig:ux:icon name="lucide:plus" aria-hidden="true" />
+            </twig:InputGroup:Button>
+        </twig:InputGroup:Addon>
+    {%- else %}
+        <twig:InputGroup:Addon align="inline-end" class="flex-col gap-0 py-0.5">
+            <twig:InputGroup:Button size="icon-xs" tabindex="-1" class="h-1/2! w-5! rounded-sm!" aria-label="{{ increaseLabel }}" data-number-field-target="increment" data-action="pointerdown->number-field#holdIncrement" {{ ...off }}>
+                <twig:ux:icon name="lucide:chevron-up" class="size-3!" aria-hidden="true" />
+            </twig:InputGroup:Button>
+            <twig:InputGroup:Button size="icon-xs" tabindex="-1" class="h-1/2! w-5! rounded-sm!" aria-label="{{ decreaseLabel }}" data-number-field-target="decrement" data-action="pointerdown->number-field#holdDecrement" {{ ...off }}>
+                <twig:ux:icon name="lucide:chevron-down" class="size-3!" aria-hidden="true" />
+            </twig:InputGroup:Button>
+        </twig:InputGroup:Addon>
+    {%- endif %}
 </twig:InputGroup>
