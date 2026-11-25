@@ -734,3 +734,758 @@ The chips sit in the field with no frame, no background and no focus ring, so th
     </div>
 </div>
 ```
+
+### Items With Metadata
+
+Each item shows a second line. `label` stays the text matched while filtering.
+
+```twig
+<div style="min-height: 360px">
+    <div class="w-64">
+        <twig:Combobox id="cb-meta">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select a person" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search people..." :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Item value="Ada Lovelace" label="Ada Lovelace">
+                        <span class="flex flex-col">
+                            <span>Ada Lovelace</span>
+                            <span class="text-xs text-muted-foreground">Mathematician</span>
+                        </span>
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Grace Hopper" label="Grace Hopper">
+                        <span class="flex flex-col">
+                            <span>Grace Hopper</span>
+                            <span class="text-xs text-muted-foreground">Computer scientist</span>
+                        </span>
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Alan Turing" label="Alan Turing">
+                        <span class="flex flex-col">
+                            <span>Alan Turing</span>
+                            <span class="text-xs text-muted-foreground">Logician</span>
+                        </span>
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Margaret Hamilton" label="Margaret Hamilton">
+                        <span class="flex flex-col">
+                            <span>Margaret Hamilton</span>
+                            <span class="text-xs text-muted-foreground">Software engineer</span>
+                        </span>
+                    </twig:Combobox:Item>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Visible Checkboxes
+
+A check box in each item mirrors its selected state (`data-selected`).
+
+```twig
+<div style="min-height: 360px">
+    <div class="w-64">
+        <twig:Combobox id="cb-boxes" multiple>
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select teams" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search teams..." :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Item value="Design" label="Design" class="[&_[data-slot=combobox-item-indicator]]:hidden">
+                        <span class="flex size-4 shrink-0 items-center justify-center rounded-[4px] border border-input group-data-[selected=true]/combobox-item:border-primary group-data-[selected=true]/combobox-item:bg-primary group-data-[selected=true]/combobox-item:text-primary-foreground" aria-hidden="true">
+                            <twig:ux:icon name="lucide:check" class="size-3 opacity-0 group-data-[selected=true]/combobox-item:opacity-100" />
+                        </span>
+                        Design
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Engineering" label="Engineering" class="[&_[data-slot=combobox-item-indicator]]:hidden">
+                        <span class="flex size-4 shrink-0 items-center justify-center rounded-[4px] border border-input group-data-[selected=true]/combobox-item:border-primary group-data-[selected=true]/combobox-item:bg-primary group-data-[selected=true]/combobox-item:text-primary-foreground" aria-hidden="true">
+                            <twig:ux:icon name="lucide:check" class="size-3 opacity-0 group-data-[selected=true]/combobox-item:opacity-100" />
+                        </span>
+                        Engineering
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Marketing" label="Marketing" class="[&_[data-slot=combobox-item-indicator]]:hidden">
+                        <span class="flex size-4 shrink-0 items-center justify-center rounded-[4px] border border-input group-data-[selected=true]/combobox-item:border-primary group-data-[selected=true]/combobox-item:bg-primary group-data-[selected=true]/combobox-item:text-primary-foreground" aria-hidden="true">
+                            <twig:ux:icon name="lucide:check" class="size-3 opacity-0 group-data-[selected=true]/combobox-item:opacity-100" />
+                        </span>
+                        Marketing
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Sales" label="Sales" class="[&_[data-slot=combobox-item-indicator]]:hidden">
+                        <span class="flex size-4 shrink-0 items-center justify-center rounded-[4px] border border-input group-data-[selected=true]/combobox-item:border-primary group-data-[selected=true]/combobox-item:bg-primary group-data-[selected=true]/combobox-item:text-primary-foreground" aria-hidden="true">
+                            <twig:ux:icon name="lucide:check" class="size-3 opacity-0 group-data-[selected=true]/combobox-item:opacity-100" />
+                        </span>
+                        Sales
+                    </twig:Combobox:Item>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Favorites and All
+
+```twig
+<div style="min-height: 360px">
+    <div class="w-64">
+        <twig:Combobox id="cb-fav">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select a project" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search projects..." :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Group id="cb-fav-favorites">
+                        <twig:Combobox:Label>
+                            Favorites
+                        </twig:Combobox:Label>
+                        <twig:Combobox:Collection>
+                            <twig:Combobox:Item value="Website" label="Website">
+                                <twig:ux:icon name="lucide:star" class="text-amber-500" />
+                                Website
+                            </twig:Combobox:Item>
+                            <twig:Combobox:Item value="Mobile app" label="Mobile app">
+                                <twig:ux:icon name="lucide:star" class="text-amber-500" />
+                                Mobile app
+                            </twig:Combobox:Item>
+                        </twig:Combobox:Collection>
+                    </twig:Combobox:Group>
+                    <twig:Combobox:Separator />
+                    <twig:Combobox:Group id="cb-fav-others">
+                        <twig:Combobox:Label>
+                            All projects
+                        </twig:Combobox:Label>
+                        <twig:Combobox:Collection>
+                            <twig:Combobox:Item value="Billing" label="Billing">
+                                Billing
+                            </twig:Combobox:Item>
+                            <twig:Combobox:Item value="Docs" label="Docs">
+                                Docs
+                            </twig:Combobox:Item>
+                            <twig:Combobox:Item value="Analytics" label="Analytics">
+                                Analytics
+                            </twig:Combobox:Item>
+                        </twig:Combobox:Collection>
+                    </twig:Combobox:Group>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Group Counts
+
+```twig
+<div style="min-height: 360px">
+    <div class="w-64">
+        <twig:Combobox id="cb-counts">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select a country" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search countries..." :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Group id="cb-counts-eu">
+                        <twig:Combobox:Label class="flex items-center justify-between">
+                            Europe
+                            <twig:Badge variant="secondary">
+                                3
+                            </twig:Badge>
+                        </twig:Combobox:Label>
+                        <twig:Combobox:Collection>
+                            <twig:Combobox:Item value="France" label="France">
+                                France
+                            </twig:Combobox:Item>
+                            <twig:Combobox:Item value="Germany" label="Germany">
+                                Germany
+                            </twig:Combobox:Item>
+                            <twig:Combobox:Item value="Spain" label="Spain">
+                                Spain
+                            </twig:Combobox:Item>
+                        </twig:Combobox:Collection>
+                    </twig:Combobox:Group>
+                    <twig:Combobox:Group id="cb-counts-as">
+                        <twig:Combobox:Label class="flex items-center justify-between">
+                            Asia
+                            <twig:Badge variant="secondary">
+                                2
+                            </twig:Badge>
+                        </twig:Combobox:Label>
+                        <twig:Combobox:Collection>
+                            <twig:Combobox:Item value="Japan" label="Japan">
+                                Japan
+                            </twig:Combobox:Item>
+                            <twig:Combobox:Item value="India" label="India">
+                                India
+                            </twig:Combobox:Item>
+                        </twig:Combobox:Collection>
+                    </twig:Combobox:Group>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Nested Groups
+
+```twig
+<div style="min-height: 420px">
+    <div class="w-64">
+        <twig:Combobox id="cb-nested">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select a city" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search cities..." :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Group id="cb-nested-eu">
+                        <twig:Combobox:Label>
+                            Europe
+                        </twig:Combobox:Label>
+                        <twig:Combobox:Collection>
+                            <twig:Combobox:Group id="cb-nested-eu-fr">
+                                <twig:Combobox:Label class="ps-4">
+                                    France
+                                </twig:Combobox:Label>
+                                <twig:Combobox:Collection class="ps-4">
+                                    <twig:Combobox:Item value="Paris" label="Paris">
+                                        Paris
+                                    </twig:Combobox:Item>
+                                    <twig:Combobox:Item value="Lyon" label="Lyon">
+                                        Lyon
+                                    </twig:Combobox:Item>
+                                </twig:Combobox:Collection>
+                            </twig:Combobox:Group>
+                            <twig:Combobox:Group id="cb-nested-eu-de">
+                                <twig:Combobox:Label class="ps-4">
+                                    Germany
+                                </twig:Combobox:Label>
+                                <twig:Combobox:Collection class="ps-4">
+                                    <twig:Combobox:Item value="Berlin" label="Berlin">
+                                        Berlin
+                                    </twig:Combobox:Item>
+                                    <twig:Combobox:Item value="Munich" label="Munich">
+                                        Munich
+                                    </twig:Combobox:Item>
+                                </twig:Combobox:Collection>
+                            </twig:Combobox:Group>
+                        </twig:Combobox:Collection>
+                    </twig:Combobox:Group>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Read Only
+
+```twig
+<div class="w-64">
+    <twig:Combobox id="cb-readonly" value="France">
+        <twig:Combobox:Input placeholder="Select a country" :showTrigger="false" readonly class="pointer-events-none" />
+        <twig:Combobox:Content>
+            <twig:Combobox:List>
+                <twig:Combobox:Item value="France" label="France">
+                    France
+                </twig:Combobox:Item>
+            </twig:Combobox:List>
+        </twig:Combobox:Content>
+    </twig:Combobox>
+</div>
+```
+
+### Footer Actions
+
+```twig
+<div style="min-height: 360px">
+    <div class="w-64">
+        <twig:Combobox id="cb-footer">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select a project" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search projects..." :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Item value="Website" label="Website">
+                        Website
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Mobile app" label="Mobile app">
+                        Mobile app
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Billing" label="Billing">
+                        Billing
+                    </twig:Combobox:Item>
+                </twig:Combobox:List>
+                <twig:Separator />
+                <div class="flex gap-1 p-1">
+                    <twig:Button variant="ghost" size="sm" class="flex-1 justify-start">
+                        <twig:ux:icon name="lucide:plus" />
+                        New project
+                    </twig:Button>
+                    <twig:Button variant="ghost" size="sm">
+                        <twig:ux:icon name="lucide:settings" />
+                        <span class="sr-only">
+                            Manage projects
+                        </span>
+                    </twig:Button>
+                </div>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Full Width
+
+```twig
+<div class="w-full max-w-xl" style="min-height: 240px">
+    <twig:Combobox id="cb-full">
+        <twig:Combobox:Input placeholder="Search a framework..." />
+        <twig:Combobox:Content>
+            <twig:Combobox:Empty>
+                No results.
+            </twig:Combobox:Empty>
+            <twig:Combobox:List>
+                <twig:Combobox:Item value="Symfony" label="Symfony">
+                    Symfony
+                </twig:Combobox:Item>
+                <twig:Combobox:Item value="Laravel" label="Laravel">
+                    Laravel
+                </twig:Combobox:Item>
+                <twig:Combobox:Item value="Rails" label="Rails">
+                    Rails
+                </twig:Combobox:Item>
+            </twig:Combobox:List>
+        </twig:Combobox:Content>
+    </twig:Combobox>
+</div>
+```
+
+### Shortcuts
+
+```twig
+<div style="min-height: 360px">
+    <div class="w-64">
+        <twig:Combobox id="cb-keys">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Choose an action" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search actions..." :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Item value="New file" label="New file">
+                        New file
+                        <twig:Kbd class="ms-auto">
+                            ⌘N
+                        </twig:Kbd>
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Open file" label="Open file">
+                        Open file
+                        <twig:Kbd class="ms-auto">
+                            ⌘O
+                        </twig:Kbd>
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Save" label="Save">
+                        Save
+                        <twig:Kbd class="ms-auto">
+                            ⌘S
+                        </twig:Kbd>
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Close tab" label="Close tab">
+                        Close tab
+                        <twig:Kbd class="ms-auto">
+                            ⌘W
+                        </twig:Kbd>
+                    </twig:Combobox:Item>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Validation Feedback
+
+```twig
+<div style="min-height: 280px">
+    <twig:Field data-invalid="true" class="w-64">
+        <twig:Field:Label for="cb-invalid-input">
+            Country
+        </twig:Field:Label>
+        <twig:Combobox id="cb-invalid">
+            <twig:Combobox:Input id="cb-invalid-input" placeholder="Select a country" aria-invalid="true" />
+            <twig:Combobox:Content>
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Item value="France" label="France">
+                        France
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Germany" label="Germany">
+                        Germany
+                    </twig:Combobox:Item>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+        <twig:Field:Error>
+            Select a country to continue.
+        </twig:Field:Error>
+    </twig:Field>
+</div>
+```
+
+### Recent
+
+```twig
+<div style="min-height: 360px">
+    <div class="w-64">
+        <twig:Combobox id="cb-recent">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Open a file" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search files..." :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Group id="cb-recent-recent">
+                        <twig:Combobox:Label>
+                            Recent
+                        </twig:Combobox:Label>
+                        <twig:Combobox:Collection>
+                            <twig:Combobox:Item value="report.pdf" label="report.pdf">
+                                <twig:ux:icon name="lucide:history" class="text-muted-foreground" />
+                                report.pdf
+                            </twig:Combobox:Item>
+                            <twig:Combobox:Item value="budget.xlsx" label="budget.xlsx">
+                                <twig:ux:icon name="lucide:history" class="text-muted-foreground" />
+                                budget.xlsx
+                            </twig:Combobox:Item>
+                        </twig:Combobox:Collection>
+                    </twig:Combobox:Group>
+                    <twig:Combobox:Separator />
+                    <twig:Combobox:Group id="cb-recent-all">
+                        <twig:Combobox:Label>
+                            All files
+                        </twig:Combobox:Label>
+                        <twig:Combobox:Collection>
+                            <twig:Combobox:Item value="notes.md" label="notes.md">
+                                notes.md
+                            </twig:Combobox:Item>
+                            <twig:Combobox:Item value="plan.docx" label="plan.docx">
+                                plan.docx
+                            </twig:Combobox:Item>
+                            <twig:Combobox:Item value="logo.svg" label="logo.svg">
+                                logo.svg
+                            </twig:Combobox:Item>
+                        </twig:Combobox:Collection>
+                    </twig:Combobox:Group>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Category Separators
+
+```twig
+<div style="min-height: 360px">
+    <div class="w-64">
+        <twig:Combobox id="cb-cat">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select food" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search food..." :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Group id="cb-cat-fruit">
+                        <twig:Combobox:Label>
+                            Fruits
+                        </twig:Combobox:Label>
+                        <twig:Combobox:Collection>
+                            <twig:Combobox:Item value="Apple" label="Apple">
+                                Apple
+                            </twig:Combobox:Item>
+                            <twig:Combobox:Item value="Banana" label="Banana">
+                                Banana
+                            </twig:Combobox:Item>
+                        </twig:Combobox:Collection>
+                    </twig:Combobox:Group>
+                    <twig:Combobox:Separator />
+                    <twig:Combobox:Group id="cb-cat-veg">
+                        <twig:Combobox:Label>
+                            Vegetables
+                        </twig:Combobox:Label>
+                        <twig:Combobox:Collection>
+                            <twig:Combobox:Item value="Carrot" label="Carrot">
+                                Carrot
+                            </twig:Combobox:Item>
+                            <twig:Combobox:Item value="Leek" label="Leek">
+                                Leek
+                            </twig:Combobox:Item>
+                        </twig:Combobox:Collection>
+                    </twig:Combobox:Group>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Sizes
+
+```twig
+<div style="min-height: 240px" class="grid max-w-xs content-start gap-4">
+    <twig:Combobox id="cb-size-sm">
+        <twig:Combobox:Input placeholder="Small" class="h-7 text-xs" />
+        <twig:Combobox:Content>
+            <twig:Combobox:List>
+                <twig:Combobox:Item value="Apple" label="Apple">
+                    Apple
+                </twig:Combobox:Item>
+                <twig:Combobox:Item value="Banana" label="Banana">
+                    Banana
+                </twig:Combobox:Item>
+            </twig:Combobox:List>
+        </twig:Combobox:Content>
+    </twig:Combobox>
+    <twig:Combobox id="cb-size-lg">
+        <twig:Combobox:Input placeholder="Large" class="h-10 text-base" />
+        <twig:Combobox:Content>
+            <twig:Combobox:List>
+                <twig:Combobox:Item value="Apple" label="Apple">
+                    Apple
+                </twig:Combobox:Item>
+                <twig:Combobox:Item value="Banana" label="Banana">
+                    Banana
+                </twig:Combobox:Item>
+            </twig:Combobox:List>
+        </twig:Combobox:Content>
+    </twig:Combobox>
+</div>
+```
+
+### Colored Items
+
+```twig
+<div style="min-height: 300px">
+    <div class="w-64">
+        <twig:Combobox id="cb-colored">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select a level" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search levels..." :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Item value="Critical" label="Critical">
+                        <span class="font-medium text-red-600">Critical</span>
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Warning" label="Warning">
+                        <span class="font-medium text-amber-600">Warning</span>
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Healthy" label="Healthy">
+                        <span class="font-medium text-emerald-600">Healthy</span>
+                    </twig:Combobox:Item>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Disabled Items
+
+```twig
+<div style="min-height: 300px">
+    <div class="w-64">
+        <twig:Combobox id="cb-disabled">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select a fruit" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search fruits..." :showTrigger="false" />
+                <twig:Combobox:Empty>
+                    No results.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Item value="Apple" label="Apple">
+                        Apple
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Banana" label="Banana" disabled>
+                        Banana
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Cherry" label="Cherry">
+                        Cherry
+                    </twig:Combobox:Item>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Error With Retry
+
+The list is replaced by an error state with a retry button (wire the button to your own request).
+
+```twig
+<div style="min-height: 320px">
+    <div class="w-64">
+        <twig:Combobox id="cb-retry">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select a project" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search projects..." :showTrigger="false" />
+                <twig:Empty class="gap-2 p-4">
+                    <twig:Empty:Header>
+                        <twig:Empty:Title class="text-sm">
+                            Projects could not be loaded
+                        </twig:Empty:Title>
+                        <twig:Empty:Description>
+                            Check your connection and try again.
+                        </twig:Empty:Description>
+                    </twig:Empty:Header>
+                    <twig:Button variant="outline" size="sm">
+                        <twig:ux:icon name="lucide:refresh-cw" />
+                        Try again
+                    </twig:Button>
+                </twig:Empty>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Loading State
+
+```twig
+<div style="min-height: 320px">
+    <div class="w-64">
+        <twig:Combobox id="cb-loading">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select a project" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search projects..." :showTrigger="false" />
+                <div class="grid gap-2 p-2" aria-busy="true">
+                    <twig:Skeleton class="h-6 w-full" />
+                    <twig:Skeleton class="h-6 w-4/5" />
+                    <twig:Skeleton class="h-6 w-3/5" />
+                </div>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
+
+### Empty With Action
+
+Type a name that matches nothing: the empty state offers an action.
+
+```twig
+<div style="min-height: 320px">
+    <div class="w-64">
+        <twig:Combobox id="cb-empty-action">
+            <twig:Combobox:Trigger>
+                <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...combobox_trigger_attrs }}>
+                    <twig:Combobox:Value placeholder="Select a label" />
+                    <twig:ux:icon name="lucide:chevron-down" data-icon="inline-end" />
+                </twig:Button>
+            </twig:Combobox:Trigger>
+            <twig:Combobox:Content>
+                <twig:Combobox:Input placeholder="Search labels..." :showTrigger="false" />
+                <twig:Combobox:Empty class="flex-col items-center gap-2 py-3">
+                    No label found.
+                    <twig:Button variant="outline" size="sm">
+                        <twig:ux:icon name="lucide:plus" />
+                        Create label
+                    </twig:Button>
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Item value="Bug" label="Bug">
+                        Bug
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Feature" label="Feature">
+                        Feature
+                    </twig:Combobox:Item>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```
