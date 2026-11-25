@@ -9,7 +9,8 @@ import { Controller } from '@hotwired/stimulus';
  * `signature-pad:lock`. Ctrl/Cmd+Z undoes, Ctrl/Cmd+Shift+Z and Ctrl/Cmd+Y redo.
  *
  * Actions for your own controls inside the component: undo, redo, clear, replay, lock,
- * setColor (param `color`), setWeight (param `weight`), download (param `format`), typeName (an input).
+ * setColor (param `color`), setWeight (param `weight`), download (param `format`), typeName (a text input) and
+ * upload (a file input: an image of a signature is placed on the pad, under the strokes).
  * Targets for your own readouts: `preview` (an <img> of the export), `size` (payload size text).
  */
 export default class extends Controller {
@@ -31,6 +32,7 @@ export default class extends Controller {
         this.redone = [];
         this.current = null;
         this.typed = '';
+        this.image = null;
         this.weight = 1;
         this.ink = this.colorValue || this.colorTargets[0]?.dataset.signaturePadColorParam || null;
         this.colorTargets.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.signaturePadColorParam === this.ink)));
@@ -116,16 +118,38 @@ export default class extends Controller {
     }
 
     clear() {
-        if (this.inactiveValue || (!this.strokes.length && !this.redone.length && !this.typed)) return;
+        if (this.inactiveValue || (!this.strokes.length && !this.redone.length && !this.typed && !this.image)) return;
         this.stopReplay();
         this.strokes = [];
         this.redone = [];
         this.typed = '';
-        this.element.querySelectorAll('input[data-action*="signature-pad#typeName"]').forEach((input) => { input.value = ''; });
+        this.image = null;
+        this.element.querySelectorAll('input[data-action*="signature-pad#typeName"], input[data-action*="signature-pad#upload"]').forEach((input) => { input.value = ''; });
         this.draw();
         this.sync(true);
         // The button disables itself: keep keyboard focus inside the widget.
         if (!this.hasClearTarget || this.clearTarget.disabled) this.canvasTarget.focus();
+    }
+
+    // Uploaded image of a signature: kept as a data URL so it is exported with the strokes.
+    upload(event) {
+        const file = event.target?.files?.[0];
+        if (!file || this.inactiveValue || !file.type.startsWith('image/')) return;
+        const reader = new FileReader();
+        reader.onload = () => this.setImage(String(reader.result));
+        reader.readAsDataURL(file);
+    }
+
+    setImage(url) {
+        const element = new Image();
+        element.onload = () => {
+            this.stopReplay();
+            this.typed = '';
+            this.image = { url, element };
+            this.draw();
+            this.sync(true);
+        };
+        element.src = url;
     }
 
     // Typed alternative for people who cannot draw: the name is rendered in a handwriting font.
@@ -221,6 +245,13 @@ export default class extends Controller {
     }
 
     paint(context, width, height, scale, inkFor, strokes = this.strokes, typedColor = null) {
+        if (this.image) {
+            const { element } = this.image;
+            const fit = Math.min((width * 0.9) / element.naturalWidth, (height * 0.8) / element.naturalHeight);
+            const w = element.naturalWidth * fit;
+            const h = element.naturalHeight * fit;
+            context.drawImage(element, (width - w) / 2, (height - h) / 2, w, h);
+        }
         context.lineCap = 'round';
         context.lineJoin = 'round';
         strokes.forEach((stroke) => {
@@ -266,7 +297,7 @@ export default class extends Controller {
     // --- value / export ---------------------------------------------------------------------
 
     isEmpty() {
-        return 0 === this.strokes.length && '' === this.typed;
+        return 0 === this.strokes.length && '' === this.typed && !this.image;
     }
 
     sync(notify) {
@@ -303,6 +334,7 @@ export default class extends Controller {
             return JSON.stringify({
                 version: 2,
                 typed: this.typed || undefined,
+                image: this.image?.url,
                 strokes: this.strokes.map((stroke) => ({ c: stroke.color || undefined, w: 1 === (stroke.weight ?? 1) ? undefined : stroke.weight, p: stroke.points.map(({ x, y, t, p }) => [x, y, Math.round(t), p]) })),
             });
         }
@@ -329,7 +361,17 @@ export default class extends Controller {
                 ? `<text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" fill="${fallback}" stroke="none" font-family="Brush Script MT, Segoe Script, cursive" font-style="italic" font-size="${Math.round(56 * Math.min(1, width / 400))}">${this.typed.replace(/[<>&"]/g, (char) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' })[char])}</text>`
                 : '';
 
-            return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${background ? `<rect width="100%" height="100%" fill="${background}"/>` : ''}<g fill="none" stroke-linecap="round" stroke-linejoin="round">${paths}</g>${text}</svg>`;
+            const picture = this.image
+                ? (() => {
+                    const fit = Math.min((width * 0.9) / this.image.element.naturalWidth, (height * 0.8) / this.image.element.naturalHeight);
+                    const w = this.image.element.naturalWidth * fit;
+                    const h = this.image.element.naturalHeight * fit;
+
+                    return `<image href="${this.image.url}" x="${((width - w) / 2).toFixed(1)}" y="${((height - h) / 2).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}"/>`;
+                })()
+                : '';
+
+            return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${background ? `<rect width="100%" height="100%" fill="${background}"/>` : ''}${picture}<g fill="none" stroke-linecap="round" stroke-linejoin="round">${paths}</g>${text}</svg>`;
         }
         // Raster export: redraw on an offscreen canvas with the export colors.
         const scale = 2;
@@ -351,6 +393,7 @@ export default class extends Controller {
         try {
             const data = JSON.parse(this.valueValue);
             this.typed = data.typed ?? '';
+            if (data.image) this.setImage(data.image);
             this.strokes = (data.strokes ?? []).map((stroke) => {
                 const points = (Array.isArray(stroke) ? stroke : stroke.p).map(([x, y, t, p]) => ({ x, y, t, p }));
 

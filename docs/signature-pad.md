@@ -229,6 +229,128 @@ Pass a stored `json` export as `value` to show or continue a signature. `readonl
 </div>
 ```
 
+### Pinned actions
+
+`toolbarPosition="overlay"` pins the toolbar in the top right corner of the pad, so the form below keeps its height. `top` puts it above the pad.
+
+```twig
+<div class="grid max-w-md gap-4">
+    <twig:SignaturePad toolbarPosition="overlay" />
+    <twig:SignaturePad toolbarPosition="top" />
+</div>
+```
+
+### Signing workspace
+
+A pad with the ink colors, the line weights and a typed alternative, inside a `Card` with a confirm button.
+
+```twig
+<twig:Card class="max-w-lg">
+    <twig:Card:Header>
+        <twig:Card:Title>
+            Sign the agreement
+        </twig:Card:Title>
+        <twig:Card:Description>
+            Draw your signature or type your name.
+        </twig:Card:Description>
+    </twig:Card:Header>
+    <twig:Card:Content class="grid gap-4">
+        <twig:SignaturePad name="workspace" format="svg" weights toolbarPosition="top">
+            <twig:block name="colors">
+                <twig:SignaturePad:Color color="#111827" />
+                <twig:SignaturePad:Color color="#1d4ed8" />
+            </twig:block>
+            <twig:Input type="text" placeholder="Or type your full name" data-action="input->signature-pad#typeName" />
+        </twig:SignaturePad>
+    </twig:Card:Content>
+    <twig:Card:Footer class="justify-end">
+        <twig:Button>
+            Confirm signature
+        </twig:Button>
+    </twig:Card:Footer>
+</twig:Card>
+```
+
+### In a dialog
+
+The pad measures its frame when it appears: it can sit in a dialog that is closed at first.
+
+<!-- height: 380 -->
+```twig
+<twig:Dialog id="signature-dialog">
+    <twig:Dialog:Trigger>
+        <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+            Add your signature
+        </twig:Button>
+    </twig:Dialog:Trigger>
+    <twig:Dialog:Content>
+        <twig:Dialog:Header>
+            <twig:Dialog:Title>
+                Your signature
+            </twig:Dialog:Title>
+            <twig:Dialog:Description>
+                It will appear at the bottom of your documents.
+            </twig:Dialog:Description>
+        </twig:Dialog:Header>
+        <twig:SignaturePad name="profile-signature" />
+        <twig:Dialog:Footer>
+            <twig:Dialog:Close>
+                <twig:Button variant="outline" {{ ...dialog_close_attrs }}>
+                    Cancel
+                </twig:Button>
+            </twig:Dialog:Close>
+            <twig:Button>
+                Save
+            </twig:Button>
+        </twig:Dialog:Footer>
+    </twig:Dialog:Content>
+</twig:Dialog>
+```
+
+### Proof of delivery
+
+A delivery summary with an `Item`, the recipient's signature and a `Badge` that follows the pad.
+
+```twig
+<twig:Card class="max-w-md">
+    <twig:Card:Content class="grid gap-4">
+        <twig:Item variant="outline">
+            <twig:Item:Content>
+                <twig:Item:Title>
+                    Parcel 48213
+                </twig:Item:Title>
+                <twig:Item:Description>
+                    12 Harbor Street, 2 boxes
+                </twig:Item:Description>
+            </twig:Item:Content>
+            <twig:Item:Actions>
+                <twig:Badge variant="secondary" id="delivery-status">
+                    Awaiting signature
+                </twig:Badge>
+            </twig:Item:Actions>
+        </twig:Item>
+        <twig:SignaturePad name="recipient" label="Recipient signature" placeholder="Recipient signs here" onchange="document.getElementById('delivery-status').textContent = this.querySelector('[data-signature-pad-target=field]').value ? 'Signed' : 'Awaiting signature'" />
+    </twig:Card:Content>
+</twig:Card>
+```
+
+### File upload
+
+`signature-pad#upload` on a file input places an image of a signature on the pad. It is exported with the strokes (and kept in the `json` format).
+
+```twig
+<div class="grid max-w-md gap-3">
+    <twig:SignaturePad name="uploaded" format="png">
+        <twig:Field>
+            <twig:Label for="signature-file">
+                Or upload an image
+            </twig:Label>
+            <twig:Input id="signature-file" type="file" accept="image/*" data-action="change->signature-pad#upload" />
+        </twig:Field>
+    </twig:SignaturePad>
+</div>
+```
+
 ## Accessibility
 
 - The drawing area is a focusable `application` region with the accessible name `label` and a role description. `readonly` and `disabled` pads are not focusable.
@@ -250,6 +372,7 @@ Pass a stored `json` export as `value` to show or continue a signature. `readonl
 | `background` | string | `null` | Fill of exports (any CSS color). Transparent by default, white for `jpeg`. |
 | `weights` | bool | `false` | Shows the thin, regular and bold buttons. |
 | `toolbar` | bool | `true` | Shows the undo, redo and clear buttons. |
+| `toolbarPosition` | `bottom`, `top`, `overlay` | `bottom` | Toolbar under the pad, above it, or pinned in the top right corner of the pad. |
 | `minWidth` | number | `0.8` | Thinnest stroke width, in px. |
 | `maxWidth` | number | `2.6` | Thickest stroke width, in px. |
 | `pointerTypes` | `all`, `pen`, `touch`, `mouse` | `all` | Accepted input devices. |
@@ -274,7 +397,7 @@ Pass a stored `json` export as `value` to show or continue a signature. `readonl
 
 ### Content, actions and targets
 
-The content of the component is rendered under the toolbar. Controls placed there can use these Stimulus actions: `signature-pad#undo`, `#redo`, `#clear`, `#replay`, `#lock`, `#download` (with `data-signature-pad-format-param`), `#setColor` (`data-signature-pad-color-param`), `#setWeight` (`data-signature-pad-weight-param`) and `#typeName` (on an `input`). Two targets are filled for you: `data-signature-pad-target="preview"` (an `img`) and `data-signature-pad-target="size"` (payload size).
+The content of the component is rendered under the toolbar. Controls placed there can use these Stimulus actions: `signature-pad#undo`, `#redo`, `#clear`, `#replay`, `#lock`, `#download` (with `data-signature-pad-format-param`), `#setColor` (`data-signature-pad-color-param`), `#setWeight` (`data-signature-pad-weight-param`), `#typeName` (on a text `input`) and `#upload` (on a file `input`: an image of a signature is placed on the pad). Two targets are filled for you: `data-signature-pad-target="preview"` (an `img`) and `data-signature-pad-target="size"` (payload size).
 
 ### `<twig:SignaturePad:Color>`
 

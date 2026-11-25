@@ -8,6 +8,7 @@
     background    fill of image exports (default transparent for png/svg, white for jpeg)
     weights       show the line weight buttons (thin, regular, bold)
     toolbar       show the undo, redo and clear buttons
+    toolbarPosition  bottom | top | overlay: under the pad, above it, or pinned in its top right corner
     minWidth, maxWidth   stroke width bounds in px; the width follows pen pressure or drawing speed
     pointerTypes  all | pen | touch | mouse
     required      the form cannot be submitted while the pad is empty
@@ -23,12 +24,12 @@
 
   The slot is rendered under the toolbar, inside the component: put your own controls there and wire
   them with the actions `signature-pad#replay`, `#clear`, `#undo`, `#redo`, `#lock`, `#download`
-  (`data-signature-pad-format-param`) and `#typeName` (an input), and readouts with the targets
+  (`data-signature-pad-format-param`), `#typeName` (a text input) and `#upload` (a file input: an image of a signature is placed on the pad), and readouts with the targets
   `data-signature-pad-target="preview"` (an <img>) and `"size"`.
 
   Requires the shadcn recipe button (installed from the shadcn kit).
 #}
-{%- props name = null, format = 'png', value = '', background = null, weights = false, toolbar = true, minWidth = 0.8, maxWidth = 2.6, pointerTypes = 'all', required = false, readonly = false, disabled = false, label = 'Signature', placeholder = 'Sign here', undoLabel = 'Undo', redoLabel = 'Redo', clearLabel = 'Clear', colorLabel = 'Ink color', weightLabel = 'Line weight', thinLabel = 'Thin', regularLabel = 'Regular', boldLabel = 'Bold' -%}
+{%- props name = null, format = 'png', value = '', background = null, weights = false, toolbar = true, toolbarPosition = 'bottom', minWidth = 0.8, maxWidth = 2.6, pointerTypes = 'all', required = false, readonly = false, disabled = false, label = 'Signature', placeholder = 'Sign here', undoLabel = 'Undo', redoLabel = 'Redo', clearLabel = 'Clear', colorLabel = 'Ink color', weightLabel = 'Line weight', thinLabel = 'Thin', regularLabel = 'Regular', boldLabel = 'Bold' -%}
 {%- set colors -%}{% block colors %}{% endblock %}{%- endset -%}
 {%- set inactive = readonly or disabled -%}
 {%- set data = {
@@ -42,20 +43,9 @@
     'data-signature-pad-pointer-types-value': pointerTypes,
     'data-signature-pad-inactive-value': inactive ? 'true' : 'false',
 } -%}
-<div {{ attributes.defaults(data) }}>
-    <div class="relative h-40 w-full overflow-hidden rounded-md border border-border bg-muted/40{{ disabled ? ' opacity-50' }}{{ readonly ? ' bg-background' }}"
-         data-signature-pad-target="frame">
-        <canvas role="application" aria-roledescription="signature pad" aria-label="{{ label }}"{% if not inactive %} tabindex="0"{% endif %}
-                class="absolute inset-0 size-full touch-none text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring{{ inactive ? '' : ' cursor-crosshair' }}"
-                data-signature-pad-target="canvas"
-                data-action="pointerdown->signature-pad#down pointermove->signature-pad#move pointerup->signature-pad#up pointercancel->signature-pad#up keydown->signature-pad#keydown"></canvas>
-        {%- if not inactive %}
-            <span class="pointer-events-none absolute inset-0 flex items-center justify-center text-sm text-muted-foreground transition-opacity" data-signature-pad-target="placeholder">{{ placeholder }}</span>
-            <span class="pointer-events-none absolute inset-x-6 bottom-8 border-b border-dashed border-border" aria-hidden="true"></span>
-        {%- endif %}
-    </div>
+{%- set toolbarMarkup -%}
     {%- if not inactive and (toolbar or colors|trim is not empty or weights) %}
-        <div class="flex flex-wrap items-center gap-1" role="toolbar" aria-label="{{ label }}">
+        <div class="{{ toolbarPosition == 'overlay' ? 'absolute right-2 top-2 z-10 flex flex-wrap items-center gap-1 rounded-lg bg-background/80 p-1 shadow-xs backdrop-blur' : 'flex flex-wrap items-center gap-1' }}" role="toolbar" aria-label="{{ label }}">
             {%- if toolbar %}
                 <twig:Button variant="outline" size="icon" aria-label="{{ undoLabel }}" title="{{ undoLabel }}" data-signature-pad-target="undo" data-action="signature-pad#undo">
                     <twig:ux:icon name="lucide:undo-2" aria-hidden="true" />
@@ -87,6 +77,22 @@
             {%- endif %}
         </div>
     {%- endif %}
+{%- endset -%}
+<div {{ attributes.defaults(data) }}>
+    {%- if toolbarPosition == 'top' %}{{ toolbarMarkup }}{% endif %}
+    <div class="relative h-40 w-full overflow-hidden rounded-md border border-border bg-muted/40{{ disabled ? ' opacity-50' }}{{ readonly ? ' bg-background' }}"
+         data-signature-pad-target="frame">
+        <canvas role="application" aria-roledescription="signature pad" aria-label="{{ label }}"{% if not inactive %} tabindex="0"{% endif %}
+                class="absolute inset-0 size-full touch-none text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring{{ inactive ? '' : ' cursor-crosshair' }}"
+                data-signature-pad-target="canvas"
+                data-action="pointerdown->signature-pad#down pointermove->signature-pad#move pointerup->signature-pad#up pointercancel->signature-pad#up keydown->signature-pad#keydown"></canvas>
+        {%- if not inactive %}
+            <span class="pointer-events-none absolute inset-0 flex items-center justify-center text-sm text-muted-foreground transition-opacity" data-signature-pad-target="placeholder">{{ placeholder }}</span>
+            <span class="pointer-events-none absolute inset-x-6 bottom-8 border-b border-dashed border-border" aria-hidden="true"></span>
+        {%- endif %}
+        {%- if toolbarPosition == 'overlay' %}{{ toolbarMarkup }}{% endif %}
+    </div>
+    {%- if toolbarPosition == 'bottom' %}{{ toolbarMarkup }}{% endif %}
     {%- block content %}{% endblock %}
     <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" {% if name %}name="{{ name }}" {% endif %}{{ required ? 'required' }}
            data-signature-pad-target="field">
