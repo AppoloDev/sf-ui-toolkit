@@ -464,7 +464,7 @@ The group exposes `--value` and `--percent` as CSS custom properties: the previe
             100%
         </twig:ValueSync:Output>
     </div>
-    <div class="grid h-24 place-items-center rounded-lg bg-linear-to-br from-amber-300 to-rose-400 text-lg font-semibold text-white" style="filter: brightness(calc(var(--value, 100) / 100)); --value: 100;">
+    <div class="grid h-24 place-items-center rounded-lg bg-linear-to-br from-amber-300 to-rose-400 text-lg font-semibold text-white" style="filter: brightness(calc(var(--value, 100) / 100));">
         Preview
     </div>
     <twig:Slider name="brightness" value="100" min="20" max="150" aria-label="Brightness" />
@@ -483,7 +483,7 @@ The group exposes `--value` and `--percent` as CSS custom properties: the previe
             16px
         </twig:ValueSync:Output>
     </div>
-    <p class="h-12 leading-none font-medium" style="font-size: calc(var(--value, 16) * 1px); --value: 16;">
+    <p class="h-12 leading-none font-medium" style="font-size: calc(var(--value, 16) * 1px);">
         The quick brown fox
     </p>
     <twig:Slider name="font-size" value="16" min="10" max="40" aria-label="Font size" />
