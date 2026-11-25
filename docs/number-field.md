@@ -94,6 +94,76 @@ Compose it with the shadcn `Field` and `Field:Label`; the label points at the `i
 <twig:NumberField name="qty_spinner" buttons="spinner" :value="4" :min="0" :max="20" label="Quantity" />
 ```
 
+### Currency
+
+`currency` formats with `Intl.NumberFormat`: the field shows `$1,234.50` when it is not focused and the plain number while it is edited. The submitted value (`name`) is the raw number.
+
+```twig
+<div class="flex flex-wrap items-center gap-4">
+    <twig:NumberField name="usd" currency="USD" locale="en-US" :value="1234.5" :step="0.5" :min="0" buttons="right" label="Amount in dollars" />
+    <twig:NumberField name="eur" currency="EUR" locale="fr-FR" :value="1234.5" :step="0.5" :min="0" buttons="right" label="Montant en euros" />
+</div>
+```
+
+### Locale
+
+The locale sets the digit grouping and the decimal separator; typing follows it.
+
+```twig
+<div class="flex flex-wrap items-center gap-4">
+    <twig:NumberField name="en" locale="en-US" :value="1234567.89" :maxFractionDigits="2" buttons="right" label="United States" />
+    <twig:NumberField name="de" locale="de-DE" :value="1234567.89" :maxFractionDigits="2" buttons="right" label="Germany" />
+    <twig:NumberField name="in" locale="en-IN" :value="1234567.89" :maxFractionDigits="2" buttons="right" label="India" />
+</div>
+```
+
+### Fraction Digits
+
+`minFractionDigits` and `maxFractionDigits` set the digits shown, and the value is rounded to `maxFractionDigits`.
+
+```twig
+<div class="flex flex-wrap items-center gap-4">
+    <twig:NumberField name="rate" locale="en-US" :value="3.5" :minFractionDigits="2" :maxFractionDigits="2" :step="0.25" buttons="right" label="Two decimals" />
+    <twig:NumberField name="weight" locale="en-US" :value="72.456" :minFractionDigits="0" :maxFractionDigits="1" :step="0.1" buttons="right" label="At most one decimal" />
+</div>
+```
+
+### Prefix and Suffix
+
+`prefix` and `suffix` are shown around the number when the field is not focused.
+
+```twig
+<div class="flex flex-wrap items-center gap-4">
+    <twig:NumberField name="temperature" :value="21" suffix=" °C" :min="-50" :max="60" buttons="right" label="Temperature" />
+    <twig:NumberField name="weight" :value="72" suffix=" kg" :min="0" buttons="right" label="Weight" />
+    <twig:NumberField name="discount" :value="15" suffix=" %" :min="0" :max="100" buttons="right" label="Discount" />
+    <twig:NumberField name="rank" :value="3" prefix="#" :min="1" buttons="right" label="Rank" />
+</div>
+```
+
+### Clear Button
+
+`clearable` adds a button that empties the field; it appears while the field holds a value.
+
+```twig
+<twig:NumberField name="quantity" :value="5" :min="0" clearable buttons="right" label="Quantity" />
+```
+
+### Floating Label
+
+Needs the `float-label` recipe. The field uses `placeholder=" "`.
+
+```twig
+<div class="grid max-w-xs gap-6">
+    <twig:FloatLabel label="Quantity" fieldId="nf-float-over">
+        <twig:NumberField id="nf-float-over" name="q1" placeholder=" " buttons="right" class="w-full" />
+    </twig:FloatLabel>
+    <twig:FloatLabel label="Quantity" fieldId="nf-float-on" variant="on">
+        <twig:NumberField id="nf-float-on" name="q2" placeholder=" " buttons="right" class="w-full" />
+    </twig:FloatLabel>
+</div>
+```
+
 ### Form Validation
 
 `invalid` marks the field with `aria-invalid`; compose it with `Field` and `Field:Error`. The script validates when the value changes.
@@ -131,6 +201,7 @@ Compose it with the shadcn `Field` and `Field:Label`; the label points at the `i
 - The inner `input` has `role="spinbutton"` with `aria-valuenow`, `aria-valuemin` and `aria-valuemax` kept in sync.
 - Keyboard: `↑` / `↓` change the value by one step (`Shift` by ten), `Page Up` / `Page Down` by ten steps, `Home` / `End` jump to `min` / `max`.
 - The buttons are out of the tab order (the input carries the semantics) and become disabled at the bounds.
+- With formatting, `aria-valuetext` carries the formatted number and the field `name` is submitted through a hidden input holding the raw number.
 - Provide a visible `<label for>` pointing at `id`, or pass `label` for an `aria-label`.
 
 ## API
@@ -153,3 +224,11 @@ Compose it with the shadcn `Field` and `Field:Label`; the label points at the `i
 | `id` | string | `null` | Id of the inner input, for an external `<label for>`. |
 | `decreaseLabel` | string | `Decrease` | Accessible name of the decrement button. |
 | `increaseLabel` | string | `Increase` | Accessible name of the increment button. |
+| `locale` | string | `null` | BCP 47 tag used to format the number (default: the browser locale). Setting it, `currency`, a fraction digit count, `prefix` or `suffix` turns formatting on. |
+| `currency` | string | `null` | ISO 4217 code (USD, EUR...): formats the number as a currency. |
+| `minFractionDigits` | int | `null` | Minimum fraction digits shown. |
+| `maxFractionDigits` | int | `null` | Maximum fraction digits shown; the value is rounded to it. |
+| `prefix` | string | `null` | Text shown before the number while the field is not focused. |
+| `suffix` | string | `null` | Text shown after the number while the field is not focused. |
+| `clearable` | bool | `false` | Adds a button that empties the field. |
+| `clearLabel` | string | `Clear` | Accessible name of the clear button. |
