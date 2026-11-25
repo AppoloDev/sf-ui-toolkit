@@ -740,3 +740,533 @@ A speaker icon next to a `NumberField`, which brings the buttons, the arrow keys
     <twig:NumberField name="volume" :value="40" :min="0" :max="100" :step="10" label="Volume" />
 </twig:ButtonGroup>
 ```
+
+### Grouped Actions
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:scissors" />
+        Cut
+    </twig:Button>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:copy" />
+        Copy
+    </twig:Button>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:clipboard" />
+        Paste
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### Comment Actions
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:thumbs-up" />
+        12
+    </twig:Button>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:corner-up-left" />
+        Reply
+    </twig:Button>
+    <twig:Button variant="outline" size="icon-sm" aria-label="More">
+        <twig:ux:icon name="lucide:ellipsis" />
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### Social Actions
+
+```twig
+<div class="flex items-center gap-2">
+    <twig:ButtonGroup>
+        <twig:Button variant="outline" size="sm">
+            <twig:ux:icon name="lucide:heart" />
+            Like
+        </twig:Button>
+        <twig:ButtonGroup:Text class="text-xs">
+            128
+        </twig:ButtonGroup:Text>
+    </twig:ButtonGroup>
+    <twig:ButtonGroup>
+        <twig:Button variant="outline" size="sm">
+            <twig:ux:icon name="lucide:message-circle" />
+            Comment
+        </twig:Button>
+        <twig:Button variant="outline" size="sm">
+            <twig:ux:icon name="lucide:share-2" />
+            Share
+        </twig:Button>
+    </twig:ButtonGroup>
+</div>
+```
+
+### Context Bar
+
+```twig
+<twig:ButtonGroup>
+    <twig:ButtonGroup:Text>
+        3 selected
+    </twig:ButtonGroup:Text>
+    <twig:Button variant="outline" size="icon" aria-label="Archive">
+        <twig:ux:icon name="lucide:archive" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Move">
+        <twig:ux:icon name="lucide:folder-input" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Delete" class="text-destructive">
+        <twig:ux:icon name="lucide:trash-2" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Clear selection">
+        <twig:ux:icon name="lucide:x" />
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### Rich Text Toolbar
+
+```twig
+<div class="flex flex-wrap items-center gap-2">
+    <twig:ToggleGroup type="multiple" variant="outline" spacing="0">
+        <twig:ToggleGroup:Item value="bold" aria-label="Bold">
+            <twig:ux:icon name="lucide:bold" />
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="italic" aria-label="Italic">
+            <twig:ux:icon name="lucide:italic" />
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="underline" aria-label="Underline">
+            <twig:ux:icon name="lucide:underline" />
+        </twig:ToggleGroup:Item>
+    </twig:ToggleGroup>
+    <twig:ToggleGroup type="single" variant="outline" spacing="0">
+        <twig:ToggleGroup:Item value="left" aria-label="Align left">
+            <twig:ux:icon name="lucide:align-left" />
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="center" aria-label="Align center">
+            <twig:ux:icon name="lucide:align-center" />
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="right" aria-label="Align right">
+            <twig:ux:icon name="lucide:align-right" />
+        </twig:ToggleGroup:Item>
+    </twig:ToggleGroup>
+</div>
+```
+
+### Carousel Controls
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="icon" aria-label="Previous slide">
+        <twig:ux:icon name="lucide:chevron-left" />
+    </twig:Button>
+    <twig:ButtonGroup:Text class="tabular-nums">
+        2 / 5
+    </twig:ButtonGroup:Text>
+    <twig:Button variant="outline" size="icon" aria-label="Next slide">
+        <twig:ux:icon name="lucide:chevron-right" />
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### Map Controls
+
+```twig
+<div class="flex gap-3">
+    <twig:ButtonGroup orientation="vertical">
+        <twig:Button variant="outline" size="icon" aria-label="Zoom in">
+            <twig:ux:icon name="lucide:plus" />
+        </twig:Button>
+        <twig:Button variant="outline" size="icon" aria-label="Zoom out">
+            <twig:ux:icon name="lucide:minus" />
+        </twig:Button>
+    </twig:ButtonGroup>
+    <twig:ButtonGroup orientation="vertical">
+        <twig:Button variant="outline" size="icon" aria-label="My location">
+            <twig:ux:icon name="lucide:locate-fixed" />
+        </twig:Button>
+        <twig:Button variant="outline" size="icon" aria-label="Reset north">
+            <twig:ux:icon name="lucide:compass" />
+        </twig:Button>
+        <twig:Button variant="outline" size="icon" aria-label="Layers">
+            <twig:ux:icon name="lucide:layers" />
+        </twig:Button>
+    </twig:ButtonGroup>
+</div>
+```
+
+### Timeline Controls
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="icon" aria-label="Start">
+        <twig:ux:icon name="lucide:skip-back" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Previous frame">
+        <twig:ux:icon name="lucide:step-back" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Play">
+        <twig:ux:icon name="lucide:play" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Next frame">
+        <twig:ux:icon name="lucide:step-forward" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="End">
+        <twig:ux:icon name="lucide:skip-forward" />
+    </twig:Button>
+    <twig:ButtonGroup:Text class="tabular-nums">
+        00:42 / 02:10
+    </twig:ButtonGroup:Text>
+</twig:ButtonGroup>
+```
+
+### Chart Controls
+
+```twig
+<div class="flex items-center gap-2">
+    <twig:ToggleGroup type="single" variant="outline" size="sm" spacing="0">
+        <twig:ToggleGroup:Item value="1d" aria-label="1 day">
+            1D
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="1w" aria-label="1 week">
+            1W
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="1m" aria-label="1 month">
+            1M
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="1y" aria-label="1 year">
+            1Y
+        </twig:ToggleGroup:Item>
+    </twig:ToggleGroup>
+    <twig:Button variant="outline" size="icon-sm" aria-label="Download chart">
+        <twig:ux:icon name="lucide:download" />
+    </twig:Button>
+</div>
+```
+
+### Density
+
+```twig
+<twig:ToggleGroup type="single" variant="outline" size="sm" spacing="0">
+    <twig:ToggleGroup:Item value="compact" aria-label="Compact">
+        <twig:ux:icon name="lucide:align-justify" />
+        Compact
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="comfortable" aria-label="Comfortable">
+        <twig:ux:icon name="lucide:menu" />
+        Comfortable
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="spacious" aria-label="Spacious">
+        <twig:ux:icon name="lucide:rows-3" />
+        Spacious
+    </twig:ToggleGroup:Item>
+</twig:ToggleGroup>
+```
+
+### Overflow Menu
+
+```twig
+<div class="flex justify-center" style="min-height: 280px">
+    <twig:ButtonGroup>
+        <twig:Button variant="outline" size="sm">
+            Edit
+        </twig:Button>
+        <twig:Button variant="outline" size="sm">
+            Share
+        </twig:Button>
+        <twig:DropdownMenu id="bg-overflow" align="end">
+            <twig:DropdownMenu:Trigger>
+                <twig:Button variant="outline" size="icon-sm" aria-label="More actions" {{ ...dropdown_menu_trigger_attrs }}>
+                    <twig:ux:icon name="lucide:ellipsis" />
+                </twig:Button>
+            </twig:DropdownMenu:Trigger>
+            <twig:DropdownMenu:Content class="w-40">
+                <twig:DropdownMenu:Group>
+                    <twig:DropdownMenu:Item>
+                        Duplicate
+                    </twig:DropdownMenu:Item>
+                    <twig:DropdownMenu:Item>
+                        Archive
+                    </twig:DropdownMenu:Item>
+                    <twig:DropdownMenu:Item variant="destructive">
+                        Delete
+                    </twig:DropdownMenu:Item>
+                </twig:DropdownMenu:Group>
+            </twig:DropdownMenu:Content>
+        </twig:DropdownMenu>
+    </twig:ButtonGroup>
+</div>
+```
+
+### Notifications
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:bell" />
+        Notifications
+    </twig:Button>
+    <twig:ButtonGroup:Text class="bg-primary text-primary-foreground">
+        4
+    </twig:ButtonGroup:Text>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:check-check" />
+        Mark all read
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### File Operations
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:upload" />
+        Upload
+    </twig:Button>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:download" />
+        Download
+    </twig:Button>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:share-2" />
+        Share
+    </twig:Button>
+    <twig:Button variant="outline" size="icon-sm" aria-label="Delete" class="text-destructive">
+        <twig:ux:icon name="lucide:trash-2" />
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### Cart
+
+```twig
+<div class="flex items-center gap-3">
+    <twig:ButtonGroup>
+        <twig:Button variant="outline" size="icon-sm" aria-label="Remove one">
+            <twig:ux:icon name="lucide:minus" />
+        </twig:Button>
+        <twig:ButtonGroup:Text class="w-8 justify-center tabular-nums">
+            1
+        </twig:ButtonGroup:Text>
+        <twig:Button variant="outline" size="icon-sm" aria-label="Add one">
+            <twig:ux:icon name="lucide:plus" />
+        </twig:Button>
+    </twig:ButtonGroup>
+    <twig:Button size="sm">
+        <twig:ux:icon name="lucide:shopping-cart" />
+        Add to cart
+    </twig:Button>
+</div>
+```
+
+### Filter Chips
+
+```twig
+<twig:ToggleGroup type="multiple" variant="outline" size="sm" spacing="2">
+    <twig:ToggleGroup:Item value="open" aria-label="Open">
+        Open
+        <twig:Badge variant="secondary">
+            12
+        </twig:Badge>
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="review" aria-label="In review">
+        In review
+        <twig:Badge variant="secondary">
+            4
+        </twig:Badge>
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="done" aria-label="Done">
+        Done
+        <twig:Badge variant="secondary">
+            38
+        </twig:Badge>
+    </twig:ToggleGroup:Item>
+</twig:ToggleGroup>
+```
+
+### Quantity
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="icon" aria-label="Decrease quantity">
+        <twig:ux:icon name="lucide:minus" />
+    </twig:Button>
+    <twig:Input type="number" value="2" min="1" aria-label="Quantity" class="w-14 text-center" />
+    <twig:Button variant="outline" size="icon" aria-label="Increase quantity">
+        <twig:ux:icon name="lucide:plus" />
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### Keyboard Shortcuts
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="sm">
+        Save
+        <twig:Kbd>
+            ⌘S
+        </twig:Kbd>
+    </twig:Button>
+    <twig:Button variant="outline" size="sm">
+        Undo
+        <twig:Kbd>
+            ⌘Z
+        </twig:Kbd>
+    </twig:Button>
+    <twig:Button variant="outline" size="sm">
+        Find
+        <twig:Kbd>
+            ⌘F
+        </twig:Kbd>
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### Stepper
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:chevron-left" />
+        Previous
+    </twig:Button>
+    <twig:ButtonGroup:Text>
+        Step 2 of 4
+    </twig:ButtonGroup:Text>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:chevron-right" />
+        Next
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### Date Picker
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="icon" aria-label="Previous day">
+        <twig:ux:icon name="lucide:chevron-left" />
+    </twig:Button>
+    <twig:Button variant="outline" size="default">
+        <twig:ux:icon name="lucide:calendar" />
+        Wed, Nov 25
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Next day">
+        <twig:ux:icon name="lucide:chevron-right" />
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### Priority Picker
+
+```twig
+<twig:ToggleGroup type="single" variant="outline" size="sm" spacing="0">
+    <twig:ToggleGroup:Item value="low" aria-label="Low">
+        <span class="size-2 rounded-full bg-sky-500"></span>
+        Low
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="medium" aria-label="Medium">
+        <span class="size-2 rounded-full bg-amber-500"></span>
+        Medium
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="high" aria-label="High">
+        <span class="size-2 rounded-full bg-red-500"></span>
+        High
+    </twig:ToggleGroup:Item>
+</twig:ToggleGroup>
+```
+
+### Status Picker
+
+```twig
+<twig:ToggleGroup type="single" variant="outline" size="default" spacing="0">
+    <twig:ToggleGroup:Item value="todo" aria-label="To do">
+        To do
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="progress" aria-label="In progress">
+        In progress
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="done" aria-label="Done">
+        Done
+    </twig:ToggleGroup:Item>
+</twig:ToggleGroup>
+```
+
+### Sort
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:calendar-days" />
+        Sort by date
+    </twig:Button>
+    <twig:Button variant="outline" size="icon-sm" aria-label="Reverse order">
+        <twig:ux:icon name="lucide:arrow-up-down" />
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### Playback Speed
+
+```twig
+<twig:ToggleGroup type="single" variant="outline" size="sm" spacing="0">
+    <twig:ToggleGroup:Item value="0.5" aria-label="Half speed">
+        0.5x
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="1" aria-label="Normal speed">
+        1x
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="1.5" aria-label="1.5 times">
+        1.5x
+    </twig:ToggleGroup:Item>
+    <twig:ToggleGroup:Item value="2" aria-label="Double speed">
+        2x
+    </twig:ToggleGroup:Item>
+</twig:ToggleGroup>
+```
+
+### Wizard Steps
+
+```twig
+<twig:ButtonGroup>
+    <twig:Button variant="outline" size="sm">
+        <twig:ux:icon name="lucide:arrow-left" />
+        Back
+    </twig:Button>
+    <twig:Button variant="outline" size="sm">
+        Skip
+    </twig:Button>
+    <twig:Button size="sm">
+        <twig:ux:icon name="lucide:arrow-right" />
+        Continue
+    </twig:Button>
+</twig:ButtonGroup>
+```
+
+### Loading States
+
+```twig
+<div class="flex flex-wrap gap-4">
+    <twig:ButtonGroup>
+        <twig:Button variant="outline" size="sm" disabled>
+            <twig:Spinner />
+            Saving...
+        </twig:Button>
+        <twig:Button variant="outline" size="sm">
+            Cancel
+        </twig:Button>
+    </twig:ButtonGroup>
+    <twig:ButtonGroup>
+        <twig:Button variant="outline" size="icon-sm" aria-label="Refresh" disabled>
+            <twig:Spinner />
+        </twig:Button>
+        <twig:Button variant="outline" size="sm" disabled>
+            Syncing
+        </twig:Button>
+    </twig:ButtonGroup>
+</div>
+```
