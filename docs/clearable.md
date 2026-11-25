@@ -1,11 +1,12 @@
 # Clearable
 
-> Wraps a field and shows a clear button while it holds a value; clearing empties the field, fires input and change and refocuses it.
+> Wraps a field (input, textarea or Select) and shows a clear button while it holds a value; clearing empties the field, fires input and change and refocuses it.
 
 ## Installation
 
 - input-group
 - button
+- select (only for the Select example)
 
 ## Usage
 
@@ -79,6 +80,35 @@ The button appears as soon as something is typed.
         </twig:InputGroup:Addon>
     </twig:InputGroup>
 </twig:Clearable>
+```
+
+### Select
+
+Works with a shadcn `Select`: the value is reset to empty, `select:change` is dispatched and the trigger is focused. Place the button over the trigger.
+
+```twig
+<div style="min-height: 260px">
+    <twig:Clearable>
+        <div class="relative w-48">
+            <twig:Select id="clr-select" value="banana" class="w-full">
+                <twig:Select:Trigger class="w-full">
+                    <twig:Select:Value placeholder="Select a fruit" />
+                </twig:Select:Trigger>
+                <twig:Select:Content>
+                    <twig:Select:Group id="clr-select-list">
+                        <twig:Select:Item value="apple">
+                            Apple
+                        </twig:Select:Item>
+                        <twig:Select:Item value="banana">
+                            Banana
+                        </twig:Select:Item>
+                    </twig:Select:Group>
+                </twig:Select:Content>
+            </twig:Select>
+            <twig:Clearable:Button label="Clear selection" class="absolute end-8 top-1/2 -translate-y-1/2" />
+        </div>
+    </twig:Clearable>
+</div>
 ```
 
 ### Disabled

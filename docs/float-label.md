@@ -7,6 +7,7 @@
 - input
 - textarea
 - native-select
+- select
 
 ## Usage
 
@@ -89,6 +90,34 @@ A select always has a value, so its label stays floated.
 </div>
 ```
 
+### Select
+
+A shadcn `Select` works too: the label rests while no value is chosen.
+
+```twig
+<div style="min-height: 280px">
+    <div class="grid w-56 gap-6">
+        <twig:FloatLabel label="Role" fieldId="fl-select" variant="in">
+            <twig:Select id="fl-select" class="w-full">
+                <twig:Select:Trigger class="w-full">
+                    <twig:Select:Value />
+                </twig:Select:Trigger>
+                <twig:Select:Content>
+                    <twig:Select:Group id="fl-select-list">
+                        <twig:Select:Item value="admin">
+                            Admin
+                        </twig:Select:Item>
+                        <twig:Select:Item value="editor">
+                            Editor
+                        </twig:Select:Item>
+                    </twig:Select:Group>
+                </twig:Select:Content>
+            </twig:Select>
+        </twig:FloatLabel>
+    </div>
+</div>
+```
+
 ### Filled
 
 The label floats from the start when the field has a value.
@@ -146,4 +175,4 @@ The label floats from the start when the field has a value.
 
 | Block | Description |
 |---|---|
-| `default` | The field (`Input`, `Textarea`, `NativeSelect`), with `placeholder=" "`. |
+| `default` | The field (`Input`, `Textarea`, `NativeSelect`, `Select`), with `placeholder=" "` (not needed for a `Select`). |

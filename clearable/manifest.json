@@ -1,7 +1,7 @@
 {
     "type": "component",
     "name": "Clearable",
-    "description": "Wraps a field and shows a clear button while it holds a value; clearing empties the field, fires input and change and refocuses it.",
+    "description": "Wraps a field (input, textarea or Select) and shows a clear button while it holds a value; clearing empties the field, fires input and change and refocuses it.",
     "copy-files": {
         "templates/components/": "%COMPONENTS_DIR%/",
         "assets/controllers/": "%CONTROLLERS_DIR%/"

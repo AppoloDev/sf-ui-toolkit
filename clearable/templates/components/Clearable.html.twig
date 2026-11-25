@@ -1,7 +1,8 @@
 {#
  # Clearable: wraps a field and shows a clear button while it holds a value.
  #
- # Put a `Clearable:Button` in an `InputGroup:Addon` next to an `InputGroup:Input` (or an `InputGroup:Textarea`).
+ # Put a `Clearable:Button` in an `InputGroup:Addon` next to an `InputGroup:Input` (or an `InputGroup:Textarea`),
+ # or next to a shadcn `Select` (the button then sits over the trigger, see the Select example).
  # Clearing empties the field, fires `input` and `change` on it, refocuses it and dispatches `clearable:clear`.
  #}
 <div
@@ -9,7 +10,7 @@
     {{ attributes.defaults({
         class: 'contents',
         'data-controller': 'clearable',
-        'data-action': 'input->clearable#toggle',
+        'data-action': 'input->clearable#toggle select:change->clearable#toggle',
     }) }}
 >
     {##- A field with a `Clearable:Button`. -#}
