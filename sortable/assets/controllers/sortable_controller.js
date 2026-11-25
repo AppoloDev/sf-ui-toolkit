@@ -4,6 +4,8 @@ import { Controller } from '@hotwired/stimulus';
  * Reorderable list. Pointer: drag an item by its handle (HTML5 drag and drop).
  * Keyboard: on a handle, Space/Enter picks the item up, arrows move it, Space/Enter drops it,
  * Escape restores the original order. `sortable:change` fires once per drop with the new order.
+ * Lists can be nested: each list only handles its own items. Any element with `data-sortable-position`
+ * inside an item shows the position of the item (1-based) and follows every move.
  */
 export default class extends Controller {
     static targets = ['item'];
@@ -26,11 +28,12 @@ export default class extends Controller {
 
         this.onPointerDown = (event) => {
             const handle = event.target.closest('[data-sortable-handle]');
-            if (handle && this.element.contains(handle)) handle.closest('[data-sortable-target="item"]').draggable = true;
+            const owner = handle?.closest('[data-sortable-target="item"]');
+            if (owner && this.owns(owner)) owner.draggable = true;
         };
         this.onDragStart = (event) => {
             const item = event.target.closest?.('[data-sortable-target="item"]');
-            if (!item || !this.element.contains(item) || !item.draggable) return;
+            if (!item || !this.owns(item) || !item.draggable) return;
             this.dragged = item;
             this.before = this.order();
             item.dataset.dragging = 'true';
@@ -40,13 +43,16 @@ export default class extends Controller {
         this.onDragOver = (event) => {
             if (!this.dragged) return;
             event.preventDefault();
-            const over = event.target.closest('[data-sortable-target="item"]');
+            // Over a nested list: use the item of this list that contains it.
+            let over = event.target.closest('[data-sortable-target="item"]');
+            while (over && !this.owns(over)) over = over.parentElement?.closest('[data-sortable-target="item"]');
             if (!over || over === this.dragged) return;
             const rect = over.getBoundingClientRect();
             const draggedRect = this.dragged.getBoundingClientRect();
             const sameRow = Math.abs(rect.top - draggedRect.top) < rect.height / 2;
             const after = sameRow ? event.clientX > rect.left + rect.width / 2 : event.clientY > rect.top + rect.height / 2;
             over.parentElement.insertBefore(this.dragged, after ? over.nextSibling : over);
+            this.updatePositions();
         };
         this.onDragEnd = () => {
             if (!this.dragged) return;
@@ -63,6 +69,7 @@ export default class extends Controller {
         this.element.addEventListener('dragend', this.onDragEnd);
         this.element.addEventListener('keydown', this.onKeyDown);
         this.syncInputs();
+        this.updatePositions();
     }
 
     disconnect() {
@@ -77,6 +84,7 @@ export default class extends Controller {
         const handle = event.target.closest('[data-sortable-handle]');
         if (!handle) return;
         const item = handle.closest('[data-sortable-target="item"]');
+        if (!this.owns(item)) return;
         if ([' ', 'Enter'].includes(event.key)) {
             event.preventDefault();
             if (this.picked === item) {
@@ -108,6 +116,7 @@ export default class extends Controller {
             if (sibling && sibling.matches('[data-sortable-target="item"]')) {
                 item.parentElement.insertBefore(item, previous ? sibling : sibling.nextSibling);
                 handle.focus();
+                this.updatePositions();
                 this.announce(this.message(this.movedLabelValue, item));
             }
         }
@@ -134,6 +143,7 @@ export default class extends Controller {
         this.element.appendChild(this.live);
         this.element.appendChild(this.inputs);
         this.syncInputs();
+        this.updatePositions();
     }
 
     finish(before) {
@@ -142,6 +152,18 @@ export default class extends Controller {
         if (order.join('\u0000') !== before.join('\u0000')) {
             this.dispatch('change', { detail: { order, previous: before } });
         }
+    }
+
+    owns(item) {
+        return item.parentElement?.closest('[data-controller~="sortable"]') === this.element;
+    }
+
+    updatePositions() {
+        this.itemTargets.forEach((item, index) => {
+            item.querySelectorAll('[data-sortable-position]').forEach((node) => {
+                if (this.owns(node.closest('[data-sortable-target="item"]'))) node.textContent = String(index + 1);
+            });
+        });
     }
 
     order() {
