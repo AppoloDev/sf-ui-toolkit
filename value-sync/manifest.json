@@ -1,7 +1,7 @@
 {
     "type": "component",
     "name": "Value Sync",
-    "description": "Mirrors the value of a slider or a field into texts, an emoji, a progress bar, a bubble that follows the thumb and a number field, while it changes.",
+    "description": "Mirrors the value of a slider or a field into texts, an emoji, a progress bar, a bubble that follows the thumb and a number field, while it changes; buttons can step, set or reset it.",
     "copy-files": {
         "assets/controllers/": "%CONTROLLERS_DIR%/",
         "templates/components/": "%COMPONENTS_DIR%/"

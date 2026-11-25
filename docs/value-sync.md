@@ -1,6 +1,6 @@
 # Value Sync
 
-> Mirrors the value of a slider or a field into texts, an emoji, a progress bar, a bubble that follows the thumb and a number field, while it changes.
+> Mirrors the value of a slider or a field into texts, an emoji, a progress bar, a bubble that follows the thumb and a number field, while it changes; buttons can step, set or reset it.
 
 ## Installation
 
@@ -21,6 +21,8 @@ Wrap a `Slider` in `ValueSync` and add the parts that show its value. They are u
     <twig:Slider name="volume" value="40" aria-label="Volume" />
 </twig:ValueSync>
 ```
+
+Buttons inside the group drive the value: `value-sync#stepBy` moves it by the `delta` parameter, `value-sync#set` jumps to the `value` parameter and `value-sync#reset` restores the value of the page load (see the Slider examples). The group also exposes the value as the CSS custom properties `--value` and `--percent`, so a preview can follow with plain CSS.
 
 ## Examples
 
