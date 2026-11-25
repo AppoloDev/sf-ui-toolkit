@@ -3,7 +3,8 @@
   archives, code... Pure Twig, no JavaScript.
 
   Props
-    type        extension (`pdf`, `.docx`), file name (`report.pdf`) or `folder`; case-insensitive
+    type        extension (`pdf`, `.docx`), file name (`report.pdf`) or `folder`; case-insensitive.
+                Dotfiles and build names resolve too: `.gitignore`, `.env.local`, `Dockerfile`, `Makefile`
     size        mini (18px) | xs (24px) | sm (32px) | md (40px) | lg (48px) | xl (56px)
     variant     outline | solid | light | mono
     label       custom label instead of the extension
@@ -14,7 +15,8 @@
 #}
 {%- props type = '', size = 'md', variant = 'outline', label = null, description = null, decorative = false -%}
 {%- set extra_class = attributes.render('class') -%}
-{%- set ext = (type|trim|lower|split('.')|last) -%}
+{%- set raw = type|trim|lower -%}
+{%- set ext = (raw starts with '.env' or raw ends with '.env') ? 'env' : (raw|split('.')|last) -%}
 {%- set families = {
     pdf: 'pdf',
     doc: 'document', docx: 'document', odt: 'document', rtf: 'document', pages: 'document',
@@ -26,6 +28,8 @@
     zip: 'archive', rar: 'archive', tar: 'archive', gz: 'archive', '7z': 'archive', bz2: 'archive',
     txt: 'text', md: 'text', log: 'text',
     js: 'code', ts: 'code', jsx: 'code', tsx: 'code', php: 'code', py: 'code', rb: 'code', go: 'code', rs: 'code', java: 'code', c: 'code', cpp: 'code', cs: 'code', html: 'code', css: 'code', scss: 'code', twig: 'code', sh: 'code', sql: 'code', vue: 'code',
+    gitignore: 'config', gitattributes: 'config', dockerignore: 'config', editorconfig: 'config', npmrc: 'config', dockerfile: 'config',
+    makefile: 'code',
     json: 'config', yaml: 'config', yml: 'config', xml: 'config', toml: 'config', ini: 'config', env: 'config', lock: 'config',
     psd: 'design', ai: 'design', fig: 'design', sketch: 'design', xd: 'design',
     exe: 'application', dmg: 'application', apk: 'application', msi: 'application',
@@ -44,7 +48,8 @@
 } -%}
 {%- set sizes = {mini: 'size-[18px]', xs: 'size-6', sm: 'size-8', md: 'size-10', lg: 'size-12', xl: 'size-14'} -%}
 {%- set family = ext == 'folder' ? 'folder' : (families[ext] ?? 'unknown') -%}
-{%- set text = (label ?? ext)|upper -%}
+{%- set short = {gitignore: 'git', gitattributes: 'git', dockerignore: 'dock', dockerfile: 'dock', makefile: 'make', editorconfig: 'edit', npmrc: 'npm'} -%}
+{%- set text = (label ?? short[ext] ?? ext)|upper -%}
 {%- set tone = variant == 'mono' ? 'text-muted-foreground' : colors[family] -%}
 {%- set font_size = text|length <= 3 ? 5.5 : (text|length == 4 ? 4.6 : 3.8) -%}
 {%- set aria = decorative ? 'aria-hidden="true"' : 'role="img" aria-label="' ~ (description ?? ((label ? label ~ ' ' : '') ~ names[family] ~ (family == 'folder' ? '' : ' file')))|e('html_attr') ~ '"' -%}
