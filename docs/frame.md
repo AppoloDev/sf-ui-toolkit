@@ -603,6 +603,304 @@ Needs the `alert` and `button` recipes of the official kit.
 </twig:Frame>
 ```
 
+### Basic
+
+A Frame with a single panel.
+
+```twig
+<twig:Frame class="max-w-md">
+    <twig:Frame:Panel title="Profile" description="Your public information.">
+        <p class="text-sm">
+            Jane Doe, product designer
+        </p>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Stacked Dense
+
+`stacked` with the smallest `spacing`: a tight single block.
+
+```twig
+<twig:Frame stacked spacing="xs" class="max-w-md">
+    <twig:Frame:Panel title="Plan" class="py-3">
+        Pro, billed monthly
+    </twig:Frame:Panel>
+    <twig:Frame:Panel title="Usage" class="py-3">
+        12 of 20 seats
+    </twig:Frame:Panel>
+    <twig:Frame:Panel title="Invoices" class="py-3">
+        Next invoice on the 1st
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Stacked Rows
+
+Stacked panels as a list of rows, each one an `Item`.
+
+```twig
+<twig:Frame stacked class="max-w-md">
+    <twig:Frame:Panel flush>
+        <twig:Item size="sm">
+            <twig:Item:Media variant="icon">
+                <twig:ux:icon name="lucide:user" />
+            </twig:Item:Media>
+            <twig:Item:Content>
+                <twig:Item:Title>Profile</twig:Item:Title>
+                <twig:Item:Description>Name, photo and bio</twig:Item:Description>
+            </twig:Item:Content>
+            <twig:Item:Actions>
+                <twig:ux:icon name="lucide:chevron-right" class="size-4 text-muted-foreground" />
+            </twig:Item:Actions>
+        </twig:Item>
+    </twig:Frame:Panel>
+    <twig:Frame:Panel flush>
+        <twig:Item size="sm">
+            <twig:Item:Media variant="icon">
+                <twig:ux:icon name="lucide:shield" />
+            </twig:Item:Media>
+            <twig:Item:Content>
+                <twig:Item:Title>Security</twig:Item:Title>
+                <twig:Item:Description>Password and two-factor</twig:Item:Description>
+            </twig:Item:Content>
+            <twig:Item:Actions>
+                <twig:ux:icon name="lucide:chevron-right" class="size-4 text-muted-foreground" />
+            </twig:Item:Actions>
+        </twig:Item>
+    </twig:Frame:Panel>
+    <twig:Frame:Panel flush>
+        <twig:Item size="sm">
+            <twig:Item:Media variant="icon">
+                <twig:ux:icon name="lucide:credit-card" />
+            </twig:Item:Media>
+            <twig:Item:Content>
+                <twig:Item:Title>Billing</twig:Item:Title>
+                <twig:Item:Description>Plan and invoices</twig:Item:Description>
+            </twig:Item:Content>
+            <twig:Item:Actions>
+                <twig:ux:icon name="lucide:chevron-right" class="size-4 text-muted-foreground" />
+            </twig:Item:Actions>
+        </twig:Item>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Small Radius
+
+`radius="sm"`: tight corners.
+
+```twig
+<twig:Frame radius="sm" class="max-w-md">
+    <twig:Frame:Panel title="Profile" description="Your public information.">
+        <p class="text-sm">
+            Jane Doe
+        </p>
+    </twig:Frame:Panel>
+    <twig:Frame:Panel title="Notifications" description="Choose what you receive.">
+        <p class="text-sm">
+            Email, weekly digest
+        </p>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Medium Radius
+
+`radius="md"`.
+
+```twig
+<twig:Frame radius="md" class="max-w-md">
+    <twig:Frame:Panel title="Profile" description="Your public information.">
+        <p class="text-sm">
+            Jane Doe
+        </p>
+    </twig:Frame:Panel>
+    <twig:Frame:Panel title="Notifications" description="Choose what you receive.">
+        <p class="text-sm">
+            Email, weekly digest
+        </p>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Large Radius
+
+`radius="lg"`.
+
+```twig
+<twig:Frame radius="lg" class="max-w-md">
+    <twig:Frame:Panel title="Profile" description="Your public information.">
+        <p class="text-sm">
+            Jane Doe
+        </p>
+    </twig:Frame:Panel>
+    <twig:Frame:Panel title="Notifications" description="Choose what you receive.">
+        <p class="text-sm">
+            Email, weekly digest
+        </p>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Default Radius
+
+The default, matching the other REUI frames.
+
+```twig
+<twig:Frame class="max-w-md">
+    <twig:Frame:Panel title="Profile" description="Your public information.">
+        <p class="text-sm">
+            Jane Doe
+        </p>
+    </twig:Frame:Panel>
+    <twig:Frame:Panel title="Notifications" description="Choose what you receive.">
+        <p class="text-sm">
+            Email, weekly digest
+        </p>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Extra Large Radius
+
+`radius="xl"`: very round corners; the panels follow with a smaller radius.
+
+```twig
+<twig:Frame radius="xl" class="max-w-md">
+    <twig:Frame:Panel title="Profile" description="Your public information.">
+        <p class="text-sm">
+            Jane Doe
+        </p>
+    </twig:Frame:Panel>
+    <twig:Frame:Panel title="Notifications" description="Choose what you receive.">
+        <p class="text-sm">
+            Email, weekly digest
+        </p>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Content-Only Panels
+
+`flush` removes the padding of a panel so its content, here a table, touches the edges.
+
+```twig
+<twig:Frame class="max-w-lg">
+    <twig:Frame:Panel flush>
+        <twig:Table>
+            <twig:Table:Header>
+                <twig:Table:Row>
+                    <twig:Table:Head>Invoice</twig:Table:Head>
+                    <twig:Table:Head>Status</twig:Table:Head>
+                    <twig:Table:Head class="text-right">Amount</twig:Table:Head>
+                </twig:Table:Row>
+            </twig:Table:Header>
+            <twig:Table:Body>
+                <twig:Table:Row>
+                    <twig:Table:Cell class="font-medium">INV-001</twig:Table:Cell>
+                    <twig:Table:Cell>Paid</twig:Table:Cell>
+                    <twig:Table:Cell class="text-right">$250.00</twig:Table:Cell>
+                </twig:Table:Row>
+                <twig:Table:Row>
+                    <twig:Table:Cell class="font-medium">INV-002</twig:Table:Cell>
+                    <twig:Table:Cell>Pending</twig:Table:Cell>
+                    <twig:Table:Cell class="text-right">$150.00</twig:Table:Cell>
+                </twig:Table:Row>
+                <twig:Table:Row>
+                    <twig:Table:Cell class="font-medium">INV-003</twig:Table:Cell>
+                    <twig:Table:Cell>Paid</twig:Table:Cell>
+                    <twig:Table:Cell class="text-right">$350.00</twig:Table:Cell>
+                </twig:Table:Row>
+            </twig:Table:Body>
+        </twig:Table>
+    </twig:Frame:Panel>
+    <twig:Frame:Panel flush>
+        <twig:Table>
+            <twig:Table:Header>
+                <twig:Table:Row>
+                    <twig:Table:Head>Invoice</twig:Table:Head>
+                    <twig:Table:Head>Status</twig:Table:Head>
+                    <twig:Table:Head class="text-right">Amount</twig:Table:Head>
+                </twig:Table:Row>
+            </twig:Table:Header>
+            <twig:Table:Body>
+                <twig:Table:Row>
+                    <twig:Table:Cell class="font-medium">INV-004</twig:Table:Cell>
+                    <twig:Table:Cell>Paid</twig:Table:Cell>
+                    <twig:Table:Cell class="text-right">$450.00</twig:Table:Cell>
+                </twig:Table:Row>
+                <twig:Table:Row>
+                    <twig:Table:Cell class="font-medium">INV-005</twig:Table:Cell>
+                    <twig:Table:Cell>Unpaid</twig:Table:Cell>
+                    <twig:Table:Cell class="text-right">$550.00</twig:Table:Cell>
+                </twig:Table:Row>
+            </twig:Table:Body>
+        </twig:Table>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
+### Stacked Content-Only
+
+Flush panels in a stacked Frame: two tables read as one block.
+
+```twig
+<twig:Frame stacked class="max-w-lg">
+    <twig:Frame:Panel flush>
+        <twig:Table>
+            <twig:Table:Header>
+                <twig:Table:Row>
+                    <twig:Table:Head>Invoice</twig:Table:Head>
+                    <twig:Table:Head>Status</twig:Table:Head>
+                    <twig:Table:Head class="text-right">Amount</twig:Table:Head>
+                </twig:Table:Row>
+            </twig:Table:Header>
+            <twig:Table:Body>
+                <twig:Table:Row>
+                    <twig:Table:Cell class="font-medium">INV-001</twig:Table:Cell>
+                    <twig:Table:Cell>Paid</twig:Table:Cell>
+                    <twig:Table:Cell class="text-right">$250.00</twig:Table:Cell>
+                </twig:Table:Row>
+                <twig:Table:Row>
+                    <twig:Table:Cell class="font-medium">INV-002</twig:Table:Cell>
+                    <twig:Table:Cell>Pending</twig:Table:Cell>
+                    <twig:Table:Cell class="text-right">$150.00</twig:Table:Cell>
+                </twig:Table:Row>
+                <twig:Table:Row>
+                    <twig:Table:Cell class="font-medium">INV-003</twig:Table:Cell>
+                    <twig:Table:Cell>Paid</twig:Table:Cell>
+                    <twig:Table:Cell class="text-right">$350.00</twig:Table:Cell>
+                </twig:Table:Row>
+            </twig:Table:Body>
+        </twig:Table>
+    </twig:Frame:Panel>
+    <twig:Frame:Panel flush>
+        <twig:Table>
+            <twig:Table:Header>
+                <twig:Table:Row>
+                    <twig:Table:Head>Invoice</twig:Table:Head>
+                    <twig:Table:Head>Status</twig:Table:Head>
+                    <twig:Table:Head class="text-right">Amount</twig:Table:Head>
+                </twig:Table:Row>
+            </twig:Table:Header>
+            <twig:Table:Body>
+                <twig:Table:Row>
+                    <twig:Table:Cell class="font-medium">INV-004</twig:Table:Cell>
+                    <twig:Table:Cell>Paid</twig:Table:Cell>
+                    <twig:Table:Cell class="text-right">$450.00</twig:Table:Cell>
+                </twig:Table:Row>
+                <twig:Table:Row>
+                    <twig:Table:Cell class="font-medium">INV-005</twig:Table:Cell>
+                    <twig:Table:Cell>Unpaid</twig:Table:Cell>
+                    <twig:Table:Cell class="text-right">$550.00</twig:Table:Cell>
+                </twig:Table:Row>
+            </twig:Table:Body>
+        </twig:Table>
+    </twig:Frame:Panel>
+</twig:Frame>
+```
+
 ## Accessibility
 
 - `Frame:Title` renders an `h3` by default; change it with `tag` to keep the heading levels of the page in order.
@@ -618,6 +916,7 @@ Needs the `alert` and `button` recipes of the official kit.
 | `dense` | bool | `false` | No padding or gap; panels are separated by rules on the outer border. |
 | `stacked` | bool | `false` | Joins adjacent panels into one block. |
 | `spacing` | `xs`, `sm`, `default`, `lg` | `default` | Padding and gap around the panels (ignored when `dense`). |
+| `radius` | `sm`, `md`, `default`, `lg`, `xl` | `default` | Corner radius of the Frame; the panels follow with a smaller radius. |
 
 | Block | Description |
 |---|---|
@@ -631,6 +930,7 @@ Needs the `alert` and `button` recipes of the official kit.
 | `description` | string | `null` | Text under the heading. |
 | `fit` | bool | `false` | Keep the content height instead of filling the spare height of the Frame. |
 | `ghost` | bool | `false` | No border and no background. |
+| `flush` | bool | `false` | No padding: the content (a table, a list) touches the edges of the panel. A title still gets its own padding. |
 
 | Block | Description |
 |---|---|

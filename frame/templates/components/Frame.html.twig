@@ -6,14 +6,17 @@
     dense    removes the padding and gap: panels sit on the outer border, separated by rules
     stacked  joins adjacent panels into one column (a single rounded block)
     spacing  xs | sm | default | lg: padding and gap around the panels (ignored when dense)
+    radius   sm | md | default | lg | xl: corner radius of the Frame; the panels follow with a smaller radius
 
   The slot holds Frame:Panel elements.
 #}
-{%- props dense = false, stacked = false, spacing = 'default' -%}
+{%- props dense = false, stacked = false, spacing = 'default', radius = 'default' -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set pad = {xs: 'p-0.5', sm: 'p-1', default: 'p-1.5', lg: 'p-3'}[spacing] ?? 'p-1.5' -%}
 {%- set gap = {xs: 'gap-0.5', sm: 'gap-1', default: 'gap-1.5', lg: 'gap-3'}[spacing] ?? 'gap-1.5' -%}
+{%- set rounded = {sm: 'rounded-md', md: 'rounded-lg', default: 'rounded-xl', lg: 'rounded-2xl', xl: 'rounded-3xl'}[radius] ?? 'rounded-xl' -%}
+{%- set panelRadius = {sm: '0.25rem', md: '0.375rem', default: '0.5rem', lg: '0.75rem', xl: '1.25rem'}[radius] ?? '0.5rem' -%}
 {%- set layout = dense ? 'overflow-hidden border border-border bg-background' : 'bg-muted/50 ' ~ pad ~ ' ' ~ (stacked ? '' : gap) -%}
-<div class="{{ ('group/frame flex flex-col rounded-xl ' ~ layout ~ ' ' ~ extra_class)|trim }}" data-dense="{{ dense ? 'true' : 'false' }}" data-stacked="{{ stacked ? 'true' : 'false' }}" {{ attributes }}>
+<div class="{{ ('group/frame flex flex-col ' ~ rounded ~ ' ' ~ layout ~ ' ' ~ extra_class)|trim }}" style="--panel-r: {{ panelRadius }}" data-dense="{{ dense ? 'true' : 'false' }}" data-stacked="{{ stacked ? 'true' : 'false' }}" {{ attributes }}>
     {%- block content %}{% endblock -%}
 </div>

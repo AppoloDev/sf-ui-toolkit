@@ -6,15 +6,16 @@
     description  optional text under the heading
     fit          keep the content height instead of filling the spare height of the Frame
     ghost        no border and no background (text sits directly on the Frame)
+    flush        no padding: the content (a table, an image, a list) touches the edges of the panel
 #}
-{%- props title = null, description = null, fit = false, ghost = false -%}
+{%- props title = null, description = null, fit = false, ghost = false, flush = false -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set surface = ghost
     ? 'bg-transparent'
-    : 'rounded-lg border border-border bg-background group-data-[dense=true]/frame:rounded-none group-data-[dense=true]/frame:border-0 group-data-[dense=true]/frame:border-b group-data-[dense=true]/frame:last:border-b-0 group-data-[stacked=true]/frame:rounded-none group-data-[stacked=true]/frame:first:rounded-t-lg group-data-[stacked=true]/frame:last:rounded-b-lg group-data-[stacked=true]/frame:not-last:border-b-0' -%}
-<section class="{{ ('p-4 ' ~ (fit ? '' : 'flex-1 ') ~ surface ~ ' ' ~ extra_class)|trim }}" {{ attributes }}>
+    : 'rounded-[var(--panel-r,0.5rem)] border border-border bg-background group-data-[dense=true]/frame:rounded-none group-data-[dense=true]/frame:border-0 group-data-[dense=true]/frame:border-b group-data-[dense=true]/frame:last:border-b-0 group-data-[stacked=true]/frame:rounded-none group-data-[stacked=true]/frame:first:rounded-t-[var(--panel-r,0.5rem)] group-data-[stacked=true]/frame:last:rounded-b-[var(--panel-r,0.5rem)] group-data-[stacked=true]/frame:not-last:border-b-0' -%}
+<section class="{{ ((flush ? 'overflow-hidden ' : 'p-4 ') ~ (fit ? '' : 'flex-1 ') ~ surface ~ ' ' ~ extra_class)|trim }}" {{ attributes }}>
     {%- if title or description %}
-        <header class="mb-3 grid gap-0.5">
+        <header class="{{ flush ? 'px-4 pt-4 ' : '' }}mb-3 grid gap-0.5">
             {%- if title %}<h3 class="text-sm font-medium">{{ title }}</h3>{% endif %}
             {%- if description %}<p class="text-sm text-muted-foreground">{{ description }}</p>{% endif %}
         </header>
