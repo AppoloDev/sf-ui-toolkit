@@ -1,0 +1,17 @@
+{#
+ # Clearable: wraps a field and shows a clear button while it holds a value.
+ #
+ # Put a `Clearable:Button` in an `InputGroup:Addon` next to an `InputGroup:Input` (or an `InputGroup:Textarea`).
+ # Clearing empties the field, fires `input` and `change` on it, refocuses it and dispatches `clearable:clear`.
+ #}
+<div
+    data-slot="clearable"
+    {{ attributes.defaults({
+        class: 'contents',
+        'data-controller': 'clearable',
+        'data-action': 'input->clearable#toggle',
+    }) }}
+>
+    {##- A field with a `Clearable:Button`. -#}
+    {%- block content %}{% endblock -%}
+</div>

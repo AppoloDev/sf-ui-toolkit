@@ -1,0 +1,17 @@
+{%- props
+    ## string The accessible name of the button.
+    label = 'Clear',
+    ## string The Symfony UX Icons name of the icon.
+    icon = 'lucide:x'
+-%}
+<twig:InputGroup:Button
+    size="icon-xs"
+    hidden
+    aria-label="{{ label }}"
+    data-slot="clearable-button"
+    data-clearable-target="button"
+    data-action="clearable#clear"
+    {{ ...attributes }}
+>
+    <twig:ux:icon name="{{ icon }}" aria-hidden="true" />
+</twig:InputGroup:Button>
