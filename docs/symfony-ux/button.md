@@ -473,3 +473,926 @@ Brand logos come from the `simple-icons` set, which draws each logo in one color
     </twig:Button>
 </div>
 ```
+
+### Default Buttons
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button>
+        Button
+    </twig:Button>
+    <twig:Button>
+        <twig:ux:icon name="lucide:plus" />
+        Button
+    </twig:Button>
+    <twig:Button>
+        Button
+        <twig:ux:icon name="lucide:arrow-right" />
+    </twig:Button>
+    <twig:Button class="rounded-full">
+        Button
+    </twig:Button>
+    <twig:Button disabled>
+        <twig:Spinner />
+        Loading
+    </twig:Button>
+    <twig:Button>
+        Button
+        <twig:Badge variant="secondary">
+            3
+        </twig:Badge>
+    </twig:Button>
+    <twig:Button>
+        Button
+        <twig:Kbd>
+            ⌘K
+        </twig:Kbd>
+    </twig:Button>
+</div>
+```
+
+### Secondary Buttons
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="secondary">
+        Button
+    </twig:Button>
+    <twig:Button variant="secondary">
+        <twig:ux:icon name="lucide:plus" />
+        Button
+    </twig:Button>
+    <twig:Button variant="secondary">
+        Button
+        <twig:ux:icon name="lucide:arrow-right" />
+    </twig:Button>
+    <twig:Button variant="secondary" class="rounded-full">
+        Button
+    </twig:Button>
+    <twig:Button variant="secondary" disabled>
+        <twig:Spinner />
+        Loading
+    </twig:Button>
+    <twig:Button variant="secondary">
+        Button
+        <twig:Badge variant="secondary">
+            3
+        </twig:Badge>
+    </twig:Button>
+    <twig:Button variant="secondary">
+        Button
+        <twig:Kbd>
+            ⌘K
+        </twig:Kbd>
+    </twig:Button>
+</div>
+```
+
+### Outline Buttons
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="outline">
+        Button
+    </twig:Button>
+    <twig:Button variant="outline">
+        <twig:ux:icon name="lucide:plus" />
+        Button
+    </twig:Button>
+    <twig:Button variant="outline">
+        Button
+        <twig:ux:icon name="lucide:arrow-right" />
+    </twig:Button>
+    <twig:Button variant="outline" class="rounded-full">
+        Button
+    </twig:Button>
+    <twig:Button variant="outline" disabled>
+        <twig:Spinner />
+        Loading
+    </twig:Button>
+    <twig:Button variant="outline">
+        Button
+        <twig:Badge variant="secondary">
+            3
+        </twig:Badge>
+    </twig:Button>
+    <twig:Button variant="outline">
+        Button
+        <twig:Kbd>
+            ⌘K
+        </twig:Kbd>
+    </twig:Button>
+</div>
+```
+
+### Destructive Buttons
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="destructive">
+        Button
+    </twig:Button>
+    <twig:Button variant="destructive">
+        <twig:ux:icon name="lucide:plus" />
+        Button
+    </twig:Button>
+    <twig:Button variant="destructive">
+        Button
+        <twig:ux:icon name="lucide:arrow-right" />
+    </twig:Button>
+    <twig:Button variant="destructive" class="rounded-full">
+        Button
+    </twig:Button>
+    <twig:Button variant="destructive" disabled>
+        <twig:Spinner />
+        Loading
+    </twig:Button>
+    <twig:Button variant="destructive">
+        Button
+        <twig:Badge variant="secondary">
+            3
+        </twig:Badge>
+    </twig:Button>
+    <twig:Button variant="destructive">
+        Button
+        <twig:Kbd>
+            ⌘K
+        </twig:Kbd>
+    </twig:Button>
+</div>
+```
+
+### Link Buttons
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="link">
+        Button
+    </twig:Button>
+    <twig:Button variant="link">
+        <twig:ux:icon name="lucide:plus" />
+        Button
+    </twig:Button>
+    <twig:Button variant="link">
+        Button
+        <twig:ux:icon name="lucide:arrow-right" />
+    </twig:Button>
+    <twig:Button variant="link" class="rounded-full">
+        Button
+    </twig:Button>
+    <twig:Button variant="link" disabled>
+        <twig:Spinner />
+        Loading
+    </twig:Button>
+    <twig:Button variant="link">
+        Button
+        <twig:Badge variant="secondary">
+            3
+        </twig:Badge>
+    </twig:Button>
+    <twig:Button variant="link">
+        Button
+        <twig:Kbd>
+            ⌘K
+        </twig:Kbd>
+    </twig:Button>
+</div>
+```
+
+### Ghost Buttons
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="ghost">
+        Button
+    </twig:Button>
+    <twig:Button variant="ghost">
+        <twig:ux:icon name="lucide:plus" />
+        Button
+    </twig:Button>
+    <twig:Button variant="ghost">
+        Button
+        <twig:ux:icon name="lucide:arrow-right" />
+    </twig:Button>
+    <twig:Button variant="ghost" class="rounded-full">
+        Button
+    </twig:Button>
+    <twig:Button variant="ghost" disabled>
+        <twig:Spinner />
+        Loading
+    </twig:Button>
+    <twig:Button variant="ghost">
+        Button
+        <twig:Badge variant="secondary">
+            3
+        </twig:Badge>
+    </twig:Button>
+    <twig:Button variant="ghost">
+        Button
+        <twig:Kbd>
+            ⌘K
+        </twig:Kbd>
+    </twig:Button>
+</div>
+```
+
+### Outline Sizes
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="outline" size="xs">
+        Button
+    </twig:Button>
+    <twig:Button variant="outline" size="sm">
+        Button
+    </twig:Button>
+    <twig:Button variant="outline">
+        Button
+    </twig:Button>
+    <twig:Button variant="outline" size="lg">
+        Button
+    </twig:Button>
+</div>
+```
+
+### Default Sizes
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button size="xs">
+        Button
+    </twig:Button>
+    <twig:Button size="sm">
+        Button
+    </twig:Button>
+    <twig:Button>
+        Button
+    </twig:Button>
+    <twig:Button size="lg">
+        Button
+    </twig:Button>
+</div>
+```
+
+### Ghost Sizes
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="ghost" size="xs">
+        Button
+    </twig:Button>
+    <twig:Button variant="ghost" size="sm">
+        Button
+    </twig:Button>
+    <twig:Button variant="ghost">
+        Button
+    </twig:Button>
+    <twig:Button variant="ghost" size="lg">
+        Button
+    </twig:Button>
+</div>
+```
+
+### Destructive Sizes
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="destructive" size="xs">
+        Button
+    </twig:Button>
+    <twig:Button variant="destructive" size="sm">
+        Button
+    </twig:Button>
+    <twig:Button variant="destructive">
+        Button
+    </twig:Button>
+    <twig:Button variant="destructive" size="lg">
+        Button
+    </twig:Button>
+</div>
+```
+
+### Icon Button Sizes
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="outline" size="icon-xs" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon-sm" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon-lg" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+</div>
+```
+
+### Default Icon Buttons
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button size="icon" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button size="icon" class="rounded-full" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button size="icon" disabled aria-label="Loading">
+        <twig:Spinner />
+    </twig:Button>
+    <twig:Button size="icon" disabled aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <span class="relative inline-flex">
+        <twig:Button size="icon" aria-label="Notifications">
+            <twig:ux:icon name="lucide:bell" />
+        </twig:Button>
+        <twig:Badge class="absolute -end-1.5 -top-1.5 h-4 min-w-4 justify-center rounded-full px-1 text-[10px]">
+            3
+        </twig:Badge>
+    </span>
+</div>
+```
+
+### Secondary Icon Buttons
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="secondary" size="icon" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button variant="secondary" size="icon" class="rounded-full" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button variant="secondary" size="icon" disabled aria-label="Loading">
+        <twig:Spinner />
+    </twig:Button>
+    <twig:Button variant="secondary" size="icon" disabled aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <span class="relative inline-flex">
+        <twig:Button variant="secondary" size="icon" aria-label="Notifications">
+            <twig:ux:icon name="lucide:bell" />
+        </twig:Button>
+        <twig:Badge class="absolute -end-1.5 -top-1.5 h-4 min-w-4 justify-center rounded-full px-1 text-[10px]">
+            3
+        </twig:Badge>
+    </span>
+</div>
+```
+
+### Outline Icon Buttons
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="outline" size="icon" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" class="rounded-full" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" disabled aria-label="Loading">
+        <twig:Spinner />
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" disabled aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <span class="relative inline-flex">
+        <twig:Button variant="outline" size="icon" aria-label="Notifications">
+            <twig:ux:icon name="lucide:bell" />
+        </twig:Button>
+        <twig:Badge class="absolute -end-1.5 -top-1.5 h-4 min-w-4 justify-center rounded-full px-1 text-[10px]">
+            3
+        </twig:Badge>
+    </span>
+</div>
+```
+
+### Ghost Icon Buttons
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="ghost" size="icon" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button variant="ghost" size="icon" class="rounded-full" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button variant="ghost" size="icon" disabled aria-label="Loading">
+        <twig:Spinner />
+    </twig:Button>
+    <twig:Button variant="ghost" size="icon" disabled aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <span class="relative inline-flex">
+        <twig:Button variant="ghost" size="icon" aria-label="Notifications">
+            <twig:ux:icon name="lucide:bell" />
+        </twig:Button>
+        <twig:Badge class="absolute -end-1.5 -top-1.5 h-4 min-w-4 justify-center rounded-full px-1 text-[10px]">
+            3
+        </twig:Badge>
+    </span>
+</div>
+```
+
+### Destructive Icon Buttons
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button variant="destructive" size="icon" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button variant="destructive" size="icon" class="rounded-full" aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <twig:Button variant="destructive" size="icon" disabled aria-label="Loading">
+        <twig:Spinner />
+    </twig:Button>
+    <twig:Button variant="destructive" size="icon" disabled aria-label="Settings">
+        <twig:ux:icon name="lucide:settings" />
+    </twig:Button>
+    <span class="relative inline-flex">
+        <twig:Button variant="destructive" size="icon" aria-label="Notifications">
+            <twig:ux:icon name="lucide:bell" />
+        </twig:Button>
+        <twig:Badge class="absolute -end-1.5 -top-1.5 h-4 min-w-4 justify-center rounded-full px-1 text-[10px]">
+            3
+        </twig:Badge>
+    </span>
+</div>
+```
+
+### Raised And Raised Text
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="shadow-md">
+        Raised
+    </twig:Button>
+    <twig:Button variant="secondary" class="shadow-md">
+        Raised
+    </twig:Button>
+    <twig:Button variant="outline" class="shadow-md">
+        Raised
+    </twig:Button>
+    <twig:Button variant="ghost" class="[&>span]:drop-shadow-sm">
+        <span class="drop-shadow-sm">
+        Raised text
+    </span>
+    </twig:Button>
+</div>
+```
+
+### Glow
+
+Pure CSS: the shadow grows on hover.
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="shadow-[0_0_20px_-4px_var(--primary)] transition-shadow duration-300 hover:shadow-[0_0_32px_2px_var(--primary)]">
+        Glow
+    </twig:Button>
+    <twig:Button variant="outline" class="transition-shadow duration-300 hover:shadow-[0_0_20px_-2px_var(--ring)]">
+        Glow
+    </twig:Button>
+    <twig:Button variant="secondary" class="shadow-[0_0_16px_-6px_var(--foreground)] transition-shadow duration-300 hover:shadow-[0_0_24px_-4px_var(--foreground)]">
+        Glow
+    </twig:Button>
+</div>
+```
+
+### Glow Shimmer
+
+The continuous animations need the keyframes of the `<style>` block; copy them into your CSS.
+
+```twig
+<style>
+    .btnfx-shimmer{background-image:linear-gradient(110deg,transparent 35%,rgb(255 255 255/.4) 50%,transparent 65%);background-size:200% 100%;animation:btnfx-sweep 2.2s linear infinite}
+    @keyframes btnfx-sweep{from{background-position:200% 0}to{background-position:-200% 0}}
+    .btnfx-spin{background:conic-gradient(from 0deg,transparent 0 60%,var(--btnfx-c,#888) 100%);animation:btnfx-rot 3s linear infinite}
+    @keyframes btnfx-rot{to{transform:rotate(360deg)}}
+</style>
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="relative overflow-hidden">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0 btnfx-shimmer"></span>
+        <span class="relative">
+            Shimmer
+        </span>
+    </twig:Button>
+    <span class="relative inline-flex overflow-hidden rounded-lg p-px">
+        <span aria-hidden="true" class="btnfx-spin absolute -inset-[200%]" style="--btnfx-c: #a3a3a3"></span>
+        <twig:Button variant="secondary" class="relative">
+            Rotating glow
+        </twig:Button>
+    </span>
+    <span class="relative inline-flex overflow-hidden rounded-lg p-px">
+        <span aria-hidden="true" class="btnfx-spin absolute -inset-[200%]" style="--btnfx-c: #6366f1"></span>
+        <twig:Button variant="outline" class="relative border-transparent">
+            Rotating glow
+        </twig:Button>
+    </span>
+</div>
+```
+
+### Glow Shine
+
+Pure CSS: a light band crosses the button on hover.
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="relative overflow-hidden">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 start-0 w-1/3 -translate-x-full skew-x-[-20deg] bg-white/40 transition-transform duration-700 group-hover/button:translate-x-[400%]"></span>
+        <span class="relative">
+            Shine
+        </span>
+    </twig:Button>
+    <twig:Button variant="secondary" class="relative overflow-hidden">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 start-0 w-1/3 -translate-x-full skew-x-[-20deg] bg-white/40 transition-transform duration-700 group-hover/button:translate-x-[400%]"></span>
+        <span class="relative">
+            Shine
+        </span>
+    </twig:Button>
+    <twig:Button variant="outline" class="relative overflow-hidden">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 start-0 w-1/3 -translate-x-full skew-x-[-20deg] bg-white/40 transition-transform duration-700 group-hover/button:translate-x-[400%]"></span>
+        <span class="relative">
+            Shine
+        </span>
+    </twig:Button>
+</div>
+```
+
+### Glow Aurora
+
+The animation needs the keyframes of the `<style>` block; copy them into your CSS.
+
+```twig
+<style>
+    .btnfx-aurora{background-image:linear-gradient(90deg,#6366f1,#ec4899,#f59e0b,#10b981,#6366f1);background-size:300% 100%;animation:btnfx-flow 6s linear infinite}
+    @keyframes btnfx-flow{to{background-position:-300% 0}}
+</style>
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="btnfx-aurora border-0 text-white">
+        Aurora
+    </twig:Button>
+    <span class="btnfx-aurora inline-flex rounded-lg p-px">
+        <twig:Button variant="outline" class="border-transparent">
+            Aurora
+        </twig:Button>
+    </span>
+    <twig:Button variant="secondary" class="relative overflow-hidden">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0 btnfx-aurora opacity-25"></span>
+        <span class="relative">
+            Aurora
+        </span>
+    </twig:Button>
+</div>
+```
+
+### Glow Gleam
+
+The periodic sweep needs the keyframes of the `<style>` block.
+
+```twig
+<style>
+    @keyframes btnfx-gleam{0%,55%{transform:translateX(-150%) skewX(-20deg)}100%{transform:translateX(450%) skewX(-20deg)}}
+    .btnfx-gleam{animation:btnfx-gleam 3s ease-in-out infinite}
+</style>
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="relative overflow-hidden">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 start-0 w-1/5 btnfx-gleam bg-white/50"></span>
+        <span class="relative">
+            Gleam
+        </span>
+    </twig:Button>
+    <twig:Button variant="secondary" class="relative overflow-hidden">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 start-0 w-1/5 btnfx-gleam bg-white/50"></span>
+        <span class="relative">
+            Gleam
+        </span>
+    </twig:Button>
+    <twig:Button variant="outline" class="relative overflow-hidden">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 start-0 w-1/5 btnfx-gleam bg-white/50"></span>
+        <span class="relative">
+            Gleam
+        </span>
+    </twig:Button>
+</div>
+```
+
+### Text Effect Slide Up
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="relative overflow-hidden">
+        <span class="transition-transform duration-300 group-hover/button:-translate-y-full">
+            Hover me
+        </span>
+        <span class="absolute inset-0 flex items-center justify-center translate-y-full transition-transform duration-300 group-hover/button:translate-x-0 group-hover/button:translate-y-0">
+            Let's go
+        </span>
+    </twig:Button>
+    <twig:Button variant="outline" class="relative overflow-hidden">
+        <span class="transition-transform duration-300 group-hover/button:-translate-y-full">
+            Hover me
+        </span>
+        <span class="absolute inset-0 flex items-center justify-center translate-y-full transition-transform duration-300 group-hover/button:translate-x-0 group-hover/button:translate-y-0">
+            Let's go
+        </span>
+    </twig:Button>
+    <twig:Button variant="secondary" class="relative overflow-hidden">
+        <span class="transition-transform duration-300 group-hover/button:-translate-y-full">
+            Hover me
+        </span>
+        <span class="absolute inset-0 flex items-center justify-center translate-y-full transition-transform duration-300 group-hover/button:translate-x-0 group-hover/button:translate-y-0">
+            Let's go
+        </span>
+    </twig:Button>
+</div>
+```
+
+### Text Effect Slide Left
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="relative overflow-hidden">
+        <span class="transition-transform duration-300 group-hover/button:-translate-x-full">
+            Hover me
+        </span>
+        <span class="absolute inset-0 flex items-center justify-center translate-x-full transition-transform duration-300 group-hover/button:translate-x-0 group-hover/button:translate-y-0">
+            Let's go
+        </span>
+    </twig:Button>
+    <twig:Button variant="outline" class="relative overflow-hidden">
+        <span class="transition-transform duration-300 group-hover/button:-translate-x-full">
+            Hover me
+        </span>
+        <span class="absolute inset-0 flex items-center justify-center translate-x-full transition-transform duration-300 group-hover/button:translate-x-0 group-hover/button:translate-y-0">
+            Let's go
+        </span>
+    </twig:Button>
+    <twig:Button variant="secondary" class="relative overflow-hidden">
+        <span class="transition-transform duration-300 group-hover/button:-translate-x-full">
+            Hover me
+        </span>
+        <span class="absolute inset-0 flex items-center justify-center translate-x-full transition-transform duration-300 group-hover/button:translate-x-0 group-hover/button:translate-y-0">
+            Let's go
+        </span>
+    </twig:Button>
+</div>
+```
+
+### Text Effect Slide Right
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="relative overflow-hidden">
+        <span class="transition-transform duration-300 group-hover/button:translate-x-full">
+            Hover me
+        </span>
+        <span class="absolute inset-0 flex items-center justify-center -translate-x-full transition-transform duration-300 group-hover/button:translate-x-0 group-hover/button:translate-y-0">
+            Let's go
+        </span>
+    </twig:Button>
+    <twig:Button variant="outline" class="relative overflow-hidden">
+        <span class="transition-transform duration-300 group-hover/button:translate-x-full">
+            Hover me
+        </span>
+        <span class="absolute inset-0 flex items-center justify-center -translate-x-full transition-transform duration-300 group-hover/button:translate-x-0 group-hover/button:translate-y-0">
+            Let's go
+        </span>
+    </twig:Button>
+    <twig:Button variant="secondary" class="relative overflow-hidden">
+        <span class="transition-transform duration-300 group-hover/button:translate-x-full">
+            Hover me
+        </span>
+        <span class="absolute inset-0 flex items-center justify-center -translate-x-full transition-transform duration-300 group-hover/button:translate-x-0 group-hover/button:translate-y-0">
+            Let's go
+        </span>
+    </twig:Button>
+</div>
+```
+
+### Text Effect Arrow
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button>
+        Continue
+        <twig:ux:icon name="lucide:arrow-right" class="transition-transform duration-300 group-hover/button:translate-x-1" />
+    </twig:Button>
+    <twig:Button variant="outline">
+        Continue
+        <twig:ux:icon name="lucide:arrow-right" class="transition-transform duration-300 group-hover/button:translate-x-1" />
+    </twig:Button>
+    <twig:Button variant="secondary">
+        Continue
+        <twig:ux:icon name="lucide:arrow-right" class="transition-transform duration-300 group-hover/button:translate-x-1" />
+    </twig:Button>
+</div>
+```
+
+### Morph Fold
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="relative overflow-hidden">
+        <span aria-hidden="true" class="absolute inset-0 origin-bottom scale-y-0 bg-background transition-transform duration-300 group-hover/button:scale-y-100"></span>
+        <span class="relative transition-colors duration-300 group-hover/button:text-foreground">
+            Fold
+        </span>
+    </twig:Button>
+    <twig:Button variant="outline" class="relative overflow-hidden">
+        <span aria-hidden="true" class="absolute inset-0 origin-bottom scale-y-0 bg-foreground transition-transform duration-300 group-hover/button:scale-y-100"></span>
+        <span class="relative transition-colors duration-300 group-hover/button:text-background">
+            Fold
+        </span>
+    </twig:Button>
+    <twig:Button variant="ghost" class="relative overflow-hidden">
+        <span aria-hidden="true" class="absolute inset-0 origin-bottom scale-y-0 bg-accent transition-transform duration-300 group-hover/button:scale-y-100"></span>
+        <span class="relative transition-colors duration-300 ">
+            Fold
+        </span>
+    </twig:Button>
+</div>
+```
+
+### Text Marquee On Hover
+
+The scrolling needs the keyframes of the `<style>` block.
+
+```twig
+<style>
+    @keyframes btnfx-marq{to{transform:translateX(calc(-50% - .75rem))}}
+    .btnfx-marq{display:inline-flex;gap:1.5rem;animation:btnfx-marq 4s linear infinite}
+    .btnfx-hover{animation-play-state:paused}
+    .group\/button:hover .btnfx-hover{animation-play-state:running}
+</style>
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="w-36 justify-start overflow-hidden">
+        <span class="btnfx-marq btnfx-hover">
+            <span>
+                Scrolling text
+            </span>
+            <span aria-hidden="true">
+                Scrolling text
+            </span>
+        </span>
+    </twig:Button>
+    <twig:Button variant="outline" class="w-36 justify-start overflow-hidden">
+        <span class="btnfx-marq btnfx-hover">
+            <span>
+                Scrolling text
+            </span>
+            <span aria-hidden="true">
+                Scrolling text
+            </span>
+        </span>
+    </twig:Button>
+    <twig:Button variant="secondary" class="w-36 justify-start overflow-hidden">
+        <span class="btnfx-marq btnfx-hover">
+            <span>
+                Scrolling text
+            </span>
+            <span aria-hidden="true">
+                Scrolling text
+            </span>
+        </span>
+    </twig:Button>
+</div>
+```
+
+### Text Marquee Auto Loop
+
+The scrolling needs the keyframes of the `<style>` block.
+
+```twig
+<style>
+    @keyframes btnfx-marq{to{transform:translateX(calc(-50% - .75rem))}}
+    .btnfx-marq{display:inline-flex;gap:1.5rem;animation:btnfx-marq 4s linear infinite}
+    .btnfx-hover{animation-play-state:paused}
+    .group\/button:hover .btnfx-hover{animation-play-state:running}
+</style>
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="w-36 justify-start overflow-hidden">
+        <span class="btnfx-marq">
+            <span>
+                Scrolling text
+            </span>
+            <span aria-hidden="true">
+                Scrolling text
+            </span>
+        </span>
+    </twig:Button>
+    <twig:Button variant="outline" class="w-36 justify-start overflow-hidden">
+        <span class="btnfx-marq">
+            <span>
+                Scrolling text
+            </span>
+            <span aria-hidden="true">
+                Scrolling text
+            </span>
+        </span>
+    </twig:Button>
+    <twig:Button variant="secondary" class="w-36 justify-start overflow-hidden">
+        <span class="btnfx-marq">
+            <span>
+                Scrolling text
+            </span>
+            <span aria-hidden="true">
+                Scrolling text
+            </span>
+        </span>
+    </twig:Button>
+</div>
+```
+
+### Text Typewriter On Hover
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="w-36 justify-start">
+        <span class="inline-block max-w-0 overflow-hidden whitespace-nowrap align-bottom transition-[max-width] duration-1000 ease-[steps(14)] group-hover/button:max-w-[14ch]">
+            Typing text...
+        </span>
+        <span aria-hidden="true" class="-ms-1 animate-pulse">
+            |
+        </span>
+    </twig:Button>
+    <twig:Button variant="outline" class="w-36 justify-start">
+        <span class="inline-block max-w-0 overflow-hidden whitespace-nowrap align-bottom transition-[max-width] duration-1000 ease-[steps(14)] group-hover/button:max-w-[14ch]">
+            Typing text...
+        </span>
+        <span aria-hidden="true" class="-ms-1 animate-pulse">
+            |
+        </span>
+    </twig:Button>
+    <twig:Button variant="secondary" class="w-36 justify-start">
+        <span class="inline-block max-w-0 overflow-hidden whitespace-nowrap align-bottom transition-[max-width] duration-1000 ease-[steps(14)] group-hover/button:max-w-[14ch]">
+            Typing text...
+        </span>
+        <span aria-hidden="true" class="-ms-1 animate-pulse">
+            |
+        </span>
+    </twig:Button>
+</div>
+```
+
+### Text Typewriter On Load
+
+The typing needs the keyframes of the `<style>` block.
+
+```twig
+<style>
+    @keyframes btnfx-typing{from{max-width:0}to{max-width:14ch}}
+    .btnfx-type{animation:btnfx-typing 1.5s steps(14) both}
+</style>
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button class="w-36 justify-start">
+        <span class="inline-block overflow-hidden whitespace-nowrap align-bottom btnfx-type">
+            Typing text...
+        </span>
+        <span aria-hidden="true" class="-ms-1 animate-pulse">
+            |
+        </span>
+    </twig:Button>
+    <twig:Button variant="outline" class="w-36 justify-start">
+        <span class="inline-block overflow-hidden whitespace-nowrap align-bottom btnfx-type">
+            Typing text...
+        </span>
+        <span aria-hidden="true" class="-ms-1 animate-pulse">
+            |
+        </span>
+    </twig:Button>
+    <twig:Button variant="secondary" class="w-36 justify-start">
+        <span class="inline-block overflow-hidden whitespace-nowrap align-bottom btnfx-type">
+            Typing text...
+        </span>
+        <span aria-hidden="true" class="-ms-1 animate-pulse">
+            |
+        </span>
+    </twig:Button>
+</div>
+```
+
+### Morph Expand
+
+```twig
+<div class="flex flex-wrap items-center gap-3">
+    <twig:Button size="icon" class="w-8 justify-start px-2 transition-[width] duration-300 hover:w-36" aria-label="Send message">
+        <twig:ux:icon name="lucide:send" />
+        <span class="ms-1.5 whitespace-nowrap opacity-0 transition-opacity duration-200 group-hover/button:opacity-100">
+            Send message
+        </span>
+    </twig:Button>
+    <twig:Button variant="outline" size="icon" class="w-8 justify-start px-2 transition-[width] duration-300 hover:w-32" aria-label="Download">
+        <twig:ux:icon name="lucide:download" />
+        <span class="ms-1.5 whitespace-nowrap opacity-0 transition-opacity duration-200 group-hover/button:opacity-100">
+            Download
+        </span>
+    </twig:Button>
+</div>
+```
