@@ -9,27 +9,43 @@
     name      name of the checkbox
     value     value of the checkbox
     checked   checkbox checked by default
+    icon      lucide icon name shown before the label (a folder, a file type...)
+    expandedIcon  lucide icon name used instead of `icon` while a branch is open (folder-open)
 
   The slot holds the children (nested Tree:Item). A node without children is a leaf.
+  Block `row`: your own content for the row (avatar, badge...) in place of the label text; `label` stays the
+  accessible name.
 #}
-{%- props label, expanded = false, selected = false, href = null, checkbox = false, name = null, value = '1', checked = false -%}
+{%- props label, expanded = false, selected = false, href = null, checkbox = false, name = null, value = '1', checked = false, icon = null, expandedIcon = null -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- if false -%}{% block content %}{% endblock %}{%- endif -%}
+{%- if false -%}{% block row %}{% endblock %}{%- endif -%}
 {%- set children = block('content')|trim -%}
+{%- set rowContent = block('row')|trim -%}
 {%- set branch = children is not empty -%}
 <li role="treeitem" tabindex="-1" aria-label="{{ label }}" aria-selected="{{ selected ? 'true' : 'false' }}"{% if branch %} aria-expanded="{{ expanded ? 'true' : 'false' }}"{% endif %}
     class="{{ ('outline-none ' ~ extra_class)|trim }}" data-tree-target="item"{% if checkbox %} data-slot="checkbox-tree-node"{% endif %} {{ attributes }}>
     <div class="group/row flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 hover:bg-muted data-[selected=true]:bg-muted data-[selected=true]:font-medium [[role=treeitem]:focus-visible>&]:ring-2 [[role=treeitem]:focus-visible>&]:ring-ring"
          data-tree-row data-selected="{{ selected ? 'true' : 'false' }}" data-expanded="{{ expanded ? 'true' : 'false' }}" data-action="click->tree#click">
         {%- if branch -%}
-            <twig:ux:icon name="lucide:chevron-right" class="size-4 shrink-0 text-muted-foreground transition-transform group-data-[expanded=true]/row:rotate-90" data-tree-chevron aria-hidden="true" />
+            <twig:ux:icon name="lucide:chevron-right" class="size-4 shrink-0 text-muted-foreground transition-transform group-data-[expanded=true]/row:rotate-90 group-data-[indicator=plusminus]/tree:hidden" data-tree-chevron aria-hidden="true" />
+            <twig:ux:icon name="lucide:square-plus" class="hidden size-4 shrink-0 text-muted-foreground group-data-[indicator=plusminus]/tree:block group-data-[expanded=true]/row:group-data-[indicator=plusminus]/tree:hidden" data-tree-chevron aria-hidden="true" />
+            <twig:ux:icon name="lucide:square-minus" class="hidden size-4 shrink-0 text-muted-foreground group-data-[expanded=true]/row:group-data-[indicator=plusminus]/tree:block" data-tree-chevron aria-hidden="true" />
         {%- else -%}
             <span class="size-4 shrink-0" aria-hidden="true"></span>
         {%- endif -%}
         {%- if checkbox -%}
             <span class="flex shrink-0" data-tree-checkbox><twig:Checkbox :name="name" :value="value" :checked="checked" tabindex="-1" aria-label="{{ label }}" /></span>
         {%- endif -%}
-        {%- if href -%}<a href="{{ href }}" class="min-w-0 flex-1 truncate" tabindex="-1">{{ label }}</a>{%- else -%}<span class="min-w-0 flex-1 truncate">{{ label }}</span>{%- endif -%}
+        {%- if icon -%}
+            {%- if branch and expandedIcon -%}
+                <twig:ux:icon :name="icon" class="size-4 shrink-0 text-muted-foreground group-data-[expanded=true]/row:hidden" aria-hidden="true" />
+                <twig:ux:icon :name="expandedIcon" class="hidden size-4 shrink-0 text-muted-foreground group-data-[expanded=true]/row:block" aria-hidden="true" />
+            {%- else -%}
+                <twig:ux:icon :name="icon" class="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+            {%- endif -%}
+        {%- endif -%}
+        {%- if rowContent is not empty -%}<span class="flex min-w-0 flex-1 items-center gap-2">{{ rowContent|raw }}</span>{%- elseif href -%}<a href="{{ href }}" class="min-w-0 flex-1 truncate" tabindex="-1">{{ label }}</a>{%- else -%}<span class="min-w-0 flex-1 truncate">{{ label }}</span>{%- endif -%}
     </div>
     {%- if branch %}
         <ul role="group" class="m-0 list-none p-0 pl-4" data-tree-group{% if checkbox %} data-slot="checkbox-tree-children"{% endif %}{{ expanded ? '' : ' hidden' }}>{{ children|raw }}</ul>
