@@ -328,6 +328,193 @@ All the texts of the bar in French, the operators included, and the state mirror
 </script>
 ```
 
+### Nested Attributes
+
+A field can name a `group`: the add menu nests it under that group (a back row returns), and the chip reads `Group › Label`.
+
+<!-- height: 360 -->
+
+```twig
+<twig:Filters :autoSubmit="false">
+    <twig:Filters:Fields>
+        <twig:Filters:Field name="title" label="Title" />
+        <twig:Filters:Field name="customer_name" label="Name" group="Customer" />
+        <twig:Filters:Field name="customer_country" label="Country" group="Customer" type="select">
+            <twig:Filters:Option value="fr" label="France" />
+            <twig:Filters:Option value="de" label="Germany" />
+        </twig:Filters:Field>
+        <twig:Filters:Field name="owner_team" label="Team" group="Owner" type="select">
+            <twig:Filters:Option value="core" label="Core" />
+            <twig:Filters:Option value="growth" label="Growth" />
+        </twig:Filters:Field>
+    </twig:Filters:Fields>
+    <twig:Filters:Values>
+        <twig:Filters:Value field="customer_country" value="fr" />
+    </twig:Filters:Values>
+</twig:Filters>
+```
+
+### Status Badges
+
+An option can carry its own content, shown in the multiselect list: here a `Badge` per status. The `label` stays the text of the chip and the accessible name of the row.
+
+<!-- height: 360 -->
+
+```twig
+<twig:Filters :autoSubmit="false">
+    <twig:Filters:Fields>
+        <twig:Filters:Field name="status" label="Status" type="multiselect">
+            <twig:Filters:Option value="open" label="Open">
+                <twig:Badge variant="secondary">
+                    Open
+                </twig:Badge>
+            </twig:Filters:Option>
+            <twig:Filters:Option value="review" label="In review">
+                <twig:Badge variant="outline">
+                    In review
+                </twig:Badge>
+            </twig:Filters:Option>
+            <twig:Filters:Option value="blocked" label="Blocked">
+                <twig:Badge variant="destructive">
+                    Blocked
+                </twig:Badge>
+            </twig:Filters:Option>
+            <twig:Filters:Option value="done" label="Done">
+                <twig:Badge>
+                    Done
+                </twig:Badge>
+            </twig:Filters:Option>
+        </twig:Filters:Field>
+    </twig:Filters:Fields>
+    <twig:Filters:Values>
+        <twig:Filters:Value field="status" operator="in" :value="['open', 'blocked']" />
+    </twig:Filters:Values>
+</twig:Filters>
+```
+
+### Avatars & Paging
+
+A long option list can be searched (`searchable`) and shown a page at a time (`pageSize`, then a "Show more" row). Options can carry an avatar.
+
+<!-- height: 420 -->
+
+```twig
+<twig:Filters :autoSubmit="false">
+    <twig:Filters:Fields>
+        <twig:Filters:Field name="assignee" label="Assignee" type="multiselect" :pageSize="3" searchable>
+            <twig:Filters:Option value="ana" label="Ana Silva">
+                <span class="flex items-center gap-2">
+                    <twig:Avatar class="size-5">
+                        <twig:Avatar:Fallback>AS</twig:Avatar:Fallback>
+                    </twig:Avatar>
+                    Ana Silva
+                </span>
+            </twig:Filters:Option>
+            <twig:Filters:Option value="marc" label="Marc Dupont">
+                <span class="flex items-center gap-2">
+                    <twig:Avatar class="size-5">
+                        <twig:Avatar:Fallback>MD</twig:Avatar:Fallback>
+                    </twig:Avatar>
+                    Marc Dupont
+                </span>
+            </twig:Filters:Option>
+            <twig:Filters:Option value="lea" label="Léa Martin">
+                <span class="flex items-center gap-2">
+                    <twig:Avatar class="size-5">
+                        <twig:Avatar:Fallback>LM</twig:Avatar:Fallback>
+                    </twig:Avatar>
+                    Léa Martin
+                </span>
+            </twig:Filters:Option>
+            <twig:Filters:Option value="omar" label="Omar Haddad">
+                <span class="flex items-center gap-2">
+                    <twig:Avatar class="size-5">
+                        <twig:Avatar:Fallback>OH</twig:Avatar:Fallback>
+                    </twig:Avatar>
+                    Omar Haddad
+                </span>
+            </twig:Filters:Option>
+            <twig:Filters:Option value="sara" label="Sara Khan">
+                <span class="flex items-center gap-2">
+                    <twig:Avatar class="size-5">
+                        <twig:Avatar:Fallback>SK</twig:Avatar:Fallback>
+                    </twig:Avatar>
+                    Sara Khan
+                </span>
+            </twig:Filters:Option>
+        </twig:Filters:Field>
+    </twig:Filters:Fields>
+    <twig:Filters:Values>
+        <twig:Filters:Value field="assignee" operator="in" :value="['ana']" />
+    </twig:Filters:Values>
+</twig:Filters>
+```
+
+### Slider Editor
+
+The `slider` type edits a number with a range input (`min`, `max`, `step`) and the `=`, `>` and `<` operators.
+
+<!-- height: 260 -->
+
+```twig
+<twig:Filters :autoSubmit="false">
+    <twig:Filters:Fields>
+        <twig:Filters:Field name="price" label="Price" type="slider" :min="0" :max="500" :step="10" />
+        <twig:Filters:Field name="rating" label="Rating" type="slider" :min="1" :max="5" />
+    </twig:Filters:Fields>
+    <twig:Filters:Values>
+        <twig:Filters:Value field="price" operator="lt" value="200" />
+    </twig:Filters:Values>
+</twig:Filters>
+```
+
+### Popover Builder
+
+`mode="popover"` keeps the page quiet: one "Filters" button with a count, and the rules as rows in a popover. A rule can change its field.
+
+<!-- height: 380 -->
+
+```twig
+<twig:Filters mode="popover" :autoSubmit="false">
+    <twig:Filters:Fields>
+        <twig:Filters:Field name="title" label="Title" />
+        <twig:Filters:Field name="status" label="Status" type="select">
+            <twig:Filters:Option value="open" label="Open" />
+            <twig:Filters:Option value="closed" label="Closed" />
+        </twig:Filters:Field>
+        <twig:Filters:Field name="votes" label="Votes" type="number" />
+    </twig:Filters:Fields>
+    <twig:Filters:Values>
+        <twig:Filters:Value field="title" operator="contains" value="export" />
+        <twig:Filters:Value field="status" value="open" />
+    </twig:Filters:Values>
+</twig:Filters>
+```
+
+### Inline Builder
+
+`mode="inline"` shows the rules as rows in the page (Where, And), like a query builder.
+
+<!-- height: 320 -->
+
+```twig
+<twig:Filters mode="inline" :autoSubmit="false">
+    <twig:Filters:Fields>
+        <twig:Filters:Field name="title" label="Title" />
+        <twig:Filters:Field name="status" label="Status" type="select">
+            <twig:Filters:Option value="open" label="Open" />
+            <twig:Filters:Option value="closed" label="Closed" />
+        </twig:Filters:Field>
+        <twig:Filters:Field name="votes" label="Votes" type="number" />
+        <twig:Filters:Field name="created" label="Created" type="date" />
+    </twig:Filters:Fields>
+    <twig:Filters:Values>
+        <twig:Filters:Value field="status" value="open" />
+        <twig:Filters:Value field="votes" operator="gt" value="5" />
+    </twig:Filters:Values>
+</twig:Filters>
+```
+
 ## Accessibility
 
 - The bar is a `group` labelled by `label`; each chip is a `group` named after its field.
@@ -344,6 +531,12 @@ All the texts of the bar in French, the operators included, and the state mirror
 |---|---|---|---|
 | `action` | string | `null` | Form action (defaults to the current URL). |
 | `autoSubmit` | bool | `true` | Submit the form whenever a filter changes. |
+| `mode` | `chips`, `inline`, `popover` | `chips` | Chips with an add menu, rules as rows (Where, And) in place, or the same rows in a popover. |
+| `builderLabel` | string | `Filters` | Text of the popover button in `popover` mode. |
+| `whereLabel`, `andLabel` | string | `Where`, `And` | Row lead-ins of the builder modes. |
+| `fieldLabel` | string | `Field` | Accessible name of a row's field select. |
+| `searchLabel` | string | `Search` | Label and placeholder of the option search of a `searchable` field. |
+| `moreLabel` | string | `Show more` | Text of the row that shows the next page of options. |
 | `label` | string | `Filters` | Accessible label of the bar. |
 | `addLabel` | string | `Add filter` | Text of the add button. |
 | `clearLabel` | string | `Clear` | Text of the clear button. |
@@ -367,18 +560,26 @@ All the texts of the bar in French, the operators included, and the state mirror
 |---|---|---|---|
 | `name` | string | | Field name, submitted as the query parameter. |
 | `label` | string | | Displayed name. |
-| `type` | string | `text` | One of `text`, `number`, `select`, `multiselect`, `boolean`, `date`. |
+| `type` | string | `text` | One of `text`, `number`, `slider`, `select`, `multiselect`, `boolean`, `date`. |
+| `group` | string | `''` | Group name: the add menu nests the field under it and the chip reads `Group › Label`. |
+| `min`, `max`, `step` | int | `0`, `100`, `1` | Range of a `slider`. |
+| `pageSize` | int | `0` | `multiselect`: options shown at first, then a row to show more (0 shows all). |
+| `searchable` | bool | `false` | `multiselect`: adds a search field above the options. |
 
 | Block | Description |
 |---|---|
-| `default` | `Filters:Option` elements (`select` and `multiselect` only). |
+| `default` | `Filters:Option` elements (`select`, `multiselect` only). |
 
 ### `<twig:Filters:Option>`
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `value` | string | | Submitted value. |
-| `label` | string | | Displayed text. |
+| `label` | string | | Displayed text, also the accessible name of the option. |
+
+| Block | Description |
+|---|---|
+| `default` | Optional rich content of the option in a `multiselect` list (a `Badge`, an avatar...). |
 
 ### `<twig:Filters:Value>`
 
@@ -390,4 +591,4 @@ All the texts of the bar in French, the operators included, and the state mirror
 
 `{count}` and `{field}` are replaced with the number of values and the field label.
 
-Operators by type: `text` (`contains`, `eq`, `neq`), `number` (`eq`, `neq`, `gt`, `lt`), `select` (`eq`, `neq`), `multiselect` (`in`, `nin`), `boolean` (`eq`), `date` (`eq`, `before`, `after`).
+Operators by type: `slider` (`eq`, `gt`, `lt`), `text` (`contains`, `eq`, `neq`), `number` (`eq`, `neq`, `gt`, `lt`), `select` (`eq`, `neq`), `multiselect` (`in`, `nin`), `boolean` (`eq`), `date` (`eq`, `before`, `after`).

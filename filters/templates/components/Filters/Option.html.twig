@@ -3,7 +3,11 @@
 
   Props
     value  submitted value
-    label  displayed text
+    label  displayed text (also its accessible name)
+
+  Blocks
+    (slot)   optional rich content of the option in a multiselect list (a Badge, an avatar...)
 #}
 {%- props value, label -%}
-<li data-value="{{ value }}" data-label="{{ label }}" {{ attributes }}></li>
+{%- set content -%}{% block content %}{% endblock %}{%- endset -%}
+<li data-value="{{ value }}" data-label="{{ label }}" {{ attributes }}>{% if content|trim is not empty %}<template>{{ content }}</template>{% endif %}</li>

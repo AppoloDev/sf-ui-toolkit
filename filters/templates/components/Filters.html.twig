@@ -9,8 +9,10 @@
   Props
     action      form action (default: current URL)
     autoSubmit  submit the form whenever a filter changes (default true)
+    mode        chips | inline | popover: chips with an add menu, rules in rows (Where / And) in place, or the same rows in a popover
     label       accessible label of the filter bar
     addLabel, clearLabel, applyLabel, emptyLabel, selectLabel, yesLabel, noLabel   texts of the bar
+    builderLabel, whereLabel, andLabel, fieldLabel, searchLabel, moreLabel   texts of the builder modes and of long option lists
     selectedLabel      summary of a multiselect with 3+ values ({count} is replaced)
     removeLabel        accessible name of a chip's remove button ({field} is replaced)
     operatorLabel      accessible name of a chip's operator select ({field} is replaced)
@@ -25,36 +27,66 @@
   Requires the shadcn recipes popover, button, input, native-select and checkbox (installed from the shadcn kit).
 #}
 {%- props action = null, autoSubmit = true, label = 'Filters',
-    addLabel = 'Add filter', clearLabel = 'Clear', applyLabel = 'Apply', emptyLabel = 'No more filters', selectLabel = 'Select…', yesLabel = 'Yes', noLabel = 'No',
+    mode = 'chips', builderLabel = 'Filters', whereLabel = 'Where', andLabel = 'And', fieldLabel = 'Field', searchLabel = 'Search', moreLabel = 'Show more', addLabel = 'Add filter', clearLabel = 'Clear', applyLabel = 'Apply', emptyLabel = 'No more filters', selectLabel = 'Select…', yesLabel = 'Yes', noLabel = 'No',
     selectedLabel = '{count} selected', removeLabel = 'Remove {field} filter', operatorLabel = '{field} operator', valueLabel = '{field} value', operatorLabels = {} -%}
 {%- set entries -%}{% block content %}{% endblock %}{%- endset -%}
 {%- set data = {
     class: 'flex flex-wrap items-center gap-2',
     'data-controller': 'filters',
     'data-filters-auto-submit-value': autoSubmit ? 'true' : 'false',
+    'data-filters-mode-value': mode,
     'data-filters-labels-value': {
-        empty: emptyLabel, select: selectLabel, yes: yesLabel, no: noLabel, selected: selectedLabel,
+        empty: emptyLabel, where: whereLabel, and: andLabel, fieldName: fieldLabel, search: searchLabel, more: moreLabel, select: selectLabel, yes: yesLabel, no: noLabel, selected: selectedLabel,
         remove: removeLabel, operator: operatorLabel, value: valueLabel, operators: operatorLabels,
     }|json_encode,
 } -%}
 <form method="get" {% if action %}action="{{ action }}" {% endif %}role="group" aria-label="{{ label }}" {{ attributes.defaults(data) }}>
     {{ entries }}
-    <div class="contents" data-filters-target="chips"></div>
-    <twig:Popover class="w-auto" data-filters-target="menuRoot">
-        <twig:Popover:Trigger>
-            <twig:Button variant="outline" class="border-dashed text-muted-foreground" data-filters-target="addButton" {{ ...popover_trigger_attrs }}>
-                <twig:ux:icon name="lucide:list-filter" aria-hidden="true" />
-                {{ addLabel }}
-            </twig:Button>
-        </twig:Popover:Trigger>
-        <twig:Popover:Content align="start" class="w-auto! min-w-44 gap-0! p-1!">
-            <div role="menu" class="grid" data-filters-target="menu" data-action="keydown->filters#menuKey"></div>
-        </twig:Popover:Content>
-    </twig:Popover>
-    <twig:Button variant="ghost" hidden data-filters-target="clear" data-action="filters#clear">
-        <twig:ux:icon name="lucide:x" aria-hidden="true" />
-        {{ clearLabel }}
-    </twig:Button>
+    {%- if mode == 'chips' %}
+        <div class="contents" data-filters-target="chips"></div>
+        <twig:Popover class="w-auto" data-filters-target="menuRoot">
+            <twig:Popover:Trigger>
+                <twig:Button variant="outline" class="border-dashed text-muted-foreground" data-filters-target="addButton" {{ ...popover_trigger_attrs }}>
+                    <twig:ux:icon name="lucide:list-filter" aria-hidden="true" />
+                    {{ addLabel }}
+                </twig:Button>
+            </twig:Popover:Trigger>
+            <twig:Popover:Content align="start" class="w-auto! min-w-44 gap-0! p-1!">
+                <div role="menu" class="grid" data-filters-target="menu" data-action="keydown->filters#menuKey"></div>
+            </twig:Popover:Content>
+        </twig:Popover>
+        <twig:Button variant="ghost" hidden data-filters-target="clear" data-action="filters#clear">
+            <twig:ux:icon name="lucide:x" aria-hidden="true" />
+            {{ clearLabel }}
+        </twig:Button>
+    {%- else %}
+        {%- set rules -%}
+            <div class="flex flex-col gap-2" data-filters-target="chips"></div>
+            <div class="flex items-center gap-2">
+                <twig:Button type="button" variant="outline" size="sm" class="border-dashed text-muted-foreground" data-filters-target="addButton" data-action="click->filters#addNext">
+                    <twig:ux:icon name="lucide:plus" aria-hidden="true" />
+                    {{ addLabel }}
+                </twig:Button>
+                <twig:Button type="button" variant="ghost" size="sm" hidden data-filters-target="clear" data-action="filters#clear">
+                    {{ clearLabel }}
+                </twig:Button>
+            </div>
+        {%- endset -%}
+        {%- if mode == 'popover' %}
+            <twig:Popover class="w-auto">
+                <twig:Popover:Trigger>
+                    <twig:Button variant="outline" {{ ...popover_trigger_attrs }}>
+                        <twig:ux:icon name="lucide:list-filter" aria-hidden="true" />
+                        {{ builderLabel }}
+                        <span class="rounded-full bg-primary px-1.5 text-xs text-primary-foreground tabular-nums" hidden data-filters-target="count"></span>
+                    </twig:Button>
+                </twig:Popover:Trigger>
+                <twig:Popover:Content align="start" class="w-auto! min-w-96 gap-3!">{{ rules }}</twig:Popover:Content>
+            </twig:Popover>
+        {%- else %}
+            <div class="flex w-full flex-col gap-2">{{ rules }}</div>
+        {%- endif %}
+    {%- endif %}
     <div hidden data-filters-target="inputs"></div>
     <template data-filters-target="tplMenuItem"><twig:Button variant="ghost" role="menuitem" class="w-full justify-start font-normal" /></template>
     <template data-filters-target="tplSelect"><twig:NativeSelect size="sm" class="h-full w-auto [&_select]:h-full! [&_select]:rounded-none! [&_select]:border-0! [&_select]:bg-transparent! [&_select]:shadow-none!" /></template>

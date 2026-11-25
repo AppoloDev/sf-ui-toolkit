@@ -4,13 +4,17 @@
   Props
     name   field name, submitted as the query parameter
     label  displayed name
-    type   text | number | select | multiselect | boolean | date
+    type   text | number | slider | select | multiselect | boolean | date
+    group  optional group name: the add menu nests the field under it and the chip shows `Group › Label`
+    min, max, step   range of a `slider`
+    pageSize    multiselect: options shown at first, then a "Show more" row (0: all)
+    searchable  multiselect: adds a search field above the options
 
   Blocks
     (slot)   <twig:Filters:Option> elements (select and multiselect)
 #}
-{%- props name, label, type = 'text' -%}
+{%- props name, label, type = 'text', group = null, min = 0, max = 100, step = 1, pageSize = 0, searchable = false -%}
 {%- set options -%}{% block content %}{% endblock %}{%- endset -%}
-<li data-name="{{ name }}" data-label="{{ label }}" data-type="{{ type }}" {{ attributes }}>
+<li data-name="{{ name }}" data-label="{{ label }}" data-type="{{ type }}" data-group="{{ group }}" data-min="{{ min }}" data-max="{{ max }}" data-step="{{ step }}" data-page-size="{{ pageSize }}" {{ searchable ? 'data-searchable' }} {{ attributes }}>
     {%- if options|trim is not empty %}<ul>{{ options }}</ul>{% endif -%}
 </li>
