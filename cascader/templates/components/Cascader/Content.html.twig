@@ -1,0 +1,8 @@
+{#
+  Cascader:Content: custom content of a row, put inside a <twig:Cascader:Option> (before its child options).
+  The `label` of the option is still used in the trigger, the chips and the search results.
+
+  Blocks
+    (slot)   the row content, for example an avatar and two lines of text
+#}
+<template data-cascader-content {{ attributes }}>{% block content %}{% endblock %}</template>

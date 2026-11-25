@@ -5,12 +5,13 @@
     value     unique value of the entry
     label     displayed text
     disabled  the entry cannot be chosen
+    lazy      the children are loaded when the branch opens, through the `cascader:load` event
 
   Blocks
-    (slot)    child <twig:Cascader:Option> elements
+    (slot)    <twig:Cascader:Content> (optional) then child <twig:Cascader:Option> elements
 #}
-{%- props value, label, disabled = false -%}
+{%- props value, label, disabled = false, lazy = false -%}
 {%- set children -%}{% block content %}{% endblock %}{%- endset -%}
-<li data-value="{{ value }}" data-label="{{ label }}" {{ disabled ? 'data-disabled' }} {{ attributes }}>
+<li data-value="{{ value }}" data-label="{{ label }}" {{ disabled ? 'data-disabled' }} {{ lazy ? 'data-lazy' }} {{ attributes }}>
     {%- if children|trim is not empty %}<ul>{{ children }}</ul>{% endif -%}
 </li>

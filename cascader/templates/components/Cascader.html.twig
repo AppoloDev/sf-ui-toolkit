@@ -2,22 +2,25 @@
   Cascader: pick a value in a hierarchy through columns (or one level at a time), with search.
 
   Props
-    (slot)         <twig:Cascader:Icon> (optional, replaces the chevron), <twig:Cascader:Option value label disabled> elements, nested for children; every value must be unique
+    (slot)         <twig:Cascader:Icon> (optional, replaces the chevron), <twig:Cascader:Footer> (optional), <twig:Cascader:Option value label disabled lazy> elements, nested for children; every value must be unique
+    items          flat list of {value, label, parent, disabled, lazy} used instead of nested options
+    inline         renders the panel in place, without a popover or a trigger
+    chips          multiple only: removable chips under the trigger
     name           field name; multiple: `name[]`
     value          selected value (multiple: list of values)
     multiple       checkboxes instead of a single choice; the popover stays open
     max            maximum number of selections (multiple)
     selectable     leaf | any: `any` lets branches be chosen too
     cascade        multiple only: choosing a branch chooses all of its leaves (partial branches show as mixed)
-    mode           columns | drill (drill replaces the level as you go deeper)
+    mode           columns | drill | tree (drill replaces the level as you go deeper, tree unfolds branches in one indented column)
     separator      text between the levels of a displayed path
     required, disabled
-    placeholder, searchLabel, emptyLabel, backLabel, selectedLabel ({count}), label   texts
+    placeholder, searchLabel, emptyLabel, backLabel, selectedLabel ({count}), loadingLabel, removeLabel ({label}), label   texts
     id             id of the trigger (for an external <label for>)
 
   Requires the shadcn recipes popover, button and input (installed from the shadcn kit).
 #}
-{%- props name = null, value = null, multiple = false, max = null, selectable = 'leaf', cascade = false, mode = 'columns', separator = ' / ', required = false, disabled = false, placeholder = 'Select…', searchLabel = 'Search', emptyLabel = 'No results.', backLabel = 'Back', selectedLabel = '{count} selected', label = 'Options', id = null -%}
+{%- props name = null, value = null, multiple = false, max = null, selectable = 'leaf', cascade = false, mode = 'columns', separator = ' / ', required = false, disabled = false, placeholder = 'Select…', searchLabel = 'Search', emptyLabel = 'No results.', backLabel = 'Back', selectedLabel = '{count} selected', loadingLabel = 'Loading…', removeLabel = 'Remove {label}', inline = false, chips = false, items = [], label = 'Options', id = null -%}
 {%- set data = {
     class: 'w-64',
     'data-controller': 'cascader',
@@ -33,9 +36,29 @@
     'data-cascader-empty-label-value': emptyLabel,
     'data-cascader-back-label-value': backLabel,
     'data-cascader-selected-label-value': selectedLabel,
+    'data-cascader-loading-label-value': loadingLabel,
+    'data-cascader-remove-label-value': removeLabel,
+    'data-cascader-inline-value': inline ? 'true' : 'false',
+    'data-cascader-chips-value': chips ? 'true' : 'false',
+    'data-cascader-items-value': items|json_encode,
 } -%}
 {%- set entries -%}{% block content %}{% endblock %}{%- endset -%}
 {%- set trigger = {'data-cascader-target': 'trigger'}|merge(id ? {id: id} : {})|merge(disabled ? {disabled: true} : {}) -%}
+{%- set panel -%}
+    <twig:Input type="search" role="searchbox" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off"
+        class="h-9 rounded-none! rounded-t-lg! border-0! border-b! bg-transparent! shadow-none! focus-visible:ring-0!" data-cascader-target="search" data-action="input->cascader#search" />
+    <div class="flex max-h-64 min-h-0 w-max min-w-full max-w-[calc(100vw-2rem)] divide-x divide-border overflow-x-auto" data-cascader-target="columns"></div>
+    <div data-cascader-target="footer"></div>
+    <p class="sr-only" role="status" aria-live="polite" data-cascader-target="status"></p>
+{%- endset -%}
+{%- if inline -%}
+    <div {{ attributes.defaults(data|merge({class: 'flex w-max max-w-full flex-col rounded-lg border border-border bg-popover text-popover-foreground', 'data-action': 'keydown->cascader#panelKey'})) }}>
+        {{ panel }}
+        <ul hidden data-cascader-target="source">{{ entries }}</ul>
+        <span data-cascader-target="inputs" hidden></span>
+        <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" data-cascader-target="validity" {{ required ? 'required' }}>
+    </div>
+{%- else -%}
 <twig:Popover {{ ...attributes.defaults(data) }}>
     <twig:Popover:Trigger>
         <twig:Button variant="outline" class="w-full justify-between font-normal" {{ ...trigger }} {{ ...popover_trigger_attrs }}>
@@ -43,13 +66,12 @@
             <span class="inline-flex shrink-0 items-center text-muted-foreground [&_svg]:size-4" aria-hidden="true" data-cascader-target="icon"><twig:ux:icon name="lucide:chevrons-up-down" /></span>
         </twig:Button>
     </twig:Popover:Trigger>
-    <twig:Popover:Content align="start" aria-label="{{ label }}" class="w-auto! min-w-64 gap-0! p-0!" data-action="keydown->cascader#panelKey">
-        <twig:Input type="search" role="searchbox" aria-label="{{ searchLabel }}" placeholder="{{ searchLabel }}" autocomplete="off"
-            class="h-9 rounded-none! rounded-t-lg! border-0! border-b! bg-transparent! shadow-none! focus-visible:ring-0!" data-cascader-target="search" data-action="input->cascader#search" />
-        <div class="flex max-h-64 min-h-0 w-max min-w-full max-w-[calc(100vw-2rem)] divide-x divide-border overflow-x-auto" data-cascader-target="columns"></div>
-        <p class="sr-only" role="status" aria-live="polite" data-cascader-target="status"></p>
-    </twig:Popover:Content>
+    <twig:Popover:Content align="start" aria-label="{{ label }}" class="w-auto! min-w-64 gap-0! p-0!" data-action="keydown->cascader#panelKey">{{ panel }}</twig:Popover:Content>
+    {%- if chips %}
+        <div class="mt-2 flex flex-wrap gap-1.5" data-cascader-target="chips"></div>
+    {%- endif %}
     <ul hidden data-cascader-target="source">{{ entries }}</ul>
     <span data-cascader-target="inputs" hidden></span>
     <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" data-cascader-target="validity" {{ required ? 'required' }}>
 </twig:Popover>
+{%- endif -%}

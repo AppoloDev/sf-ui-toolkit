@@ -1,0 +1,7 @@
+{#
+  Cascader:Footer: a footer under the columns of a <twig:Cascader>, for actions or hints.
+
+  Blocks
+    (slot)   any content; `data-action="click->cascader#clear"` empties the choice, `click->cascader#dismiss` closes the popover
+#}
+<template data-cascader-footer {{ attributes }}>{% block content %}{% endblock %}</template>
