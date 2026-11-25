@@ -5,59 +5,112 @@
   Props
     name      field name; the submitted value is a CSS color string in the chosen `format`
     value     initial color (any CSS color: #3b82f6, rgb(...), hsl(...), a color name...)
-    format    hex | rgb | hsl: format of the submitted value
+    format    hex | rgb | hsl | oklch: format of the submitted value
     alpha     enables the opacity slider (otherwise the output is always opaque)
     disabled  disables the picker
+    inline    renders the panel in place instead of in a popover
+    wheel     hue wheel (angle: hue, distance: saturation) with a brightness slider instead of the area and the hue slider
+    channels  rgb | hsl: adds one slider per channel
+    fieldOnly only the color chip and the typed field, in place (no panel)
+    recentKey localStorage key of the recent colors row (empty: no recent colors)
     label     accessible label of the trigger and the popover
     id        id of the trigger (for an external <label for>)
-    areaLabel, saturationLabel, brightnessLabel, hueLabel, opacityLabel, fieldLabel, eyedropperLabel, swatchesLabel   accessible names inside the popover
+    areaLabel, saturationLabel, brightnessLabel, hueLabel, opacityLabel, redLabel, greenLabel, blueLabel, lightnessLabel, recentLabel, fieldLabel, eyedropperLabel, swatchesLabel   accessible names inside the popover
 
   Blocks
     (slot)    <twig:ColorPicker:Swatch> preset colors
 
   Requires the shadcn recipes popover, button and input (installed from the shadcn kit).
 #}
-{%- props name = null, value = '#3b82f6', format = 'hex', alpha = false, disabled = false, label = 'Pick a color', areaLabel = 'Saturation and brightness', saturationLabel = 'Saturation', brightnessLabel = 'Brightness', hueLabel = 'Hue', opacityLabel = 'Opacity', fieldLabel = 'Color value', eyedropperLabel = 'Pick a color from the screen', swatchesLabel = 'Preset colors', id = null -%}
+{%- props name = null, value = '#3b82f6', format = 'hex', alpha = false, disabled = false, inline = false, wheel = false, channels = '', fieldOnly = false, recentKey = '', label = 'Pick a color', areaLabel = 'Saturation and brightness', wheelLabel = 'Hue and saturation', saturationLabel = 'Saturation', brightnessLabel = 'Brightness', hueLabel = 'Hue', opacityLabel = 'Opacity', redLabel = 'Red', greenLabel = 'Green', blueLabel = 'Blue', lightnessLabel = 'Lightness', recentLabel = 'Recent colors', fieldLabel = 'Color value', eyedropperLabel = 'Pick a color from the screen', swatchesLabel = 'Preset colors', id = null -%}
 {%- set trigger = {'data-color-picker-target': 'trigger'}|merge(id ? {id: id} : {})|merge(disabled ? {disabled: true} : {}) -%}
 {%- set swatches -%}{% block content %}{% endblock %}{%- endset -%}
 {%- set data = {
-    class: 'w-auto',
+    class: inline or fieldOnly ? 'flex w-64 flex-col gap-3' : 'w-auto',
     'data-controller': 'color-picker',
     'data-color-picker-value-value': value,
     'data-color-picker-format-value': format,
     'data-color-picker-alpha-value': alpha ? 'true' : 'false',
+    'data-color-picker-wheel-value': wheel ? 'true' : 'false',
+    'data-color-picker-channels-value': channels,
+    'data-color-picker-recent-key-value': recentKey,
     'data-color-picker-saturation-label-value': saturationLabel,
     'data-color-picker-brightness-label-value': brightnessLabel,
+    'data-color-picker-hue-label-value': hueLabel,
 } -%}
 {%- set thumb = '[&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:ring-1 [&::-webkit-slider-thumb]:ring-black/30 [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-white' -%}
-<twig:Popover {{ ...attributes.defaults(data) }}>
-    <twig:Popover:Trigger>
-        <twig:Button variant="outline" aria-label="{{ label }}" {{ ...trigger }} {{ ...popover_trigger_attrs }}>
-            <span class="size-4 rounded border border-black/10" data-color-picker-target="chip"></span>
-            <span class="font-mono text-xs uppercase tabular-nums" data-color-picker-target="text"></span>
+{%- set rangeClass = 'h-3 w-full cursor-pointer appearance-none rounded-full bg-transparent ' ~ thumb -%}
+{%- set fieldRow -%}
+    <div class="flex items-center gap-2">
+        {%- if fieldOnly %}
+            <span class="size-9 shrink-0 rounded-md border border-black/10" data-color-picker-target="chip"></span>
+        {%- endif %}
+        <twig:Input aria-label="{{ fieldLabel }}" spellcheck="false" autocomplete="off" class="min-w-0 flex-1 font-mono text-xs" data-color-picker-target="field" data-action="change->color-picker#fieldChange keydown->color-picker#fieldKey" />
+        <twig:Button variant="outline" size="icon" hidden aria-label="{{ eyedropperLabel }}" data-color-picker-target="eyedropper" data-action="color-picker#eyedrop">
+            <twig:ux:icon name="lucide:pipette" aria-hidden="true" />
         </twig:Button>
-    </twig:Popover:Trigger>
-    <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-color-picker-target="hidden">
-    <twig:Popover:Content align="start" aria-label="{{ label }}" class="w-64!">
+    </div>
+{%- endset -%}
+{%- set channelSet = {
+    rgb: [{key: 'r', label: redLabel, max: 255}, {key: 'g', label: greenLabel, max: 255}, {key: 'b', label: blueLabel, max: 255}],
+    hsl: [{key: 'h', label: hueLabel, max: 360}, {key: 's', label: saturationLabel, max: 100}, {key: 'l', label: lightnessLabel, max: 100}],
+}[channels] ?? [] -%}
+{%- set panel -%}
+    {%- if wheel %}
+        <div role="slider" tabindex="0" aria-label="{{ wheelLabel }}" class="relative mx-auto size-40 cursor-crosshair touch-none rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring"
+             data-color-picker-target="area" data-action="pointerdown->color-picker#areaDown keydown->color-picker#areaKey">
+            <span class="pointer-events-none absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow ring-1 ring-black/30" data-color-picker-target="areaThumb"></span>
+        </div>
+        <input type="range" min="0" max="100" step="1" aria-label="{{ brightnessLabel }}" data-color-picker-target="brightness" data-action="input->color-picker#brightnessInput" class="{{ rangeClass }}">
+    {%- else %}
         <div role="slider" tabindex="0" aria-label="{{ areaLabel }}" class="relative h-36 w-full cursor-crosshair touch-none rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
              data-color-picker-target="area" data-action="pointerdown->color-picker#areaDown keydown->color-picker#areaKey">
             <span class="pointer-events-none absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow ring-1 ring-black/30" data-color-picker-target="areaThumb"></span>
         </div>
-        <input type="range" min="0" max="360" step="1" aria-label="{{ hueLabel }}" data-color-picker-target="hue" data-action="input->color-picker#hueInput"
-               class="h-3 w-full cursor-pointer appearance-none rounded-full bg-transparent {{ thumb }}"
+        <input type="range" min="0" max="360" step="1" aria-label="{{ hueLabel }}" data-color-picker-target="hue" data-action="input->color-picker#hueInput" class="{{ rangeClass }}"
                style="background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00)">
-        {%- if alpha %}
-            <input type="range" min="0" max="100" step="1" aria-label="{{ opacityLabel }}" data-color-picker-target="opacity" data-action="input->color-picker#opacityInput"
-                   class="h-3 w-full cursor-pointer appearance-none rounded-full bg-transparent {{ thumb }}">
-        {%- endif %}
-        <div class="flex items-center gap-2">
-            <twig:Input aria-label="{{ fieldLabel }}" spellcheck="false" autocomplete="off" class="min-w-0 flex-1 font-mono text-xs" data-color-picker-target="field" data-action="change->color-picker#fieldChange keydown->color-picker#fieldKey" />
-            <twig:Button variant="outline" size="icon" hidden aria-label="{{ eyedropperLabel }}" data-color-picker-target="eyedropper" data-action="color-picker#eyedrop">
-                <twig:ux:icon name="lucide:pipette" aria-hidden="true" />
-            </twig:Button>
+    {%- endif %}
+    {%- if alpha %}
+        <input type="range" min="0" max="100" step="1" aria-label="{{ opacityLabel }}" data-color-picker-target="opacity" data-action="input->color-picker#opacityInput" class="{{ rangeClass }}">
+    {%- endif %}
+    {%- if channelSet %}
+        <div class="flex flex-col gap-1.5">
+            {%- for channel in channelSet %}
+                <label class="flex items-center gap-2 text-xs text-muted-foreground">
+                    <span class="w-4 shrink-0 font-mono uppercase" aria-hidden="true">{{ channel.label|slice(0, 1) }}</span>
+                    <input type="range" min="0" max="{{ channel.max }}" step="1" aria-label="{{ channel.label }}" data-color-picker-target="channel" data-channel="{{ channel.key }}" data-action="input->color-picker#channelInput" class="{{ rangeClass }} flex-1">
+                    <output class="w-8 shrink-0 text-right font-mono tabular-nums" data-color-picker-target="channelOutput" data-channel="{{ channel.key }}"></output>
+                </label>
+            {%- endfor %}
         </div>
-        {%- if swatches|trim is not empty %}
-            <div role="listbox" aria-label="{{ swatchesLabel }}" class="flex flex-wrap gap-1.5">{{ swatches }}</div>
-        {%- endif %}
-    </twig:Popover:Content>
-</twig:Popover>
+    {%- endif %}
+    {{ fieldRow }}
+    {%- if recentKey %}
+        <div role="listbox" aria-label="{{ recentLabel }}" class="flex min-h-6 flex-wrap gap-1.5" data-color-picker-target="recent"></div>
+    {%- endif %}
+    {%- if swatches|trim is not empty %}
+        <div role="listbox" aria-label="{{ swatchesLabel }}" class="flex flex-wrap gap-1.5">{{ swatches }}</div>
+    {%- endif %}
+{%- endset -%}
+{%- if fieldOnly -%}
+    <div {{ attributes.defaults(data) }}>
+        <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-color-picker-target="hidden">
+        {{ fieldRow }}
+    </div>
+{%- elseif inline -%}
+    <div {{ attributes.defaults(data) }}>
+        <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-color-picker-target="hidden">
+        {{ panel }}
+    </div>
+{%- else -%}
+    <twig:Popover {{ ...attributes.defaults(data) }}>
+        <twig:Popover:Trigger>
+            <twig:Button variant="outline" aria-label="{{ label }}" {{ ...trigger }} {{ ...popover_trigger_attrs }}>
+                <span class="size-4 rounded border border-black/10" data-color-picker-target="chip"></span>
+                <span class="font-mono text-xs uppercase tabular-nums" data-color-picker-target="text"></span>
+            </twig:Button>
+        </twig:Popover:Trigger>
+        <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-color-picker-target="hidden">
+        <twig:Popover:Content align="start" aria-label="{{ label }}" class="w-64!">{{ panel }}</twig:Popover:Content>
+    </twig:Popover>
+{%- endif -%}

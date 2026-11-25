@@ -1,6 +1,6 @@
 # Color Picker
 
-> Color field with a popover: saturation/brightness area, hue and opacity sliders, typed CSS colors, swatches and eye dropper.
+> Color field with a popover or in place: saturation/brightness area or hue wheel, hue, opacity and channel sliders, typed CSS colors (hex, rgb, hsl, oklch), swatches, recent colors and eye dropper.
 
 ## Installation
 
@@ -304,10 +304,134 @@ Inside a `Field`, with a description and an error message from the server's vali
 </twig:Field>
 ```
 
+### Inline Panel
+
+With `inline` the panel is rendered in place, with no popover and no trigger.
+
+<!-- height: 420 -->
+
+```twig
+<twig:ColorPicker
+    inline
+    alpha
+    name="surface"
+    value="#3b82f6"
+    recentKey=""
+>
+    <twig:ColorPicker:Swatch color="#ef4444" />
+    <twig:ColorPicker:Swatch color="#f59e0b" />
+    <twig:ColorPicker:Swatch color="#22c55e" />
+    <twig:ColorPicker:Swatch color="#3b82f6" />
+    <twig:ColorPicker:Swatch color="#a855f7" />
+</twig:ColorPicker>
+```
+
+### Hue Wheel
+
+`wheel` replaces the area and the hue slider by a wheel (angle for the hue, distance from the center for the saturation) with a brightness slider.
+
+<!-- height: 420 -->
+
+```twig
+<twig:ColorPicker
+    inline
+    wheel
+    name="accent"
+    value="#e11d48"
+/>
+```
+
+### Channel Sliders
+
+`channels` adds one slider per channel, `rgb` or `hsl`, each with its own gradient and its value.
+
+<!-- height: 480 -->
+
+```twig
+<div class="flex flex-wrap gap-8">
+    <twig:ColorPicker
+        inline
+        channels="rgb"
+        name="rgb_color"
+        value="#10b981"
+    />
+    <twig:ColorPicker
+        inline
+        channels="hsl"
+        name="hsl_color"
+        value="#8b5cf6"
+    />
+</div>
+```
+
+### OKLCH Token
+
+`format="oklch"` submits an `oklch()` color, handy for design tokens. A small script shows the token being edited.
+
+<!-- height: 480 -->
+
+```twig
+<div id="oklch-token" class="flex max-w-xs flex-col gap-3">
+    <twig:ColorPicker
+        name="token"
+        format="oklch"
+        value="#3b82f6"
+        alpha
+    />
+    <twig:Badge variant="secondary" class="w-fit font-mono" data-token>
+        --color-brand: oklch(62.3% 0.188 259.8);
+    </twig:Badge>
+</div>
+<script>
+    const oklchToken = document.getElementById('oklch-token');
+    oklchToken.addEventListener('color-picker:change', (event) => {
+        oklchToken.querySelector('[data-token]').textContent = '--color-brand: ' + event.detail.value + ';';
+    });
+</script>
+```
+
+### Color Input
+
+`fieldOnly` keeps only the color chip and the typed field, for forms where a panel is too much. Any CSS color is accepted, and the chip follows.
+
+<!-- height: 200 -->
+
+```twig
+<twig:Field class="max-w-xs">
+    <twig:Field:Label>Brand color</twig:Field:Label>
+    <twig:ColorPicker
+        fieldOnly
+        name="brand"
+        value="#14b8a6"
+        format="hex"
+    />
+    <twig:Field:Description>Type a hex, rgb(), hsl() or oklch() color, or a name such as tomato.</twig:Field:Description>
+</twig:Field>
+```
+
+### Recent Colors
+
+With `recentKey` the last eight colors you commit are kept in the browser and shown as a row of swatches.
+
+<!-- height: 480 -->
+
+```twig
+<twig:ColorPicker
+    name="highlight"
+    value="#f59e0b"
+    recentKey="docs-color-picker-recent"
+>
+    <twig:ColorPicker:Swatch color="#000000" />
+    <twig:ColorPicker:Swatch color="#ffffff" />
+    <twig:ColorPicker:Swatch color="#ef4444" />
+</twig:ColorPicker>
+```
+
 ## Accessibility
 
 - The saturation/brightness area is a `slider` that can be moved with the arrow keys (`Shift` + arrow moves by 10%), and its value text names both channels.
-- The hue and opacity sliders are native range inputs with accessible names.
+- The hue wheel is a `slider` too: left and right arrows turn the hue, up and down change the saturation.
+- The hue, brightness, opacity and channel sliders are native range inputs with accessible names.
 - `Esc` closes the popover and returns focus to the trigger; a click outside closes it too.
 - The typed field accepts any color the browser understands; an invalid value is discarded on `Enter` or blur and the previous color is restored.
 - The eye dropper button only appears in browsers that support the EyeDropper API (Chromium).
@@ -321,9 +445,14 @@ Inside a `Field`, with a description and an error message from the server's vali
 |---|---|---|---|
 | `name` | string | `null` | Field name. The submitted value is a plain CSS color string. |
 | `value` | string | `#3b82f6` | Initial color (any CSS color). |
-| `format` | `hex`, `rgb`, `hsl` | `hex` | Format of the submitted value. |
+| `format` | `hex`, `rgb`, `hsl`, `oklch` | `hex` | Format of the submitted value. |
 | `alpha` | bool | `false` | Enables the opacity slider. Without it, the output is always opaque. |
 | `disabled` | bool | `false` | Disables the picker. |
+| `inline` | bool | `false` | Renders the panel in place, without a popover or a trigger. |
+| `wheel` | bool | `false` | Replaces the area and the hue slider by a hue wheel and a brightness slider. |
+| `channels` | `rgb`, `hsl` | `''` | Adds one slider per channel. |
+| `fieldOnly` | bool | `false` | Renders only the color chip and the typed field, in place. |
+| `recentKey` | string | `''` | `localStorage` key of the recent colors row (the last eight committed colors); empty disables it. |
 | `label` | string | `Pick a color` | Accessible label of the trigger and the popover (not displayed). |
 | `id` | string | `null` | Id of the trigger, for an external `<label for>`. |
 | `areaLabel` | string | `Saturation and brightness` | Accessible name of the color area. |
@@ -333,6 +462,12 @@ Inside a `Field`, with a description and an error message from the server's vali
 | `opacityLabel` | string | `Opacity` | Accessible name of the opacity slider. |
 | `fieldLabel` | string | `Color value` | Accessible name of the typed field. |
 | `eyedropperLabel` | string | `Pick a color from the screen` | Accessible name of the eye dropper button. |
+| `wheelLabel` | string | `Hue and saturation` | Accessible name of the hue wheel. |
+| `redLabel` | string | `Red` | Name of the red channel slider. |
+| `greenLabel` | string | `Green` | Name of the green channel slider. |
+| `blueLabel` | string | `Blue` | Name of the blue channel slider. |
+| `lightnessLabel` | string | `Lightness` | Name of the lightness channel slider. |
+| `recentLabel` | string | `Recent colors` | Accessible name of the recent colors list. |
 | `swatchesLabel` | string | `Preset colors` | Accessible name of the swatch list. |
 
 | Block | Description |
