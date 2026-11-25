@@ -73,6 +73,143 @@ The trigger shows the chosen emoji. Search ranks by name, tag and shortcode; `�
 </div>
 ```
 
+### Chat Composer
+
+A message field with the picker in its footer. The `emoji-picker:select` event carries the chosen emoji, which a small script inserts at the cursor.
+
+<!-- height: 480 -->
+
+```twig
+<div id="chat-composer" class="max-w-md">
+    <twig:InputGroup>
+        <twig:InputGroup:Textarea placeholder="Write a message..." data-composer-input />
+        <twig:InputGroup:Addon align="block-end">
+            <twig:EmojiPicker label="Add an emoji" placeholder="🙂" recentKey="" />
+            <twig:InputGroup:Button variant="default" size="sm" class="ms-auto">
+                Send
+            </twig:InputGroup:Button>
+        </twig:InputGroup:Addon>
+    </twig:InputGroup>
+</div>
+<script>
+    const composer = document.getElementById('chat-composer');
+    composer.addEventListener('emoji-picker:select', (event) => {
+        const input = composer.querySelector('[data-composer-input]');
+        if (!event.detail.emoji) return;
+        const start = input.selectionStart ?? input.value.length;
+        input.setRangeText(event.detail.emoji, start, input.selectionEnd ?? start, 'end');
+        input.focus();
+    });
+</script>
+```
+
+### Message Reactions
+
+Pick a reaction under a message: the first pick adds a chip, picking the same emoji again adds to its count.
+
+<!-- height: 480 -->
+
+```twig
+<div id="reactions" class="flex max-w-sm flex-col gap-2">
+    <div class="rounded-2xl rounded-bl-sm bg-muted px-4 py-3 text-sm">
+        The release is out. Thanks everyone for the late nights!
+    </div>
+    <div class="flex flex-wrap items-center gap-1.5" data-reaction-list>
+        <twig:EmojiPicker label="Add a reaction" placeholder="🙂+" recentKey="" />
+    </div>
+</div>
+<script>
+    const reactions = document.getElementById('reactions');
+    reactions.addEventListener('emoji-picker:select', (event) => {
+        const emoji = event.detail.emoji;
+        if (!emoji) return;
+        const list = reactions.querySelector('[data-reaction-list]');
+        let chip = [...list.querySelectorAll('[data-reaction]')].find((item) => item.dataset.reaction === emoji);
+        if (!chip) {
+            chip = document.createElement('span');
+            chip.dataset.reaction = emoji;
+            chip.dataset.count = '0';
+            chip.className = 'inline-flex items-center gap-1 rounded-full border border-border bg-background px-2 py-0.5 text-sm';
+            list.prepend(chip);
+        }
+        chip.dataset.count = String(Number(chip.dataset.count) + 1);
+        chip.textContent = emoji + ' ' + chip.dataset.count;
+    });
+</script>
+```
+
+### Page Icon
+
+An emoji as the icon of a page, next to its title: the page header follows the choice.
+
+<!-- height: 480 -->
+
+```twig
+<div id="page-icon" class="flex max-w-md flex-col gap-4">
+    <div class="flex items-center gap-2">
+        <twig:EmojiPicker name="icon" value="📘" label="Page icon" recentKey="" />
+        <twig:Input name="title" value="Product handbook" aria-label="Page title" />
+    </div>
+    <div class="flex items-center gap-2 border-t border-border pt-3 text-lg font-semibold">
+        <span data-page-icon>📘</span>
+        <span>Product handbook</span>
+    </div>
+</div>
+<script>
+    const pageIcon = document.getElementById('page-icon');
+    pageIcon.addEventListener('emoji-picker:select', (event) => {
+        pageIcon.querySelector('[data-page-icon]').textContent = event.detail.emoji || '📄';
+    });
+</script>
+```
+
+### Custom Team Emoji
+
+The `custom` prop adds a category of your own images. Their value is a shortcode such as `:lgtm:`, and the picker shows the image in its trigger.
+
+<!-- height: 480 -->
+
+```twig
+<twig:EmojiPicker
+    name="reaction"
+    value=":lgtm:"
+    customLabel="Team"
+    recentKey=""
+    :custom="[{name: 'lgtm', url: 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%2316a34a%27/%3E%3Ctext x=%2716%27 y=%2721%27 text-anchor=%27middle%27 font-family=%27sans-serif%27 font-size=%2711%27 font-weight=%27700%27 fill=%27white%27%3EOK%3C/text%3E%3C/svg%3E'}, {name: 'wip', url: 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23f59e0b%27/%3E%3Ctext x=%2716%27 y=%2721%27 text-anchor=%27middle%27 font-family=%27sans-serif%27 font-size=%2711%27 font-weight=%27700%27 fill=%27white%27%3EWIP%3C/text%3E%3C/svg%3E'}, {name: 'ship', url: 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%232563eb%27/%3E%3Ctext x=%2716%27 y=%2721%27 text-anchor=%27middle%27 font-family=%27sans-serif%27 font-size=%2711%27 font-weight=%27700%27 fill=%27white%27%3EGO%3C/text%3E%3C/svg%3E'}, {name: 'bug', url: 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23dc2626%27/%3E%3Ctext x=%2716%27 y=%2721%27 text-anchor=%27middle%27 font-family=%27sans-serif%27 font-size=%2711%27 font-weight=%27700%27 fill=%27white%27%3EBUG%3C/text%3E%3C/svg%3E'}]"
+/>
+```
+
+### Shortcode Suggestions
+
+The search field also understands shortcodes: type `:tada`, `:fire` or `thumbs` and the matching emoji come first. Open the picker and try it.
+
+<!-- height: 480 -->
+
+```twig
+<div class="flex max-w-xs flex-col gap-2">
+    <twig:EmojiPicker label="Emoji by shortcode" placeholder="Type :tada: in the search" searchLabel="Search or type :shortcode:" recentKey="" />
+    <p class="text-sm text-muted-foreground">
+        Try <code>:tada</code>, <code>:fire</code> or <code>:rocket</code> in the search field.
+    </p>
+</div>
+```
+
+### Workplace-Safe Set
+
+A smaller set for a professional tool: only a few categories, and a list of emoji removed from them.
+
+<!-- height: 480 -->
+
+```twig
+<twig:EmojiPicker
+    name="reaction"
+    placeholder="Pick a reaction"
+    recentKey=""
+    :groups="['smileys-emotion', 'people-body', 'objects', 'symbols']"
+    :exclude="['🍺', '🔫', '💣', '🔪', '🍆', '🍑', '🚬', '💊', '🖕', '😈', '👿', '💩']"
+/>
+```
+
 ## Accessibility
 
 - The trigger is a button with `aria-haspopup` and `aria-expanded`; the picker is a dialog (a group when `inline`). `Esc` closes it and returns focus to the trigger.
@@ -97,6 +234,10 @@ The trigger shows the chosen emoji. Search ranks by name, tag and shortcode; `�
 | `disabled` | bool | `false` | Disables the trigger. |
 | `id` | string | `null` | Id of the trigger, for an external `<label for>`. |
 | `recentKey` | string | `emoji-picker-recent` | `localStorage` key of the recents; empty disables them. |
+| `groups` | list | `[]` | Emojibase group keys to keep (`smileys-emotion`, `people-body`, `animals-nature`, `food-drink`, `travel-places`, `activities`, `objects`, `symbols`, `flags`). Empty keeps all. |
+| `exclude` | list | `[]` | Emoji characters to hide. |
+| `custom` | list | `[]` | Images added as an extra category, each as an object with `name` and `url`. The submitted value of a custom emoji is `:name:`. |
+| `customLabel` | string | `Custom` | Name of the custom category. |
 | `placeholder` | string | `Pick an emoji` | Trigger text without a value. |
 | `label` | string | `Emoji picker` | Accessible name of the trigger and the picker. |
 | `searchLabel` | string | `Search emoji` | Label and placeholder of the search field. |

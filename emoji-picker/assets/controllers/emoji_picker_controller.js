@@ -14,7 +14,7 @@ const load = (base, locale) => {
     return cache.get(key);
 };
 
-const GROUP_ICONS = { 'smileys-emotion': '😀', 'people-body': '👋', 'animals-nature': '🐻', 'food-drink': '🍔', 'travel-places': '✈️', activities: '⚽', objects: '💡', symbols: '❤️', flags: '🏁' };
+const GROUP_ICONS = { 'smileys-emotion': '😀', 'people-body': '👋', 'animals-nature': '🐻', 'food-drink': '🍔', 'travel-places': '✈️', activities: '⚽', objects: '💡', symbols: '❤️', flags: '🏁', custom: '⭐' };
 const TONE_KEY = 'emoji-picker-tone';
 
 /*
@@ -36,6 +36,10 @@ export default class extends Controller {
         recentLabel: { type: String, default: 'Recent' },
         emptyLabel: { type: String, default: 'No emoji found.' },
         placeholder: { type: String, default: 'Pick an emoji' },
+        groups: Array,
+        exclude: Array,
+        custom: Array,
+        customLabel: { type: String, default: 'Custom' },
     };
 
     connect() {
@@ -74,10 +78,13 @@ export default class extends Controller {
         if (this.loaded) return this.loaded;
         this.loaded = load(this.dataUrlValue, this.localeValue).then(([compact, messages]) => {
             const groups = (messages.groups ?? []).filter((group) => 'component' !== group.key).sort((a, b) => a.order - b.order);
-            this.groups = groups.map((group) => ({ key: group.key, name: group.message.charAt(0).toUpperCase() + group.message.slice(1), order: group.order }));
+            this.groups = groups
+                .filter((group) => !this.groupsValue.length || this.groupsValue.includes(group.key))
+                .map((group) => ({ key: group.key, name: group.message.charAt(0).toUpperCase() + group.message.slice(1), order: group.order }));
             const known = new Set(this.groups.map((group) => group.order));
+            const excluded = new Set(this.excludeValue);
             // emojibase 16 names the fields `label` and `unicode` (older releases: `annotation` and `emoji`).
-            this.emojis = compact.filter((item) => known.has(item.group)).map((item) => {
+            this.emojis = compact.filter((item) => known.has(item.group) && !excluded.has(item.unicode ?? item.emoji)).map((item) => {
                 const name = item.label ?? item.annotation ?? '';
 
                 return {
@@ -88,6 +95,10 @@ export default class extends Controller {
                     skins: item.skins?.map((skin) => skin.unicode ?? skin.emoji) ?? null,
                 };
             });
+            if (this.customValue.length) {
+                this.groups.push({ key: 'custom', name: this.customLabelValue, order: 'custom' });
+                this.customValue.forEach((entry) => this.emojis.push({ emoji: `:${entry.name}:`, name: entry.name, group: 'custom', search: entry.name.toLowerCase(), skins: null, image: entry.url }));
+            }
             this.recent = this.recentKeyValue ? JSON.parse(localStorage.getItem(this.recentKeyValue) ?? '[]') : [];
             this.category = this.recent.length ? 'recent' : String(this.groups[0]?.order ?? 0);
             this.renderTabs();
@@ -96,6 +107,15 @@ export default class extends Controller {
         this.loaded.catch(() => { this.statusTarget.textContent = this.emptyLabelValue; });
 
         return this.loaded;
+    }
+
+    image(url, name) {
+        const image = document.createElement('img');
+        image.src = url;
+        image.alt = name;
+        image.className = 'size-[1em] object-contain';
+
+        return image;
     }
 
     emojiOf(item) {
@@ -192,7 +212,8 @@ export default class extends Controller {
             option.tabIndex = -1;
             option.dataset.index = index;
             option.className = 'flex aspect-square items-center justify-center rounded text-xl outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-selected:bg-muted';
-            option.textContent = emoji;
+            if (item.image) option.append(this.image(item.image, item.name));
+            else option.textContent = emoji;
             option.addEventListener('click', () => this.select(item));
             option.addEventListener('pointerenter', () => { this.previewTarget.textContent = `${emoji}  ${item.name}`; });
             option.addEventListener('focus', () => { this.previewTarget.textContent = `${emoji}  ${item.name}`; });
@@ -238,7 +259,9 @@ export default class extends Controller {
     renderChosen() {
         const emoji = this.hiddenTarget.value;
         if (this.hasChosenTarget) {
-            this.chosenTarget.textContent = emoji || this.placeholderValue;
+            const custom = this.customValue.find((entry) => `:${entry.name}:` === emoji);
+            if (custom) this.chosenTarget.replaceChildren(this.image(custom.url, custom.name));
+            else this.chosenTarget.textContent = emoji || this.placeholderValue;
             this.chosenTarget.classList.toggle('text-sm', !emoji);
             this.chosenTarget.classList.toggle('text-muted-foreground', !emoji);
             this.chosenTarget.classList.toggle('text-lg', Boolean(emoji));

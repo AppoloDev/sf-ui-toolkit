@@ -18,10 +18,14 @@
     id           id of the trigger (for an external <label for>)
     searchLabel, emptyLabel, categoriesLabel, skinToneLabel, recentLabel, clearLabel   texts
     recentKey    localStorage key of the recents (empty: no recents)
+    groups       emojibase group keys to keep (smileys-emotion, people-body, animals-nature, food-drink, travel-places, activities, objects, symbols, flags); empty: all
+    exclude      list of emoji characters to hide
+    custom       list of {name, url} images added as an extra category; the submitted value is `:name:`
+    customLabel  name of the custom category
 
   Requires the shadcn recipes popover, button, input and native-select (installed from the shadcn kit).
 #}
-{%- props name = null, value = '', locale = 'en', dataUrl = 'https://cdn.jsdelivr.net/npm/emojibase-data@16', inline = false, columns = 8, disabled = false, placeholder = 'Pick an emoji', label = 'Emoji picker', searchLabel = 'Search emoji', emptyLabel = 'No emoji found.', categoriesLabel = 'Categories', skinToneLabel = 'Skin tone', recentLabel = 'Recent', clearLabel = 'Remove', recentKey = 'emoji-picker-recent', id = null -%}
+{%- props name = null, value = '', locale = 'en', dataUrl = 'https://cdn.jsdelivr.net/npm/emojibase-data@16', inline = false, columns = 8, disabled = false, placeholder = 'Pick an emoji', label = 'Emoji picker', searchLabel = 'Search emoji', emptyLabel = 'No emoji found.', categoriesLabel = 'Categories', skinToneLabel = 'Skin tone', recentLabel = 'Recent', clearLabel = 'Remove', recentKey = 'emoji-picker-recent', groups = [], exclude = [], custom = [], customLabel = 'Custom', id = null -%}
 {%- set data = {
     class: 'w-auto',
     'data-controller': 'emoji-picker',
@@ -34,6 +38,10 @@
     'data-emoji-picker-recent-label-value': recentLabel,
     'data-emoji-picker-empty-label-value': emptyLabel,
     'data-emoji-picker-placeholder-value': placeholder,
+    'data-emoji-picker-groups-value': groups|json_encode,
+    'data-emoji-picker-exclude-value': exclude|json_encode,
+    'data-emoji-picker-custom-value': custom|json_encode,
+    'data-emoji-picker-custom-label-value': customLabel,
 } -%}
 {%- set trigger = {'data-emoji-picker-target': 'trigger'}|merge(id ? {id: id} : {})|merge(disabled ? {disabled: true} : {}) -%}
 {%- set panel -%}
