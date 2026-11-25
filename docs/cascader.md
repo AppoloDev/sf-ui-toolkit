@@ -156,6 +156,193 @@ With `cascade`, choosing a branch chooses all of its leaves, and a partly chosen
 </div>
 ```
 
+### Attribute Picker
+
+Pick a product attribute in a three-level tree: category, attribute, then value. Choose several, up to four.
+
+<!-- height: 360 -->
+
+```twig
+<twig:Cascader name="attributes" multiple max="4" placeholder="Choose attributes" selectedLabel="{count} attributes">
+    <twig:Cascader:Option value="size" label="Size">
+        <twig:Cascader:Option value="size-s" label="Small" />
+        <twig:Cascader:Option value="size-m" label="Medium" />
+        <twig:Cascader:Option value="size-l" label="Large" />
+    </twig:Cascader:Option>
+    <twig:Cascader:Option value="color" label="Color">
+        <twig:Cascader:Option value="color-neutral" label="Neutral">
+            <twig:Cascader:Option value="color-black" label="Black" />
+            <twig:Cascader:Option value="color-white" label="White" />
+            <twig:Cascader:Option value="color-grey" label="Grey" />
+        </twig:Cascader:Option>
+        <twig:Cascader:Option value="color-bright" label="Bright">
+            <twig:Cascader:Option value="color-red" label="Red" />
+            <twig:Cascader:Option value="color-blue" label="Blue" />
+            <twig:Cascader:Option value="color-green" label="Green" />
+        </twig:Cascader:Option>
+    </twig:Cascader:Option>
+    <twig:Cascader:Option value="material" label="Material">
+        <twig:Cascader:Option value="material-cotton" label="Cotton" />
+        <twig:Cascader:Option value="material-wool" label="Wool" />
+        <twig:Cascader:Option value="material-linen" label="Linen" />
+    </twig:Cascader:Option>
+</twig:Cascader>
+```
+
+### Global Search
+
+The search field looks through every level at once, whichever column is open, and each result shows its full path.
+
+<!-- height: 360 -->
+
+```twig
+<twig:Cascader name="place" placeholder="Search a place">
+    <twig:Cascader:Option value="fr" label="France">
+        <twig:Cascader:Option value="fr-idf" label="Île-de-France">
+            <twig:Cascader:Option value="paris" label="Paris" />
+            <twig:Cascader:Option value="versailles" label="Versailles" />
+        </twig:Cascader:Option>
+        <twig:Cascader:Option value="fr-occ" label="Occitanie">
+            <twig:Cascader:Option value="toulouse" label="Toulouse" />
+            <twig:Cascader:Option value="montpellier" label="Montpellier" />
+        </twig:Cascader:Option>
+    </twig:Cascader:Option>
+    <twig:Cascader:Option value="jp" label="Japan">
+        <twig:Cascader:Option value="jp-kanto" label="Kantō">
+            <twig:Cascader:Option value="tokyo" label="Tokyo" />
+            <twig:Cascader:Option value="yokohama" label="Yokohama" />
+        </twig:Cascader:Option>
+        <twig:Cascader:Option value="jp-kansai" label="Kansai">
+            <twig:Cascader:Option value="osaka" label="Osaka" />
+            <twig:Cascader:Option value="kyoto" label="Kyoto" />
+        </twig:Cascader:Option>
+    </twig:Cascader:Option>
+</twig:Cascader>
+```
+
+### Deep Search
+
+A tree five levels deep: a search for a leaf lists it with its whole path, so nobody has to open each column to find it.
+
+<!-- height: 360 -->
+
+```twig
+<twig:Cascader name="department" placeholder="Search a team" separator=" › ">
+    <twig:Cascader:Option value="eng" label="Engineering">
+        <twig:Cascader:Option value="eng-platform" label="Platform">
+            <twig:Cascader:Option value="eng-infra" label="Infrastructure">
+                <twig:Cascader:Option value="eng-infra-net" label="Networking" />
+                <twig:Cascader:Option value="eng-infra-db" label="Databases" />
+            </twig:Cascader:Option>
+            <twig:Cascader:Option value="eng-sec" label="Security">
+                <twig:Cascader:Option value="eng-sec-iam" label="Identity" />
+                <twig:Cascader:Option value="eng-sec-ops" label="Security operations" />
+            </twig:Cascader:Option>
+        </twig:Cascader:Option>
+        <twig:Cascader:Option value="eng-product" label="Product engineering">
+            <twig:Cascader:Option value="eng-web" label="Web">
+                <twig:Cascader:Option value="eng-web-front" label="Front end" />
+                <twig:Cascader:Option value="eng-web-back" label="Back end" />
+            </twig:Cascader:Option>
+        </twig:Cascader:Option>
+    </twig:Cascader:Option>
+    <twig:Cascader:Option value="ops" label="Operations">
+        <twig:Cascader:Option value="ops-support" label="Support">
+            <twig:Cascader:Option value="ops-support-t1" label="Tier 1" />
+            <twig:Cascader:Option value="ops-support-t2" label="Tier 2" />
+        </twig:Cascader:Option>
+    </twig:Cascader:Option>
+</twig:Cascader>
+```
+
+### Path Formatting
+
+The `separator` prop sets the text between the levels of the path shown in the trigger and in the search results.
+
+<!-- height: 340 -->
+
+```twig
+<div class="flex flex-wrap gap-3">
+    <twig:Cascader name="path_arrow" value="mac" separator=" › ">
+        <twig:Cascader:Option value="hw" label="Hardware">
+            <twig:Cascader:Option value="mac" label="Laptops" />
+            <twig:Cascader:Option value="phone" label="Phones" />
+        </twig:Cascader:Option>
+    </twig:Cascader>
+    <twig:Cascader name="path_slash" value="mac" separator="/">
+        <twig:Cascader:Option value="hw" label="Hardware">
+            <twig:Cascader:Option value="mac" label="Laptops" />
+            <twig:Cascader:Option value="phone" label="Phones" />
+        </twig:Cascader:Option>
+    </twig:Cascader>
+    <twig:Cascader name="path_dot" value="mac" separator=" · ">
+        <twig:Cascader:Option value="hw" label="Hardware">
+            <twig:Cascader:Option value="mac" label="Laptops" />
+            <twig:Cascader:Option value="phone" label="Phones" />
+        </twig:Cascader:Option>
+    </twig:Cascader>
+</div>
+```
+
+### Translated Labels
+
+Every text is a prop: here the whole picker in French.
+
+<!-- height: 360 -->
+
+```twig
+<twig:Cascader
+    name="ville"
+    multiple
+    placeholder="Choisir une ville"
+    searchLabel="Rechercher"
+    emptyLabel="Aucun résultat."
+    backLabel="Retour"
+    selectedLabel="{count} sélectionnées"
+    label="Villes"
+>
+    <twig:Cascader:Option value="fr" label="France">
+        <twig:Cascader:Option value="paris" label="Paris" />
+        <twig:Cascader:Option value="lyon" label="Lyon" />
+        <twig:Cascader:Option value="nantes" label="Nantes" />
+    </twig:Cascader:Option>
+    <twig:Cascader:Option value="be" label="Belgique">
+        <twig:Cascader:Option value="bruxelles" label="Bruxelles" />
+        <twig:Cascader:Option value="liege" label="Liège" />
+    </twig:Cascader:Option>
+</twig:Cascader>
+```
+
+### Controlled State
+
+The state is read from outside through the `cascader:change` event, which carries the chosen values.
+
+<!-- height: 380 -->
+
+```twig
+<div class="flex flex-col gap-3" id="cascader-state">
+    <twig:Cascader name="topics" multiple placeholder="Choose topics">
+        <twig:Cascader:Option value="news" label="News">
+            <twig:Cascader:Option value="news-world" label="World" />
+            <twig:Cascader:Option value="news-local" label="Local" />
+        </twig:Cascader:Option>
+        <twig:Cascader:Option value="sport" label="Sport">
+            <twig:Cascader:Option value="sport-football" label="Football" />
+            <twig:Cascader:Option value="sport-tennis" label="Tennis" />
+        </twig:Cascader:Option>
+    </twig:Cascader>
+    <p class="text-sm text-muted-foreground">
+        Chosen values: <code data-state-output>none</code>
+    </p>
+</div>
+<script>
+    const root = document.getElementById('cascader-state');
+    root.addEventListener('cascader:change', (event) => {
+        root.querySelector('[data-state-output]').textContent = event.detail.values.join(', ') || 'none';
+    });
+</script>
+```
+
 ## Accessibility
 
 - The trigger announces `aria-expanded` (kept by the shadcn `Popover`); the panel is a dialog with a search field and one `listbox` per level, with `aria-multiselectable`, `aria-selected`, `aria-expanded` on branches and `aria-checked="mixed"` for partly chosen branches.
