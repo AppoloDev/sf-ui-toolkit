@@ -1478,6 +1478,1336 @@ An arrow icon replaces the connecting line, for steps that describe a journey.
 </twig:Stepper>
 ```
 
+### Left Aligned Titles
+
+The title and its description sit left-aligned under the indicator, with the line running above them.
+
+```twig
+<twig:Stepper :value="2" class="max-w-2xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1" class="items-start!">
+            <twig:Stepper:Trigger class="flex-col! items-start! gap-2!">
+                <twig:Stepper:Indicator>
+                    1
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        Account
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Your details
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="mt-4! self-start!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="items-start!">
+            <twig:Stepper:Trigger class="flex-col! items-start! gap-2!">
+                <twig:Stepper:Indicator>
+                    2
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        Company
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Legal information
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="mt-4! self-start!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="items-start!">
+            <twig:Stepper:Trigger class="flex-col! items-start! gap-2!">
+                <twig:Stepper:Indicator>
+                    3
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        Billing
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Payment method
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="mt-4! self-start!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4" class="items-start!">
+            <twig:Stepper:Trigger class="flex-col! items-start! gap-2!">
+                <twig:Stepper:Indicator>
+                    4
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        Review
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Check and send
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="mt-4! self-start!" />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Inline Titles
+
+No indicator: the title is part of the line, so the stepper reads like a sentence.
+
+```twig
+<twig:Stepper :value="2" class="max-w-xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Title>
+                    Draft
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="mx-2!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Title>
+                    Review
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="mx-2!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Title>
+                    Approve
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="mx-2!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Title>
+                    Publish
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="mx-2!" />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Title & Caption
+
+A small uppercase caption above the title replaces the description.
+
+```twig
+<twig:Stepper :value="2" class="max-w-2xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    1
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Description class="text-[10px]! uppercase! tracking-wide!">
+                        Step 1
+                    </twig:Stepper:Description>
+                    <twig:Stepper:Title>
+                        Account
+                    </twig:Stepper:Title>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    2
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Description class="text-[10px]! uppercase! tracking-wide!">
+                        Step 2
+                    </twig:Stepper:Description>
+                    <twig:Stepper:Title>
+                        Profile
+                    </twig:Stepper:Title>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    3
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Description class="text-[10px]! uppercase! tracking-wide!">
+                        Step 3
+                    </twig:Stepper:Description>
+                    <twig:Stepper:Title>
+                        Review
+                    </twig:Stepper:Title>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Vertical Titles
+
+A compact vertical stepper with small dots and titles only.
+
+<!-- height: 280 -->
+
+```twig
+<twig:Stepper :value="2" orientation="vertical" class="max-w-xs!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1">
+            <twig:Stepper:Trigger class="gap-3!">
+                <twig:Stepper:Indicator class="size-3! border-2! text-[0px]! [&_svg]:hidden!">
+                    
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Create the project
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="ml-1.5! h-6!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2">
+            <twig:Stepper:Trigger class="gap-3!">
+                <twig:Stepper:Indicator class="size-3! border-2! text-[0px]! [&_svg]:hidden!">
+                    
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Invite the team
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="ml-1.5! h-6!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3">
+            <twig:Stepper:Trigger class="gap-3!">
+                <twig:Stepper:Indicator class="size-3! border-2! text-[0px]! [&_svg]:hidden!">
+                    
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Connect a source
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="ml-1.5! h-6!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4">
+            <twig:Stepper:Trigger class="gap-3!">
+                <twig:Stepper:Indicator class="size-3! border-2! text-[0px]! [&_svg]:hidden!">
+                    
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Publish
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="ml-1.5! h-6!" />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Controlled
+
+Buttons outside the navigation move the stepper: a button with `data-step` and `stepper#select` jumps to that step.
+
+<!-- height: 260 -->
+
+```twig
+<twig:Stepper :value="1" class="max-w-xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    1
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Plan
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    2
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Build
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    3
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Ship
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+    <twig:Stepper:Content step="1" class="rounded-md border border-border p-4 text-sm">
+        Plan the work.
+    </twig:Stepper:Content>
+    <twig:Stepper:Content step="2" class="rounded-md border border-border p-4 text-sm">
+        Build it.
+    </twig:Stepper:Content>
+    <twig:Stepper:Content step="3" class="rounded-md border border-border p-4 text-sm">
+        Ship it.
+    </twig:Stepper:Content>
+    <div class="flex gap-2">
+        <twig:Button variant="outline" size="sm" data-step="1" data-action="click->stepper#select">
+            Jump to step 1
+        </twig:Button>
+        <twig:Button variant="outline" size="sm" data-step="2" data-action="click->stepper#select">
+            Jump to step 2
+        </twig:Button>
+        <twig:Button variant="outline" size="sm" data-step="3" data-action="click->stepper#select">
+            Jump to step 3
+        </twig:Button>
+    </div>
+</twig:Stepper>
+```
+
+### Delivery Stops
+
+Each stop has an icon, a place and the time it was reached, aligned on the right.
+
+<!-- height: 400 -->
+
+```twig
+<twig:Stepper :value="3" orientation="vertical" class="max-w-sm!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1" class="w-full!">
+            <twig:Stepper:Trigger class="w-full!">
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:warehouse" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span class="flex flex-1 flex-col">
+                    <twig:Stepper:Title>
+                        Warehouse
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Lyon
+                    </twig:Stepper:Description>
+                </span>
+                <span class="ml-auto text-xs text-muted-foreground tabular-nums">
+                    08:10
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="w-full!">
+            <twig:Stepper:Trigger class="w-full!">
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:package-open" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span class="flex flex-1 flex-col">
+                    <twig:Stepper:Title>
+                        Sorting hub
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Dijon
+                    </twig:Stepper:Description>
+                </span>
+                <span class="ml-auto text-xs text-muted-foreground tabular-nums">
+                    10:45
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="w-full!">
+            <twig:Stepper:Trigger class="w-full!">
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:truck" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span class="flex flex-1 flex-col">
+                    <twig:Stepper:Title>
+                        Local depot
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Paris
+                    </twig:Stepper:Description>
+                </span>
+                <span class="ml-auto text-xs text-muted-foreground tabular-nums">
+                    13:20
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4" class="w-full!">
+            <twig:Stepper:Trigger class="w-full!">
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:house" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span class="flex flex-1 flex-col">
+                    <twig:Stepper:Title>
+                        Customer
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        12 rue des Lilas
+                    </twig:Stepper:Description>
+                </span>
+                <span class="ml-auto text-xs text-muted-foreground tabular-nums">
+                    Est. 15:30
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Stage Details
+
+The panel under the stepper shows the details of the selected stage.
+
+<!-- height: 260 -->
+
+```twig
+<twig:Stepper :value="2" class="max-w-2xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    1
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Qualify
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    2
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Proposal
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    3
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Negotiation
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    4
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Closed
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+    <twig:Stepper:Content step="1" class="rounded-lg border border-border bg-muted/30 p-4 text-sm">
+        <span class="block font-medium">
+            Qualify
+        </span>
+        <span class="text-muted-foreground">
+            Owner: Lea. Budget confirmed.
+        </span>
+    </twig:Stepper:Content>
+    <twig:Stepper:Content step="2" class="rounded-lg border border-border bg-muted/30 p-4 text-sm">
+        <span class="block font-medium">
+            Proposal
+        </span>
+        <span class="text-muted-foreground">
+            Owner: Sam. Quote sent on 12 Nov.
+        </span>
+    </twig:Stepper:Content>
+    <twig:Stepper:Content step="3" class="rounded-lg border border-border bg-muted/30 p-4 text-sm">
+        <span class="block font-medium">
+            Negotiation
+        </span>
+        <span class="text-muted-foreground">
+            Owner: Noah. Waiting for legal review.
+        </span>
+    </twig:Stepper:Content>
+    <twig:Stepper:Content step="4" class="rounded-lg border border-border bg-muted/30 p-4 text-sm">
+        <span class="block font-medium">
+            Closed
+        </span>
+        <span class="text-muted-foreground">
+            Not reached yet.
+        </span>
+    </twig:Stepper:Content>
+</twig:Stepper>
+```
+
+### Frame Icon Tiles
+
+The steps live in a frame; each one is an icon tile that lifts when current.
+
+```twig
+<twig:Stepper :value="2" class="max-w-xl!">
+    <twig:Stepper:Nav class="gap-1! rounded-xl! border! border-border! bg-muted/40! p-1!">
+        <twig:Stepper:Item step="1" class="flex-1! gap-0!">
+            <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                <twig:Stepper:Indicator class="size-9! rounded-lg!">
+                    <twig:ux:icon name="lucide:user" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Account
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="flex-1! gap-0!">
+            <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                <twig:Stepper:Indicator class="size-9! rounded-lg!">
+                    <twig:ux:icon name="lucide:building-2" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Company
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="flex-1! gap-0!">
+            <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                <twig:Stepper:Indicator class="size-9! rounded-lg!">
+                    <twig:ux:icon name="lucide:credit-card" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Billing
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4" class="flex-1! gap-0!">
+            <twig:Stepper:Trigger class="w-full! flex-col! gap-2! rounded-lg! p-3! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                <twig:Stepper:Indicator class="size-9! rounded-lg!">
+                    <twig:ux:icon name="lucide:circle-check" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Review
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Purchase Orders
+
+A vertical list of purchase orders, each with its reference, the last event and the amount.
+
+<!-- height: 400 -->
+
+```twig
+<twig:Stepper :value="3" orientation="vertical" class="max-w-md!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1" class="w-full!">
+            <twig:Stepper:Trigger class="w-full!">
+                <twig:Stepper:Indicator>
+                    1
+                </twig:Stepper:Indicator>
+                <span class="flex flex-1 flex-col">
+                    <twig:Stepper:Title>
+                        PO-1042 · Acme Supplies
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Raised 4 Nov by Lea
+                    </twig:Stepper:Description>
+                </span>
+                <span class="ml-auto text-sm font-medium tabular-nums">
+                    €1,240.00
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="w-full!">
+            <twig:Stepper:Trigger class="w-full!">
+                <twig:Stepper:Indicator>
+                    2
+                </twig:Stepper:Indicator>
+                <span class="flex flex-1 flex-col">
+                    <twig:Stepper:Title>
+                        PO-1043 · Northwind
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Approved 6 Nov by Sam
+                    </twig:Stepper:Description>
+                </span>
+                <span class="ml-auto text-sm font-medium tabular-nums">
+                    €860.50
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="w-full!">
+            <twig:Stepper:Trigger class="w-full!">
+                <twig:Stepper:Indicator>
+                    3
+                </twig:Stepper:Indicator>
+                <span class="flex flex-1 flex-col">
+                    <twig:Stepper:Title>
+                        PO-1044 · Globex
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Waiting for approval
+                    </twig:Stepper:Description>
+                </span>
+                <span class="ml-auto text-sm font-medium tabular-nums">
+                    €2,310.00
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4" class="w-full!">
+            <twig:Stepper:Trigger class="w-full!">
+                <twig:Stepper:Indicator>
+                    4
+                </twig:Stepper:Indicator>
+                <span class="flex flex-1 flex-col">
+                    <twig:Stepper:Title>
+                        PO-1045 · Initech
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Draft
+                    </twig:Stepper:Description>
+                </span>
+                <span class="ml-auto text-sm font-medium tabular-nums">
+                    €430.00
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Security Checks
+
+Icons for each check and a result under the title; the one that needs attention is flagged in amber.
+
+<!-- height: 380 -->
+
+```twig
+<twig:Stepper :value="3" orientation="vertical" class="max-w-xs!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:shield-check" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        Password strength
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Passed
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:key-round" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        Two-factor authentication
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Passed
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:smartphone" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        Trusted devices
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description class="text-amber-600!">
+                        Needs review
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:mail" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        Recovery email
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Not started
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Phase Track
+
+A pill-shaped track: the current phase is raised, the others stay flat.
+
+```twig
+<twig:Stepper :value="2" class="max-w-md!">
+    <twig:Stepper:Nav class="w-full! gap-1! rounded-full! bg-muted! p-1!">
+        <twig:Stepper:Item step="1" class="flex-1! gap-0!">
+            <twig:Stepper:Trigger class="w-full! justify-center! rounded-full! px-4! py-1.5! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                <twig:Stepper:Title>
+                    Discover
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="flex-1! gap-0!">
+            <twig:Stepper:Trigger class="w-full! justify-center! rounded-full! px-4! py-1.5! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                <twig:Stepper:Title>
+                    Design
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="flex-1! gap-0!">
+            <twig:Stepper:Trigger class="w-full! justify-center! rounded-full! px-4! py-1.5! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                <twig:Stepper:Title>
+                    Build
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4" class="flex-1! gap-0!">
+            <twig:Stepper:Trigger class="w-full! justify-center! rounded-full! px-4! py-1.5! group-data-[state=active]/step:bg-background! group-data-[state=active]/step:shadow-sm!">
+                <twig:Stepper:Title>
+                    Launch
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Truck Route
+
+Pins joined by a dashed route; the truck marks the current stop.
+
+```twig
+<twig:Stepper :value="2" class="max-w-2xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:map-pin" class="size-4! group-data-[state=active]/step:hidden!" />
+                    <twig:ux:icon name="lucide:truck" class="hidden! size-4! group-data-[state=active]/step:block!" />
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Paris
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="h-0! min-w-8! border-t-2! border-dashed! border-border! bg-transparent! group-data-[state=completed]/step:border-primary!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:map-pin" class="size-4! group-data-[state=active]/step:hidden!" />
+                    <twig:ux:icon name="lucide:truck" class="hidden! size-4! group-data-[state=active]/step:block!" />
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Lyon
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="h-0! min-w-8! border-t-2! border-dashed! border-border! bg-transparent! group-data-[state=completed]/step:border-primary!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:map-pin" class="size-4! group-data-[state=active]/step:hidden!" />
+                    <twig:ux:icon name="lucide:truck" class="hidden! size-4! group-data-[state=active]/step:block!" />
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Marseille
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="h-0! min-w-8! border-t-2! border-dashed! border-border! bg-transparent! group-data-[state=completed]/step:border-primary!" />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:map-pin" class="size-4! group-data-[state=active]/step:hidden!" />
+                    <twig:ux:icon name="lucide:truck" class="hidden! size-4! group-data-[state=active]/step:block!" />
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Nice
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator class="h-0! min-w-8! border-t-2! border-dashed! border-border! bg-transparent! group-data-[state=completed]/step:border-primary!" />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Outlined Chevrons
+
+Arrows with a thin outline (drawn with stacked drop shadows, since a `clip-path` cuts borders); the current step is outlined with the primary color.
+
+```twig
+<twig:Stepper :value="2" class="max-w-2xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1" class="flex-1! -ml-2! first:ml-0! [filter:drop-shadow(1px_0_0_var(--border))_drop-shadow(-1px_0_0_var(--border))_drop-shadow(0_1px_0_var(--border))_drop-shadow(0_-1px_0_var(--border))]! data-[state=active]:[filter:drop-shadow(1px_0_0_var(--primary))_drop-shadow(-1px_0_0_var(--primary))_drop-shadow(0_1px_0_var(--primary))_drop-shadow(0_-1px_0_var(--primary))]!">
+            <twig:Stepper:Trigger class="h-10! w-full! justify-center! rounded-none! bg-background! px-6! [clip-path:polygon(0_0,calc(100%-14px)_0,100%_50%,calc(100%-14px)_100%,0_100%)] group-data-[state=active]/step:font-semibold!">
+                <twig:Stepper:Title>
+                    Cart
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="flex-1! -ml-2! first:ml-0! [filter:drop-shadow(1px_0_0_var(--border))_drop-shadow(-1px_0_0_var(--border))_drop-shadow(0_1px_0_var(--border))_drop-shadow(0_-1px_0_var(--border))]! data-[state=active]:[filter:drop-shadow(1px_0_0_var(--primary))_drop-shadow(-1px_0_0_var(--primary))_drop-shadow(0_1px_0_var(--primary))_drop-shadow(0_-1px_0_var(--primary))]!">
+            <twig:Stepper:Trigger class="h-10! w-full! justify-center! rounded-none! bg-background! px-6! [clip-path:polygon(0_0,calc(100%-14px)_0,100%_50%,calc(100%-14px)_100%,0_100%,14px_50%)] group-data-[state=active]/step:font-semibold!">
+                <twig:Stepper:Title>
+                    Address
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="flex-1! -ml-2! first:ml-0! [filter:drop-shadow(1px_0_0_var(--border))_drop-shadow(-1px_0_0_var(--border))_drop-shadow(0_1px_0_var(--border))_drop-shadow(0_-1px_0_var(--border))]! data-[state=active]:[filter:drop-shadow(1px_0_0_var(--primary))_drop-shadow(-1px_0_0_var(--primary))_drop-shadow(0_1px_0_var(--primary))_drop-shadow(0_-1px_0_var(--primary))]!">
+            <twig:Stepper:Trigger class="h-10! w-full! justify-center! rounded-none! bg-background! px-6! [clip-path:polygon(0_0,calc(100%-14px)_0,100%_50%,calc(100%-14px)_100%,0_100%,14px_50%)] group-data-[state=active]/step:font-semibold!">
+                <twig:Stepper:Title>
+                    Payment
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4" class="flex-1! -ml-2! first:ml-0! [filter:drop-shadow(1px_0_0_var(--border))_drop-shadow(-1px_0_0_var(--border))_drop-shadow(0_1px_0_var(--border))_drop-shadow(0_-1px_0_var(--border))]! data-[state=active]:[filter:drop-shadow(1px_0_0_var(--primary))_drop-shadow(-1px_0_0_var(--primary))_drop-shadow(0_1px_0_var(--primary))_drop-shadow(0_-1px_0_var(--primary))]!">
+            <twig:Stepper:Trigger class="h-10! w-full! justify-center! rounded-none! bg-background! px-6! [clip-path:polygon(0_0,calc(100%-14px)_0,100%_50%,calc(100%-14px)_100%,0_100%,14px_50%)] group-data-[state=active]/step:font-semibold!">
+                <twig:Stepper:Title>
+                    Review
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Flat Chevrons
+
+Shallow arrows in a single tone, with an icon in front of each title.
+
+```twig
+<twig:Stepper :value="2" class="max-w-2xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1" class="flex-1! -ml-1! first:ml-0!">
+            <twig:Stepper:Trigger class="h-9! w-full! justify-start! gap-2! rounded-none! bg-muted/60! px-5! [clip-path:polygon(0_0,calc(100%-8px)_0,100%_50%,calc(100%-8px)_100%,0_100%)] group-data-[state=active]/step:bg-muted! group-data-[state=completed]/step:bg-muted!">
+                <twig:ux:icon name="lucide:shopping-cart" class="size-4! shrink-0!" />
+                <twig:Stepper:Title>
+                    Cart
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="flex-1! -ml-1! first:ml-0!">
+            <twig:Stepper:Trigger class="h-9! w-full! justify-start! gap-2! rounded-none! bg-muted/60! px-5! [clip-path:polygon(0_0,calc(100%-8px)_0,100%_50%,calc(100%-8px)_100%,0_100%,8px_50%)] group-data-[state=active]/step:bg-muted! group-data-[state=completed]/step:bg-muted!">
+                <twig:ux:icon name="lucide:map-pin" class="size-4! shrink-0!" />
+                <twig:Stepper:Title>
+                    Address
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="flex-1! -ml-1! first:ml-0!">
+            <twig:Stepper:Trigger class="h-9! w-full! justify-start! gap-2! rounded-none! bg-muted/60! px-5! [clip-path:polygon(0_0,calc(100%-8px)_0,100%_50%,calc(100%-8px)_100%,0_100%,8px_50%)] group-data-[state=active]/step:bg-muted! group-data-[state=completed]/step:bg-muted!">
+                <twig:ux:icon name="lucide:credit-card" class="size-4! shrink-0!" />
+                <twig:Stepper:Title>
+                    Payment
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4" class="flex-1! -ml-1! first:ml-0!">
+            <twig:Stepper:Trigger class="h-9! w-full! justify-start! gap-2! rounded-none! bg-muted/60! px-5! [clip-path:polygon(0_0,calc(100%-8px)_0,100%_50%,calc(100%-8px)_100%,0_100%,8px_50%)] group-data-[state=active]/step:bg-muted! group-data-[state=completed]/step:bg-muted!">
+                <twig:ux:icon name="lucide:circle-check" class="size-4! shrink-0!" />
+                <twig:Stepper:Title>
+                    Review
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Chevron Icon Tiles
+
+Filled arrows with a small icon tile in front of each title.
+
+```twig
+<twig:Stepper :value="2" class="max-w-2xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1" class="flex-1! -ml-2! first:ml-0!">
+            <twig:Stepper:Trigger class="h-11! w-full! justify-start! gap-2! rounded-none! bg-muted! px-6! [clip-path:polygon(0_0,calc(100%-14px)_0,100%_50%,calc(100%-14px)_100%,0_100%)] group-data-[state=active]/step:bg-primary! group-data-[state=active]/step:text-primary-foreground! group-data-[state=completed]/step:bg-primary/15!">
+                <span class="flex size-6 items-center justify-center rounded-md bg-background/80 text-foreground">
+                    <twig:ux:icon name="lucide:shopping-cart" class="size-3.5!" />
+                </span>
+                <twig:Stepper:Title class="group-data-[state=active]/step:text-primary-foreground!">
+                    Cart
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="flex-1! -ml-2! first:ml-0!">
+            <twig:Stepper:Trigger class="h-11! w-full! justify-start! gap-2! rounded-none! bg-muted! px-6! [clip-path:polygon(0_0,calc(100%-14px)_0,100%_50%,calc(100%-14px)_100%,0_100%,14px_50%)] group-data-[state=active]/step:bg-primary! group-data-[state=active]/step:text-primary-foreground! group-data-[state=completed]/step:bg-primary/15!">
+                <span class="flex size-6 items-center justify-center rounded-md bg-background/80 text-foreground">
+                    <twig:ux:icon name="lucide:map-pin" class="size-3.5!" />
+                </span>
+                <twig:Stepper:Title class="group-data-[state=active]/step:text-primary-foreground!">
+                    Address
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="flex-1! -ml-2! first:ml-0!">
+            <twig:Stepper:Trigger class="h-11! w-full! justify-start! gap-2! rounded-none! bg-muted! px-6! [clip-path:polygon(0_0,calc(100%-14px)_0,100%_50%,calc(100%-14px)_100%,0_100%,14px_50%)] group-data-[state=active]/step:bg-primary! group-data-[state=active]/step:text-primary-foreground! group-data-[state=completed]/step:bg-primary/15!">
+                <span class="flex size-6 items-center justify-center rounded-md bg-background/80 text-foreground">
+                    <twig:ux:icon name="lucide:credit-card" class="size-3.5!" />
+                </span>
+                <twig:Stepper:Title class="group-data-[state=active]/step:text-primary-foreground!">
+                    Payment
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4" class="flex-1! -ml-2! first:ml-0!">
+            <twig:Stepper:Trigger class="h-11! w-full! justify-start! gap-2! rounded-none! bg-muted! px-6! [clip-path:polygon(0_0,calc(100%-14px)_0,100%_50%,calc(100%-14px)_100%,0_100%,14px_50%)] group-data-[state=active]/step:bg-primary! group-data-[state=active]/step:text-primary-foreground! group-data-[state=completed]/step:bg-primary/15!">
+                <span class="flex size-6 items-center justify-center rounded-md bg-background/80 text-foreground">
+                    <twig:ux:icon name="lucide:circle-check" class="size-3.5!" />
+                </span>
+                <twig:Stepper:Title class="group-data-[state=active]/step:text-primary-foreground!">
+                    Review
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Shipping Route
+
+Icons for the mode of transport and an estimated date under each stage.
+
+```twig
+<twig:Stepper :value="2" class="max-w-2xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:package-open" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        Packed
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        12 Nov
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:ship" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        At sea
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        14 Nov
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:warehouse" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        Customs
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        21 Nov
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    <twig:ux:icon name="lucide:house" class="size-4!" />
+                </twig:Stepper:Indicator>
+                <span>
+                    <twig:Stepper:Title>
+                        Delivered
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Est. 24 Nov
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Shipment Progress
+
+A header with the tracking number and a status badge, then one bar per stage.
+
+```twig
+<twig:Stepper :value="3" class="max-w-xl!">
+    <div class="flex items-center justify-between text-sm">
+        <span class="font-medium">
+            Parcel 7H42-91XZ
+        </span>
+        <twig:Badge variant="secondary">
+            In transit
+        </twig:Badge>
+    </div>
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1" class="flex-1! items-stretch! gap-1!">
+            <twig:Stepper:Trigger class="w-full! flex-col! items-stretch! gap-0!">
+                <span class="block w-full text-left">
+                    <span class="mb-2 block h-1.5 w-full rounded-full bg-primary group-data-[state=inactive]/step:bg-muted">
+                        
+                    </span>
+                    <twig:Stepper:Title class="text-xs!">
+                        Label created
+                    </twig:Stepper:Title>
+                </span>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="flex-1! items-stretch! gap-1!">
+            <twig:Stepper:Trigger class="w-full! flex-col! items-stretch! gap-0!">
+                <span class="block w-full text-left">
+                    <span class="mb-2 block h-1.5 w-full rounded-full bg-primary group-data-[state=inactive]/step:bg-muted">
+                        
+                    </span>
+                    <twig:Stepper:Title class="text-xs!">
+                        Picked up
+                    </twig:Stepper:Title>
+                </span>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="flex-1! items-stretch! gap-1!">
+            <twig:Stepper:Trigger class="w-full! flex-col! items-stretch! gap-0!">
+                <span class="block w-full text-left">
+                    <span class="mb-2 block h-1.5 w-full rounded-full bg-primary group-data-[state=inactive]/step:bg-muted">
+                        
+                    </span>
+                    <twig:Stepper:Title class="text-xs!">
+                        In transit
+                    </twig:Stepper:Title>
+                </span>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4" class="flex-1! items-stretch! gap-1!">
+            <twig:Stepper:Trigger class="w-full! flex-col! items-stretch! gap-0!">
+                <span class="block w-full text-left">
+                    <span class="mb-2 block h-1.5 w-full rounded-full bg-primary group-data-[state=inactive]/step:bg-muted">
+                        
+                    </span>
+                    <twig:Stepper:Title class="text-xs!">
+                        Out for delivery
+                    </twig:Stepper:Title>
+                </span>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="5" class="flex-1! items-stretch! gap-1!">
+            <twig:Stepper:Trigger class="w-full! flex-col! items-stretch! gap-0!">
+                <span class="block w-full text-left">
+                    <span class="mb-2 block h-1.5 w-full rounded-full bg-primary group-data-[state=inactive]/step:bg-muted">
+                        
+                    </span>
+                    <twig:Stepper:Title class="text-xs!">
+                        Delivered
+                    </twig:Stepper:Title>
+                </span>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Collapsible Sub-Steps
+
+Each step has a collapsible list of sub-steps, built with a native `details`.
+
+<!-- height: 460 -->
+
+```twig
+<twig:Stepper :value="2" orientation="vertical" class="max-w-sm!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1" class="w-full!">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    1
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Prepare
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <details class="ml-11 text-sm text-muted-foreground">
+                <summary class="cursor-pointer select-none py-1">
+                    Sub-steps
+                </summary>
+                <ul class="space-y-1 pb-2 pt-1">
+                    <li class="flex items-center gap-2">
+                        <twig:ux:icon name="lucide:circle-check" class="size-3.5! text-emerald-600!" />
+                        Connect the repository
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <twig:ux:icon name="lucide:circle-check" class="size-3.5! text-emerald-600!" />
+                        Choose a branch
+                    </li>
+                </ul>
+            </details>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="w-full!">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    2
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Configure
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <details open class="ml-11 text-sm text-muted-foreground">
+                <summary class="cursor-pointer select-none py-1">
+                    Sub-steps
+                </summary>
+                <ul class="space-y-1 pb-2 pt-1">
+                    <li class="flex items-center gap-2">
+                        <twig:ux:icon name="lucide:circle-check" class="size-3.5! text-emerald-600!" />
+                        Set the variables
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <twig:ux:icon name="lucide:circle" class="size-3.5! text-muted-foreground!" />
+                        Add a domain
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <twig:ux:icon name="lucide:circle" class="size-3.5! text-muted-foreground!" />
+                        Enable previews
+                    </li>
+                </ul>
+            </details>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="w-full!">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    3
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Release
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <details class="ml-11 text-sm text-muted-foreground">
+                <summary class="cursor-pointer select-none py-1">
+                    Sub-steps
+                </summary>
+                <ul class="space-y-1 pb-2 pt-1">
+                    <li class="flex items-center gap-2">
+                        <twig:ux:icon name="lucide:circle" class="size-3.5! text-muted-foreground!" />
+                        Run the checks
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <twig:ux:icon name="lucide:circle" class="size-3.5! text-muted-foreground!" />
+                        Publish
+                    </li>
+                </ul>
+            </details>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Right-Aligned Sub-Steps
+
+Sub-steps under each step, with their status aligned on the right.
+
+<!-- height: 460 -->
+
+```twig
+<twig:Stepper :value="2" orientation="vertical" class="max-w-sm!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1" class="w-full!">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    1
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Prepare
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <ul class="ml-11 w-[calc(100%-2.75rem)] space-y-1 pb-3 pt-1 text-sm">
+                <li class="flex items-center justify-between gap-4 text-muted-foreground">
+                    Connect the repository
+                    <span class="text-xs">
+                        Done
+                    </span>
+                </li>
+                <li class="flex items-center justify-between gap-4 text-muted-foreground">
+                    Choose a branch
+                    <span class="text-xs">
+                        Done
+                    </span>
+                </li>
+            </ul>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="w-full!">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    2
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Configure
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <ul class="ml-11 w-[calc(100%-2.75rem)] space-y-1 pb-3 pt-1 text-sm">
+                <li class="flex items-center justify-between gap-4 text-muted-foreground">
+                    Set the variables
+                    <span class="text-xs">
+                        Done
+                    </span>
+                </li>
+                <li class="flex items-center justify-between gap-4 text-muted-foreground">
+                    Add a domain
+                    <span class="text-xs">
+                        In progress
+                    </span>
+                </li>
+                <li class="flex items-center justify-between gap-4 text-muted-foreground">
+                    Enable previews
+                    <span class="text-xs">
+                        Waiting
+                    </span>
+                </li>
+            </ul>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="w-full!">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    3
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Release
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <ul class="ml-11 w-[calc(100%-2.75rem)] space-y-1 pb-3 pt-1 text-sm">
+                <li class="flex items-center justify-between gap-4 text-muted-foreground">
+                    Run the checks
+                    <span class="text-xs">
+                        Waiting
+                    </span>
+                </li>
+                <li class="flex items-center justify-between gap-4 text-muted-foreground">
+                    Publish
+                    <span class="text-xs">
+                        Waiting
+                    </span>
+                </li>
+            </ul>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
+### Vertical Status Bars
+
+A colored bar on the left of each step: green when done, amber for the current one.
+
+<!-- height: 340 -->
+
+```twig
+<twig:Stepper :value="3" orientation="vertical" class="max-w-xs!">
+    <twig:Stepper:Nav class="gap-2!">
+        <twig:Stepper:Item step="1" class="w-full!">
+            <twig:Stepper:Trigger class="w-full! rounded-md! border-l-4! border-border! py-2! pl-3! group-data-[state=completed]/step:border-emerald-500! group-data-[state=active]/step:border-amber-500!">
+                <span>
+                    <twig:Stepper:Title>
+                        Application received
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        12 Nov
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2" class="w-full!">
+            <twig:Stepper:Trigger class="w-full! rounded-md! border-l-4! border-border! py-2! pl-3! group-data-[state=completed]/step:border-emerald-500! group-data-[state=active]/step:border-amber-500!">
+                <span>
+                    <twig:Stepper:Title>
+                        Documents verified
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        13 Nov
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3" class="w-full!">
+            <twig:Stepper:Trigger class="w-full! rounded-md! border-l-4! border-border! py-2! pl-3! group-data-[state=completed]/step:border-emerald-500! group-data-[state=active]/step:border-amber-500!">
+                <span>
+                    <twig:Stepper:Title>
+                        Interview scheduled
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Waiting for a date
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="4" class="w-full!">
+            <twig:Stepper:Trigger class="w-full! rounded-md! border-l-4! border-border! py-2! pl-3! group-data-[state=completed]/step:border-emerald-500! group-data-[state=active]/step:border-amber-500!">
+                <span>
+                    <twig:Stepper:Title>
+                        Decision
+                    </twig:Stepper:Title>
+                    <twig:Stepper:Description>
+                        Not started
+                    </twig:Stepper:Description>
+                </span>
+            </twig:Stepper:Trigger>
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+</twig:Stepper>
+```
+
 ## Accessibility
 
 - `Stepper:Nav` is a `tablist` and each `Stepper:Trigger` a `tab`; the active tab has `aria-selected="true"` and roving focus keeps a single tab stop in the list.
