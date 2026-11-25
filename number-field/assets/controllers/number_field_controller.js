@@ -24,9 +24,12 @@ export default class extends Controller {
 
     connect() {
         this.stopHold = this.stopHold.bind(this);
-        const initial = this.current();
-        if (this.formatted && null !== initial) {
-            this.write(initial, false);
+        if (this.formatted) {
+            // The server renders a raw number (decimal point): parse it as such, then show it formatted.
+            const initial = parseFloat(this.inputTarget.value);
+            if (!Number.isNaN(initial)) {
+                this.write(initial, false);
+            }
         }
         this.refresh();
     }
