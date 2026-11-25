@@ -241,6 +241,37 @@ A date picker and a time picker side by side, for a single moment.
 </div>
 ```
 
+### Inline Panel
+
+`inline` renders the columns in place, without the typed field or the popover, for a booking sidebar or a card.
+
+<!-- height: 340 -->
+
+```twig
+<twig:TimePicker inline name="slot" value="09:30" :minuteStep="15" />
+```
+
+### Unavailable Slots
+
+`unavailable` lists ranges that cannot be chosen: the start of a range is blocked, its end is not. Here lunch (12:00 to 13:30) and a standing meeting (16:00 to 16:30) are greyed out, and typing a blocked time snaps to the nearest free one.
+
+<!-- height: 380 -->
+
+```twig
+<twig:Field class="max-w-xs">
+    <twig:Field:Label>Appointment</twig:Field:Label>
+    <twig:TimePicker
+        name="appointment"
+        value="10:00"
+        :minuteStep="30"
+        min="08:00"
+        max="18:00"
+        :unavailable="['12:00-13:30', '16:00-16:30']"
+    />
+    <twig:Field:Description>Lunch and the 16:00 meeting are not available.</twig:Field:Description>
+</twig:Field>
+```
+
 ## Accessibility
 
 - Each column is a `listbox` named by its header (Hours, Minutes, Seconds, AM/PM), and the options carry `aria-selected` / `aria-disabled`.
@@ -264,6 +295,8 @@ A date picker and a time picker side by side, for a single moment.
 | `seconds` | bool | `false` | Shows the seconds column. |
 | `min` | string | `null` | Inclusive lower bound. The window wraps overnight when `min` is later than `max`. |
 | `max` | string | `null` | Inclusive upper bound. |
+| `unavailable` | list | `[]` | Ranges as `HH:mm-HH:mm` that cannot be chosen; the start is blocked and the end is not. |
+| `inline` | bool | `false` | Renders the columns in place, without the typed field or the popover. |
 | `requireConfirm` | bool | `false` | Holds changes as a draft until OK is pressed. |
 | `placeholder` | string | `''` | Placeholder of the typed field. |
 | `disabled` | bool | `false` | Disables the field and the button. |

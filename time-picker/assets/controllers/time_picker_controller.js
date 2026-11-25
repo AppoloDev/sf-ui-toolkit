@@ -7,7 +7,7 @@ import { Controller } from '@hotwired/stimulus';
  * - picks, typed input and "Now" snap to the nearest allowed time.
  */
 export default class extends Controller {
-    static targets = ['input', 'hidden', 'trigger', 'panel', 'columns'];
+    static targets = ['input', 'hidden', 'trigger', 'panel', 'columns', 'confirm'];
     static values = {
         hoursLabel: { type: String, default: 'Hours' },
         minutesLabel: { type: String, default: 'Minutes' },
@@ -22,12 +22,19 @@ export default class extends Controller {
         requireConfirm: Boolean,
         min: String,
         max: String,
+        unavailable: Array,
+        inline: Boolean,
     };
 
     connect() {
         this.time = this.parseTime(this.valueValue);
         this.draft = this.time ? { ...this.time } : null;
         this.writeFields();
+        if (this.inlineValue) {
+            this.render();
+
+            return;
+        }
         // The panel is a shadcn Popover on the same element: react to its open state. A click re-renders the
         // columns, so the clicked node is detached before the event reaches the window, where the Popover would
         // take it for a click outside: stop it at the panel.
@@ -46,7 +53,7 @@ export default class extends Controller {
     }
 
     get isOpen() {
-        return 'open' === this.element.dataset.state;
+        return this.inlineValue || 'open' === this.element.dataset.state;
     }
 
     opened() {
@@ -63,7 +70,7 @@ export default class extends Controller {
     }
 
     close(restoreFocus = false) {
-        if (!this.isOpen) return;
+        if (this.inlineValue || !this.isOpen) return;
         this.element.dataset.popoverOpenValue = 'false';
         if (restoreFocus) this.triggerTarget.focus();
     }
@@ -97,6 +104,7 @@ export default class extends Controller {
     }
 
     parseInput() {
+        if (!this.hasInputTarget) return;
         const text = this.inputTarget.value.trim();
         if ('' === text) {
             this.commit(null);
@@ -131,7 +139,7 @@ export default class extends Controller {
 
     writeFields() {
         this.hiddenTarget.value = this.valueString(this.time);
-        this.inputTarget.value = this.time ? this.display(this.time) : '';
+        if (this.hasInputTarget) this.inputTarget.value = this.time ? this.display(this.time) : '';
     }
 
     valueString(time) {
@@ -185,6 +193,13 @@ export default class extends Controller {
         const max = this.parseTime(this.maxValue);
         const low = min ? this.toSeconds(min) : 0;
         const high = max ? this.toSeconds(max) + (max.s ? 0 : 59) : 86399;
+        // Unavailable ranges "HH:mm-HH:mm": the start is blocked, the end is not.
+        const blocked = this.unavailableValue.some((range) => {
+            const [from, to] = String(range).split('-').map((part) => this.parseTime(part));
+
+            return from && to && value >= this.toSeconds(from) && value < this.toSeconds(to);
+        });
+        if (blocked) return false;
         if (!min && !max) return true;
 
         return low <= high ? value >= low && value <= high : value >= low || value <= high;
@@ -286,7 +301,7 @@ export default class extends Controller {
 
     render() {
         const focused = this.columnsTarget.querySelector('[role="listbox"]:focus-within, [role="listbox"]:focus')?.dataset.key;
-        this.columnsTarget.innerHTML = '';
+        this.columnsTarget.replaceChildren();
         this.columnDefinitions().forEach((column) => {
             const list = document.createElement('div');
             list.setAttribute('role', 'listbox');
