@@ -9,12 +9,12 @@
 #}
 {%- props value, title -%}
 {%- set extra_class = attributes.render('class') -%}
-<section class="{{ ('flex w-72 shrink-0 flex-col gap-2 rounded-xl bg-muted/50 p-2 ' ~ extra_class)|trim }}" data-kanban-target="column" data-value="{{ value }}" aria-labelledby="kanban-col-{{ value }}" {{ attributes }}>
+<section class="{{ ('flex w-72 shrink-0 flex-col gap-2 rounded-xl bg-muted/50 p-2 group-data-[variant=frame]/kanban:p-1.5 group-data-[variant=stacked]/kanban:rounded-none group-data-[variant=stacked]/kanban:border group-data-[variant=stacked]/kanban:border-border group-data-[variant=stacked]/kanban:bg-background group-data-[variant=stacked]/kanban:first:rounded-l-lg group-data-[variant=stacked]/kanban:last:rounded-r-lg group-data-[variant=stacked]/kanban:not-last:border-r-0 ' ~ extra_class)|trim }}" data-kanban-target="column" data-value="{{ value }}" aria-labelledby="kanban-col-{{ value }}" {{ attributes }}>
     <h3 id="kanban-col-{{ value }}" class="flex items-center justify-between px-2 pt-1 text-sm font-medium" data-title>
         <span>{{ title }}</span>
         <twig:Badge variant="secondary" class="bg-background! font-normal tabular-nums" data-count />
     </h3>
-    <div role="list" class="flex min-h-12 flex-col gap-2 rounded-lg data-[over=true]:bg-muted" data-cards>
+    <div role="list" class="flex min-h-12 flex-col gap-2 rounded-lg data-[over=true]:bg-muted group-data-[variant=frame]/kanban:min-h-24 group-data-[variant=frame]/kanban:border group-data-[variant=frame]/kanban:border-border group-data-[variant=frame]/kanban:bg-background group-data-[variant=frame]/kanban:p-2" data-cards>
         {%- block content %}{% endblock -%}
     </div>
 </section>

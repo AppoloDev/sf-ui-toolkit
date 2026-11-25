@@ -5,11 +5,15 @@
     name   when set, the board is submitted as hidden inputs `name[<column>][]` (card values, in order)
     pickedUpLabel, movedLabel, droppedLabel, cancelledLabel   screen reader announcements of the keyboard flow;
            {item}, {column}, {position} and {total} are replaced
+    variant  default | frame | stacked: muted columns, columns as bordered panels inside a muted frame, or one joined block
+    placeholder  show a dashed placeholder where the dragged card will land (the card stays in place until the drop)
+    placeholderLabel  text of the placeholder, {column} is replaced
+    overlayClass  classes of the picture that follows the pointer while dragging (a tilt, a shadow)
     label  accessible name of the board
 
   Use Kanban:Column (with a `value`) and Kanban:Card (with a `value`) in the slot.
 #}
-{%- props name = null, label = 'Board',
+{%- props name = null, label = 'Board', variant = 'default', placeholder = false, placeholderLabel = 'Drop here', overlayClass = '',
     pickedUpLabel = '{item} picked up from {column}, position {position} of {total}. Use the arrow keys to move it.',
     movedLabel = '{item} moved to {column}, position {position} of {total}.',
     droppedLabel = '{item} dropped in {column}, position {position} of {total}.',
@@ -18,11 +22,15 @@
 {%- set data = {
     'data-controller': 'kanban',
     'data-kanban-name-value': name ?? '',
+    'data-kanban-placeholder-value': placeholder ? 'true' : 'false',
+    'data-kanban-placeholder-label-value': placeholderLabel,
+    'data-kanban-overlay-class-value': overlayClass,
+    'data-variant': variant,
     'data-kanban-picked-up-label-value': pickedUpLabel,
     'data-kanban-moved-label-value': movedLabel,
     'data-kanban-dropped-label-value': droppedLabel,
     'data-kanban-cancelled-label-value': cancelledLabel,
 } -%}
-<div role="group" aria-label="{{ label }}" class="{{ ('flex items-start gap-3 overflow-x-auto ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+<div role="group" aria-label="{{ label }}" class="{{ ('group/kanban flex items-start overflow-x-auto ' ~ (variant == 'stacked' ? 'gap-0 rounded-xl bg-muted/50 p-1.5' : 'gap-3') ~ ' ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
     {%- block content %}{% endblock -%}
 </div>

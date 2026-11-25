@@ -129,6 +129,199 @@ Cards hold any content, such as a progress bar or an assignee.
 </script>
 ```
 
+### Placeholder Overlay
+
+With `placeholder`, the card stays where it is while you drag and a dashed placeholder shows where it will land. `overlayClass` styles the copy of the card that follows the pointer: here a tilt and a ring.
+
+<!-- height: 380 -->
+
+```twig
+<twig:Kanban placeholder overlayClass="rotate-3 shadow-lg ring-2 ring-primary">
+    <twig:Kanban:Column value="todo" title="To do">
+        <twig:Kanban:Card value="1">
+            Write the documentation
+        </twig:Kanban:Card>
+        <twig:Kanban:Card value="2">
+            Review the pull request
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+    <twig:Kanban:Column value="doing" title="In progress">
+        <twig:Kanban:Card value="3">
+            Fix the login redirect
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+    <twig:Kanban:Column value="done" title="Done">
+        <twig:Kanban:Card value="4">
+            Set up the CI
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+</twig:Kanban>
+```
+
+### Dynamic Overlay
+
+The placeholder text follows the column under the pointer (`{column}` is replaced as you move), and the overlay grows slightly.
+
+<!-- height: 380 -->
+
+```twig
+<twig:Kanban placeholder placeholderLabel="Move to {column}" overlayClass="scale-105 shadow-xl">
+    <twig:Kanban:Column value="todo" title="To do">
+        <twig:Kanban:Card value="1">
+            Write the documentation
+        </twig:Kanban:Card>
+        <twig:Kanban:Card value="2">
+            Review the pull request
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+    <twig:Kanban:Column value="doing" title="In progress">
+        <twig:Kanban:Card value="3">
+            Fix the login redirect
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+    <twig:Kanban:Column value="done" title="Done">
+        <twig:Kanban:Card value="4">
+            Set up the CI
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+</twig:Kanban>
+```
+
+### Frame Columns
+
+`variant="frame"`: each column is a muted frame holding a bordered panel for its cards, like a `Frame` with a `Frame:Panel`.
+
+<!-- height: 380 -->
+
+```twig
+<twig:Kanban variant="frame">
+    <twig:Kanban:Column value="todo" title="To do">
+        <twig:Kanban:Card value="1">
+            Write the documentation
+        </twig:Kanban:Card>
+        <twig:Kanban:Card value="2">
+            Review the pull request
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+    <twig:Kanban:Column value="doing" title="In progress">
+        <twig:Kanban:Card value="3">
+            Fix the login redirect
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+    <twig:Kanban:Column value="done" title="Done">
+        <twig:Kanban:Card value="4">
+            Set up the CI
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+</twig:Kanban>
+```
+
+### Stacked Frame
+
+`variant="stacked"` joins the columns into one block inside a single muted frame, like a stacked `Frame`.
+
+<!-- height: 380 -->
+
+```twig
+<twig:Kanban variant="stacked">
+    <twig:Kanban:Column value="todo" title="To do">
+        <twig:Kanban:Card value="1">
+            Write the documentation
+        </twig:Kanban:Card>
+        <twig:Kanban:Card value="2">
+            Review the pull request
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+    <twig:Kanban:Column value="doing" title="In progress">
+        <twig:Kanban:Card value="3">
+            Fix the login redirect
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+    <twig:Kanban:Column value="done" title="Done">
+        <twig:Kanban:Card value="4">
+            Set up the CI
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+</twig:Kanban>
+```
+
+### Feature Roadmap
+
+A roadmap in three columns: each card has a title, a badge for the area and the number of votes.
+
+<!-- height: 420 -->
+
+```twig
+<twig:Kanban variant="frame" overlayClass="rotate-2 shadow-lg" placeholder>
+    <twig:Kanban:Column value="now" title="Now">
+        <twig:Kanban:Card value="f1" label="Dark mode" class="grid gap-2">
+            <span class="font-medium">Dark mode</span>
+            <span class="flex items-center justify-between">
+                <twig:Badge variant="secondary">
+                    Design
+                </twig:Badge>
+                <span class="flex items-center gap-1 text-xs text-muted-foreground">
+                    <twig:ux:icon name="lucide:arrow-big-up" class="size-3.5" />
+                    24
+                </span>
+            </span>
+        </twig:Kanban:Card>
+        <twig:Kanban:Card value="f2" label="CSV export" class="grid gap-2">
+            <span class="font-medium">CSV export</span>
+            <span class="flex items-center justify-between">
+                <twig:Badge variant="secondary">
+                    Data
+                </twig:Badge>
+                <span class="flex items-center gap-1 text-xs text-muted-foreground">
+                    <twig:ux:icon name="lucide:arrow-big-up" class="size-3.5" />
+                    18
+                </span>
+            </span>
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+    <twig:Kanban:Column value="next" title="Next">
+        <twig:Kanban:Card value="f3" label="Public API" class="grid gap-2">
+            <span class="font-medium">Public API</span>
+            <span class="flex items-center justify-between">
+                <twig:Badge variant="secondary">
+                    Platform
+                </twig:Badge>
+                <span class="flex items-center gap-1 text-xs text-muted-foreground">
+                    <twig:ux:icon name="lucide:arrow-big-up" class="size-3.5" />
+                    41
+                </span>
+            </span>
+        </twig:Kanban:Card>
+        <twig:Kanban:Card value="f4" label="Saved views" class="grid gap-2">
+            <span class="font-medium">Saved views</span>
+            <span class="flex items-center justify-between">
+                <twig:Badge variant="secondary">
+                    Data
+                </twig:Badge>
+                <span class="flex items-center gap-1 text-xs text-muted-foreground">
+                    <twig:ux:icon name="lucide:arrow-big-up" class="size-3.5" />
+                    12
+                </span>
+            </span>
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+    <twig:Kanban:Column value="later" title="Later">
+        <twig:Kanban:Card value="f5" label="Mobile app" class="grid gap-2">
+            <span class="font-medium">Mobile app</span>
+            <span class="flex items-center justify-between">
+                <twig:Badge variant="secondary">
+                    Platform
+                </twig:Badge>
+                <span class="flex items-center gap-1 text-xs text-muted-foreground">
+                    <twig:ux:icon name="lucide:arrow-big-up" class="size-3.5" />
+                    63
+                </span>
+            </span>
+        </twig:Kanban:Card>
+    </twig:Kanban:Column>
+</twig:Kanban>
+```
+
 ## Accessibility
 
 - Cards are focusable list items. `Space` or `Enter` picks one up, the arrow keys move it (`↑` / `↓` in the column, `←` / `→` to the neighbor column), `Space` or `Enter` drops it and `Esc` restores the board.
@@ -145,6 +338,10 @@ Cards hold any content, such as a progress bar or an assignee.
 |---|---|---|---|
 | `name` | string | `null` | When set, the board is submitted as hidden inputs `name[<column>][]` (card values in order). |
 | `label` | string | `Board` | Accessible name of the board. |
+| `variant` | `default`, `frame`, `stacked` | `default` | Muted columns, columns as bordered panels inside a muted frame, or one joined block. |
+| `placeholder` | bool | `false` | Shows a dashed placeholder where the dragged card will land; the card stays in place until the drop. |
+| `placeholderLabel` | string | `Drop here` | Text of the placeholder; `{column}` is replaced with the column under the pointer. |
+| `overlayClass` | string | `''` | Classes of the copy of the card that follows the pointer while dragging (a tilt, a shadow). |
 | `pickedUpLabel` | string | `{item} picked up from {column}, position {position} of {total}. Use the arrow keys to move it.` | Announced when a card is picked up. |
 | `movedLabel` | string | `{item} moved to {column}, position {position} of {total}.` | Announced after each keyboard move. |
 | `droppedLabel` | string | `{item} dropped in {column}, position {position} of {total}.` | Announced when the card is dropped. |

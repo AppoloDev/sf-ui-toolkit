@@ -7,10 +7,14 @@ import { Controller } from '@hotwired/stimulus';
  *
  * Events: `kanban:move` (cancelable, once per drop: { card, from, to, index }; cancel it to refuse the move),
  * `kanban:commit` (once per accepted drop: { board } as { column: [card values] }).
+ *
+ * With `placeholder`, the card stays where it is while dragging and a dashed placeholder (text from `placeholderLabel`,
+ * `{column}` replaced) shows where it will land. With `overlayClass`, the picture that follows the pointer is a copy of
+ * the card with those classes (a tilt, a shadow...).
  */
 export default class extends Controller {
     static targets = ['column', 'card'];
-    static values = { name: String, pickedUpLabel: String, movedLabel: String, droppedLabel: String, cancelledLabel: String };
+    static values = { name: String, pickedUpLabel: String, movedLabel: String, droppedLabel: String, cancelledLabel: String, placeholder: Boolean, placeholderLabel: { type: String, default: 'Drop here' }, overlayClass: String };
 
     connect() {
         this.live = document.createElement('div');
@@ -30,6 +34,7 @@ export default class extends Controller {
             card.dataset.dragging = 'true';
             event.dataTransfer.effectAllowed = 'move';
             event.dataTransfer.setData('text/plain', card.dataset.value);
+            if (this.overlayClassValue) this.overlay(card, event);
         };
         this.onDragOver = (event) => {
             if (!this.dragged) return;
@@ -39,11 +44,23 @@ export default class extends Controller {
             this.element.querySelectorAll('[data-cards]').forEach((item) => { item.dataset.over = String(item === list); });
             const cards = [...list.querySelectorAll('[data-kanban-target="card"]')].filter((card) => card !== this.dragged);
             const next = cards.find((card) => event.clientY < card.getBoundingClientRect().top + card.getBoundingClientRect().height / 2);
+            if (this.placeholderValue) {
+                this.placeholderAt(list, next ?? null);
+
+                return;
+            }
             list.insertBefore(this.dragged, next ?? null);
+        };
+        this.onDrop = (event) => {
+            if (!this.dragged || !this.ph?.parentNode) return;
+            event.preventDefault();
+            this.ph.parentNode.insertBefore(this.dragged, this.ph);
         };
         this.onDragEnd = () => {
             if (!this.dragged) return;
             delete this.dragged.dataset.dragging;
+            this.ph?.remove();
+            this.ph = null;
             this.element.querySelectorAll('[data-cards]').forEach((item) => { delete item.dataset.over; });
             const card = this.dragged;
             this.dragged = null;
@@ -52,6 +69,7 @@ export default class extends Controller {
         this.onKeyDown = (event) => this.keyboard(event);
         this.element.addEventListener('dragstart', this.onDragStart);
         this.element.addEventListener('dragover', this.onDragOver);
+        this.element.addEventListener('drop', this.onDrop);
         this.element.addEventListener('dragend', this.onDragEnd);
         this.element.addEventListener('keydown', this.onKeyDown);
         this.refresh();
@@ -60,10 +78,37 @@ export default class extends Controller {
     disconnect() {
         this.element.removeEventListener('dragstart', this.onDragStart);
         this.element.removeEventListener('dragover', this.onDragOver);
+        this.element.removeEventListener('drop', this.onDrop);
         this.element.removeEventListener('dragend', this.onDragEnd);
         this.element.removeEventListener('keydown', this.onKeyDown);
         this.live.remove();
         this.inputs.remove();
+    }
+
+    // The dashed placeholder that shows where a dragged card will land.
+    placeholderAt(list, before) {
+        if (!this.ph) {
+            this.ph = document.createElement('div');
+            this.ph.className = 'grid place-items-center rounded-lg border-2 border-dashed border-border bg-muted/40 text-xs text-muted-foreground';
+            this.ph.style.height = `${this.dragged.getBoundingClientRect().height}px`;
+            this.ph.setAttribute('aria-hidden', 'true');
+        }
+        const column = this.columnOf(list);
+        this.ph.textContent = this.placeholderLabelValue.replaceAll('{column}', column.querySelector('[data-title] span')?.textContent ?? column.dataset.value);
+        list.insertBefore(this.ph, before);
+    }
+
+    // The picture that follows the pointer: a copy of the card with the overlay classes.
+    overlay(card, event) {
+        const rect = card.getBoundingClientRect();
+        const copy = card.cloneNode(true);
+        copy.removeAttribute('data-kanban-target');
+        delete copy.dataset.dragging;
+        copy.className = `${card.className} ${this.overlayClassValue}`;
+        copy.style.cssText = `position:fixed;top:-1000px;left:0;width:${rect.width}px;`;
+        document.body.appendChild(copy);
+        event.dataTransfer.setDragImage(copy, event.clientX - rect.left, event.clientY - rect.top);
+        setTimeout(() => copy.remove());
     }
 
     // --- state ------------------------------------------------------------------------------
