@@ -63,6 +63,36 @@ An E.164 `value` selects the country from its dial code and fills the national n
 <twig:PhoneInput name="locked" value="+33612345678" disabled />
 ```
 
+### Basic
+
+```twig
+<twig:PhoneInput name="phone" defaultCountry="US" placeholder="555 123 4567" />
+```
+
+### Error State
+
+`invalid` marks the number with `aria-invalid`; compose it with `Field` and `Field:Error`.
+
+```twig
+<twig:Field class="w-fit" data-invalid="true">
+    <twig:Field:Label for="phone-error">
+        Mobile number
+    </twig:Field:Label>
+    <twig:PhoneInput id="phone-error" name="phone_error" value="+3361234" invalid />
+    <twig:Field:Error>
+        Enter a complete phone number.
+    </twig:Field:Error>
+</twig:Field>
+```
+
+### Read-Only
+
+`readonly` keeps the number readable and copyable but not editable, and locks the country.
+
+```twig
+<twig:PhoneInput name="phone_ro" value="+33612345678" readonly />
+```
+
 ## Accessibility
 
 - The country button is a `listbox` trigger (`aria-haspopup`, `aria-expanded`) and its label announces the selected country and dial code.
@@ -93,3 +123,5 @@ An E.164 `value` selects the country from its dial code and fills the national n
 | `listLabel` | string | `Countries` | Accessible name of the country list. |
 | `emptyLabel` | string | `No country found.` | Text shown when the search has no result. |
 | `disabled` | bool | `false` | Disables the field. |
+| `readonly` | bool | `false` | The number can be read and copied but not changed; the country button is disabled. |
+| `invalid` | bool | `false` | Marks the number field as invalid (`aria-invalid`). |
