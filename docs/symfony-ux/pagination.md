@@ -299,3 +299,618 @@
     </twig:Card:Content>
 </twig:Card>
 ```
+
+### Ellipsis At The Start
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Ellipsis />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                8
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true">
+                9
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                10
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Ellipsis At The End
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true">
+                2
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Ellipsis />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                10
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Ellipsis At Both Ends
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Ellipsis />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                5
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true">
+                6
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                7
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Ellipsis />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                20
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Large Number Of Pages
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" aria-label="Go to first page">
+                <twig:ux:icon name="lucide:chevrons-left" />
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Ellipsis />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                48
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true">
+                49
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                50
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Ellipsis />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                100
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" aria-label="Go to last page">
+                <twig:ux:icon name="lucide:chevrons-right" />
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Disabled
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" aria-disabled="true" tabindex="-1" class="pointer-events-none opacity-50" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                2
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+
+### Simple Page Numbers
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true">
+                2
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Five Page Numbers
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                2
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                4
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                5
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Previous And Next Only
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Previous And Next With Labels
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content class="w-full justify-between">
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" text="Older" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" text="Newer" />
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### All Elements
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" aria-label="Go to first page">
+                <twig:ux:icon name="lucide:chevrons-left" />
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true">
+                2
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Ellipsis />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                12
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" aria-label="Go to last page">
+                <twig:ux:icon name="lucide:chevrons-right" />
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Page Counter
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content class="gap-3">
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <span class="text-sm text-muted-foreground tabular-nums">
+                Page 2 of 12
+            </span>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### First And Last Page
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" aria-label="Go to first page">
+                <twig:ux:icon name="lucide:chevrons-left" />
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <span class="px-2 text-sm tabular-nums">
+                4 / 20
+            </span>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" aria-label="Go to last page">
+                <twig:ux:icon name="lucide:chevrons-right" />
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### First And Last Page With Labels
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" size="default">
+                <twig:ux:icon name="lucide:chevrons-left" />
+                First
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true">
+                4
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                5
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" size="default">
+                Last
+                <twig:ux:icon name="lucide:chevrons-right" />
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Spaced
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content class="gap-3">
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true">
+                2
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Small
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" size="sm" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" size="icon-sm">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true" size="icon-sm">
+                2
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" size="icon-sm">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" size="sm" />
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Large
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content>
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" size="lg" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" size="icon-lg">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true" size="icon-lg">
+                2
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" size="icon-lg">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" size="lg" />
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Compact
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content class="gap-0">
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" size="icon-xs">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true" size="icon-xs">
+                2
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" size="icon-xs">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" size="icon-xs">
+                4
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Spacious
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content class="gap-4">
+        <twig:Pagination:Item>
+            <twig:Pagination:Previous href="#" />
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#" :active="true">
+                2
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link href="#">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Next href="#" />
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
+
+### Outlined Group
+
+```twig
+<twig:Pagination>
+    <twig:Pagination:Content class="gap-0 divide-x rounded-lg border">
+        <twig:Pagination:Item>
+            <twig:Pagination:Link class="rounded-none" href="#">
+                1
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link class="rounded-none" href="#" :active="true">
+                2
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link class="rounded-none" href="#">
+                3
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+        <twig:Pagination:Item>
+            <twig:Pagination:Link class="rounded-none" href="#">
+                4
+            </twig:Pagination:Link>
+        </twig:Pagination:Item>
+    </twig:Pagination:Content>
+</twig:Pagination>
+```
