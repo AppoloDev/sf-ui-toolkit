@@ -696,3 +696,41 @@ A second button next to the one that opens the list resets the selection. `Combo
     </div>
 </div>
 ```
+
+### Invisible Tags
+
+The chips sit in the field with no frame, no background and no focus ring, so the selection reads like a line of text. The classes go on `Combobox:Chips`.
+
+```twig
+<div style="min-height: 300px">
+    <div class="w-full max-w-xs">
+        <twig:Combobox id="invisible-tags" name="tags" multiple autoHighlight :value="['Design', 'Docs']">
+            <twig:Combobox:Chips class="border-0! bg-transparent! px-0! focus-within:ring-0! dark:bg-transparent!">
+                <twig:Combobox:ChipsInput placeholder="Add tag" />
+            </twig:Combobox:Chips>
+            <twig:Combobox:Content>
+                <twig:Combobox:Empty>
+                    No tags found.
+                </twig:Combobox:Empty>
+                <twig:Combobox:List>
+                    <twig:Combobox:Item value="Design">
+                        Design
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Bug">
+                        Bug
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Feature">
+                        Feature
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Docs">
+                        Docs
+                    </twig:Combobox:Item>
+                    <twig:Combobox:Item value="Urgent">
+                        Urgent
+                    </twig:Combobox:Item>
+                </twig:Combobox:List>
+            </twig:Combobox:Content>
+        </twig:Combobox>
+    </div>
+</div>
+```

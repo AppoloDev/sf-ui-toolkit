@@ -270,3 +270,142 @@ Favorites come first, with a filled star, then the latest commands with when the
     </twig:Command:List>
 </twig:Command>
 ```
+
+### Many Groups
+
+Six groups in one scrollable list. Typing filters every group at once and hides the ones left empty.
+
+```twig
+<twig:Command class="max-w-sm rounded-lg border">
+    <twig:Command:Input placeholder="Search everything..." />
+    <twig:Command:List class="max-h-72">
+        <twig:Command:Empty>
+            No results found.
+        </twig:Command:Empty>
+        <twig:Command:Group heading="Suggestions">
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:calendar" />
+                Calendar
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:smile" />
+                Search emoji
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:calculator" />
+                Calculator
+                <twig:Command:Shortcut>
+                    ⌘K
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+        </twig:Command:Group>
+        <twig:Command:Separator />
+        <twig:Command:Group heading="Navigation">
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:layout-dashboard" />
+                Dashboard
+                <twig:Command:Shortcut>
+                    ⌘1
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:inbox" />
+                Inbox
+                <twig:Command:Shortcut>
+                    ⌘2
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:folder" />
+                Projects
+                <twig:Command:Shortcut>
+                    ⌘3
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:users" />
+                Team
+                <twig:Command:Shortcut>
+                    ⌘4
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+        </twig:Command:Group>
+        <twig:Command:Separator />
+        <twig:Command:Group heading="Create">
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:file-plus" />
+                New document
+                <twig:Command:Shortcut>
+                    ⌘N
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:folder-plus" />
+                New project
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:user-plus" />
+                Invite a member
+            </twig:Command:Item>
+        </twig:Command:Group>
+        <twig:Command:Separator />
+        <twig:Command:Group heading="Settings">
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:user" />
+                Profile
+                <twig:Command:Shortcut>
+                    ⌘P
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:credit-card" />
+                Billing
+                <twig:Command:Shortcut>
+                    ⌘B
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:settings" />
+                Preferences
+                <twig:Command:Shortcut>
+                    ⌘,
+                </twig:Command:Shortcut>
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:keyboard" />
+                Keyboard shortcuts
+            </twig:Command:Item>
+        </twig:Command:Group>
+        <twig:Command:Separator />
+        <twig:Command:Group heading="Theme">
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:sun" />
+                Light
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:moon" />
+                Dark
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:monitor" />
+                System
+            </twig:Command:Item>
+        </twig:Command:Group>
+        <twig:Command:Separator />
+        <twig:Command:Group heading="Help">
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:book-open" />
+                Documentation
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:life-buoy" />
+                Support
+            </twig:Command:Item>
+            <twig:Command:Item>
+                <twig:ux:icon name="lucide:message-square" />
+                Send feedback
+            </twig:Command:Item>
+        </twig:Command:Group>
+    </twig:Command:List>
+</twig:Command>
+```
