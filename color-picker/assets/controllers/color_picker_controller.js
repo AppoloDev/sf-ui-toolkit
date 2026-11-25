@@ -163,6 +163,7 @@ export default class extends Controller {
 
     commit() {
         this.remember();
+        this.renderRecent();
         this.hiddenTarget.dispatchEvent(new Event('change', { bubbles: true }));
         this.dispatch('commit', { detail: { value: this.output() } });
     }

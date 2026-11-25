@@ -107,7 +107,7 @@
         <twig:Popover:Trigger>
             <twig:Button variant="outline" aria-label="{{ label }}" {{ ...trigger }} {{ ...popover_trigger_attrs }}>
                 <span class="size-4 rounded border border-black/10" data-color-picker-target="chip"></span>
-                <span class="font-mono text-xs uppercase tabular-nums" data-color-picker-target="text"></span>
+                <span class="font-mono text-xs {{ format == 'hex' ? 'uppercase ' }}tabular-nums" data-color-picker-target="text"></span>
             </twig:Button>
         </twig:Popover:Trigger>
         <input type="hidden" {% if name %}name="{{ name }}" {% endif %}data-color-picker-target="hidden">
