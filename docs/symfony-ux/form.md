@@ -1217,7 +1217,7 @@
         <twig:Button type="submit">
             Apply
         </twig:Button>
-        <twig:Button type="submit" variant="outline" type="reset">
+        <twig:Button type="reset" variant="outline">
             Reset
         </twig:Button>
     </div>
