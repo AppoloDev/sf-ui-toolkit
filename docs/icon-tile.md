@@ -189,25 +189,29 @@ A tile above the title and the text of a feature.
 
 ### Empty State
 
-A larger tile on top of a message and an action.
+The tile is the media of the shadcn `Empty` component, in its default variant (no background of its own).
 
 ```twig
-<div class="flex max-w-xs flex-col items-center gap-3 rounded-xl border border-dashed border-border p-8 text-center">
-    <twig:IconTile variant="frame" size="lg">
-        <twig:ux:icon name="lucide:inbox" />
-    </twig:IconTile>
-    <div class="space-y-1">
-        <p class="text-sm font-medium">
+<twig:Empty class="max-w-sm border border-dashed">
+    <twig:Empty:Header>
+        <twig:Empty:Media>
+            <twig:IconTile variant="frame" size="lg">
+                <twig:ux:icon name="lucide:inbox" />
+            </twig:IconTile>
+        </twig:Empty:Media>
+        <twig:Empty:Title>
             No messages yet
-        </p>
-        <p class="text-sm text-muted-foreground">
+        </twig:Empty:Title>
+        <twig:Empty:Description>
             New messages will show up here as soon as they arrive.
-        </p>
-    </div>
-    <twig:Button variant="outline" size="sm">
-        Refresh
-    </twig:Button>
-</div>
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+    <twig:Empty:Content>
+        <twig:Button variant="outline" size="sm">
+            Refresh
+        </twig:Button>
+    </twig:Empty:Content>
+</twig:Empty>
 ```
 
 ### Interactive
