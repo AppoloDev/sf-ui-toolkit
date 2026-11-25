@@ -368,7 +368,7 @@ The state is read from outside through the `cascader:change` event, and it can b
 ```twig
 <twig:Cascader name="assignee" placeholder="Assign to…">
     <twig:Cascader:Option value="design" label="Design">
-        <twig:Cascader:Option value="ana" label="Design / Ana Silva">
+        <twig:Cascader:Option value="ana" label="Ana Silva">
             <twig:Cascader:Content>
                 <span class="flex items-center gap-2">
                     <twig:Avatar class="size-6">
@@ -378,7 +378,7 @@ The state is read from outside through the `cascader:change` event, and it can b
                 </span>
             </twig:Cascader:Content>
         </twig:Cascader:Option>
-        <twig:Cascader:Option value="marc" label="Design / Marc Dupont">
+        <twig:Cascader:Option value="marc" label="Marc Dupont">
             <twig:Cascader:Content>
                 <span class="flex items-center gap-2">
                     <twig:Avatar class="size-6">
@@ -390,7 +390,7 @@ The state is read from outside through the `cascader:change` event, and it can b
         </twig:Cascader:Option>
     </twig:Cascader:Option>
     <twig:Cascader:Option value="eng" label="Engineering">
-        <twig:Cascader:Option value="lea" label="Engineering / Léa Martin">
+        <twig:Cascader:Option value="lea" label="Léa Martin">
             <twig:Cascader:Content>
                 <span class="flex items-center gap-2">
                     <twig:Avatar class="size-6">
@@ -400,7 +400,7 @@ The state is read from outside through the `cascader:change` event, and it can b
                 </span>
             </twig:Cascader:Content>
         </twig:Cascader:Option>
-        <twig:Cascader:Option value="omar" label="Engineering / Omar Haddad">
+        <twig:Cascader:Option value="omar" label="Omar Haddad">
             <twig:Cascader:Content>
                 <span class="flex items-center gap-2">
                     <twig:Avatar class="size-6">
