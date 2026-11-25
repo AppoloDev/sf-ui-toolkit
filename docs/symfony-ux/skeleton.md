@@ -643,3 +643,276 @@
     <twig:Skeleton class="h-12 w-32" />
 </div>
 ```
+
+### Card With Avatar
+
+```twig
+<twig:Card class="w-full max-w-sm">
+    <twig:Card:Content class="flex flex-col gap-3">
+        <div class="flex items-center gap-3">
+            <twig:Skeleton class="size-10 rounded-full" />
+            <div class="flex flex-col gap-2">
+                <twig:Skeleton class="h-4 w-28" />
+                <twig:Skeleton class="h-3 w-20" />
+            </div>
+        </div>
+        <twig:Skeleton class="h-3 w-full" />
+        <twig:Skeleton class="h-3 w-5/6" />
+        <twig:Skeleton class="h-3 w-2/3" />
+    </twig:Card:Content>
+</twig:Card>
+```
+
+### Form With Labels
+
+```twig
+<twig:Field:Group class="w-full max-w-sm">
+    <twig:Field>
+        <twig:Skeleton class="h-3 w-16" />
+        <twig:Skeleton class="h-9 w-full" />
+    </twig:Field>
+    <twig:Field>
+        <twig:Skeleton class="h-3 w-24" />
+        <twig:Skeleton class="h-9 w-full" />
+    </twig:Field>
+    <twig:Field>
+        <twig:Skeleton class="h-3 w-20" />
+        <twig:Skeleton class="h-20 w-full" />
+        <twig:Skeleton class="h-3 w-40" />
+    </twig:Field>
+    <twig:Skeleton class="h-9 w-24" />
+</twig:Field:Group>
+```
+
+### Multi Column Form
+
+```twig
+<div class="grid w-full max-w-xl grid-cols-2 gap-4">
+    <twig:Field>
+        <twig:Skeleton class="h-3 w-20" />
+        <twig:Skeleton class="h-9 w-full" />
+    </twig:Field>
+    <twig:Field>
+        <twig:Skeleton class="h-3 w-20" />
+        <twig:Skeleton class="h-9 w-full" />
+    </twig:Field>
+    <twig:Field>
+        <twig:Skeleton class="h-3 w-20" />
+        <twig:Skeleton class="h-9 w-full" />
+    </twig:Field>
+    <twig:Field>
+        <twig:Skeleton class="h-3 w-20" />
+        <twig:Skeleton class="h-9 w-full" />
+    </twig:Field>
+    <twig:Field class="col-span-2">
+        <twig:Skeleton class="h-3 w-24" />
+        <twig:Skeleton class="h-9 w-full" />
+    </twig:Field>
+    <twig:Skeleton class="col-span-2 h-9 w-28" />
+</div>
+```
+
+### Form With Sections
+
+```twig
+<div class="flex w-full max-w-md flex-col gap-6">
+    <div class="flex flex-col gap-4">
+        <twig:Skeleton class="h-5 w-32" />
+        <twig:Skeleton class="h-3 w-56" />
+        <twig:Field:Group>
+            <twig:Field>
+                <twig:Skeleton class="h-3 w-20" />
+                <twig:Skeleton class="h-9 w-full" />
+            </twig:Field>
+            <twig:Field>
+                <twig:Skeleton class="h-3 w-20" />
+                <twig:Skeleton class="h-9 w-full" />
+            </twig:Field>
+        </twig:Field:Group>
+    </div>
+    <twig:Separator />
+    <div class="flex flex-col gap-4">
+        <twig:Skeleton class="h-5 w-32" />
+        <twig:Skeleton class="h-3 w-56" />
+        <twig:Field:Group>
+            <twig:Field>
+                <twig:Skeleton class="h-3 w-20" />
+                <twig:Skeleton class="h-9 w-full" />
+            </twig:Field>
+            <twig:Field>
+                <twig:Skeleton class="h-3 w-20" />
+                <twig:Skeleton class="h-9 w-full" />
+            </twig:Field>
+        </twig:Field:Group>
+    </div>
+    <div class="flex justify-end gap-2">
+        <twig:Skeleton class="h-9 w-20" />
+        <twig:Skeleton class="h-9 w-24" />
+    </div>
+</div>
+```
+
+### Simple List
+
+```twig
+<div class="flex w-full max-w-sm flex-col gap-3">
+    <twig:Skeleton class="h-5 w-full" />
+    <twig:Skeleton class="h-5 w-11/12" />
+    <twig:Skeleton class="h-5 w-5/6" />
+    <twig:Skeleton class="h-5 w-full" />
+    <twig:Skeleton class="h-5 w-3/4" />
+</div>
+```
+
+### List With Avatars
+
+```twig
+<div class="flex w-full max-w-sm flex-col gap-4">
+    <div class="flex items-center gap-3">
+        <twig:Skeleton class="size-10 rounded-full" />
+        <div class="flex flex-1 flex-col gap-2">
+            <twig:Skeleton class="h-4 w-32" />
+            <twig:Skeleton class="h-3 w-24" />
+        </div>
+    </div>
+    <div class="flex items-center gap-3">
+        <twig:Skeleton class="size-10 rounded-full" />
+        <div class="flex flex-1 flex-col gap-2">
+            <twig:Skeleton class="h-4 w-32" />
+            <twig:Skeleton class="h-3 w-24" />
+        </div>
+    </div>
+    <div class="flex items-center gap-3">
+        <twig:Skeleton class="size-10 rounded-full" />
+        <div class="flex flex-1 flex-col gap-2">
+            <twig:Skeleton class="h-4 w-32" />
+            <twig:Skeleton class="h-3 w-24" />
+        </div>
+    </div>
+    <div class="flex items-center gap-3">
+        <twig:Skeleton class="size-10 rounded-full" />
+        <div class="flex flex-1 flex-col gap-2">
+            <twig:Skeleton class="h-4 w-32" />
+            <twig:Skeleton class="h-3 w-24" />
+        </div>
+    </div>
+</div>
+```
+
+### Multi Line List
+
+```twig
+<div class="flex w-full max-w-md flex-col gap-5">
+    <div class="flex flex-col gap-2">
+        <twig:Skeleton class="h-4 w-1/3" />
+        <twig:Skeleton class="h-3 w-full" />
+        <twig:Skeleton class="h-3 w-4/5" />
+    </div>
+    <div class="flex flex-col gap-2">
+        <twig:Skeleton class="h-4 w-1/3" />
+        <twig:Skeleton class="h-3 w-full" />
+        <twig:Skeleton class="h-3 w-4/5" />
+    </div>
+    <div class="flex flex-col gap-2">
+        <twig:Skeleton class="h-4 w-1/3" />
+        <twig:Skeleton class="h-3 w-full" />
+        <twig:Skeleton class="h-3 w-4/5" />
+    </div>
+</div>
+```
+
+### Profile With Stats
+
+```twig
+<twig:Card class="w-full max-w-sm">
+    <twig:Card:Content class="flex flex-col gap-5">
+        <div class="flex items-center gap-4">
+            <twig:Skeleton class="size-16 rounded-full" />
+            <div class="flex flex-col gap-2">
+                <twig:Skeleton class="h-5 w-32" />
+                <twig:Skeleton class="h-3 w-24" />
+            </div>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+            <div class="flex flex-col items-center gap-2">
+                <twig:Skeleton class="h-6 w-12" />
+                <twig:Skeleton class="h-3 w-16" />
+            </div>
+            <div class="flex flex-col items-center gap-2">
+                <twig:Skeleton class="h-6 w-12" />
+                <twig:Skeleton class="h-3 w-16" />
+            </div>
+            <div class="flex flex-col items-center gap-2">
+                <twig:Skeleton class="h-6 w-12" />
+                <twig:Skeleton class="h-3 w-16" />
+            </div>
+        </div>
+    </twig:Card:Content>
+</twig:Card>
+```
+
+### Simple Table Rows
+
+```twig
+<twig:Table class="w-full max-w-xl">
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                Name
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Role
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Joined
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-32" />
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-20" />
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-24" />
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-32" />
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-20" />
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-24" />
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-32" />
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-20" />
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-24" />
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-32" />
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-20" />
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:Skeleton class="h-4 w-24" />
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
