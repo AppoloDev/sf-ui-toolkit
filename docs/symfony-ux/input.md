@@ -217,3 +217,139 @@ Password, phone, URL, number, date, time, color and range.
     <twig:Input id="in-desc" maxlength="50" />
 </twig:Field>
 ```
+
+### Success State
+
+```twig
+<twig:Field class="max-w-xs">
+    <twig:Field:Label for="in-success">
+        Username
+    </twig:Field:Label>
+    <twig:InputGroup class="border-green-600 has-[[data-slot=input-group-control]:focus-visible]:border-green-600 has-[[data-slot=input-group-control]:focus-visible]:ring-green-600/30">
+        <twig:InputGroup:Input id="in-success" value="shadcn" />
+        <twig:InputGroup:Addon align="inline-end">
+            <twig:ux:icon name="lucide:circle-check" class="text-green-600" />
+        </twig:InputGroup:Addon>
+    </twig:InputGroup>
+    <twig:Field:Description class="text-green-700 dark:text-green-500">
+        This username is available.
+    </twig:Field:Description>
+</twig:Field>
+```
+
+### Warning State
+
+```twig
+<twig:Field class="max-w-xs">
+    <twig:Field:Label for="in-warning">
+        Password
+    </twig:Field:Label>
+    <twig:InputGroup class="border-amber-500 has-[[data-slot=input-group-control]:focus-visible]:border-amber-500 has-[[data-slot=input-group-control]:focus-visible]:ring-amber-500/30">
+        <twig:InputGroup:Input id="in-warning" type="password" value="password1" />
+        <twig:InputGroup:Addon align="inline-end">
+            <twig:ux:icon name="lucide:triangle-alert" class="text-amber-500" />
+        </twig:InputGroup:Addon>
+    </twig:InputGroup>
+    <twig:Field:Description class="text-amber-700 dark:text-amber-500">
+        This password is easy to guess.
+    </twig:Field:Description>
+</twig:Field>
+```
+
+### Live Validation
+
+The browser validates while typing, once the field was touched (`:user-invalid`): no JavaScript.
+
+```twig
+<twig:Field class="max-w-xs">
+    <twig:Field:Label for="in-live">
+        Username
+    </twig:Field:Label>
+    <twig:Input id="in-live" required minlength="3" pattern="[a-z0-9_]+" placeholder="lowercase letters, digits, _" class="peer user-invalid:border-destructive user-invalid:ring-3 user-invalid:ring-destructive/20" />
+    <twig:Field:Description class="hidden peer-user-invalid:block text-destructive">
+        At least 3 characters: lowercase letters, digits or underscore.
+    </twig:Field:Description>
+</twig:Field>
+```
+
+### Inline Label
+
+```twig
+<twig:InputGroup class="max-w-xs">
+    <twig:InputGroup:Addon>
+        <twig:Field:Label for="in-inline">
+            Website
+        </twig:Field:Label>
+    </twig:InputGroup:Addon>
+    <twig:InputGroup:Input id="in-inline" type="url" placeholder="https://example.com" />
+</twig:InputGroup>
+```
+
+### Sizes
+
+```twig
+<div class="grid max-w-xs gap-4">
+    <twig:Input placeholder="Small" class="h-7 text-xs" />
+    <twig:Input placeholder="Default" />
+    <twig:Input placeholder="Large" class="h-10 text-base" />
+    <twig:Input placeholder="Extra large" class="h-12 px-3.5 text-lg" />
+</div>
+```
+
+### Search
+
+```twig
+<twig:InputGroup class="max-w-xs">
+    <twig:InputGroup:Addon>
+        <twig:ux:icon name="lucide:search" />
+    </twig:InputGroup:Addon>
+    <twig:InputGroup:Input type="search" placeholder="Search..." />
+</twig:InputGroup>
+```
+
+### Loading State
+
+```twig
+<twig:InputGroup class="max-w-xs">
+    <twig:InputGroup:Input value="symfony/ux-toolkit" aria-busy="true" readonly />
+    <twig:InputGroup:Addon align="inline-end">
+        <twig:Spinner />
+    </twig:InputGroup:Addon>
+</twig:InputGroup>
+```
+
+### Clear Button
+
+Needs the `clearable` recipe.
+
+```twig
+<twig:Clearable>
+    <twig:InputGroup class="max-w-xs">
+        <twig:InputGroup:Input placeholder="Type, then clear" value="Hello" />
+        <twig:InputGroup:Addon align="inline-end">
+            <twig:Clearable:Button />
+        </twig:InputGroup:Addon>
+    </twig:InputGroup>
+</twig:Clearable>
+```
+
+### Floating Label
+
+Needs the `float-label` recipe.
+
+```twig
+<div class="grid max-w-xs gap-6">
+    <twig:FloatLabel label="Username" fieldId="in-float-over">
+        <twig:Input id="in-float-over" placeholder=" " />
+    </twig:FloatLabel>
+    <twig:FloatLabel label="Username" fieldId="in-float-in" variant="in">
+        <twig:Input id="in-float-in" placeholder=" " />
+    </twig:FloatLabel>
+    <twig:FloatLabel label="Username" fieldId="in-float-on" variant="on">
+        <twig:Input id="in-float-on" placeholder=" " />
+    </twig:FloatLabel>
+    <twig:FloatLabel label="Username" fieldId="in-float-ifta" variant="ifta">
+        <twig:Input id="in-float-ifta" placeholder=" " />
+    </twig:FloatLabel>
+</div>
+```
