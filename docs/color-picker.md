@@ -272,9 +272,7 @@ Three brand colors, each with its own picker, and the resulting tints and shades
         row.replaceChildren(...steps.map((step, index) => {
             const cell = document.createElement('div');
             cell.className = 'flex-1';
-            const mix = index < 4 ? 'white' : 'black';
-            const amount = index < 4 ? 100 - step : 100 - step;
-            cell.style.background = 'color-mix(in srgb, ' + color + ' ' + (index < 4 ? step : step) + '%, ' + mix + ')';
+            cell.style.background = 'color-mix(in srgb, ' + color + ' ' + step + '%, ' + (index < 4 ? 'white' : 'black') + ')';
             return cell;
         }));
     };
