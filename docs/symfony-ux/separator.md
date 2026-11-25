@@ -124,3 +124,252 @@
     </div>
 </div>
 ```
+
+### Horizontal
+
+```twig
+<div class="grid w-64 gap-2">
+    <p class="text-sm font-medium">
+        Account
+    </p>
+    <twig:Separator />
+    <p class="text-sm text-muted-foreground">
+        Manage your profile and preferences.
+    </p>
+</div>
+```
+
+### Vertical
+
+```twig
+<div class="flex h-5 items-center gap-3 text-sm">
+    <span>
+        Docs
+    </span>
+    <twig:Separator orientation="vertical" />
+    <span>
+        Blog
+    </span>
+    <twig:Separator orientation="vertical" />
+    <span>
+        Source
+    </span>
+</div>
+```
+
+### In A Navigation
+
+```twig
+<nav class="flex items-center gap-3 text-sm">
+    <a href="#" class="font-medium">
+        Home
+    </a>
+    <twig:Separator orientation="vertical" class="h-4" />
+    <a href="#" class="text-muted-foreground hover:text-foreground">
+        Products
+    </a>
+    <twig:Separator orientation="vertical" class="h-4" />
+    <a href="#" class="text-muted-foreground hover:text-foreground">
+        Pricing
+    </a>
+    <twig:Separator orientation="vertical" class="h-4" />
+    <a href="#" class="text-muted-foreground hover:text-foreground">
+        Contact
+    </a>
+</nav>
+```
+
+### Section Divider
+
+```twig
+<div class="grid w-full max-w-md gap-6">
+    <section class="grid gap-1">
+        <h4 class="font-medium">
+            Overview
+        </h4>
+        <p class="text-sm text-muted-foreground">
+            A summary of the project.
+        </p>
+    </section>
+    <twig:Separator />
+    <section class="grid gap-1">
+        <h4 class="font-medium">
+            Details
+        </h4>
+        <p class="text-sm text-muted-foreground">
+            Scope, timeline and owners.
+        </p>
+    </section>
+</div>
+```
+
+### Plain Line
+
+```twig
+<twig:Separator class="w-64" />
+```
+
+### Tight Spacing
+
+```twig
+<div class="w-64 text-sm">
+    <p>
+        First block
+    </p>
+    <twig:Separator class="my-1" />
+    <p>
+        Second block
+    </p>
+</div>
+```
+
+### Default Spacing
+
+```twig
+<div class="w-64 text-sm">
+    <p>
+        First block
+    </p>
+    <twig:Separator class="my-3" />
+    <p>
+        Second block
+    </p>
+</div>
+```
+
+### Wide Spacing
+
+```twig
+<div class="w-64 text-sm">
+    <p>
+        First block
+    </p>
+    <twig:Separator class="my-8" />
+    <p>
+        Second block
+    </p>
+</div>
+```
+
+### With Margins
+
+```twig
+<div class="w-64 rounded-lg border p-4 text-sm">
+    <p>
+        First block
+    </p>
+    <twig:Separator class="-mx-4 my-4 w-auto" />
+    <p>
+        Second block
+    </p>
+</div>
+```
+
+### Inset
+
+```twig
+<div class="w-72 text-sm">
+    <p class="px-4 py-2">
+        Inbox
+    </p>
+    <twig:Separator class="ms-4 w-auto" />
+    <p class="px-4 py-2">
+        Drafts
+    </p>
+    <twig:Separator class="ms-4 w-auto" />
+    <p class="px-4 py-2">
+        Sent
+    </p>
+</div>
+```
+
+### Thick
+
+```twig
+<twig:Separator class="w-64 data-[orientation=horizontal]:h-1 rounded-full" />
+```
+
+### Dashed
+
+```twig
+<div class="w-64 border-t border-dashed"></div>
+```
+
+### Dotted
+
+```twig
+<div class="w-64 border-t-2 border-dotted"></div>
+```
+
+### Gradient
+
+```twig
+<twig:Separator class="w-64 bg-gradient-to-r from-transparent via-foreground/40 to-transparent" />
+```
+
+### Double Line
+
+```twig
+<div class="grid w-64 gap-1">
+    <twig:Separator />
+    <twig:Separator />
+</div>
+```
+
+### Dots
+
+```twig
+<div class="flex w-64 items-center justify-center gap-2 text-muted-foreground">
+    <span class="size-1 rounded-full bg-current"></span>
+    <span class="size-1 rounded-full bg-current"></span>
+    <span class="size-1 rounded-full bg-current"></span>
+</div>
+```
+
+### Text On The Left
+
+```twig
+<div class="relative w-full max-w-sm">
+    <twig:Separator />
+    <span class="absolute start-4 top-1/2 -translate-y-1/2 bg-background px-2 text-xs text-muted-foreground">
+        Section
+    </span>
+</div>
+```
+
+### Text On The Right
+
+```twig
+<div class="relative w-full max-w-sm">
+    <twig:Separator />
+    <span class="absolute end-4 top-1/2 -translate-y-1/2 bg-background px-2 text-xs text-muted-foreground">
+        Section
+    </span>
+</div>
+```
+
+### Text With Icon
+
+```twig
+<div class="relative w-full max-w-sm">
+    <twig:Separator />
+    <span class="absolute start-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-1 bg-background px-2 text-xs text-muted-foreground">
+        <twig:ux:icon name="lucide:star" class="size-3" />
+        Featured
+    </span>
+</div>
+```
+
+### Semantic Role
+
+```twig
+<div class="grid w-64 gap-2 text-sm">
+    <span>
+        Above
+    </span>
+    <twig:Separator :decorative="false" />
+    <span>
+        Below
+    </span>
+</div>
+```
