@@ -258,7 +258,7 @@ Password, phone, URL, number, date, time, color and range.
 
 ### Live Validation
 
-The browser validates while typing, once the field was touched (`:user-invalid`): no JavaScript.
+The browser validates while typing, once the field was touched and left (`:user-invalid`): no JavaScript.
 
 ```twig
 <twig:Field class="max-w-xs">
