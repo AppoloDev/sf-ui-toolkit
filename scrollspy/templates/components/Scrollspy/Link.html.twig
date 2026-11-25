@@ -6,7 +6,7 @@
 #}
 {%- props href -%}
 {%- set extra_class = attributes.render('class') -%}
-<a href="{{ href }}" class="{{ ('-ml-px border-l-2 border-transparent py-1 pl-3 text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring data-[active=true]:border-primary data-[active=true]:font-medium data-[active=true]:text-foreground ' ~ extra_class)|trim }}"
+<a href="{{ href }}" class="{{ ('-ml-px border-l-2 border-transparent py-1 pl-3 text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring data-[active=true]:border-primary data-[active=true]:font-medium data-[active=true]:text-foreground group-data-[orientation=horizontal]/spy:-mb-px group-data-[orientation=horizontal]/spy:ml-0 group-data-[orientation=horizontal]/spy:whitespace-nowrap group-data-[orientation=horizontal]/spy:border-l-0 group-data-[orientation=horizontal]/spy:border-b-2 group-data-[orientation=horizontal]/spy:px-3 ' ~ extra_class)|trim }}"
    data-scrollspy-target="link" data-action="scrollspy#go" {{ attributes }}>
     {%- block content %}{% endblock -%}
 </a>

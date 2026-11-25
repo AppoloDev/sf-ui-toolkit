@@ -6,17 +6,19 @@
     offset   px kept above the active section (fixed header height, for example)
     history  keep the URL hash in sync with the active section (replaceState)
     label    accessible name of the navigation
+    orientation  vertical | horizontal: a column of links (default) or a row, underlined like tabs
 
   The slot holds Scrollspy:Link elements whose `href` is `#<section id>`.
 #}
-{%- props root = null, offset = 0, history = true, label = 'On this page' -%}
+{%- props root = null, offset = 0, history = true, label = 'On this page', orientation = 'vertical' -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- set data = {
     'data-controller': 'scrollspy',
     'data-scrollspy-root-value': root ?? '',
     'data-scrollspy-offset-value': offset,
     'data-scrollspy-history-value': history ? 'true' : 'false',
+    'data-orientation': orientation,
 } -%}
-<nav aria-label="{{ label }}" class="{{ ('flex flex-col text-sm ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
+<nav aria-label="{{ label }}" class="{{ ('group/spy flex text-sm ' ~ (orientation == 'horizontal' ? 'flex-row overflow-x-auto border-b border-border' : 'flex-col') ~ ' ' ~ extra_class)|trim }}" {{ attributes.defaults(data) }}>
     {%- block content %}{% endblock -%}
 </nav>

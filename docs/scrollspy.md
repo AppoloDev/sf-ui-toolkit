@@ -89,6 +89,63 @@
 </twig:Scrollspy>
 ```
 
+### Horizontal nav
+
+`orientation="horizontal"` lays the links out in a row, underlined like tabs, for a sticky bar above the content.
+
+```twig
+<div class="grid max-w-xl gap-3">
+    <twig:Scrollspy root="#spy-h-panel" orientation="horizontal" :history="false" label="Sections">
+        <twig:Scrollspy:Link href="#spy-h-overview">
+            Overview
+        </twig:Scrollspy:Link>
+        <twig:Scrollspy:Link href="#spy-h-features">
+            Features
+        </twig:Scrollspy:Link>
+        <twig:Scrollspy:Link href="#spy-h-pricing">
+            Pricing
+        </twig:Scrollspy:Link>
+        <twig:Scrollspy:Link href="#spy-h-faq">
+            FAQ
+        </twig:Scrollspy:Link>
+    </twig:Scrollspy>
+    <div id="spy-h-panel" class="h-56 overflow-y-auto rounded-md border border-border p-4 text-sm">
+        <section id="spy-h-overview" class="min-h-40">
+            <h3 class="font-medium">
+                Overview
+            </h3>
+            <p class="mt-2 text-muted-foreground">
+                Scroll the panel to move the underline.
+            </p>
+        </section>
+        <section id="spy-h-features" class="min-h-40">
+            <h3 class="font-medium">
+                Features
+            </h3>
+            <p class="mt-2 text-muted-foreground">
+                The active link follows the section in view.
+            </p>
+        </section>
+        <section id="spy-h-pricing" class="min-h-40">
+            <h3 class="font-medium">
+                Pricing
+            </h3>
+            <p class="mt-2 text-muted-foreground">
+                A click scrolls smoothly to the section.
+            </p>
+        </section>
+        <section id="spy-h-faq" class="min-h-40">
+            <h3 class="font-medium">
+                FAQ
+            </h3>
+            <p class="mt-2 text-muted-foreground">
+                The last section wins at the very bottom.
+            </p>
+        </section>
+    </div>
+</div>
+```
+
 ## Accessibility
 
 - The navigation is a `nav` landmark with the accessible name `label`; the active link has `aria-current="location"`.
@@ -106,6 +163,7 @@
 | `offset` | int | `0` | Pixels kept above the active section (for a fixed header). |
 | `history` | bool | `true` | Keep the URL hash in sync with the active section. |
 | `label` | string | `On this page` | Accessible name of the navigation. |
+| `orientation` | `vertical`, `horizontal` | `vertical` | A column of links, or a row underlined like tabs. |
 
 | Block | Description |
 |---|---|
