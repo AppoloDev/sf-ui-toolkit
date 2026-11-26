@@ -1,0 +1,84 @@
+{#
+ # A select whose options are a tree. Needs the `tree` recipe of this kit.
+ #
+ # Props: name, placeholder, multiple, searchable, searchPlaceholder, searchLabel, emptyLabel, selectedLabel, label,
+ # lines, disabled, invalid, id.
+ # Slot `default`: the nodes, as `Tree:Item`. A node's value is its `data-value` attribute, or its label.
+ #}
+{%- props
+    ## string|null The name of the hidden input(s) sent with the form. Several nodes are sent as `name[]`.
+    name = null,
+    ## string The text shown while nothing is chosen.
+    placeholder = 'Select…',
+    ## bool Several nodes can be chosen: a plain click toggles a node, Shift extends the choice.
+    multiple = false,
+    ## bool Show a search field above the tree.
+    searchable = false,
+    ## string The placeholder of the search field.
+    searchPlaceholder = 'Search…',
+    ## string The accessible name of the search field.
+    searchLabel = 'Search',
+    ## string The text shown when the search matches nothing.
+    emptyLabel = 'No results',
+    ## string The text of the button when more than two nodes are chosen, with {count}.
+    selectedLabel = '{count} selected',
+    ## string|null The accessible name of the select and of its tree.
+    label = null,
+    ## bool Draw guide lines in the tree.
+    lines = false,
+    ## bool Disable the select.
+    disabled = false,
+    ## bool Mark the select as invalid.
+    invalid = false,
+    ## string|null The id of the button, so a label can point to it.
+    id = null
+-%}
+{%- set uid = 'tree-select-' ~ random(1000000) -%}
+{%- set nodes %}{% block content %}{% endblock %}{% endset -%}
+<div
+    data-slot="tree-select"
+    data-controller="tree-select"
+    data-tree-select-multiple-value="{{ multiple ? 'true' : 'false' }}"
+    data-tree-select-name-value="{{ name }}"
+    data-tree-select-placeholder-value="{{ placeholder }}"
+    data-tree-select-selected-label-value="{{ selectedLabel }}"
+    data-action="tree:select->tree-select#changed"
+    {{ attributes.defaults({class: 'relative w-full'|tailwind_classes}) }}
+>
+    <button
+        type="button"
+        {%- if id %} id="{{ id }}"{% endif %}
+        data-tree-select-target="trigger"
+        data-action="tree-select#toggle"
+        aria-haspopup="tree"
+        aria-expanded="false"
+        {%- if label %} aria-label="{{ label }}"{% endif %}
+        {%- if invalid %} aria-invalid="true"{% endif %}
+        {%- if disabled %} disabled{% endif %}
+        class="flex h-9 w-full items-center justify-between gap-2 rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20"
+    >
+        <span data-tree-select-target="text" class="truncate text-muted-foreground">{{ placeholder }}</span>
+        <twig:ux:icon name="lucide:chevron-down" class="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+    </button>
+    <span data-tree-select-target="values" hidden></span>
+    <div
+        id="{{ uid }}"
+        popover
+        data-tree-select-target="panel"
+        class="m-0 overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
+    >
+        {%- if searchable %}
+            <input
+                type="search"
+                id="{{ uid }}-search"
+                placeholder="{{ searchPlaceholder }}"
+                aria-label="{{ searchLabel }}"
+                data-tree-select-target="search"
+                class="mb-1 h-8 w-full rounded-md border border-input bg-transparent px-2 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+            >
+        {%- endif %}
+        <twig:Tree :label="label" :lines="lines" :multiple="multiple" :search="searchable ? '#' ~ uid ~ '-search' : null" :emptyLabel="emptyLabel">
+            {{- nodes|raw -}}
+        </twig:Tree>
+    </div>
+</div>

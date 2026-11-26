@@ -1,0 +1,17 @@
+{
+    "type": "component",
+    "name": "TreeSelect",
+    "description": "A select whose options are a tree: a button that opens a popup with the Tree, one or several nodes chosen, hidden inputs for the form, and an optional search field.",
+    "copy-files": {
+        "assets/controllers/": "%CONTROLLERS_DIR%/",
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "twig/html-extra:^3.24.0",
+            "symfony/ux-icons:^2.0",
+            "symfony/ux-twig-component:^3.5",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+        ]
+    }
+}
