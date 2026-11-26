@@ -87,6 +87,7 @@ jobs:
         run: |
           node report.mjs shards/sweep-findings-*
           cat report/report.md >> "$GITHUB_STEP_SUMMARY"
+          cat report/report.md
 
       - uses: actions/upload-artifact@v4
         with:
