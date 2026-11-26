@@ -1,0 +1,61 @@
+{#
+ # A strip of consecutive days to pick a date.
+ #
+ # Props: value, days, min, max, locale, name, events, navigation, showMonth, previousLabel, nextLabel, eventsLabel, label.
+ #}
+{%- props
+    ## string|null The selected date, as `YYYY-MM-DD`. Without it, nothing is selected and the strip starts around today.
+    value = null,
+    ## integer How many days are shown.
+    days = 5,
+    ## string|null The first date that can be chosen, as `YYYY-MM-DD`.
+    min = null,
+    ## string|null The last date that can be chosen, as `YYYY-MM-DD`.
+    max = null,
+    ## string The locale of the weekday and month names.
+    locale = 'en',
+    ## string|null The name of a hidden field that carries the selected date to a form.
+    name = null,
+    ## array A map of dates to a number of events, such as `{'2026-11-27': 2}`: the number is shown on the day.
+    events = {},
+    ## bool Show the arrows that move the strip by as many days as it shows.
+    navigation = true,
+    ## bool Show the month and the year above the strip.
+    showMonth = false,
+    ## string The accessible name of the previous arrow.
+    previousLabel = 'Previous days',
+    ## string The accessible name of the next arrow.
+    nextLabel = 'Next days',
+    ## string The spoken text for the events of a day, with {count}.
+    eventsLabel = '{count} events',
+    ## string The accessible name of the strip.
+    label = 'Choose a date'
+-%}
+<div
+    data-slot="mini-calendar"
+    data-controller="mini-calendar"
+    data-mini-calendar-days-value="{{ days }}"
+    data-mini-calendar-locale-value="{{ locale }}"
+    data-mini-calendar-events-label-value="{{ eventsLabel }}"
+    {%- if events|length > 0 %} data-mini-calendar-events-value="{{ events|json_encode|e('html_attr') }}"{% endif %}
+    {%- if value %} data-mini-calendar-value-value="{{ value }}"{% endif %}
+    {%- if min %} data-mini-calendar-min-value="{{ min }}"{% endif %}
+    {%- if max %} data-mini-calendar-max-value="{{ max }}"{% endif %}
+    {{ attributes.defaults({class: 'grid gap-2'|tailwind_classes}) }}
+>
+    {%- if showMonth %}<p data-mini-calendar-target="month" aria-live="polite" class="text-sm font-medium"></p>{% endif %}
+    <div class="flex items-center gap-1">
+        {%- if navigation %}
+            <button type="button" data-action="mini-calendar#previous" aria-label="{{ previousLabel }}" class="inline-flex size-8 shrink-0 items-center justify-center rounded-md text-muted-foreground outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50">
+                <twig:ux:icon name="lucide:chevron-left" class="size-4" />
+            </button>
+        {%- endif %}
+        <div data-mini-calendar-target="days" role="group" aria-label="{{ label }}" class="flex flex-1 gap-1"></div>
+        {%- if navigation %}
+            <button type="button" data-action="mini-calendar#next" aria-label="{{ nextLabel }}" class="inline-flex size-8 shrink-0 items-center justify-center rounded-md text-muted-foreground outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50">
+                <twig:ux:icon name="lucide:chevron-right" class="size-4" />
+            </button>
+        {%- endif %}
+    </div>
+    {%- if name %}<input type="hidden" name="{{ name }}" value="{{ value }}" data-mini-calendar-target="input">{% endif %}
+</div>
