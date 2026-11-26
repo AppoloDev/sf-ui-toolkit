@@ -1,0 +1,28 @@
+{#
+ # Content that appears when it scrolls into view.
+ #
+ # Props: effect, delay, duration, once, threshold, as.
+ #}
+{%- props
+    ## string `fade`, `up`, `down`, `left`, `right` or `zoom`.
+    effect = 'up',
+    ## integer The delay before the effect, in milliseconds (use it to stagger several items).
+    delay = 0,
+    ## integer The duration of the effect, in milliseconds.
+    duration = 600,
+    ## bool Reveal once (otherwise it hides again when it leaves the screen).
+    once = true,
+    ## number The part of the element that must be visible, from 0 to 1.
+    threshold = 0.2,
+    ## string The HTML tag.
+    as = 'div'
+-%}
+<{{ as }}
+    data-slot="reveal"
+    data-controller="reveal"
+    data-reveal-effect-value="{{ effect }}"
+    data-reveal-once-value="{{ once ? 'true' : 'false' }}"
+    data-reveal-threshold-value="{{ threshold }}"
+    style="transition-duration: {{ duration }}ms; transition-delay: {{ delay }}ms"
+    {{ attributes.defaults({class: 'transition-[opacity,transform] ease-out motion-reduce:transition-none data-[reveal=pending]:opacity-0 data-[reveal=pending]:data-[effect=up]:translate-y-6 data-[reveal=pending]:data-[effect=down]:-translate-y-6 data-[reveal=pending]:data-[effect=left]:translate-x-6 data-[reveal=pending]:data-[effect=right]:-translate-x-6 data-[reveal=pending]:data-[effect=zoom]:scale-95'|tailwind_classes}) }}
+>{% block content %}{% endblock %}</{{ as }}>
