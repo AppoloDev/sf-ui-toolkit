@@ -1,0 +1,66 @@
+{#
+ # A message box (chat, assistant, comment).
+ #
+ # Props: name, placeholder, rows, maxRows, maxLength, busy, disabled, sendLabel, stopLabel, label, counterLabel.
+ # Slots: `tools` (buttons at the start of the footer) and `hint` (text at the end, before the send button).
+ # Pass `action` and `method` like on a form; the form submits when Enter is pressed.
+ #}
+{%- props
+    ## string The name of the textarea.
+    name = 'message',
+    ## string The placeholder.
+    placeholder = 'Write a message…',
+    ## integer The number of rows when empty.
+    rows = 1,
+    ## integer The number of rows after which the box scrolls instead of growing.
+    maxRows = 8,
+    ## integer|null The maximum number of characters; a counter shows near the limit.
+    maxLength = null,
+    ## bool An answer is running: the send button becomes a stop button.
+    busy = false,
+    ## bool Disable the whole box.
+    disabled = false,
+    ## string The accessible name of the send button.
+    sendLabel = 'Send',
+    ## string The accessible name of the stop button.
+    stopLabel = 'Stop',
+    ## string The accessible name of the textarea.
+    label = 'Message',
+    ## string The text of the counter, with {count} and {max}.
+    counterLabel = '{count}/{max}'
+-%}
+{%- set tools %}{% block tools %}{% endblock %}{% endset -%}
+{%- set hint %}{% block hint %}{% endblock %}{% endset -%}
+<form
+    data-slot="prompt-input"
+    data-controller="prompt-input"
+    data-prompt-input-max-rows-value="{{ maxRows }}"
+    data-prompt-input-busy-value="{{ busy ? 'true' : 'false' }}"
+    data-prompt-input-counter-value="{{ counterLabel }}"
+    {%- if maxLength %} data-prompt-input-max-length-value="{{ maxLength }}"{% endif %}
+    data-action="submit->prompt-input#submitted"
+    {{ attributes.defaults({class: 'grid gap-2 rounded-xl border bg-background p-2 shadow-xs focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/30'|tailwind_classes}) }}
+>
+    <textarea
+        name="{{ name }}"
+        rows="{{ rows }}"
+        placeholder="{{ placeholder }}"
+        aria-label="{{ label }}"
+        data-prompt-input-target="field"
+        data-action="input->prompt-input#input keydown->prompt-input#keydown"
+        {%- if maxLength %} maxlength="{{ maxLength }}"{% endif %}
+        {%- if disabled %} disabled{% endif %}
+        class="max-h-none min-h-9 w-full resize-none bg-transparent px-2 py-1.5 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+    ></textarea>
+    <div class="flex items-center gap-1">
+        <div class="flex flex-1 items-center gap-1">{{ tools|raw }}</div>
+        {%- if hint|trim is not empty %}<div class="text-xs text-muted-foreground">{{ hint|raw }}</div>{% endif %}
+        {%- if maxLength %}<span data-prompt-input-target="counter" class="text-xs tabular-nums text-muted-foreground" hidden></span>{% endif %}
+        <button type="submit" data-prompt-input-target="send" aria-label="{{ sendLabel }}" disabled class="inline-flex size-8 items-center justify-center rounded-full bg-primary text-primary-foreground outline-none hover:bg-primary/90 focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:opacity-40">
+            <twig:ux:icon name="lucide:arrow-up" class="size-4" />
+        </button>
+        <button type="button" data-prompt-input-target="stop" data-action="prompt-input#stop" aria-label="{{ stopLabel }}" hidden class="inline-flex size-8 items-center justify-center rounded-full bg-primary text-primary-foreground outline-none hover:bg-primary/90 focus-visible:ring-[3px] focus-visible:ring-ring/50">
+            <twig:ux:icon name="lucide:square" class="size-3.5 fill-current" />
+        </button>
+    </div>
+</form>
