@@ -158,3 +158,163 @@
     </p>
 </twig:Card>
 ```
+
+### Small And Large
+
+```twig
+<div class="flex items-center gap-4">
+    <twig:Spinner class="size-3" />
+    <twig:Spinner />
+    <twig:Spinner class="size-8" />
+    <twig:Spinner class="size-12" />
+</div>
+```
+
+### Primary
+
+```twig
+<twig:Spinner class="size-6 text-primary" />
+```
+
+### Muted
+
+```twig
+<twig:Spinner class="size-6 text-muted-foreground" />
+```
+
+### Loading Button
+
+```twig
+<twig:Button disabled>
+    <twig:Spinner />
+    Please wait
+</twig:Button>
+```
+
+### Loading Outline Button
+
+```twig
+<twig:Button variant="outline" disabled>
+    <twig:Spinner />
+    Please wait
+</twig:Button>
+```
+
+### Loading Secondary Button
+
+```twig
+<twig:Button variant="secondary" disabled>
+    <twig:Spinner />
+    Please wait
+</twig:Button>
+```
+
+### Loading Small Button
+
+```twig
+<twig:Button size="sm" disabled>
+    <twig:Spinner />
+    Please wait
+</twig:Button>
+```
+
+### Loading Icon Button
+
+```twig
+<twig:Button variant="outline" size="icon" disabled aria-label="Loading">
+    <twig:Spinner />
+</twig:Button>
+```
+
+### Before Text
+
+```twig
+<p class="flex items-center gap-2 text-sm">
+    <twig:Spinner />
+    Syncing files
+</p>
+```
+
+### After Text
+
+```twig
+<p class="flex items-center gap-2 text-sm">
+    Syncing files
+    <twig:Spinner />
+</p>
+```
+
+### In A List Item
+
+```twig
+<twig:Item variant="outline" class="max-w-sm">
+    <twig:Item:Media>
+        <twig:Spinner />
+    </twig:Item:Media>
+    <twig:Item:Content>
+        <twig:Item:Title>
+            Processing payment
+        </twig:Item:Title>
+        <twig:Item:Description>
+            This can take a few seconds.
+        </twig:Item:Description>
+    </twig:Item:Content>
+</twig:Item>
+```
+
+### In An Empty State
+
+```twig
+<twig:Empty class="max-w-sm border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:Spinner />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            Loading your data
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Please keep this tab open.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+</twig:Empty>
+```
+
+### Pinwheel
+
+```twig
+<twig:Spinner icon="lucide:loader-pinwheel" class="size-6" />
+```
+
+### Ring
+
+```twig
+<twig:Spinner icon="lucide:loader-circle" class="size-6" />
+```
+
+### Throbber
+
+```twig
+<twig:Spinner icon="lucide:loader" class="size-6" />
+```
+
+### Bouncing Ellipsis
+
+```twig
+<div class="flex items-center gap-1" role="status" aria-label="Loading">
+    <span class="size-2 animate-bounce rounded-full bg-foreground [animation-delay:-0.3s]"></span>
+    <span class="size-2 animate-bounce rounded-full bg-foreground [animation-delay:-0.15s]"></span>
+    <span class="size-2 animate-bounce rounded-full bg-foreground"></span>
+</div>
+```
+
+### Variant Overview
+
+```twig
+<div class="flex items-center gap-6">
+    <twig:Spinner class="size-6" />
+    <twig:Spinner icon="lucide:loader-pinwheel" class="size-6" />
+    <twig:Spinner icon="lucide:loader-circle" class="size-6" />
+    <twig:Spinner icon="lucide:loader" class="size-6" />
+</div>
+```
