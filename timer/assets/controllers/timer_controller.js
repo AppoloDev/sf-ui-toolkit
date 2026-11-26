@@ -77,9 +77,7 @@ export default class extends Controller {
     }
 
     format(total) {
-        const whole = Math.ceil(total - (this.modeValue === 'countdown' ? 0 : total % 1));
         const value = this.modeValue === 'countdown' ? Math.ceil(total) : Math.floor(total);
-        void whole;
         const h = Math.floor(value / 3600);
         const m = Math.floor((value % 3600) / 60);
         const s = value % 60;
