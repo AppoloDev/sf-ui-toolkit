@@ -1,0 +1,67 @@
+{#
+ # An exception and its frames.
+ #
+ # Props: exception, message, frames, foldVendor, copyLabel, copiedLabel, showVendorLabel, hideVendorLabel, label, basePath.
+ # `frames` is a list of `{file, line, function, vendor}`; a frame is vendor when `vendor` is true, or when its file contains `/vendor/`.
+ #}
+{%- props
+    ## string The class of the exception.
+    exception,
+    ## string|null The message.
+    message = null,
+    ## array The frames: `file`, `line`, `function` (and optionally `vendor`).
+    frames = [],
+    ## bool Fold the frames of vendor code behind a button.
+    foldVendor = true,
+    ## string The text of the copy button.
+    copyLabel = 'Copy',
+    ## string The text of the copy button once copied.
+    copiedLabel = 'Copied',
+    ## string The text of the button that shows the vendor frames, with {count}.
+    showVendorLabel = 'Show {count} vendor frames',
+    ## string The text of the button that hides the vendor frames.
+    hideVendorLabel = 'Hide vendor frames',
+    ## string The accessible name of the trace.
+    label = 'Stack trace',
+    ## string|null A path removed from the start of every file.
+    basePath = null
+-%}
+{%- set vendorCount = frames|filter(f => f.vendor|default(false) or ('/vendor/' in f.file))|length -%}
+<section
+    data-slot="stack-trace"
+    data-controller="stack-trace"
+    data-stack-trace-show-label-value="{{ showVendorLabel }}"
+    data-stack-trace-hide-label-value="{{ hideVendorLabel }}"
+    data-stack-trace-copied-label-value="{{ copiedLabel }}"
+    data-stack-trace-copy-label-value="{{ copyLabel }}"
+    aria-label="{{ label }}"
+    {{ attributes.defaults({class: 'overflow-hidden rounded-lg border bg-card text-card-foreground'|tailwind_classes}) }}
+>
+    <header class="flex items-start gap-3 border-b bg-destructive/5 p-3">
+        <twig:ux:icon name="lucide:circle-alert" class="mt-0.5 size-4 shrink-0 text-destructive" aria-hidden="true" />
+        <div class="min-w-0 flex-1">
+            <p class="break-all font-mono text-sm font-semibold text-destructive">{{ exception }}</p>
+            {%- if message %}<p class="mt-0.5 text-sm">{{ message }}</p>{% endif %}
+        </div>
+        <button type="button" data-action="stack-trace#copy" data-stack-trace-target="copy" class="inline-flex h-7 shrink-0 items-center gap-1.5 rounded-md border bg-background px-2 text-xs font-medium outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">
+            <twig:ux:icon name="lucide:copy" class="size-3.5" aria-hidden="true" />
+            <span data-stack-trace-target="copyText">{{ copyLabel }}</span>
+        </button>
+    </header>
+    <ol data-stack-trace-target="list" class="m-0 list-none p-0 font-mono text-xs">
+        {%- for frame in frames %}
+            {%- set vendor = frame.vendor|default(false) or ('/vendor/' in frame.file) -%}
+            {%- set shown = basePath and frame.file starts with basePath ? frame.file|slice(basePath|length) : frame.file %}
+            <li data-frame {%- if vendor %} data-vendor{% endif %} data-text="#{{ loop.index0 }} {{ shown }}({{ frame.line }}): {{ frame.function }}" class="flex gap-3 border-b px-3 py-1.5 last:border-b-0 {{ vendor ? 'text-muted-foreground' : '' }} {% if vendor and foldVendor %}hidden{% endif %}">
+                <span class="w-5 shrink-0 text-right tabular-nums text-muted-foreground">{{ loop.index0 }}</span>
+                <span class="min-w-0 flex-1">
+                    <span class="block break-all {{ vendor ? '' : 'text-foreground' }}">{{ frame.function }}</span>
+                    <span class="block break-all text-muted-foreground">{{ shown }}:{{ frame.line }}</span>
+                </span>
+            </li>
+        {%- endfor %}
+    </ol>
+    {%- if foldVendor and vendorCount > 0 %}
+        <button type="button" data-action="stack-trace#toggleVendor" data-stack-trace-target="vendorToggle" data-count="{{ vendorCount }}" aria-expanded="false" class="w-full border-t bg-muted/40 px-3 py-1.5 text-left text-xs font-medium outline-none hover:bg-muted focus-visible:ring-[3px] focus-visible:ring-ring/50">{{ showVendorLabel|replace({'{count}': vendorCount}) }}</button>
+    {%- endif %}
+</section>
