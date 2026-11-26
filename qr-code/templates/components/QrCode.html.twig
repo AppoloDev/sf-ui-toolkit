@@ -1,0 +1,58 @@
+{#
+ # Draws a QR code from a text or a URL, as an SVG.
+ #
+ # Props: value, size, level, margin, label, foreground, background, downloadLabel, filename.
+ # Slot `logo`: an image or an icon shown in the middle (use the level `H`).
+ #}
+{%- props
+    ## string The text or the URL to encode.
+    value = '',
+    ## integer The side of the code, in pixels.
+    size = 160,
+    ## string The error correction level: `L` (7%), `M` (15%), `Q` (25%) or `H` (30% of the code can be hidden).
+    level = 'M',
+    ## integer The quiet zone around the code, in modules.
+    margin = 1,
+    ## string The accessible name of the code.
+    label = 'QR code',
+    ## string|null The color of the modules. Without it, the text color of the theme.
+    foreground = null,
+    ## string|null The color of the background. Without it, the background color of the theme.
+    background = null,
+    ## string|null The text of a button that downloads the code as an SVG file. Without it, no button.
+    downloadLabel = null,
+    ## string The name of the downloaded file.
+    filename = 'qr-code.svg'
+-%}
+{%- set logo %}{% block logo %}{% endblock %}{% endset -%}
+<figure
+    data-slot="qr-code"
+    data-controller="qr-code"
+    data-qr-code-value-value="{{ value }}"
+    data-qr-code-level-value="{{ level }}"
+    data-qr-code-margin-value="{{ margin }}"
+    {%- if foreground %} data-qr-code-foreground-value="{{ foreground }}"{% endif %}
+    {%- if background %} data-qr-code-background-value="{{ background }}"{% endif %}
+    data-qr-code-filename-value="{{ filename }}"
+    {{ attributes.defaults({class: 'inline-flex w-fit flex-col items-center gap-2'|tailwind_classes}) }}
+>
+    <div
+        class="relative text-foreground bg-background"
+        style="width: {{ size }}px; height: {{ size }}px;{% if foreground %} color: {{ foreground }};{% endif %}{% if background %} background-color: {{ background }};{% endif %}"
+    >
+        <div data-qr-code-target="canvas" role="img" aria-label="{{ label }}" class="size-full [&>svg]:size-full"></div>
+        {%- if logo|trim is not empty %}
+            <div class="absolute inset-0 m-auto flex size-1/5 items-center justify-center overflow-hidden rounded-md bg-background p-0.5">{{ logo|raw }}</div>
+        {%- endif %}
+    </div>
+    {%- if downloadLabel %}
+        <button
+            type="button"
+            data-action="qr-code#download"
+            class="inline-flex h-8 items-center gap-1.5 rounded-md border bg-background px-3 text-xs font-medium shadow-xs outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50"
+        >
+            <twig:ux:icon name="lucide:download" class="size-3.5" />
+            {{ downloadLabel }}
+        </button>
+    {%- endif %}
+</figure>
