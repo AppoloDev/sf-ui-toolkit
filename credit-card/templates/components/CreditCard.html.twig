@@ -1,0 +1,86 @@
+{#
+ # A bank card illustration. It never holds real data on its own: bind it to form fields, or give it example values.
+ #
+ # Props: number, holder, expiry, cvc, brand, flipped, numberField, holderField, expiryField, cvcField, holderPlaceholder,
+ # expiryPlaceholder, numberPlaceholder, holderLabel, expiryLabel, cvcLabel, label.
+ #}
+{%- props
+    ## string The card number, shown grouped by four.
+    number = '',
+    ## string The name on the card.
+    holder = '',
+    ## string The expiry, `MM/YY`.
+    expiry = '',
+    ## string The security code, shown on the back.
+    cvc = '',
+    ## string `auto` (from the number), `visa`, `mastercard`, `amex` or `generic`.
+    brand = 'auto',
+    ## bool Show the back of the card.
+    flipped = false,
+    ## string|null A CSS selector of the field that holds the number: the card follows it as the user types.
+    numberField = null,
+    ## string|null A CSS selector of the holder field.
+    holderField = null,
+    ## string|null A CSS selector of the expiry field.
+    expiryField = null,
+    ## string|null A CSS selector of the CVC field: focusing it turns the card over.
+    cvcField = null,
+    ## string The number shown while empty.
+    numberPlaceholder = '•••• •••• •••• ••••',
+    ## string The holder shown while empty.
+    holderPlaceholder = 'FULL NAME',
+    ## string The expiry shown while empty.
+    expiryPlaceholder = 'MM/YY',
+    ## string The label above the holder.
+    holderLabel = 'Card holder',
+    ## string The label above the expiry.
+    expiryLabel = 'Expires',
+    ## string The label of the security code on the back.
+    cvcLabel = 'CVC',
+    ## string The accessible name of the illustration.
+    label = 'Bank card'
+-%}
+<div
+    data-slot="credit-card"
+    data-controller="credit-card"
+    data-credit-card-brand-value="{{ brand }}"
+    data-credit-card-flipped-value="{{ flipped ? 'true' : 'false' }}"
+    data-credit-card-number-placeholder-value="{{ numberPlaceholder }}"
+    data-credit-card-holder-placeholder-value="{{ holderPlaceholder }}"
+    data-credit-card-expiry-placeholder-value="{{ expiryPlaceholder }}"
+    {%- if numberField %} data-credit-card-number-field-value="{{ numberField }}"{% endif %}
+    {%- if holderField %} data-credit-card-holder-field-value="{{ holderField }}"{% endif %}
+    {%- if expiryField %} data-credit-card-expiry-field-value="{{ expiryField }}"{% endif %}
+    {%- if cvcField %} data-credit-card-cvc-field-value="{{ cvcField }}"{% endif %}
+    role="img"
+    aria-label="{{ label }}"
+    {{ attributes.defaults({class: 'group/card h-48 w-80 [perspective:1000px]'|tailwind_classes}) }}
+>
+    <div data-credit-card-target="inner" class="relative size-full transition-transform duration-500 [transform-style:preserve-3d] motion-reduce:transition-none data-[flipped=true]:[transform:rotateY(180deg)]" data-flipped="{{ flipped ? 'true' : 'false' }}">
+        <div class="absolute inset-0 flex flex-col justify-between rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 p-5 text-white shadow-lg [backface-visibility:hidden]" data-credit-card-target="front">
+            <div class="flex items-start justify-between">
+                <span class="h-7 w-10 rounded bg-gradient-to-br from-amber-200 to-amber-400"></span>
+                <span data-credit-card-target="brand" class="text-lg font-bold italic tracking-wide"></span>
+            </div>
+            <p data-credit-card-target="number" class="font-mono text-xl tracking-widest" data-value="{{ number }}">{{ number ?: numberPlaceholder }}</p>
+            <div class="flex items-end justify-between text-xs">
+                <div class="min-w-0">
+                    <p class="text-[10px] uppercase opacity-60">{{ holderLabel }}</p>
+                    <p data-credit-card-target="holder" class="truncate font-medium uppercase">{{ holder ?: holderPlaceholder }}</p>
+                </div>
+                <div>
+                    <p class="text-[10px] uppercase opacity-60">{{ expiryLabel }}</p>
+                    <p data-credit-card-target="expiry" class="font-medium">{{ expiry ?: expiryPlaceholder }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="absolute inset-0 flex flex-col justify-between rounded-xl bg-gradient-to-br from-slate-800 to-slate-950 py-5 text-white shadow-lg [backface-visibility:hidden] [transform:rotateY(180deg)]">
+            <span class="h-10 bg-black"></span>
+            <div class="px-5">
+                <p class="mb-1 text-right text-[10px] uppercase opacity-60">{{ cvcLabel }}</p>
+                <p data-credit-card-target="cvc" class="rounded bg-white px-3 py-1.5 text-right font-mono text-sm text-black">{{ cvc ?: '•••' }}</p>
+            </div>
+            <span></span>
+        </div>
+    </div>
+</div>
