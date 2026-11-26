@@ -1,0 +1,43 @@
+{#
+ # An entry of the bar: an icon, a text and an optional badge.
+ #
+ # Props: href, label, icon, active, badge, badgeLabel.
+ #}
+{%- props
+    ## string The link.
+    href = '#',
+    ## string The text of the entry. Always the accessible name; shown according to the variant.
+    label,
+    ## string The Symfony UX Icons name, such as `lucide:house`.
+    icon,
+    ## bool The current page: `aria-current="page"` and the highlight.
+    active = false,
+    ## string|null A short text on the icon, such as a count.
+    badge = null,
+    ## string|null Spoken after the label when there is a badge, such as `unread`.
+    badgeLabel = null
+-%}
+<a
+    data-slot="bottom-navigation-item"
+    data-active="{{ active ? 'true' : 'false' }}"
+    href="{{ href }}"
+    aria-label="{{ label }}{% if badge is not null and badgeLabel %}, {{ badge }} {{ badgeLabel }}{% endif %}"
+    {%- if active %} aria-current="page"{% endif %}
+    {{ attributes.defaults({class: ('group/item relative flex shrink-0 items-center justify-center rounded-lg text-xs font-medium text-muted-foreground outline-none transition-all focus-visible:ring-[3px] focus-visible:ring-ring/50 data-[active=true]:text-primary '
+        ~ 'group-data-[variant=bar]/bottom-nav:min-w-16 group-data-[variant=bar]/bottom-nav:flex-1 group-data-[variant=bar]/bottom-nav:flex-col group-data-[variant=bar]/bottom-nav:gap-0.5 group-data-[variant=bar]/bottom-nav:py-1.5 '
+        ~ 'group-data-[variant=floating]/bottom-nav:size-11 group-data-[variant=floating]/bottom-nav:rounded-full group-data-[variant=floating]/bottom-nav:hover:bg-accent group-data-[variant=floating]/bottom-nav:data-[active=true]:bg-primary group-data-[variant=floating]/bottom-nav:data-[active=true]:text-primary-foreground '
+        ~ 'group-data-[variant=dock]/bottom-nav:size-12 group-data-[variant=dock]/bottom-nav:origin-bottom group-data-[variant=dock]/bottom-nav:rounded-xl group-data-[variant=dock]/bottom-nav:bg-muted group-data-[variant=dock]/bottom-nav:text-foreground group-data-[variant=dock]/bottom-nav:hover:scale-150 group-data-[variant=dock]/bottom-nav:[&:has(+*:hover)]:scale-125 group-data-[variant=dock]/bottom-nav:[:hover+&]:scale-125 group-data-[orientation=vertical]/bottom-nav:group-data-[variant=dock]/bottom-nav:origin-left '
+        ~ 'group-data-[variant=menu]/bottom-nav:h-11 group-data-[variant=menu]/bottom-nav:min-w-11 group-data-[variant=menu]/bottom-nav:gap-2 group-data-[variant=menu]/bottom-nav:px-3 group-data-[variant=menu]/bottom-nav:hover:bg-accent group-data-[variant=menu]/bottom-nav:data-[active=true]:bg-accent '
+        ~ 'group-data-[variant=limelight]/bottom-nav:h-12 group-data-[variant=limelight]/bottom-nav:w-14 group-data-[variant=limelight]/bottom-nav:text-zinc-400 group-data-[variant=limelight]/bottom-nav:hover:text-white group-data-[variant=limelight]/bottom-nav:data-[active=true]:text-white '
+        ~ 'group-data-[variant=limelight]/bottom-nav:data-[active=true]:before:absolute group-data-[variant=limelight]/bottom-nav:data-[active=true]:before:-top-1 group-data-[variant=limelight]/bottom-nav:data-[active=true]:before:h-0.5 group-data-[variant=limelight]/bottom-nav:data-[active=true]:before:w-8 group-data-[variant=limelight]/bottom-nav:data-[active=true]:before:rounded-full group-data-[variant=limelight]/bottom-nav:data-[active=true]:before:bg-sky-400 group-data-[variant=limelight]/bottom-nav:data-[active=true]:before:shadow-[0_0_16px_4px_rgba(56,189,248,0.7)] '
+        ~ 'group-data-[variant=limelight]/bottom-nav:data-[active=true]:after:absolute group-data-[variant=limelight]/bottom-nav:data-[active=true]:after:inset-x-1 group-data-[variant=limelight]/bottom-nav:data-[active=true]:after:top-0 group-data-[variant=limelight]/bottom-nav:data-[active=true]:after:bottom-0 group-data-[variant=limelight]/bottom-nav:data-[active=true]:after:-z-10 group-data-[variant=limelight]/bottom-nav:data-[active=true]:after:rounded-md group-data-[variant=limelight]/bottom-nav:data-[active=true]:after:bg-gradient-to-b group-data-[variant=limelight]/bottom-nav:data-[active=true]:after:from-sky-400/25 group-data-[variant=limelight]/bottom-nav:data-[active=true]:after:to-transparent')|tailwind_classes}) }}
+>
+    <span class="relative inline-flex">
+        <twig:ux:icon :name="icon" class="size-5 group-data-[variant=dock]/bottom-nav:size-6" aria-hidden="true" />
+        {%- if badge is not null %}
+            <span class="absolute -top-1.5 -right-2 grid min-w-4 place-items-center rounded-full bg-destructive px-1 text-[10px] leading-4 font-semibold text-white" aria-hidden="true">{{ badge }}</span>
+        {%- endif %}
+    </span>
+    <span class="group-data-[variant=floating]/bottom-nav:sr-only group-data-[variant=dock]/bottom-nav:sr-only group-data-[variant=limelight]/bottom-nav:sr-only group-data-[variant=menu]/bottom-nav:hidden group-data-[variant=menu]/bottom-nav:group-data-[active=true]/item:inline">{{ label }}</span>
+    <span class="pointer-events-none absolute -top-9 left-1/2 hidden -translate-x-1/2 rounded-md bg-foreground px-2 py-1 text-[11px] whitespace-nowrap text-background group-data-[variant=dock]/bottom-nav:group-hover/item:block group-data-[variant=dock]/bottom-nav:group-focus-visible/item:block" aria-hidden="true">{{ label }}</span>
+</a>

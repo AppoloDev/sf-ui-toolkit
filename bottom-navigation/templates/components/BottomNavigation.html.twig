@@ -1,0 +1,33 @@
+{#
+ # Navigation bar of icons, for the bottom of a screen (or the side of a dock).
+ #
+ # Props: variant, orientation, fixed, label.
+ # Slot: `BottomNavigation:Item` elements.
+ #}
+{%- props
+    ## string `bar` (full width tab bar), `floating` (pill), `dock` (icons that grow under the pointer), `menu` (the active item shows its text) or `limelight` (a light on the active item).
+    variant = 'bar',
+    ## string `horizontal` or `vertical` (a dock on the side of the screen).
+    orientation = 'horizontal',
+    ## bool Fix the bar to the bottom of the screen (`variant` `bar`, `floating`, `dock`, `menu`, `limelight`) or, when vertical, to the left.
+    fixed = false,
+    ## string The accessible name of the navigation.
+    label = 'Main navigation'
+-%}
+{%- set shapes = {
+    bar: 'w-full justify-around border-t bg-background/95 px-2 py-1 backdrop-blur',
+    floating: 'gap-1 rounded-full border bg-background/95 p-1.5 shadow-lg backdrop-blur',
+    dock: 'items-end gap-2 rounded-2xl border bg-background/70 p-2 shadow-lg backdrop-blur',
+    menu: 'gap-1 rounded-2xl border bg-background/95 p-1.5 shadow-lg backdrop-blur',
+    limelight: 'gap-1 rounded-xl border border-zinc-800 bg-zinc-950 px-2 py-1 text-zinc-300 shadow-lg',
+} -%}
+{%- set position = fixed ? (orientation == 'vertical' ? 'fixed left-3 top-1/2 z-40 -translate-y-1/2' : (variant == 'bar' ? 'fixed inset-x-0 bottom-0 z-40' : 'fixed bottom-4 left-1/2 z-40 -translate-x-1/2')) : (variant == 'bar' ? '' : 'w-fit') -%}
+<nav
+    data-slot="bottom-navigation"
+    data-variant="{{ variant }}"
+    data-orientation="{{ orientation }}"
+    aria-label="{{ label }}"
+    {{ attributes.defaults({class: ('group/bottom-nav flex ' ~ (orientation == 'vertical' ? 'flex-col items-center ' : 'items-center ') ~ shapes[variant] ~ ' ' ~ position)|tailwind_classes}) }}
+>
+    {%- block content %}{% endblock -%}
+</nav>

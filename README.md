@@ -42,6 +42,7 @@ The props of each component are listed in its documentation.
 |---|---|---|
 | `alert` | The shadcn Alert with info, success, warning and invert variants, in solid or light appearance. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/alert.html) |
 | `badge` | The shadcn Badge with success, info and warning colors, solid, outline and light appearances, sizes and radius. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/badge.html) |
+| `bottom-navigation` | Icon navigation bar for the bottom of a mobile screen, with four looks: tab bar, floating pill, macOS-style dock with magnification, and limelight highlight. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/bottom-navigation.html) |
 | `button-feedback` | A button that shows a pending, a done and a failed state around an action: copying a text, or waiting for a request. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/button-feedback.html) |
 | `cascader` | Pick a value in a hierarchy through columns or one level at a time, with search, single or multiple choice. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/cascader.html) |
 | `char-counter` | Shows how many characters an input or a textarea holds, against an optional limit, with a warning near the limit and a spoken update. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/char-counter.html) |

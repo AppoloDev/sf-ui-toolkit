@@ -1,0 +1,16 @@
+{
+    "type": "component",
+    "name": "BottomNavigation",
+    "description": "Icon navigation bar for the bottom of a mobile screen, with four looks: tab bar, floating pill, macOS-style dock with magnification, and limelight highlight.",
+    "copy-files": {
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "twig/html-extra:^3.24.0",
+            "symfony/ux-icons:^2.0",
+            "symfony/ux-twig-component:^3.5",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+        ]
+    }
+}
