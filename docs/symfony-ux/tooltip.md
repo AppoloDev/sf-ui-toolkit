@@ -348,3 +348,122 @@ A span wraps the disabled button so the reason still shows on hover.
     </twig:Tooltip>
 </div>
 ```
+
+### Title And Description
+
+```twig
+<div class="flex justify-center pt-12" style="min-height: 160px">
+    <twig:Tooltip id="tt-td">
+        <twig:Tooltip:Trigger>
+            <twig:Button variant="outline" {{ ...tooltip_trigger_attrs }}>
+                Storage
+            </twig:Button>
+        </twig:Tooltip:Trigger>
+        <twig:Tooltip:Content>
+            <div class="grid gap-0.5">
+                <span class="font-medium">
+                    Storage
+                </span>
+                <span class="text-xs opacity-80">
+                    Includes files, backups and attachments.
+                </span>
+            </div>
+        </twig:Tooltip:Content>
+    </twig:Tooltip>
+</div>
+```
+
+### With Icon
+
+```twig
+<div class="flex justify-center pt-12" style="min-height: 160px">
+    <twig:Tooltip id="tt-ic">
+        <twig:Tooltip:Trigger>
+            <twig:Button variant="outline" {{ ...tooltip_trigger_attrs }}>
+                Sync
+            </twig:Button>
+        </twig:Tooltip:Trigger>
+        <twig:Tooltip:Content>
+            <span class="flex items-center gap-1.5">
+                <twig:ux:icon name="lucide:refresh-cw" />
+                Last synced 2 minutes ago
+            </span>
+        </twig:Tooltip:Content>
+    </twig:Tooltip>
+</div>
+```
+
+### With Image
+
+```twig
+<div class="flex justify-center pt-12" style="min-height: 160px">
+    <twig:Tooltip id="tt-im">
+        <twig:Tooltip:Trigger>
+            <twig:Button variant="outline" {{ ...tooltip_trigger_attrs }}>
+                Preview
+            </twig:Button>
+        </twig:Tooltip:Trigger>
+        <twig:Tooltip:Content>
+            <div class="grid gap-1.5">
+                <twig:AspectRatio ratio="16 / 9" class="w-40 overflow-hidden rounded bg-gradient-to-br from-sky-400 to-indigo-600" />
+                <span>
+                    Cover image
+                </span>
+            </div>
+        </twig:Tooltip:Content>
+    </twig:Tooltip>
+</div>
+```
+
+### Longer Text
+
+```twig
+<div class="flex justify-center pt-12" style="min-height: 160px">
+    <twig:Tooltip id="tt-lt">
+        <twig:Tooltip:Trigger>
+            <twig:Button variant="outline" {{ ...tooltip_trigger_attrs }}>
+                Details
+            </twig:Button>
+        </twig:Tooltip:Trigger>
+        <twig:Tooltip:Content>
+            <p class="max-w-xs text-pretty">
+                Tooltips can hold a longer sentence. Keep it short enough that it reads at a glance, and never put essential information only in a tooltip.
+            </p>
+        </twig:Tooltip:Content>
+    </twig:Tooltip>
+</div>
+```
+
+### On An Icon
+
+```twig
+<div class="flex justify-center pt-12" style="min-height: 160px">
+    <twig:Tooltip id="tt-oi">
+        <twig:Tooltip:Trigger>
+            <twig:Button variant="ghost" size="icon" aria-label="Help" {{ ...tooltip_trigger_attrs }}>
+                <twig:ux:icon name="lucide:circle-help" />
+            </twig:Button>
+        </twig:Tooltip:Trigger>
+        <twig:Tooltip:Content>
+            Need help?
+        </twig:Tooltip:Content>
+    </twig:Tooltip>
+</div>
+```
+
+### Open Delay
+
+```twig
+<div class="flex justify-center pt-12" style="min-height: 160px">
+    <twig:Tooltip id="tt-delay" :delayDuration="600">
+        <twig:Tooltip:Trigger>
+            <twig:Button variant="outline" {{ ...tooltip_trigger_attrs }}>
+                Hover and wait
+            </twig:Button>
+        </twig:Tooltip:Trigger>
+        <twig:Tooltip:Content>
+            Shown after 600 ms
+        </twig:Tooltip:Content>
+    </twig:Tooltip>
+</div>
+```
