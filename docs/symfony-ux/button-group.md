@@ -1270,3 +1270,96 @@ A speaker icon next to a `NumberField`, which brings the buttons, the arrow keys
     </twig:ButtonGroup>
 </div>
 ```
+
+### Date Selector
+
+A single-choice `ToggleGroup` without spacing reads as one button group.
+
+```twig
+<twig:Field class="max-w-sm">
+    <twig:Field:Label>
+        Due date
+    </twig:Field:Label>
+    <twig:ToggleGroup type="single" variant="outline" :spacing="0" class="w-fit">
+        <twig:ToggleGroup:Item value="today" :pressed="true">
+            Today
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="tomorrow">
+            Tomorrow
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="week">
+            Next week
+        </twig:ToggleGroup:Item>
+    </twig:ToggleGroup>
+    <twig:Field:Description>
+        Pick when the task is due.
+    </twig:Field:Description>
+</twig:Field>
+```
+
+### Priority Selector
+
+```twig
+<twig:Field class="max-w-sm">
+    <twig:Field:Label>
+        Priority
+    </twig:Field:Label>
+    <twig:ToggleGroup type="single" variant="outline" :spacing="0" class="w-fit">
+        <twig:ToggleGroup:Item value="low">
+            <twig:ux:icon name="lucide:arrow-down" class="size-4" />
+            Low
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="medium" :pressed="true">
+            <twig:ux:icon name="lucide:minus" class="size-4" />
+            Medium
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="high">
+            <twig:ux:icon name="lucide:arrow-up" class="size-4" />
+            High
+        </twig:ToggleGroup:Item>
+    </twig:ToggleGroup>
+    <twig:Field:Description>
+        Used to sort the backlog.
+    </twig:Field:Description>
+</twig:Field>
+```
+
+### Status Selector
+
+```twig
+<twig:Field class="max-w-sm">
+    <twig:Field:Label>
+        Status
+    </twig:Field:Label>
+    <twig:ToggleGroup type="single" variant="outline" :spacing="0" class="w-fit">
+        <twig:ToggleGroup:Item value="open" :pressed="true">
+            Open
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="progress">
+            In progress
+        </twig:ToggleGroup:Item>
+        <twig:ToggleGroup:Item value="done">
+            Done
+        </twig:ToggleGroup:Item>
+    </twig:ToggleGroup>
+    <twig:Field:Description>
+        Move the ticket along the workflow.
+    </twig:Field:Description>
+</twig:Field>
+```
+
+### Quantity Selector
+
+The `NumberField` of this kit gives the minus and plus buttons around the value.
+
+```twig
+<twig:Field class="max-w-sm">
+    <twig:Field:Label for="bg-qty">
+        Quantity
+    </twig:Field:Label>
+    <twig:NumberField id="bg-qty" name="quantity" :value="2" :min="1" :max="10" />
+    <twig:Field:Description>
+        Between 1 and 10 per order.
+    </twig:Field:Description>
+</twig:Field>
+```
