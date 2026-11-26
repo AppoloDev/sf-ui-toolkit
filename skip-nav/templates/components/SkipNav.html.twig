@@ -1,0 +1,28 @@
+{#
+ # Skip links: hidden until they receive the focus, the first thing a keyboard user reaches.
+ #
+ # Props: href, linkLabel, label, position.
+ # Slot: `SkipNav:Link` elements, to offer several targets. Without a slot, a single link to `href` is shown.
+ #}
+{%- props
+    ## string The target of the single link: the id of the main content.
+    href = '#main',
+    ## string The text of the single link.
+    linkLabel = 'Skip to main content',
+    ## string The accessible name of the group of links.
+    label = 'Skip links',
+    ## string Where the links appear when focused: `start` (top left) or `center` (top, centered).
+    position = 'start'
+-%}
+{%- set content %}{% block content %}{% endblock %}{% endset -%}
+<nav
+    data-slot="skip-nav"
+    aria-label="{{ label }}"
+    {{ attributes.defaults({class: ('fixed top-2 z-50 flex -translate-y-24 gap-2 rounded-lg border bg-background p-2 shadow-lg transition-transform focus-within:translate-y-0 ' ~ (position == 'center' ? 'left-1/2 -translate-x-1/2' : 'left-2'))|tailwind_classes}) }}
+>
+    {%- if content|trim is not empty -%}
+        {{ content|raw }}
+    {%- else -%}
+        <twig:SkipNav:Link :href="href">{{ linkLabel }}</twig:SkipNav:Link>
+    {%- endif -%}
+</nav>

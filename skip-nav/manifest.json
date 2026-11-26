@@ -1,0 +1,15 @@
+{
+    "type": "component",
+    "name": "SkipNav",
+    "description": "Skip links for keyboard and screen reader users: hidden until focused, they jump over the navigation to the main content.",
+    "copy-files": {
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "twig/html-extra:^3.24.0",
+            "symfony/ux-twig-component:^3.5",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+        ]
+    }
+}
