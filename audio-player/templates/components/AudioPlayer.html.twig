@@ -1,0 +1,77 @@
+{#
+ # A player over a native `<audio>`.
+ #
+ # Props: src, title, subtitle, speeds, showVolume, showSpeed, preload and the texts.
+ #}
+{%- props
+    ## string The audio file.
+    src,
+    ## string|null The title shown above the controls.
+    title = null,
+    ## string|null A line under the title (an artist, a show).
+    subtitle = null,
+    ## array The playback speeds the speed button cycles through.
+    speeds = [1, 1.25, 1.5, 2, 0.75],
+    ## bool Show the volume and mute controls.
+    showVolume = true,
+    ## bool Show the speed button.
+    showSpeed = true,
+    ## string `none`, `metadata` or `auto`.
+    preload = 'metadata',
+    ## string The accessible name of the play button.
+    playLabel = 'Play',
+    ## string The accessible name of the pause button.
+    pauseLabel = 'Pause',
+    ## string The accessible name of the seek bar.
+    seekLabel = 'Seek',
+    ## string The accessible name of the volume bar.
+    volumeLabel = 'Volume',
+    ## string The accessible name of the mute button.
+    muteLabel = 'Mute',
+    ## string The accessible name of the unmute button.
+    unmuteLabel = 'Unmute',
+    ## string The accessible name of the speed button, with {speed}.
+    speedLabel = 'Playback speed {speed}',
+    ## string The accessible name of the player.
+    label = 'Audio player'
+-%}
+<div
+    data-slot="audio-player"
+    data-controller="audio-player"
+    data-audio-player-speeds-value="{{ speeds|json_encode|e('html_attr') }}"
+    data-audio-player-play-label-value="{{ playLabel }}"
+    data-audio-player-pause-label-value="{{ pauseLabel }}"
+    data-audio-player-mute-label-value="{{ muteLabel }}"
+    data-audio-player-unmute-label-value="{{ unmuteLabel }}"
+    data-audio-player-speed-label-value="{{ speedLabel }}"
+    role="group"
+    aria-label="{{ title ?? label }}"
+    {{ attributes.defaults({class: 'grid w-full max-w-lg gap-2 rounded-lg border bg-card p-3 text-card-foreground'|tailwind_classes}) }}
+>
+    <audio data-audio-player-target="audio" src="{{ src }}" preload="{{ preload }}"></audio>
+    {%- if title %}
+        <div class="min-w-0">
+            <p class="truncate text-sm font-medium">{{ title }}</p>
+            {%- if subtitle %}<p class="truncate text-xs text-muted-foreground">{{ subtitle }}</p>{% endif %}
+        </div>
+    {%- endif %}
+    <div class="flex items-center gap-3">
+        <button type="button" data-audio-player-target="play" data-action="audio-player#toggle" aria-label="{{ playLabel }}" class="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground outline-none hover:bg-primary/90 focus-visible:ring-[3px] focus-visible:ring-ring/50">
+            <twig:ux:icon name="lucide:play" class="size-4 [[data-playing=true]_&]:hidden" data-audio-player-target="playIcon" />
+            <twig:ux:icon name="lucide:pause" class="hidden size-4" data-audio-player-target="pauseIcon" />
+        </button>
+        <span data-audio-player-target="current" class="w-10 text-right text-xs tabular-nums text-muted-foreground">0:00</span>
+        <input type="range" min="0" max="100" step="0.1" value="0" aria-label="{{ seekLabel }}" data-audio-player-target="seek" data-action="input->audio-player#seek" class="h-1.5 min-w-0 flex-1 cursor-pointer accent-primary">
+        <span data-audio-player-target="duration" class="w-10 text-xs tabular-nums text-muted-foreground">0:00</span>
+        {%- if showSpeed %}
+            <button type="button" data-audio-player-target="speed" data-action="audio-player#cycleSpeed" class="inline-flex h-7 min-w-10 items-center justify-center rounded-md border px-1.5 text-xs font-medium tabular-nums outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">1x</button>
+        {%- endif %}
+        {%- if showVolume %}
+            <button type="button" data-audio-player-target="mute" data-action="audio-player#mute" aria-label="{{ muteLabel }}" class="inline-flex size-7 items-center justify-center rounded-md outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">
+                <twig:ux:icon name="lucide:volume-2" class="size-4" data-audio-player-target="volumeIcon" />
+                <twig:ux:icon name="lucide:volume-x" class="hidden size-4" data-audio-player-target="mutedIcon" />
+            </button>
+            <input type="range" min="0" max="1" step="0.05" value="1" aria-label="{{ volumeLabel }}" data-audio-player-target="volume" data-action="input->audio-player#volume" class="hidden h-1.5 w-16 cursor-pointer accent-primary sm:block">
+        {%- endif %}
+    </div>
+</div>
