@@ -1187,3 +1187,136 @@
     </twig:Dialog>
 </div>
 ```
+
+### Top
+
+```twig
+<div style="min-height: 120px">
+    <twig:Dialog id="dlg-pos-top">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Open at the top
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Dialog:Content class="m-0! top-4 inset-x-auto left-1/2 -translate-x-1/2">
+            <twig:Dialog:Header>
+                <twig:Dialog:Title>
+                    Top
+                </twig:Dialog:Title>
+                <twig:Dialog:Description>
+                    The dialog is placed with plain classes on its content.
+                </twig:Dialog:Description>
+            </twig:Dialog:Header>
+            <twig:Dialog:Footer>
+                <twig:Button {{ ...dialog_close_attrs }}>
+                    Close
+                </twig:Button>
+            </twig:Dialog:Footer>
+        </twig:Dialog:Content>
+    </twig:Dialog>
+</div>
+```
+
+### Left Side
+
+```twig
+<div style="min-height: 120px">
+    <twig:Dialog id="dlg-pos-left">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Open on the left
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Dialog:Content class="m-0! left-4 inset-y-auto top-1/2 -translate-y-1/2">
+            <twig:Dialog:Header>
+                <twig:Dialog:Title>
+                    Left Side
+                </twig:Dialog:Title>
+                <twig:Dialog:Description>
+                    The dialog is placed with plain classes on its content.
+                </twig:Dialog:Description>
+            </twig:Dialog:Header>
+            <twig:Dialog:Footer>
+                <twig:Button {{ ...dialog_close_attrs }}>
+                    Close
+                </twig:Button>
+            </twig:Dialog:Footer>
+        </twig:Dialog:Content>
+    </twig:Dialog>
+</div>
+```
+
+### Bottom Right Corner
+
+```twig
+<div style="min-height: 120px">
+    <twig:Dialog id="dlg-pos-corner">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Open in a corner
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Dialog:Content class="m-0! right-4 bottom-4 inset-auto">
+            <twig:Dialog:Header>
+                <twig:Dialog:Title>
+                    Bottom Right Corner
+                </twig:Dialog:Title>
+                <twig:Dialog:Description>
+                    The dialog is placed with plain classes on its content.
+                </twig:Dialog:Description>
+            </twig:Dialog:Header>
+            <twig:Dialog:Footer>
+                <twig:Button {{ ...dialog_close_attrs }}>
+                    Close
+                </twig:Button>
+            </twig:Dialog:Footer>
+        </twig:Dialog:Content>
+    </twig:Dialog>
+</div>
+```
+
+### Maximizable
+
+A button in the header toggles the size classes of the dialog.
+
+```twig
+<div style="min-height: 120px">
+    <twig:Dialog id="dlg-max">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Open
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Dialog:Content id="dlg-max-content" class="transition-[max-width,height]">
+            <twig:Dialog:Header>
+                <twig:Dialog:Title>
+                    Quarterly report
+                </twig:Dialog:Title>
+                <twig:Dialog:Description>
+                    Use the button to fill the screen.
+                </twig:Dialog:Description>
+            </twig:Dialog:Header>
+            <twig:Button variant="ghost" size="icon-sm" type="button" aria-label="Maximize" aria-pressed="false" id="dlg-max-toggle" class="absolute top-2 end-10">
+                <twig:ux:icon name="lucide:maximize-2" />
+            </twig:Button>
+            <twig:Dialog:Footer>
+                <twig:Button {{ ...dialog_close_attrs }}>
+                    Close
+                </twig:Button>
+            </twig:Dialog:Footer>
+        </twig:Dialog:Content>
+    </twig:Dialog>
+</div>
+<script>
+    document.getElementById('dlg-max-toggle').addEventListener('click', (event) => {
+        const button = event.currentTarget;
+        const on = 'true' !== button.getAttribute('aria-pressed');
+        button.setAttribute('aria-pressed', String(on));
+        button.setAttribute('aria-label', on ? 'Restore' : 'Maximize');
+        const content = document.getElementById('dlg-max-content');
+        content.classList.toggle('sm:max-w-[calc(100%-2rem)]', on);
+        content.classList.toggle('h-[calc(100%-2rem)]', on);
+        content.classList.toggle('content-start', on);
+    });
+</script>
+```
