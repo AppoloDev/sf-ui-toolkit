@@ -1,0 +1,79 @@
+{#
+ # A calendar heatmap: one square per day, in columns of weeks. Twig and CSS only.
+ #
+ # Props: values, end, weeks, weekStart, thresholds, locale, tooltip, lessLabel, moreLabel, label, showLegend, showWeekdays.
+ #}
+{%- props
+    ## array The days: `{date: 'YYYY-MM-DD', count: 3}` items, or a map `{'YYYY-MM-DD': 3}`.
+    values = [],
+    ## string|null The last day shown (`YYYY-MM-DD`). Without it, today.
+    end = null,
+    ## integer The number of weeks shown.
+    weeks = 53,
+    ## integer The first day of the week: 0 is Sunday, 1 is Monday.
+    weekStart = 1,
+    ## array The counts from which each level starts, for levels 1 to 4.
+    thresholds = [1, 3, 6, 10],
+    ## string The locale of the month and day names.
+    locale = 'en',
+    ## string The text of a day, with {count} and {date}.
+    tooltip = '{count} contributions on {date}',
+    ## string The text before the legend squares.
+    lessLabel = 'Less',
+    ## string The text after the legend squares.
+    moreLabel = 'More',
+    ## string The accessible name of the graph.
+    label = 'Contribution graph',
+    ## bool Show the legend.
+    showLegend = true,
+    ## bool Show the names of some weekdays on the left.
+    showWeekdays = true
+-%}
+{%- set counts = {} -%}
+{%- for key, item in values -%}
+    {%- if item is iterable -%}
+        {%- set counts = counts|merge({(item.date): item.count}) -%}
+    {%- else -%}
+        {%- set counts = counts|merge({(key): item}) -%}
+    {%- endif -%}
+{%- endfor -%}
+{%- set last = (end ?? 'now')|date('Y-m-d') -%}
+{%- set lastDow = last|date('w') -%}
+{%- set offset = (lastDow - weekStart + 7) % 7 -%}
+{%- set firstDay = (last ~ ' -' ~ (offset + (weeks - 1) * 7) ~ ' days')|date('Y-m-d') -%}
+{%- set levels = ['bg-muted', 'bg-green-200 dark:bg-green-900', 'bg-green-400 dark:bg-green-700', 'bg-green-600 dark:bg-green-500', 'bg-green-800 dark:bg-green-300'] -%}
+<figure data-slot="contribution-graph" role="group" aria-label="{{ label }}" {{ attributes.defaults({class: 'inline-block max-w-full overflow-x-auto'|tailwind_classes}) }}>
+    <div class="grid gap-1 text-[10px] text-muted-foreground" style="grid-template-columns: auto repeat({{ weeks }}, 12px); grid-template-rows: 12px repeat(7, 12px)">
+        {%- for w in 0..(weeks - 1) -%}
+            {%- set weekStartDate = (firstDay ~ ' +' ~ (w * 7) ~ ' days')|date('Y-m-d') -%}
+            {%- set monthNumber = weekStartDate|date('n') -%}
+            {%- set previousMonth = w > 0 ? ((firstDay ~ ' +' ~ ((w - 1) * 7) ~ ' days')|date('n')) : 0 -%}
+            {%- if monthNumber != previousMonth %}
+                <span class="overflow-visible whitespace-nowrap leading-3" style="grid-column: {{ w + 2 }}; grid-row: 1">{{ ('2000-' ~ monthNumber ~ '-15')|date('M') }}</span>
+            {%- endif -%}
+        {%- endfor -%}
+        {%- if showWeekdays -%}
+            {%- for row in [1, 3, 5] %}
+                <span class="leading-3" style="grid-column: 1; grid-row: {{ row + 2 }}">{{ ('2000-01-0' ~ (((weekStart + row) % 7) + 2))|date('D') }}</span>
+            {%- endfor -%}
+        {%- endif -%}
+        {%- for w in 0..(weeks - 1) -%}
+            {%- for d in 0..6 -%}
+                {%- set day = (firstDay ~ ' +' ~ (w * 7 + d) ~ ' days')|date('Y-m-d') -%}
+                {%- if day <= last -%}
+                    {%- set count = counts[day] ?? 0 -%}
+                    {%- set level = 0 -%}
+                    {%- for step in thresholds -%}{%- if count >= step %}{% set level = loop.index %}{% endif -%}{%- endfor %}
+                    <span class="size-3 rounded-[3px] {{ levels[level] }}" style="grid-column: {{ w + 2 }}; grid-row: {{ d + 2 }}" title="{{ tooltip|replace({'{count}': count, '{date}': day}) }}" data-date="{{ day }}" data-level="{{ level }}"></span>
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endfor -%}
+    </div>
+    {%- if showLegend %}
+        <figcaption class="mt-2 flex items-center justify-end gap-1 text-[10px] text-muted-foreground">
+            {{ lessLabel }}
+            {%- for level in levels %}<span class="size-3 rounded-[3px] {{ level }}"></span>{% endfor %}
+            {{ moreLabel }}
+        </figcaption>
+    {%- endif %}
+</figure>

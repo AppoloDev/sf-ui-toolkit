@@ -1,0 +1,15 @@
+{
+    "type": "component",
+    "name": "ContributionGraph",
+    "description": "A calendar heatmap like the contribution graph of a code host: one square per day over a year, intensity levels, month labels, a legend, and a tooltip text for every day. Twig and CSS only.",
+    "copy-files": {
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "twig/html-extra:^3.24.0",
+            "symfony/ux-twig-component:^3.5",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+        ]
+    }
+}
