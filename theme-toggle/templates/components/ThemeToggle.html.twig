@@ -1,0 +1,75 @@
+{#
+ # Switches the theme between light, dark and system, stores the choice and sets the `dark` class on `<html>`.
+ #
+ # Props: variant, buttonVariant, size, initial, storageKey, label, lightLabel, darkLabel, systemLabel, switcherLabel.
+ # Slot (variant `custom`): your own controls, which use the actions `theme-toggle#set` and `theme-toggle#toggle`.
+ #}
+{%- props
+    ## string `icon` (one button, icons only), `labeled` (one button with the name of the theme), `switcher` (light, dark and system side by side) or `custom` (only the controller, around your own markup).
+    variant = 'icon',
+    ## string Style of the buttons: `outline`, `default`, `secondary` or `ghost`.
+    buttonVariant = 'outline',
+    ## string `sm`, `default` or `lg`.
+    size = 'default',
+    ## string The theme when nothing is stored yet: `light`, `dark` or `system`.
+    initial = 'system',
+    ## string The key of the local storage.
+    storageKey = 'theme',
+    ## string The accessible name of the toggle button.
+    label = 'Toggle theme',
+    ## string The text for the light theme.
+    lightLabel = 'Light',
+    ## string The text for the dark theme.
+    darkLabel = 'Dark',
+    ## string The text for the system theme.
+    systemLabel = 'System',
+    ## string The accessible name of the switcher group.
+    switcherLabel = 'Theme'
+-%}
+{%- set colors = {
+    outline: 'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
+    default: 'bg-primary text-primary-foreground shadow-xs hover:bg-primary/90',
+    secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
+    ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
+} -%}
+{%- set sizes = {sm: 'h-8 gap-1.5 px-3 text-xs', default: 'h-9 gap-2 px-4 text-sm', lg: 'h-10 gap-2 px-6 text-sm'} -%}
+{%- set squares = {sm: 'size-8', default: 'size-9', lg: 'size-10'} -%}
+{%- set button = 'inline-flex shrink-0 items-center justify-center rounded-md font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 ' ~ colors[buttonVariant] -%}
+<div
+    data-slot="theme-toggle"
+    data-controller="theme-toggle"
+    data-theme-toggle-initial-value="{{ initial }}"
+    data-theme-toggle-storage-key-value="{{ storageKey }}"
+    {%- if variant == 'switcher' %} role="group" aria-label="{{ switcherLabel }}"{% endif %}
+    {{ attributes.defaults({class: (variant == 'switcher' ? 'inline-flex items-center gap-0.5 rounded-lg border bg-muted p-0.5' : 'inline-flex')|tailwind_classes}) }}
+>
+    {%- if variant == 'switcher' %}
+        {%- for mode, text in {light: lightLabel, dark: darkLabel, system: systemLabel} %}
+            <button
+                type="button"
+                data-action="theme-toggle#set"
+                data-theme-toggle-mode-param="{{ mode }}"
+                data-theme-toggle-target="option"
+                aria-pressed="false"
+                class="{{ ('inline-flex items-center justify-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-pressed:bg-background aria-pressed:text-foreground aria-pressed:shadow-sm ' ~ (size == 'lg' ? 'h-9 px-3 text-sm' : size == 'sm' ? 'h-6' : 'h-7'))|tailwind_classes }}"
+            >
+                <twig:ux:icon :name="mode == 'light' ? 'lucide:sun' : (mode == 'dark' ? 'lucide:moon' : 'lucide:monitor')" class="size-4" />
+                {{ text }}
+            </button>
+        {%- endfor %}
+    {%- elseif variant == 'labeled' %}
+        <button type="button" data-action="theme-toggle#toggle" class="{{ (button ~ ' ' ~ sizes[size])|tailwind_classes }}">
+            <twig:ux:icon name="lucide:sun" class="size-4 dark:hidden" />
+            <twig:ux:icon name="lucide:moon" class="hidden size-4 dark:block" />
+            <span class="dark:hidden">{{ lightLabel }}</span>
+            <span class="hidden dark:inline">{{ darkLabel }}</span>
+        </button>
+    {%- elseif variant == 'custom' %}
+        {%- block content %}{% endblock %}
+    {%- else %}
+        <button type="button" data-action="theme-toggle#toggle" aria-label="{{ label }}" class="{{ (button ~ ' ' ~ squares[size])|tailwind_classes }}">
+            <twig:ux:icon name="lucide:sun" class="size-4 dark:hidden" />
+            <twig:ux:icon name="lucide:moon" class="hidden size-4 dark:block" />
+        </button>
+    {%- endif %}
+</div>
