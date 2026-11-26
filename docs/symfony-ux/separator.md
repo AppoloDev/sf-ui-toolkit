@@ -373,3 +373,24 @@
     </span>
 </div>
 ```
+
+### Dotted And Dashed
+
+The line is a border, so its style is a border style.
+
+```twig
+<div class="grid w-full max-w-sm gap-4">
+    <p class="text-sm">
+        Solid
+    </p>
+    <twig:Separator />
+    <p class="text-sm">
+        Dashed
+    </p>
+    <twig:Separator class="h-0 border-t border-dashed bg-transparent" />
+    <p class="text-sm">
+        Dotted
+    </p>
+    <twig:Separator class="h-0 border-t-2 border-dotted bg-transparent" />
+</div>
+```
