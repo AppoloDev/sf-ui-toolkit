@@ -1,14 +1,13 @@
 {#
  # A calendar of events: month, week, day and agenda views.
  #
- # Props: events, view, views, date, weekStart, locale, resources, editable, creatable, startHour, endHour,
+ # Props: view, views, date, weekStart, locale, resources, editable, creatable, startHour, endHour,
  # slotMinutes, hourHeight, showToolbar and the texts (todayLabel, previousLabel, nextLabel, monthLabel, weekLabel,
  # dayLabel, agendaLabel, allDayLabel, noEventsLabel, moreLabel, label).
+ # Slot `default`: the events, as `EventCalendar:Item`.
  # Slot `chip`: the markup of an event chip, with {title}, {time}, {color}, {resource} and the keys of the event.
  #}
 {%- props
-    ## array The events: `id`, `title`, `start` and `end` (`YYYY-MM-DDTHH:mm`, or `YYYY-MM-DD` for an all-day event), and optionally `color` (`blue`, `green`, `red`, `amber`, `violet`, `slate`) and `resource`.
-    events = [],
     ## string The view shown: `month`, `week`, `day` or `agenda`.
     view = 'month',
     ## array The views the user can switch to.
@@ -63,7 +62,6 @@
 <section
     data-slot="event-calendar"
     data-controller="event-calendar"
-    data-event-calendar-events-value="{{ events|json_encode|e('html_attr') }}"
     data-event-calendar-view-value="{{ view }}"
     data-event-calendar-week-start-value="{{ weekStart }}"
     data-event-calendar-locale-value="{{ locale }}"
@@ -100,6 +98,7 @@
             {%- endif %}
         </div>
     {%- endif %}
+    <div hidden data-event-calendar-target="items">{% block content %}{% endblock %}</div>
     <div data-event-calendar-target="body" class="overflow-hidden rounded-lg border bg-card"></div>
     {%- if chip|trim is not empty %}<template data-event-calendar-target="chip">{{ chip|raw }}</template>{% endif %}
 </section>

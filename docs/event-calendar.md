@@ -10,20 +10,16 @@
 
 ## Usage
 
-Give the events, with dates as `YYYY-MM-DDTHH:mm` (or `YYYY-MM-DD` for an event of the whole day).
+Put one `EventCalendar:Item` per event inside the calendar, with dates as `YYYY-MM-DDTHH:mm` (or `YYYY-MM-DD` for an event of the whole day).
 
 ```twig
-<twig:EventCalendar
-    :events="[
-        {id: 1, title: 'Stand-up', start: '2026-11-26T09:00', end: '2026-11-26T09:30', color: 'blue'},
-        {id: 2, title: 'Offsite', start: '2026-11-27', end: '2026-11-27'}
-    ]"
-    view="week"
-    :editable="true"
-/>
+<twig:EventCalendar view="week" :editable="true">
+    <twig:EventCalendar:Item title="Stand-up" start="2026-11-26T09:00" end="2026-11-26T09:30" color="blue" />
+    <twig:EventCalendar:Item title="Offsite" start="2026-11-27" color="slate" />
+</twig:EventCalendar>
 ```
 
-The calendar draws itself in the browser from the `events` value. To change the events after the page has loaded, write the `data-event-calendar-events-value` attribute (a JSON array): the calendar redraws.
+The calendar draws itself in the browser from its items. An item is a hidden element: add, change or remove one (for example from a script, or after a Turbo or Live Component update) and the calendar redraws. Dropping an event writes its new dates to the item.
 
 ## Examples
 
@@ -40,16 +36,16 @@ Month, week, day and agenda, with the switcher. Overlapping events share the wid
 {% set w2 = 'monday this week'|date_modify('+2 days')|date('Y-m-d') %}
 {% set w3 = 'monday this week'|date_modify('+3 days')|date('Y-m-d') %}
 {% set w4 = 'monday this week'|date_modify('+4 days')|date('Y-m-d') %}
-<twig:EventCalendar :events="[
-    {id: 1, title: 'Stand-up', start: w0 ~ 'T09:00', end: w0 ~ 'T09:30', color: 'blue'},
-    {id: 2, title: 'Design review', start: w1 ~ 'T10:00', end: w1 ~ 'T11:30', color: 'violet'},
-    {id: 3, title: 'Lunch with Ada', start: w2 ~ 'T12:00', end: w2 ~ 'T13:00', color: 'green'},
-    {id: 4, title: 'Planning', start: w2 ~ 'T14:00', end: w2 ~ 'T16:00', color: 'amber'},
-    {id: 5, title: 'Retro', start: w2 ~ 'T14:30', end: w2 ~ 'T15:30', color: 'blue'},
-    {id: 6, title: 'Release', start: w3 ~ 'T15:00', end: w3 ~ 'T16:00', color: 'red'},
-    {id: 7, title: 'Offsite', start: w4, end: w4, color: 'slate'},
-    {id: 8, title: 'Call', start: today ~ 'T11:00', end: today ~ 'T11:45', color: 'green'}
-]" />
+<twig:EventCalendar>
+    <twig:EventCalendar:Item title="Stand-up" :start="w0 ~ 'T09:00'" :end="w0 ~ 'T09:30'" color="blue" />
+    <twig:EventCalendar:Item title="Design review" :start="w1 ~ 'T10:00'" :end="w1 ~ 'T11:30'" color="violet" />
+    <twig:EventCalendar:Item title="Lunch with Ada" :start="w2 ~ 'T12:00'" :end="w2 ~ 'T13:00'" color="green" />
+    <twig:EventCalendar:Item title="Planning" :start="w2 ~ 'T14:00'" :end="w2 ~ 'T16:00'" color="amber" />
+    <twig:EventCalendar:Item title="Retro" :start="w2 ~ 'T14:30'" :end="w2 ~ 'T15:30'" color="blue" />
+    <twig:EventCalendar:Item title="Release" :start="w3 ~ 'T15:00'" :end="w3 ~ 'T16:00'" color="red" />
+    <twig:EventCalendar:Item title="Offsite" :start="w4" :end="w4" color="slate" />
+    <twig:EventCalendar:Item title="Call" :start="today ~ 'T11:00'" :end="today ~ 'T11:45'" color="green" />
+</twig:EventCalendar>
 ```
 
 ### Month
@@ -65,16 +61,16 @@ Only the month view.
 {% set w2 = 'monday this week'|date_modify('+2 days')|date('Y-m-d') %}
 {% set w3 = 'monday this week'|date_modify('+3 days')|date('Y-m-d') %}
 {% set w4 = 'monday this week'|date_modify('+4 days')|date('Y-m-d') %}
-<twig:EventCalendar :events="[
-    {id: 1, title: 'Stand-up', start: w0 ~ 'T09:00', end: w0 ~ 'T09:30', color: 'blue'},
-    {id: 2, title: 'Design review', start: w1 ~ 'T10:00', end: w1 ~ 'T11:30', color: 'violet'},
-    {id: 3, title: 'Lunch with Ada', start: w2 ~ 'T12:00', end: w2 ~ 'T13:00', color: 'green'},
-    {id: 4, title: 'Planning', start: w2 ~ 'T14:00', end: w2 ~ 'T16:00', color: 'amber'},
-    {id: 5, title: 'Retro', start: w2 ~ 'T14:30', end: w2 ~ 'T15:30', color: 'blue'},
-    {id: 6, title: 'Release', start: w3 ~ 'T15:00', end: w3 ~ 'T16:00', color: 'red'},
-    {id: 7, title: 'Offsite', start: w4, end: w4, color: 'slate'},
-    {id: 8, title: 'Call', start: today ~ 'T11:00', end: today ~ 'T11:45', color: 'green'}
-]" view="month" :views="['month']" />
+<twig:EventCalendar view="month" :views="['month']">
+    <twig:EventCalendar:Item title="Stand-up" :start="w0 ~ 'T09:00'" :end="w0 ~ 'T09:30'" color="blue" />
+    <twig:EventCalendar:Item title="Design review" :start="w1 ~ 'T10:00'" :end="w1 ~ 'T11:30'" color="violet" />
+    <twig:EventCalendar:Item title="Lunch with Ada" :start="w2 ~ 'T12:00'" :end="w2 ~ 'T13:00'" color="green" />
+    <twig:EventCalendar:Item title="Planning" :start="w2 ~ 'T14:00'" :end="w2 ~ 'T16:00'" color="amber" />
+    <twig:EventCalendar:Item title="Retro" :start="w2 ~ 'T14:30'" :end="w2 ~ 'T15:30'" color="blue" />
+    <twig:EventCalendar:Item title="Release" :start="w3 ~ 'T15:00'" :end="w3 ~ 'T16:00'" color="red" />
+    <twig:EventCalendar:Item title="Offsite" :start="w4" :end="w4" color="slate" />
+    <twig:EventCalendar:Item title="Call" :start="today ~ 'T11:00'" :end="today ~ 'T11:45'" color="green" />
+</twig:EventCalendar>
 ```
 
 ### Week
@@ -90,16 +86,16 @@ Seven columns and a time grid; all-day events sit in the row above it.
 {% set w2 = 'monday this week'|date_modify('+2 days')|date('Y-m-d') %}
 {% set w3 = 'monday this week'|date_modify('+3 days')|date('Y-m-d') %}
 {% set w4 = 'monday this week'|date_modify('+4 days')|date('Y-m-d') %}
-<twig:EventCalendar :events="[
-    {id: 1, title: 'Stand-up', start: w0 ~ 'T09:00', end: w0 ~ 'T09:30', color: 'blue'},
-    {id: 2, title: 'Design review', start: w1 ~ 'T10:00', end: w1 ~ 'T11:30', color: 'violet'},
-    {id: 3, title: 'Lunch with Ada', start: w2 ~ 'T12:00', end: w2 ~ 'T13:00', color: 'green'},
-    {id: 4, title: 'Planning', start: w2 ~ 'T14:00', end: w2 ~ 'T16:00', color: 'amber'},
-    {id: 5, title: 'Retro', start: w2 ~ 'T14:30', end: w2 ~ 'T15:30', color: 'blue'},
-    {id: 6, title: 'Release', start: w3 ~ 'T15:00', end: w3 ~ 'T16:00', color: 'red'},
-    {id: 7, title: 'Offsite', start: w4, end: w4, color: 'slate'},
-    {id: 8, title: 'Call', start: today ~ 'T11:00', end: today ~ 'T11:45', color: 'green'}
-]" view="week" :views="['week']" />
+<twig:EventCalendar view="week" :views="['week']">
+    <twig:EventCalendar:Item title="Stand-up" :start="w0 ~ 'T09:00'" :end="w0 ~ 'T09:30'" color="blue" />
+    <twig:EventCalendar:Item title="Design review" :start="w1 ~ 'T10:00'" :end="w1 ~ 'T11:30'" color="violet" />
+    <twig:EventCalendar:Item title="Lunch with Ada" :start="w2 ~ 'T12:00'" :end="w2 ~ 'T13:00'" color="green" />
+    <twig:EventCalendar:Item title="Planning" :start="w2 ~ 'T14:00'" :end="w2 ~ 'T16:00'" color="amber" />
+    <twig:EventCalendar:Item title="Retro" :start="w2 ~ 'T14:30'" :end="w2 ~ 'T15:30'" color="blue" />
+    <twig:EventCalendar:Item title="Release" :start="w3 ~ 'T15:00'" :end="w3 ~ 'T16:00'" color="red" />
+    <twig:EventCalendar:Item title="Offsite" :start="w4" :end="w4" color="slate" />
+    <twig:EventCalendar:Item title="Call" :start="today ~ 'T11:00'" :end="today ~ 'T11:45'" color="green" />
+</twig:EventCalendar>
 ```
 
 ### Day
@@ -115,16 +111,16 @@ One column for the day.
 {% set w2 = 'monday this week'|date_modify('+2 days')|date('Y-m-d') %}
 {% set w3 = 'monday this week'|date_modify('+3 days')|date('Y-m-d') %}
 {% set w4 = 'monday this week'|date_modify('+4 days')|date('Y-m-d') %}
-<twig:EventCalendar :events="[
-    {id: 1, title: 'Stand-up', start: w0 ~ 'T09:00', end: w0 ~ 'T09:30', color: 'blue'},
-    {id: 2, title: 'Design review', start: w1 ~ 'T10:00', end: w1 ~ 'T11:30', color: 'violet'},
-    {id: 3, title: 'Lunch with Ada', start: w2 ~ 'T12:00', end: w2 ~ 'T13:00', color: 'green'},
-    {id: 4, title: 'Planning', start: w2 ~ 'T14:00', end: w2 ~ 'T16:00', color: 'amber'},
-    {id: 5, title: 'Retro', start: w2 ~ 'T14:30', end: w2 ~ 'T15:30', color: 'blue'},
-    {id: 6, title: 'Release', start: w3 ~ 'T15:00', end: w3 ~ 'T16:00', color: 'red'},
-    {id: 7, title: 'Offsite', start: w4, end: w4, color: 'slate'},
-    {id: 8, title: 'Call', start: today ~ 'T11:00', end: today ~ 'T11:45', color: 'green'}
-]" view="day" :views="['day']" />
+<twig:EventCalendar view="day" :views="['day']">
+    <twig:EventCalendar:Item title="Stand-up" :start="w0 ~ 'T09:00'" :end="w0 ~ 'T09:30'" color="blue" />
+    <twig:EventCalendar:Item title="Design review" :start="w1 ~ 'T10:00'" :end="w1 ~ 'T11:30'" color="violet" />
+    <twig:EventCalendar:Item title="Lunch with Ada" :start="w2 ~ 'T12:00'" :end="w2 ~ 'T13:00'" color="green" />
+    <twig:EventCalendar:Item title="Planning" :start="w2 ~ 'T14:00'" :end="w2 ~ 'T16:00'" color="amber" />
+    <twig:EventCalendar:Item title="Retro" :start="w2 ~ 'T14:30'" :end="w2 ~ 'T15:30'" color="blue" />
+    <twig:EventCalendar:Item title="Release" :start="w3 ~ 'T15:00'" :end="w3 ~ 'T16:00'" color="red" />
+    <twig:EventCalendar:Item title="Offsite" :start="w4" :end="w4" color="slate" />
+    <twig:EventCalendar:Item title="Call" :start="today ~ 'T11:00'" :end="today ~ 'T11:45'" color="green" />
+</twig:EventCalendar>
 ```
 
 ### Agenda
@@ -140,37 +136,37 @@ The events of the month as a list, grouped by day.
 {% set w2 = 'monday this week'|date_modify('+2 days')|date('Y-m-d') %}
 {% set w3 = 'monday this week'|date_modify('+3 days')|date('Y-m-d') %}
 {% set w4 = 'monday this week'|date_modify('+4 days')|date('Y-m-d') %}
-<twig:EventCalendar :events="[
-    {id: 1, title: 'Stand-up', start: w0 ~ 'T09:00', end: w0 ~ 'T09:30', color: 'blue'},
-    {id: 2, title: 'Design review', start: w1 ~ 'T10:00', end: w1 ~ 'T11:30', color: 'violet'},
-    {id: 3, title: 'Lunch with Ada', start: w2 ~ 'T12:00', end: w2 ~ 'T13:00', color: 'green'},
-    {id: 4, title: 'Planning', start: w2 ~ 'T14:00', end: w2 ~ 'T16:00', color: 'amber'},
-    {id: 5, title: 'Retro', start: w2 ~ 'T14:30', end: w2 ~ 'T15:30', color: 'blue'},
-    {id: 6, title: 'Release', start: w3 ~ 'T15:00', end: w3 ~ 'T16:00', color: 'red'},
-    {id: 7, title: 'Offsite', start: w4, end: w4, color: 'slate'},
-    {id: 8, title: 'Call', start: today ~ 'T11:00', end: today ~ 'T11:45', color: 'green'}
-]" view="agenda" :views="['agenda']" />
+<twig:EventCalendar view="agenda" :views="['agenda']">
+    <twig:EventCalendar:Item title="Stand-up" :start="w0 ~ 'T09:00'" :end="w0 ~ 'T09:30'" color="blue" />
+    <twig:EventCalendar:Item title="Design review" :start="w1 ~ 'T10:00'" :end="w1 ~ 'T11:30'" color="violet" />
+    <twig:EventCalendar:Item title="Lunch with Ada" :start="w2 ~ 'T12:00'" :end="w2 ~ 'T13:00'" color="green" />
+    <twig:EventCalendar:Item title="Planning" :start="w2 ~ 'T14:00'" :end="w2 ~ 'T16:00'" color="amber" />
+    <twig:EventCalendar:Item title="Retro" :start="w2 ~ 'T14:30'" :end="w2 ~ 'T15:30'" color="blue" />
+    <twig:EventCalendar:Item title="Release" :start="w3 ~ 'T15:00'" :end="w3 ~ 'T16:00'" color="red" />
+    <twig:EventCalendar:Item title="Offsite" :start="w4" :end="w4" color="slate" />
+    <twig:EventCalendar:Item title="Call" :start="today ~ 'T11:00'" :end="today ~ 'T11:45'" color="green" />
+</twig:EventCalendar>
 ```
 
 ### Room Bookings
 
-With `resources`, the day view has one column per room; each event refers to its room with `resource`.
+With `resources`, the day view has one column per room; each item refers to its room with `resource`.
 
 <!-- height: 540 -->
 
 ```twig
 {% set today = 'now'|date('Y-m-d') %}
-<twig:EventCalendar view="day" :views="['day']" :resources="[{id: 'a', title: 'Room A'}, {id: 'b', title: 'Room B'}, {id: 'c', title: 'Room C'}]" :events="[
-    {id: 1, title: 'Board meeting', start: today ~ 'T09:00', end: today ~ 'T10:30', resource: 'a', color: 'violet'},
-    {id: 2, title: 'Interviews', start: today ~ 'T10:00', end: today ~ 'T12:00', resource: 'b', color: 'green'},
-    {id: 3, title: 'Training', start: today ~ 'T13:00', end: today ~ 'T16:00', resource: 'c', color: 'amber'},
-    {id: 4, title: 'Sync', start: today ~ 'T14:00', end: today ~ 'T14:30', resource: 'a', color: 'blue'}
-]" />
+<twig:EventCalendar view="day" :views="['day']" :resources="[{id: 'a', title: 'Room A'}, {id: 'b', title: 'Room B'}, {id: 'c', title: 'Room C'}]">
+    <twig:EventCalendar:Item title="Board meeting" :start="today ~ 'T09:00'" :end="today ~ 'T10:30'" color="violet" resource="a" />
+    <twig:EventCalendar:Item title="Interviews" :start="today ~ 'T10:00'" :end="today ~ 'T12:00'" color="green" resource="b" />
+    <twig:EventCalendar:Item title="Training" :start="today ~ 'T13:00'" :end="today ~ 'T16:00'" color="amber" resource="c" />
+    <twig:EventCalendar:Item title="Sync" :start="today ~ 'T14:00'" :end="today ~ 'T14:30'" color="blue" resource="a" />
+</twig:EventCalendar>
 ```
 
 ### Drag To Reschedule
 
-`editable` lets events be dragged to another day (month) or another time and column (week, day). `event-calendar:move` is fired first and can be cancelled; the new dates are in its detail.
+`editable` lets events be dragged to another day (month) or another time and column (week, day). `event-calendar:move` is fired first and can be cancelled; the new dates are in its detail, and the item's `data-start` and `data-end` are updated.
 
 <!-- height: 640 -->
 
@@ -182,16 +178,16 @@ With `resources`, the day view has one column per room; each event refers to its
 {% set w3 = 'monday this week'|date_modify('+3 days')|date('Y-m-d') %}
 {% set w4 = 'monday this week'|date_modify('+4 days')|date('Y-m-d') %}
 <div class="grid gap-2">
-    <twig:EventCalendar id="ec-drag" view="week" :views="['week', 'month']" :editable="true" :events="[
-    {id: 1, title: 'Stand-up', start: w0 ~ 'T09:00', end: w0 ~ 'T09:30', color: 'blue'},
-    {id: 2, title: 'Design review', start: w1 ~ 'T10:00', end: w1 ~ 'T11:30', color: 'violet'},
-    {id: 3, title: 'Lunch with Ada', start: w2 ~ 'T12:00', end: w2 ~ 'T13:00', color: 'green'},
-    {id: 4, title: 'Planning', start: w2 ~ 'T14:00', end: w2 ~ 'T16:00', color: 'amber'},
-    {id: 5, title: 'Retro', start: w2 ~ 'T14:30', end: w2 ~ 'T15:30', color: 'blue'},
-    {id: 6, title: 'Release', start: w3 ~ 'T15:00', end: w3 ~ 'T16:00', color: 'red'},
-    {id: 7, title: 'Offsite', start: w4, end: w4, color: 'slate'},
-    {id: 8, title: 'Call', start: today ~ 'T11:00', end: today ~ 'T11:45', color: 'green'}
-]" />
+    <twig:EventCalendar id="ec-drag" view="week" :views="['week', 'month']" :editable="true">
+        <twig:EventCalendar:Item title="Stand-up" :start="w0 ~ 'T09:00'" :end="w0 ~ 'T09:30'" color="blue" />
+        <twig:EventCalendar:Item title="Design review" :start="w1 ~ 'T10:00'" :end="w1 ~ 'T11:30'" color="violet" />
+        <twig:EventCalendar:Item title="Lunch with Ada" :start="w2 ~ 'T12:00'" :end="w2 ~ 'T13:00'" color="green" />
+        <twig:EventCalendar:Item title="Planning" :start="w2 ~ 'T14:00'" :end="w2 ~ 'T16:00'" color="amber" />
+        <twig:EventCalendar:Item title="Retro" :start="w2 ~ 'T14:30'" :end="w2 ~ 'T15:30'" color="blue" />
+        <twig:EventCalendar:Item title="Release" :start="w3 ~ 'T15:00'" :end="w3 ~ 'T16:00'" color="red" />
+        <twig:EventCalendar:Item title="Offsite" :start="w4" :end="w4" color="slate" />
+        <twig:EventCalendar:Item title="Call" :start="today ~ 'T11:00'" :end="today ~ 'T11:45'" color="green" />
+    </twig:EventCalendar>
     <p class="text-sm text-muted-foreground">
         Last move: <code id="ec-drag-out">none</code>
     </p>
@@ -205,37 +201,41 @@ With `resources`, the day view has one column per room; each event refers to its
 
 ### Drag To Book
 
-`creatable`: drag over free time in a room column to choose a slot. `event-calendar:create` carries the slot and the room; here a script adds the booking by writing the events attribute.
+`creatable`: drag over free time in a room column to choose a slot. `event-calendar:create` carries the slot and the room; the script adds the booking by appending an item (a `div` with `data-event-calendar-target="item"` and the `data-title`, `data-start`, `data-end`, `data-color`, `data-resource` attributes) to the hidden `items` container.
 
 <!-- height: 540 -->
 
 ```twig
 {% set today = 'now'|date('Y-m-d') %}
-<twig:EventCalendar id="ec-book" view="day" :views="['day']" :resources="[{id: 'a', title: 'Room A'}, {id: 'b', title: 'Room B'}, {id: 'c', title: 'Room C'}]" :creatable="true" :editable="true" :events="[
-    {id: 1, title: 'Board meeting', start: today ~ 'T09:00', end: today ~ 'T10:30', resource: 'a', color: 'violet'},
-    {id: 2, title: 'Interviews', start: today ~ 'T10:00', end: today ~ 'T12:00', resource: 'b', color: 'green'}
-]" />
+<twig:EventCalendar id="ec-book" view="day" :views="['day']" :resources="[{id: 'a', title: 'Room A'}, {id: 'b', title: 'Room B'}, {id: 'c', title: 'Room C'}]" :creatable="true" :editable="true">
+    <twig:EventCalendar:Item title="Board meeting" :start="today ~ 'T09:00'" :end="today ~ 'T10:30'" color="violet" resource="a" />
+    <twig:EventCalendar:Item title="Interviews" :start="today ~ 'T10:00'" :end="today ~ 'T12:00'" color="green" resource="b" />
+</twig:EventCalendar>
 <script>
+    const add = (calendar, event) => {
+        const item = document.createElement('div');
+        item.dataset.eventCalendarTarget = 'item';
+        Object.assign(item.dataset, event);
+        calendar.querySelector('[data-event-calendar-target="items"]').append(item);
+    };
     const book = document.getElementById('ec-book');
     book.addEventListener('event-calendar:create', (event) => {
-        const events = JSON.parse(book.dataset.eventCalendarEventsValue);
-        events.push({ id: Date.now(), title: 'New booking', start: event.detail.start, end: event.detail.end, resource: event.detail.resource, color: 'blue' });
-        book.setAttribute('data-event-calendar-events-value', JSON.stringify(events));
+        add(book, { title: 'New booking', start: event.detail.start, end: event.detail.end, resource: event.detail.resource, color: 'blue' });
     });
 </script>
 ```
 
 ### Event Form Dialog
 
-Creating an event opens a `Dialog` with a form: the slot that was dragged fills the dates, and the form adds the event.
+Creating an event opens a `Dialog` with a form: the slot that was dragged fills the dates, and the form adds the item.
 
 <!-- height: 600 -->
 
 ```twig
 {% set today = 'now'|date('Y-m-d') %}
-<twig:EventCalendar id="ec-form" view="week" :views="['week']" :creatable="true" :events="[
-    {id: 1, title: 'Stand-up', start: today ~ 'T09:00', end: today ~ 'T09:30', color: 'blue'}
-]" />
+<twig:EventCalendar id="ec-form" view="week" :views="['week']" :creatable="true">
+    <twig:EventCalendar:Item title="Stand-up" :start="today ~ 'T09:00'" :end="today ~ 'T09:30'" color="blue" />
+</twig:EventCalendar>
 <twig:Dialog id="ec-form-dialog">
     <twig:Dialog:Content>
         <form id="ec-form-fields" class="grid gap-4">
@@ -276,6 +276,12 @@ Creating an event opens a `Dialog` with a form: the slot that was dragged fills 
     </twig:Dialog:Content>
 </twig:Dialog>
 <script>
+    const add = (calendar, event) => {
+        const item = document.createElement('div');
+        item.dataset.eventCalendarTarget = 'item';
+        Object.assign(item.dataset, event);
+        calendar.querySelector('[data-event-calendar-target="items"]').append(item);
+    };
     const calendar = document.getElementById('ec-form');
     const form = document.getElementById('ec-form-fields');
     calendar.addEventListener('event-calendar:create', (event) => {
@@ -285,9 +291,7 @@ Creating an event opens a `Dialog` with a form: the slot that was dragged fills 
     });
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        const events = JSON.parse(calendar.dataset.eventCalendarEventsValue);
-        events.push({ id: Date.now(), title: form.elements.title.value, start: form.elements.start.value, end: form.elements.end.value, color: 'violet' });
-        calendar.setAttribute('data-event-calendar-events-value', JSON.stringify(events));
+        add(calendar, { title: form.elements.title.value, start: form.elements.start.value, end: form.elements.end.value, color: 'violet' });
         form.reset();
         document.getElementById('dialog-ec-form-dialog').close();
     });
@@ -296,7 +300,7 @@ Creating an event opens a `Dialog` with a form: the slot that was dragged fills 
 
 ### Custom Event Chips
 
-The `chip` block is the content of every chip, with `{title}`, `{time}`, `{color}`, `{resource}` and any key of the event.
+The `chip` block is the content of every chip, with `{title}`, `{time}`, `{color}`, `{resource}` and any key of the item's `data`.
 
 <!-- height: 480 -->
 
@@ -307,21 +311,40 @@ The `chip` block is the content of every chip, with `{title}`, `{time}`, `{color
 {% set w2 = 'monday this week'|date_modify('+2 days')|date('Y-m-d') %}
 {% set w3 = 'monday this week'|date_modify('+3 days')|date('Y-m-d') %}
 {% set w4 = 'monday this week'|date_modify('+4 days')|date('Y-m-d') %}
-<twig:EventCalendar view="month" :views="['month']" :events="[
-    {id: 1, title: 'Stand-up', start: w0 ~ 'T09:00', end: w0 ~ 'T09:30', color: 'blue'},
-    {id: 2, title: 'Design review', start: w1 ~ 'T10:00', end: w1 ~ 'T11:30', color: 'violet'},
-    {id: 3, title: 'Lunch with Ada', start: w2 ~ 'T12:00', end: w2 ~ 'T13:00', color: 'green'},
-    {id: 4, title: 'Planning', start: w2 ~ 'T14:00', end: w2 ~ 'T16:00', color: 'amber'},
-    {id: 5, title: 'Retro', start: w2 ~ 'T14:30', end: w2 ~ 'T15:30', color: 'blue'},
-    {id: 6, title: 'Release', start: w3 ~ 'T15:00', end: w3 ~ 'T16:00', color: 'red'},
-    {id: 7, title: 'Offsite', start: w4, end: w4, color: 'slate'},
-    {id: 8, title: 'Call', start: today ~ 'T11:00', end: today ~ 'T11:45', color: 'green'}
-]">
+<twig:EventCalendar view="month" :views="['month']">
+    <twig:EventCalendar:Item title="Stand-up" :start="w0 ~ 'T09:00'" :end="w0 ~ 'T09:30'" color="blue" />
+    <twig:EventCalendar:Item title="Design review" :start="w1 ~ 'T10:00'" :end="w1 ~ 'T11:30'" color="violet" />
+    <twig:EventCalendar:Item title="Lunch with Ada" :start="w2 ~ 'T12:00'" :end="w2 ~ 'T13:00'" color="green" />
+    <twig:EventCalendar:Item title="Planning" :start="w2 ~ 'T14:00'" :end="w2 ~ 'T16:00'" color="amber" />
+    <twig:EventCalendar:Item title="Retro" :start="w2 ~ 'T14:30'" :end="w2 ~ 'T15:30'" color="blue" />
+    <twig:EventCalendar:Item title="Release" :start="w3 ~ 'T15:00'" :end="w3 ~ 'T16:00'" color="red" />
+    <twig:EventCalendar:Item title="Offsite" :start="w4" :end="w4" color="slate" />
+    <twig:EventCalendar:Item title="Call" :start="today ~ 'T11:00'" :end="today ~ 'T11:45'" color="green" />
     <twig:block name="chip">
         <span class="flex items-center gap-1">
             <span class="size-1.5 shrink-0 rounded-full bg-current"></span>
             <span class="truncate font-medium">{title}</span>
             <span class="ml-auto shrink-0 opacity-70">{time}</span>
+        </span>
+    </twig:block>
+</twig:EventCalendar>
+```
+
+### Item Data
+
+`data` carries extra keys on an item; the `chip` block shows them as `{key}`, and they come back in the events of the calendar.
+
+<!-- height: 420 -->
+
+```twig
+{% set today = 'now'|date('Y-m-d') %}
+<twig:EventCalendar view="agenda" :views="['agenda']">
+    <twig:EventCalendar:Item title="Kick-off" :start="today ~ 'T09:00'" :end="today ~ 'T10:00'" color="violet" :data="{owner: 'Ada', room: 'Atrium'}" />
+    <twig:EventCalendar:Item title="Review" :start="today ~ 'T11:00'" :end="today ~ 'T12:00'" color="green" :data="{owner: 'Grace', room: 'Studio'}" />
+    <twig:block name="chip">
+        <span class="flex items-center gap-2">
+            <span class="font-medium">{title}</span>
+            <span class="opacity-70">{owner} · {room}</span>
         </span>
     </twig:block>
 </twig:EventCalendar>
@@ -335,14 +358,14 @@ Six colors for the events, matched to the theme in light and dark.
 
 ```twig
 {% set today = 'now'|date('Y-m-d') %}
-<twig:EventCalendar view="agenda" :views="['agenda']" :events="[
-    {id: 1, title: 'Blue', start: today ~ 'T09:00', end: today ~ 'T10:00', color: 'blue'},
-    {id: 2, title: 'Green', start: today ~ 'T10:00', end: today ~ 'T11:00', color: 'green'},
-    {id: 3, title: 'Red', start: today ~ 'T11:00', end: today ~ 'T12:00', color: 'red'},
-    {id: 4, title: 'Amber', start: today ~ 'T12:00', end: today ~ 'T13:00', color: 'amber'},
-    {id: 5, title: 'Violet', start: today ~ 'T13:00', end: today ~ 'T14:00', color: 'violet'},
-    {id: 6, title: 'Slate', start: today ~ 'T14:00', end: today ~ 'T15:00', color: 'slate'}
-]" />
+<twig:EventCalendar view="agenda" :views="['agenda']">
+    <twig:EventCalendar:Item title="Blue" :start="today ~ 'T9:00'" :end="today ~ 'T10:00'" color="blue" />
+    <twig:EventCalendar:Item title="Green" :start="today ~ 'T10:00'" :end="today ~ 'T11:00'" color="green" />
+    <twig:EventCalendar:Item title="Red" :start="today ~ 'T11:00'" :end="today ~ 'T12:00'" color="red" />
+    <twig:EventCalendar:Item title="Amber" :start="today ~ 'T12:00'" :end="today ~ 'T13:00'" color="amber" />
+    <twig:EventCalendar:Item title="Violet" :start="today ~ 'T13:00'" :end="today ~ 'T14:00'" color="violet" />
+    <twig:EventCalendar:Item title="Slate" :start="today ~ 'T14:00'" :end="today ~ 'T15:00'" color="slate" />
+</twig:EventCalendar>
 ```
 
 ### Another Language
@@ -358,16 +381,16 @@ Six colors for the events, matched to the theme in light and dark.
 {% set w2 = 'monday this week'|date_modify('+2 days')|date('Y-m-d') %}
 {% set w3 = 'monday this week'|date_modify('+3 days')|date('Y-m-d') %}
 {% set w4 = 'monday this week'|date_modify('+4 days')|date('Y-m-d') %}
-<twig:EventCalendar :events="[
-    {id: 1, title: 'Stand-up', start: w0 ~ 'T09:00', end: w0 ~ 'T09:30', color: 'blue'},
-    {id: 2, title: 'Design review', start: w1 ~ 'T10:00', end: w1 ~ 'T11:30', color: 'violet'},
-    {id: 3, title: 'Lunch with Ada', start: w2 ~ 'T12:00', end: w2 ~ 'T13:00', color: 'green'},
-    {id: 4, title: 'Planning', start: w2 ~ 'T14:00', end: w2 ~ 'T16:00', color: 'amber'},
-    {id: 5, title: 'Retro', start: w2 ~ 'T14:30', end: w2 ~ 'T15:30', color: 'blue'},
-    {id: 6, title: 'Release', start: w3 ~ 'T15:00', end: w3 ~ 'T16:00', color: 'red'},
-    {id: 7, title: 'Offsite', start: w4, end: w4, color: 'slate'},
-    {id: 8, title: 'Call', start: today ~ 'T11:00', end: today ~ 'T11:45', color: 'green'}
-]" locale="fr" todayLabel="Aujourd'hui" previousLabel="Précédent" nextLabel="Suivant" monthLabel="Mois" weekLabel="Semaine" dayLabel="Jour" agendaLabel="Agenda" allDayLabel="Journée" noEventsLabel="Aucun événement" moreLabel="+{count} de plus" label="Calendrier" />
+<twig:EventCalendar locale="fr" todayLabel="Aujourd'hui" previousLabel="Précédent" nextLabel="Suivant" monthLabel="Mois" weekLabel="Semaine" dayLabel="Jour" agendaLabel="Agenda" allDayLabel="Journée" noEventsLabel="Aucun événement" moreLabel="+{count} de plus" label="Calendrier">
+    <twig:EventCalendar:Item title="Stand-up" :start="w0 ~ 'T09:00'" :end="w0 ~ 'T09:30'" color="blue" />
+    <twig:EventCalendar:Item title="Design review" :start="w1 ~ 'T10:00'" :end="w1 ~ 'T11:30'" color="violet" />
+    <twig:EventCalendar:Item title="Lunch with Ada" :start="w2 ~ 'T12:00'" :end="w2 ~ 'T13:00'" color="green" />
+    <twig:EventCalendar:Item title="Planning" :start="w2 ~ 'T14:00'" :end="w2 ~ 'T16:00'" color="amber" />
+    <twig:EventCalendar:Item title="Retro" :start="w2 ~ 'T14:30'" :end="w2 ~ 'T15:30'" color="blue" />
+    <twig:EventCalendar:Item title="Release" :start="w3 ~ 'T15:00'" :end="w3 ~ 'T16:00'" color="red" />
+    <twig:EventCalendar:Item title="Offsite" :start="w4" :end="w4" color="slate" />
+    <twig:EventCalendar:Item title="Call" :start="today ~ 'T11:00'" :end="today ~ 'T11:45'" color="green" />
+</twig:EventCalendar>
 ```
 
 ### Sunday First
@@ -383,16 +406,16 @@ Six colors for the events, matched to the theme in light and dark.
 {% set w2 = 'monday this week'|date_modify('+2 days')|date('Y-m-d') %}
 {% set w3 = 'monday this week'|date_modify('+3 days')|date('Y-m-d') %}
 {% set w4 = 'monday this week'|date_modify('+4 days')|date('Y-m-d') %}
-<twig:EventCalendar :events="[
-    {id: 1, title: 'Stand-up', start: w0 ~ 'T09:00', end: w0 ~ 'T09:30', color: 'blue'},
-    {id: 2, title: 'Design review', start: w1 ~ 'T10:00', end: w1 ~ 'T11:30', color: 'violet'},
-    {id: 3, title: 'Lunch with Ada', start: w2 ~ 'T12:00', end: w2 ~ 'T13:00', color: 'green'},
-    {id: 4, title: 'Planning', start: w2 ~ 'T14:00', end: w2 ~ 'T16:00', color: 'amber'},
-    {id: 5, title: 'Retro', start: w2 ~ 'T14:30', end: w2 ~ 'T15:30', color: 'blue'},
-    {id: 6, title: 'Release', start: w3 ~ 'T15:00', end: w3 ~ 'T16:00', color: 'red'},
-    {id: 7, title: 'Offsite', start: w4, end: w4, color: 'slate'},
-    {id: 8, title: 'Call', start: today ~ 'T11:00', end: today ~ 'T11:45', color: 'green'}
-]" weekStart="0" view="week" :views="['month', 'week']" />
+<twig:EventCalendar weekStart="0" view="week" :views="['month', 'week']">
+    <twig:EventCalendar:Item title="Stand-up" :start="w0 ~ 'T09:00'" :end="w0 ~ 'T09:30'" color="blue" />
+    <twig:EventCalendar:Item title="Design review" :start="w1 ~ 'T10:00'" :end="w1 ~ 'T11:30'" color="violet" />
+    <twig:EventCalendar:Item title="Lunch with Ada" :start="w2 ~ 'T12:00'" :end="w2 ~ 'T13:00'" color="green" />
+    <twig:EventCalendar:Item title="Planning" :start="w2 ~ 'T14:00'" :end="w2 ~ 'T16:00'" color="amber" />
+    <twig:EventCalendar:Item title="Retro" :start="w2 ~ 'T14:30'" :end="w2 ~ 'T15:30'" color="blue" />
+    <twig:EventCalendar:Item title="Release" :start="w3 ~ 'T15:00'" :end="w3 ~ 'T16:00'" color="red" />
+    <twig:EventCalendar:Item title="Offsite" :start="w4" :end="w4" color="slate" />
+    <twig:EventCalendar:Item title="Call" :start="today ~ 'T11:00'" :end="today ~ 'T11:45'" color="green" />
+</twig:EventCalendar>
 ```
 
 ### Business Hours
@@ -408,21 +431,21 @@ The time grid shows only 8:00 to 18:00, in steps of 15 minutes, with taller hour
 {% set w2 = 'monday this week'|date_modify('+2 days')|date('Y-m-d') %}
 {% set w3 = 'monday this week'|date_modify('+3 days')|date('Y-m-d') %}
 {% set w4 = 'monday this week'|date_modify('+4 days')|date('Y-m-d') %}
-<twig:EventCalendar :events="[
-    {id: 1, title: 'Stand-up', start: w0 ~ 'T09:00', end: w0 ~ 'T09:30', color: 'blue'},
-    {id: 2, title: 'Design review', start: w1 ~ 'T10:00', end: w1 ~ 'T11:30', color: 'violet'},
-    {id: 3, title: 'Lunch with Ada', start: w2 ~ 'T12:00', end: w2 ~ 'T13:00', color: 'green'},
-    {id: 4, title: 'Planning', start: w2 ~ 'T14:00', end: w2 ~ 'T16:00', color: 'amber'},
-    {id: 5, title: 'Retro', start: w2 ~ 'T14:30', end: w2 ~ 'T15:30', color: 'blue'},
-    {id: 6, title: 'Release', start: w3 ~ 'T15:00', end: w3 ~ 'T16:00', color: 'red'},
-    {id: 7, title: 'Offsite', start: w4, end: w4, color: 'slate'},
-    {id: 8, title: 'Call', start: today ~ 'T11:00', end: today ~ 'T11:45', color: 'green'}
-]" view="week" :views="['week']" :startHour="8" :endHour="18" :slotMinutes="15" :hourHeight="64" :editable="true" :creatable="true" />
+<twig:EventCalendar view="week" :views="['week']" :startHour="8" :endHour="18" :slotMinutes="15" :hourHeight="64" :editable="true" :creatable="true">
+    <twig:EventCalendar:Item title="Stand-up" :start="w0 ~ 'T09:00'" :end="w0 ~ 'T09:30'" color="blue" />
+    <twig:EventCalendar:Item title="Design review" :start="w1 ~ 'T10:00'" :end="w1 ~ 'T11:30'" color="violet" />
+    <twig:EventCalendar:Item title="Lunch with Ada" :start="w2 ~ 'T12:00'" :end="w2 ~ 'T13:00'" color="green" />
+    <twig:EventCalendar:Item title="Planning" :start="w2 ~ 'T14:00'" :end="w2 ~ 'T16:00'" color="amber" />
+    <twig:EventCalendar:Item title="Retro" :start="w2 ~ 'T14:30'" :end="w2 ~ 'T15:30'" color="blue" />
+    <twig:EventCalendar:Item title="Release" :start="w3 ~ 'T15:00'" :end="w3 ~ 'T16:00'" color="red" />
+    <twig:EventCalendar:Item title="Offsite" :start="w4" :end="w4" color="slate" />
+    <twig:EventCalendar:Item title="Call" :start="today ~ 'T11:00'" :end="today ~ 'T11:45'" color="green" />
+</twig:EventCalendar>
 ```
 
 ### Events From Your Code
 
-The `events` value is the source of truth: write `data-event-calendar-events-value` to add, change or remove events.
+Items are plain elements: append one to the hidden `items` container, change its `data-` attributes or remove it, and the calendar redraws.
 
 <!-- height: 620 -->
 
@@ -442,19 +465,22 @@ The `events` value is the source of truth: write `data-event-calendar-events-val
             Remove all
         </twig:Button>
     </div>
-    <twig:EventCalendar id="ec-code" view="week" :views="['week']" :events="[]" />
+    <twig:EventCalendar id="ec-code" view="week" :views="['week']" />
 </div>
 <script>
     const code = document.getElementById('ec-code');
+    const items = code.querySelector('[data-event-calendar-target="items"]');
     document.getElementById('ec-add').addEventListener('click', () => {
-        const events = JSON.parse(code.dataset.eventCalendarEventsValue || '[]');
-        const hour = 9 + events.length % 8;
+        const count = items.children.length;
+        const hour = String(9 + count % 8).padStart(2, '0');
         const day = new Date();
         const iso = day.getFullYear() + '-' + String(day.getMonth() + 1).padStart(2, '0') + '-' + String(day.getDate()).padStart(2, '0');
-        events.push({ id: events.length + 1, title: 'Event ' + (events.length + 1), start: iso + 'T' + String(hour).padStart(2, '0') + ':00', end: iso + 'T' + String(hour).padStart(2, '0') + ':45', color: ['blue', 'green', 'amber', 'violet'][events.length % 4] });
-        code.setAttribute('data-event-calendar-events-value', JSON.stringify(events));
+        const item = document.createElement('div');
+        item.dataset.eventCalendarTarget = 'item';
+        Object.assign(item.dataset, { title: 'Event ' + (count + 1), start: iso + 'T' + hour + ':00', end: iso + 'T' + hour + ':45', color: ['blue', 'green', 'amber', 'violet'][count % 4] });
+        items.append(item);
     });
-    document.getElementById('ec-clear').addEventListener('click', () => code.setAttribute('data-event-calendar-events-value', '[]'));
+    document.getElementById('ec-clear').addEventListener('click', () => items.replaceChildren());
 </script>
 ```
 
@@ -472,16 +498,16 @@ Selecting an event shows its details next to the calendar.
 {% set w3 = 'monday this week'|date_modify('+3 days')|date('Y-m-d') %}
 {% set w4 = 'monday this week'|date_modify('+4 days')|date('Y-m-d') %}
 <div class="grid gap-3 md:grid-cols-[1fr_14rem]">
-    <twig:EventCalendar id="ec-select" view="agenda" :views="['agenda']" :events="[
-    {id: 1, title: 'Stand-up', start: w0 ~ 'T09:00', end: w0 ~ 'T09:30', color: 'blue'},
-    {id: 2, title: 'Design review', start: w1 ~ 'T10:00', end: w1 ~ 'T11:30', color: 'violet'},
-    {id: 3, title: 'Lunch with Ada', start: w2 ~ 'T12:00', end: w2 ~ 'T13:00', color: 'green'},
-    {id: 4, title: 'Planning', start: w2 ~ 'T14:00', end: w2 ~ 'T16:00', color: 'amber'},
-    {id: 5, title: 'Retro', start: w2 ~ 'T14:30', end: w2 ~ 'T15:30', color: 'blue'},
-    {id: 6, title: 'Release', start: w3 ~ 'T15:00', end: w3 ~ 'T16:00', color: 'red'},
-    {id: 7, title: 'Offsite', start: w4, end: w4, color: 'slate'},
-    {id: 8, title: 'Call', start: today ~ 'T11:00', end: today ~ 'T11:45', color: 'green'}
-]" />
+    <twig:EventCalendar id="ec-select" view="agenda" :views="['agenda']">
+        <twig:EventCalendar:Item title="Stand-up" :start="w0 ~ 'T09:00'" :end="w0 ~ 'T09:30'" color="blue" />
+        <twig:EventCalendar:Item title="Design review" :start="w1 ~ 'T10:00'" :end="w1 ~ 'T11:30'" color="violet" />
+        <twig:EventCalendar:Item title="Lunch with Ada" :start="w2 ~ 'T12:00'" :end="w2 ~ 'T13:00'" color="green" />
+        <twig:EventCalendar:Item title="Planning" :start="w2 ~ 'T14:00'" :end="w2 ~ 'T16:00'" color="amber" />
+        <twig:EventCalendar:Item title="Retro" :start="w2 ~ 'T14:30'" :end="w2 ~ 'T15:30'" color="blue" />
+        <twig:EventCalendar:Item title="Release" :start="w3 ~ 'T15:00'" :end="w3 ~ 'T16:00'" color="red" />
+        <twig:EventCalendar:Item title="Offsite" :start="w4" :end="w4" color="slate" />
+        <twig:EventCalendar:Item title="Call" :start="today ~ 'T11:00'" :end="today ~ 'T11:45'" color="green" />
+    </twig:EventCalendar>
     <twig:Card>
         <twig:Card:Header>
             <twig:Card:Title id="ec-select-title">
@@ -505,14 +531,14 @@ Selecting an event shows its details next to the calendar.
 
 - Events are buttons named by their title and time, reachable with the keyboard; Enter fires `event-calendar:select`. The title of the period is a polite live region, so a screen reader announces the new period after the arrows are used.
 - The view switcher is a group of buttons with `aria-pressed`.
-- Drag and drop (`editable`) and drag to book (`creatable`) are pointer features. For keyboard users, offer a form: fire the same action from a button of your own, and update the events value from the `event-calendar:select` handler.
+- Drag and drop (`editable`) and drag to book (`creatable`) are pointer features. For keyboard users, offer a form: fire the same action from a button of your own, and change the item from the `event-calendar:select` handler.
 - All texts are props, and the names of days and months follow `locale`.
 
 ## Extending
 
 - `event-calendar:select` (`detail.event`) when an event is chosen.
-- `event-calendar:move` (cancelable) when an event is dropped: `detail.event`, `detail.start`, `detail.end`, `detail.resource`. Call `preventDefault()` to refuse the move (for example when a room is already taken). Without it the calendar updates its events.
-- `event-calendar:create` when a free slot is chosen: `detail.start`, `detail.end`, `detail.allDay`, `detail.resource`. The calendar does not add anything by itself: open a form, then write the events value.
+- `event-calendar:move` (cancelable) when an event is dropped: `detail.event`, `detail.start`, `detail.end`, `detail.resource`. Call `preventDefault()` to refuse the move (for example when a room is already taken). Without it the calendar updates the `data-start`, `data-end` and `data-resource` of the item.
+- `event-calendar:create` when a free slot is chosen: `detail.start`, `detail.end`, `detail.allDay`, `detail.resource`. The calendar does not add anything by itself: open a form, then add an item.
 - `event-calendar:change` when the view or the period changes: `detail.view`, `detail.date`.
 
 The colors of the chips are Tailwind classes written in the controller: make sure your Tailwind build scans the controllers, or set your own with the `chip` block.
@@ -523,7 +549,6 @@ The colors of the chips are Tailwind classes written in the controller: make sur
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| `events` | array | `[]` | The events: `id`, `title`, `start`, `end`, and optionally `color` and `resource`. |
 | `view` | `month`, `week`, `day`, `agenda` | `month` | The view shown. |
 | `views` | array | `month, week, day, agenda` | The views the user can switch to. |
 | `date` | string or null | `null` | The date shown, as `YYYY-MM-DD`. Without it, today. |
@@ -551,4 +576,21 @@ The colors of the chips are Tailwind classes written in the controller: make sur
 
 | Block | Description |
 | --- | --- |
-| `chip` | The content of an event chip, with `{title}`, `{time}`, `{color}`, `{resource}` and the keys of the event. |
+| `default` | The events, one `EventCalendar:Item` each. |
+| `chip` | The content of an event chip, with `{title}`, `{time}`, `{color}`, `{resource}` and the keys of the item's `data`. |
+
+### `<twig:EventCalendar:Item>`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` | string | | The title of the event. |
+| `start` | string | | The start: `YYYY-MM-DDTHH:mm`, or `YYYY-MM-DD` for an event of the whole day. |
+| `end` | string or null | `null` | The end, in the same format. Without it, a timed event lasts one hour. |
+| `id` | string or null | `null` | An identifier, returned in the events of the calendar. |
+| `color` | `blue`, `green`, `red`, `amber`, `violet`, `slate` | `slate` | The color of the chip. |
+| `resource` | string or null | `null` | The `id` of the resource (room, person) the event belongs to. |
+| `data` | array | `{}` | Extra keys, available to the `chip` block as `{key}` and in the events of the calendar. |
+
+| Block | Description |
+| --- | --- |
+| `default` | Not used: an item draws nothing itself. |

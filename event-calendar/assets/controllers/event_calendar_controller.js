@@ -26,24 +26,25 @@ const parse = (text) => {
 /**
  * A calendar of events with month, week, day and agenda views.
  *
- * Events: `{ id, title, start, end, color?, resource?, ... }` with dates as `YYYY-MM-DDTHH:mm` (or `YYYY-MM-DD` for
- * an event of the whole day). The `events` value is the source of truth: change `data-event-calendar-events-value`
- * to add, change or remove events.
+ * Events are `EventCalendar:Item` elements (hidden, inside the `items` target): `data-id`, `data-title`, `data-start`,
+ * `data-end`, `data-color`, `data-resource` and `data-extra` (a JSON object), with dates as `YYYY-MM-DDTHH:mm` (or
+ * `YYYY-MM-DD` for an event of the whole day). Add, change or remove an item and the calendar redraws.
  *
  * @target title       The title of the period shown.
  * @target viewButton  A button of the view switcher.
  * @target body        Where the view is drawn.
+ * @target items      The hidden container of the items.
+ * @target item       One event.
  * @target chip        Optional template for the content of a chip: {title}, {time}, {color}, {resource} and the keys of the event.
- * @value  events, view, date, weekStart, locale, resources, editable, creatable, startHour, endHour, slotMinutes, hourHeight, labels
+ * @value  view, date, weekStart, locale, resources, editable, creatable, startHour, endHour, slotMinutes, hourHeight, labels
  * @event  event-calendar:select  An event was chosen: `detail.event`.
  * @event  event-calendar:move    An event was dropped on another day or time (cancelable): `detail.event`, `detail.start`, `detail.end`, `detail.resource`.
  * @event  event-calendar:create  A free slot was chosen (creatable): `detail.start`, `detail.end`, `detail.allDay`, `detail.resource`.
  * @event  event-calendar:change  The period or the view changed: `detail.view`, `detail.date`.
  */
 export default class extends Controller {
-    static targets = ['title', 'viewButton', 'body', 'chip'];
+    static targets = ['title', 'viewButton', 'body', 'chip', 'items', 'item'];
     static values = {
-        events: Array,
         view: { type: String, default: 'month' },
         date: String,
         weekStart: { type: Number, default: 1 },
@@ -61,11 +62,25 @@ export default class extends Controller {
     connect() {
         this.cursor = startOfDay(this.hasDateValue && this.dateValue ? parse(this.dateValue) : new Date());
         this.drag = null;
+        this.pending = false;
+        this.observer = new MutationObserver(() => this.schedule());
+        if (this.hasItemsTarget) {
+            this.observer.observe(this.itemsTarget, { childList: true, subtree: true, attributes: true });
+        }
         this.render();
     }
 
-    eventsValueChanged() {
-        if (this.cursor) this.render();
+    disconnect() {
+        this.observer?.disconnect();
+    }
+
+    schedule() {
+        if (this.pending) return;
+        this.pending = true;
+        queueMicrotask(() => {
+            this.pending = false;
+            if (this.element.isConnected) this.render();
+        });
     }
     resourcesValueChanged() {
         if (this.cursor) this.render();
@@ -121,14 +136,22 @@ export default class extends Controller {
     // ---- Data ----
 
     get items() {
-        return this.eventsValue.map((raw, index) => {
+        return this.itemTargets.map((element, index) => {
+            let extra = {};
+            try {
+                extra = JSON.parse(element.dataset.extra || '{}');
+            } catch (error) {
+                extra = {};
+            }
+            const { id, title, start, end, color, resource } = element.dataset;
+            const raw = { ...extra, id: id ?? String(index), title: title ?? '', start, end: end || undefined, color, resource };
             const allDay = !String(raw.start).includes('T');
             const start = parse(raw.start);
             let end = raw.end ? parse(raw.end) : allDay ? start : addMinutes(start, 60);
             if (allDay) {
                 end = addDays(startOfDay(end), 1);
             }
-            return { raw, id: String(raw.id ?? index), title: raw.title ?? '', color: COLORS[raw.color] ? raw.color : 'slate', resource: raw.resource ?? null, allDay, start, end };
+            return { raw, element, id: String(raw.id), title: raw.title, color: COLORS[raw.color] ? raw.color : 'slate', resource: raw.resource || null, allDay, start, end };
         });
     }
 
@@ -470,7 +493,9 @@ export default class extends Controller {
         if (accepted.defaultPrevented) {
             return;
         }
-        this.eventsValue = this.eventsValue.map((raw) => (raw === item.raw ? { ...raw, start: detail.start, end: detail.end, ...(detail.resource !== null ? { resource: detail.resource } : {}) } : raw));
+        item.element.dataset.start = detail.start;
+        item.element.dataset.end = detail.end;
+        if (detail.resource !== null) item.element.dataset.resource = detail.resource;
     }
 
     renderAgenda() {

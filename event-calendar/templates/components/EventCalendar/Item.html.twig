@@ -1,0 +1,32 @@
+{#
+ # One event of an EventCalendar. It draws nothing itself: the calendar reads it.
+ #
+ # Props: title, start, end, id, color, resource, data.
+ #}
+{%- props
+    ## string The title of the event.
+    title,
+    ## string The start: `YYYY-MM-DDTHH:mm`, or `YYYY-MM-DD` for an event of the whole day.
+    start,
+    ## string|null The end, in the same format. Without it, a timed event lasts one hour.
+    end = null,
+    ## string|null An identifier, returned in the events of the calendar.
+    id = null,
+    ## string The color: `blue`, `green`, `red`, `amber`, `violet` or `slate`.
+    color = 'slate',
+    ## string|null The `id` of the resource (room, person) the event belongs to.
+    resource = null,
+    ## array Extra keys, available to the `chip` block as {key} and in the events of the calendar.
+    data = {}
+-%}
+<div
+    data-event-calendar-target="item"
+    data-title="{{ title }}"
+    data-start="{{ start }}"
+    {%- if end %} data-end="{{ end }}"{% endif %}
+    {%- if id is not null %} data-id="{{ id }}"{% endif %}
+    data-color="{{ color }}"
+    {%- if resource %} data-resource="{{ resource }}"{% endif %}
+    {%- if data %} data-extra="{{ data|json_encode|e('html_attr') }}"{% endif %}
+    {{ attributes }}
+></div>
