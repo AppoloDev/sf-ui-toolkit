@@ -1,0 +1,34 @@
+{#
+ # A back-to-top button.
+ #
+ # Props: threshold, target, label, position, smooth.
+ # Slot `default`: the content of the button (an icon by default).
+ #}
+{%- props
+    ## integer The scroll distance, in pixels, after which the button shows.
+    threshold = 300,
+    ## string|null A CSS selector of a scrolling box. Without it, the page.
+    target = null,
+    ## string The accessible name of the button.
+    label = 'Back to top',
+    ## string `bottom-right`, `bottom-left` or `bottom-center`.
+    position = 'bottom-right',
+    ## bool Scroll smoothly (instant when the user prefers reduced motion).
+    smooth = true
+-%}
+{%- set content %}{% block content %}{% endblock %}{% endset -%}
+{%- set places = {'bottom-right': 'right-4', 'bottom-left': 'left-4', 'bottom-center': 'left-1/2 -translate-x-1/2'} -%}
+<button
+    type="button"
+    hidden
+    data-slot="scroll-top"
+    data-controller="scroll-top"
+    data-scroll-top-threshold-value="{{ threshold }}"
+    data-scroll-top-smooth-value="{{ smooth ? 'true' : 'false' }}"
+    {%- if target %} data-scroll-top-target-value="{{ target }}"{% endif %}
+    data-action="click->scroll-top#top"
+    aria-label="{{ label }}"
+    {{ attributes.defaults({class: ((target ? 'absolute' : 'fixed') ~ ' bottom-4 z-40 inline-flex size-10 items-center justify-center rounded-full border bg-background shadow-md outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50 ' ~ places[position])|tailwind_classes}) }}
+>
+    {%- if content|trim is not empty %}{{ content|raw }}{% else %}<twig:ux:icon name="lucide:arrow-up" class="size-4" />{% endif %}
+</button>

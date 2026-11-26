@@ -75,6 +75,7 @@ The props of each component are listed in its documentation.
 | `rating` | Star rating: read-only display (partial stars) or input with radio buttons, half stars and hover preview. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/rating.html) |
 | `relative-time` | A date shown as a relative time such as "3 minutes ago", kept up to date while the page stays open. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/relative-time.html) |
 | `rich-text-editor` | Rich text field built on TipTap with a configurable toolbar, links and an HTML value for the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/rich-text-editor.html) |
+| `scroll-top` | A button that appears after the page (or a scrolling box) has been scrolled and brings it back to the top, with a smooth scroll that respects reduced motion. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/scroll-top.html) |
 | `scrollable-tabs` | Adds scroll arrows to a row of tabs that is wider than its container: the arrows show only when needed, and the selected tab scrolls into view. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/scrollable-tabs.html) |
 | `scrollspy` | Table-of-contents navigation that highlights the section currently in view. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/scrollspy.html) |
 | `signature-pad` | Handwritten signature captured with a mouse, a finger or a stylus, exported as PNG, JPEG, SVG or JSON. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/signature-pad.html) |
