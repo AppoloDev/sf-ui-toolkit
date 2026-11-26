@@ -141,3 +141,53 @@ Two pill handles between three panels.
     </twig:Resizable:Panel>
 </twig:Resizable>
 ```
+
+### Editor Layout
+
+A file list, an editor and a terminal: a vertical group nested in a horizontal one.
+
+```twig
+<twig:Resizable class="h-64 w-full max-w-2xl rounded-lg border">
+    <twig:Resizable:Panel :size="25">
+        <div class="flex h-full items-start p-3">
+            <span class="text-sm font-semibold">Files</span>
+        </div>
+    </twig:Resizable:Panel>
+    <twig:Resizable:Handle :withHandle="true" />
+    <twig:Resizable:Panel :size="75">
+        <twig:Resizable orientation="vertical">
+            <twig:Resizable:Panel :size="70">
+                <div class="flex h-full items-start p-3">
+                    <span class="text-sm font-semibold">Editor</span>
+                </div>
+            </twig:Resizable:Panel>
+            <twig:Resizable:Handle :withHandle="true" />
+            <twig:Resizable:Panel :size="30">
+                <div class="flex h-full items-start p-3">
+                    <span class="text-sm font-semibold">Terminal</span>
+                </div>
+            </twig:Resizable:Panel>
+        </twig:Resizable>
+    </twig:Resizable:Panel>
+</twig:Resizable>
+```
+
+### Preview Split
+
+Source on one side, preview on the other.
+
+```twig
+<twig:Resizable class="h-56 w-full max-w-2xl rounded-lg border">
+    <twig:Resizable:Panel :size="50">
+        <div class="h-full bg-muted/40 p-3 font-mono text-xs">
+            &lt;h1&gt;Hello&lt;/h1&gt;
+        </div>
+    </twig:Resizable:Panel>
+    <twig:Resizable:Handle />
+    <twig:Resizable:Panel :size="50">
+        <div class="grid h-full place-items-center p-3">
+            <h1 class="text-2xl font-semibold">Hello</h1>
+        </div>
+    </twig:Resizable:Panel>
+</twig:Resizable>
+```
