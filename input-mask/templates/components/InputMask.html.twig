@@ -1,0 +1,35 @@
+{#
+ # Wraps an input and forces a format as the user types, or filters the characters it accepts.
+ #
+ # Props: mask, slotChar, autoClear, keyFilter, validateOnly, unmaskName.
+ # Slot: the field (an `Input` or any `<input>`).
+ #}
+{%- props
+    ## string|null The format: `9` is a digit, `a` a letter, `*` a letter or a digit, `?` makes the rest optional, anything else is written as it is.
+    mask = null,
+    ## string The character shown for a slot that is still empty. A text as long as the mask (such as `dd/mm/yyyy`) gives one character per slot. Empty hides the placeholders.
+    slotChar = '_',
+    ## bool Empty the field on blur when the mask is not complete.
+    autoClear = true,
+    ## string|null Without a mask: a preset (`int`, `pint`, `num`, `pnum`, `money`, `hex`, `alpha`, `alphanum`, `email`) or a regular expression for one character.
+    keyFilter = null,
+    ## bool With `keyFilter`: test the whole value against the expression instead of each character.
+    validateOnly = false,
+    ## string|null Name of a hidden field that receives the value without the mask, for the server.
+    unmaskName = null
+-%}
+<div
+    data-slot="input-mask"
+    data-controller="input-mask"
+    {%- if mask is not null %} data-input-mask-mask-value="{{ mask }}"{% endif %}
+    data-input-mask-slot-char-value="{{ slotChar }}"
+    data-input-mask-auto-clear-value="{{ autoClear ? 'true' : 'false' }}"
+    {%- if keyFilter is not null %} data-input-mask-key-filter-value="{{ keyFilter }}"{% endif %}
+    data-input-mask-validate-only-value="{{ validateOnly ? 'true' : 'false' }}"
+    {{ attributes.defaults({class: 'contents'|tailwind_classes}) }}
+>
+    {%- block content %}{% endblock %}
+    {%- if unmaskName %}
+    <input type="hidden" name="{{ unmaskName }}" data-input-mask-target="raw">
+    {%- endif %}
+</div>
