@@ -1,0 +1,55 @@
+{#
+ # A draggable window above the page.
+ #
+ # Props: title, id, open, x, y, width, closeLabel, minimizeLabel, restoreLabel, moveLabel.
+ # Slot `default`: the content.
+ #}
+{%- props
+    ## string The title in the header.
+    title,
+    ## string The id, so a button can open it with `data-action="floating-panel#open"` on an element inside, or `document.getElementById(id)`.
+    id = null,
+    ## bool Start open.
+    open = false,
+    ## integer The left position, in pixels. Without it, the panel is centered.
+    x = null,
+    ## integer The top position, in pixels. Without it, the panel is centered.
+    y = null,
+    ## integer The width, in pixels.
+    width = 320,
+    ## string The accessible name of the close button.
+    closeLabel = 'Close',
+    ## string The accessible name of the minimize button.
+    minimizeLabel = 'Minimize',
+    ## string The accessible name of the restore button (shown while minimized).
+    restoreLabel = 'Restore',
+    ## string The accessible name of the header as a handle (arrow keys move the panel).
+    moveLabel = 'Move the panel'
+-%}
+<div
+    {%- if id %} id="{{ id }}"{% endif %}
+    data-slot="floating-panel"
+    data-controller="floating-panel"
+    data-floating-panel-open-value="{{ open ? 'true' : 'false' }}"
+    {%- if x is not null %} data-floating-panel-x-value="{{ x }}"{% endif %}
+    {%- if y is not null %} data-floating-panel-y-value="{{ y }}"{% endif %}
+    data-floating-panel-restore-label-value="{{ restoreLabel }}"
+    data-floating-panel-minimize-label-value="{{ minimizeLabel }}"
+    role="dialog"
+    aria-label="{{ title }}"
+    hidden
+    {{ attributes.defaults({class: 'fixed z-50 flex max-h-[80vh] flex-col overflow-hidden rounded-lg border bg-popover text-popover-foreground shadow-xl'|tailwind_classes}) }}
+    style="width: {{ width }}px; max-width: calc(100vw - 16px)"
+>
+    <div data-floating-panel-target="handle" tabindex="0" role="group" aria-label="{{ moveLabel }}" data-action="pointerdown->floating-panel#down keydown->floating-panel#keydown" class="flex cursor-grab touch-none select-none items-center gap-2 border-b bg-muted/50 px-3 py-2 outline-none active:cursor-grabbing focus-visible:ring-[3px] focus-visible:ring-ring/50">
+        <twig:ux:icon name="lucide:grip-horizontal" class="size-4 text-muted-foreground" aria-hidden="true" />
+        <span class="flex-1 truncate text-sm font-medium">{{ title }}</span>
+        <button type="button" data-floating-panel-target="minimize" data-action="floating-panel#minimize pointerdown->floating-panel#stop" aria-label="{{ minimizeLabel }}" class="inline-flex size-6 items-center justify-center rounded outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">
+            <twig:ux:icon name="lucide:minus" class="size-4" />
+        </button>
+        <button type="button" data-action="floating-panel#close pointerdown->floating-panel#stop" aria-label="{{ closeLabel }}" class="inline-flex size-6 items-center justify-center rounded outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">
+            <twig:ux:icon name="lucide:x" class="size-4" />
+        </button>
+    </div>
+    <div data-floating-panel-target="body" class="overflow-auto p-3 text-sm">{% block content %}{% endblock %}</div>
+</div>
