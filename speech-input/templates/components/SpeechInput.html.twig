@@ -1,0 +1,41 @@
+{#
+ # A dictation button for a text field. Uses the browser's SpeechRecognition (not available everywhere).
+ #
+ # Props: target, lang, continuous, startLabel, stopLabel, unsupportedLabel, listeningLabel.
+ #}
+{%- props
+    ## string A CSS selector of the text field or textarea that receives the text.
+    target,
+    ## string The language of the speech, such as `en-US` or `fr-FR`. Without it, the language of the page.
+    lang = null,
+    ## bool Keep listening after a pause until stopped.
+    continuous = true,
+    ## string The accessible name of the button when it is idle.
+    startLabel = 'Start dictation',
+    ## string The accessible name of the button while listening.
+    stopLabel = 'Stop dictation',
+    ## string The message announced when the browser has no speech recognition.
+    unsupportedLabel = 'Dictation is not available in this browser',
+    ## string The message announced when listening starts.
+    listeningLabel = 'Listening'
+-%}
+<button
+    type="button"
+    data-slot="speech-input"
+    data-controller="speech-input"
+    data-speech-input-target-value="{{ target }}"
+    {%- if lang %} data-speech-input-lang-value="{{ lang }}"{% endif %}
+    data-speech-input-continuous-value="{{ continuous ? 'true' : 'false' }}"
+    data-speech-input-start-label-value="{{ startLabel }}"
+    data-speech-input-stop-label-value="{{ stopLabel }}"
+    data-speech-input-unsupported-label-value="{{ unsupportedLabel }}"
+    data-speech-input-listening-label-value="{{ listeningLabel }}"
+    data-action="speech-input#toggle"
+    aria-pressed="false"
+    aria-label="{{ startLabel }}"
+    {{ attributes.defaults({class: 'inline-flex size-9 items-center justify-center rounded-full border bg-background outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-pressed:border-destructive aria-pressed:bg-destructive/10 aria-pressed:text-destructive disabled:opacity-50'|tailwind_classes}) }}
+>
+    <twig:ux:icon name="lucide:mic" class="size-4 [[aria-pressed=true]_&]:hidden" />
+    <twig:ux:icon name="lucide:square" class="hidden size-3.5 fill-current [[aria-pressed=true]_&]:block" />
+    <span class="sr-only" role="status" data-speech-input-target="status"></span>
+</button>
