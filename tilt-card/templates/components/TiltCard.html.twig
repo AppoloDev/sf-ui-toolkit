@@ -1,0 +1,34 @@
+{#
+ # Tilts its content toward the pointer.
+ #
+ # Props: max, scale, glare, perspective, speed, reverse.
+ #}
+{%- props
+    ## number The largest tilt, in degrees.
+    max = 12,
+    ## number The scale while the pointer is over the card.
+    scale = 1.02,
+    ## bool Add a light that follows the pointer.
+    glare = false,
+    ## integer The CSS perspective, in pixels.
+    perspective = 800,
+    ## integer The duration of the return to rest, in milliseconds.
+    speed = 300,
+    ## bool Tilt away from the pointer instead of toward it.
+    reverse = false
+-%}
+<div
+    data-slot="tilt-card"
+    data-controller="tilt-card"
+    data-tilt-card-max-value="{{ max }}"
+    data-tilt-card-scale-value="{{ scale }}"
+    data-tilt-card-reverse-value="{{ reverse ? 'true' : 'false' }}"
+    data-action="pointermove->tilt-card#move pointerleave->tilt-card#leave"
+    {{ attributes.defaults({class: 'relative'|tailwind_classes}) }}
+    style="perspective: {{ perspective }}px"
+>
+    <div data-tilt-card-target="inner" class="relative [transform-style:preserve-3d] will-change-transform" style="transition: transform {{ speed }}ms ease-out">
+        {% block content %}{% endblock %}
+        {%- if glare %}<span data-tilt-card-target="glare" aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-200" style="background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.35), transparent 60%)"></span>{% endif %}
+    </div>
+</div>
