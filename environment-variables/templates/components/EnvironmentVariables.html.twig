@@ -1,0 +1,85 @@
+{#
+ # A table of variables. Secret values are masked until revealed.
+ #
+ # Props: variables, nameLabel, valueLabel, revealLabel, hideLabel, revealAllLabel, hideAllLabel, copyLabel, copiedLabel, mask, label.
+ # `variables` is a list of `{name, value, secret}` or a map `{NAME: value}`.
+ #}
+{%- props
+    ## array The variables: `{name, value, secret}` items, or a map of names to values (never secret).
+    variables = [],
+    ## string The header of the name column.
+    nameLabel = 'Name',
+    ## string The header of the value column.
+    valueLabel = 'Value',
+    ## string The accessible name of the reveal button, with {name}.
+    revealLabel = 'Reveal {name}',
+    ## string The accessible name of the hide button, with {name}.
+    hideLabel = 'Hide {name}',
+    ## string The text of the button that reveals every secret.
+    revealAllLabel = 'Reveal all',
+    ## string The text of the button that hides every secret.
+    hideAllLabel = 'Hide all',
+    ## string The accessible name of the copy button, with {name}.
+    copyLabel = 'Copy {name}',
+    ## string The text announced once copied.
+    copiedLabel = 'Copied',
+    ## string The characters shown instead of a secret.
+    mask = '••••••••••••',
+    ## string The accessible name of the table.
+    label = 'Environment variables'
+-%}
+{%- set rows = [] -%}
+{%- for key, item in variables -%}
+    {%- if item is iterable -%}
+        {%- set rows = rows|merge([item]) -%}
+    {%- else -%}
+        {%- set rows = rows|merge([{name: key, value: item, secret: false}]) -%}
+    {%- endif -%}
+{%- endfor -%}
+{%- set secrets = rows|filter(r => r.secret|default(false))|length -%}
+<div
+    data-slot="environment-variables"
+    data-controller="environment-variables"
+    data-environment-variables-mask-value="{{ mask }}"
+    data-environment-variables-reveal-all-value="{{ revealAllLabel }}"
+    data-environment-variables-hide-all-value="{{ hideAllLabel }}"
+    data-environment-variables-copied-value="{{ copiedLabel }}"
+    {{ attributes.defaults({class: 'overflow-hidden rounded-lg border bg-card text-sm text-card-foreground'|tailwind_classes}) }}
+>
+    {%- if secrets > 0 %}
+        <div class="flex justify-end border-b p-2">
+            <button type="button" data-environment-variables-target="all" data-action="environment-variables#toggleAll" aria-pressed="false" class="inline-flex h-7 items-center rounded-md border bg-background px-2 text-xs font-medium outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">{{ revealAllLabel }}</button>
+        </div>
+    {%- endif %}
+    <table class="w-full table-fixed" aria-label="{{ label }}">
+        <thead>
+            <tr class="border-b bg-muted/40 text-left text-xs text-muted-foreground">
+                <th scope="col" class="w-2/5 px-3 py-2 font-medium">{{ nameLabel }}</th>
+                <th scope="col" class="px-3 py-2 font-medium">{{ valueLabel }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%- for row in rows %}
+                {%- set secret = row.secret|default(false) %}
+                <tr class="border-b last:border-b-0">
+                    <th scope="row" class="break-all px-3 py-2 text-left font-mono text-xs font-medium">{{ row.name }}</th>
+                    <td class="px-3 py-2">
+                        <div class="flex items-center gap-1">
+                            <code data-environment-variables-target="value" data-value="{{ row.value }}"{% if secret %} data-secret data-hidden="true"{% endif %} class="min-w-0 flex-1 break-all font-mono text-xs">{{ secret ? mask : row.value }}</code>
+                            {%- if secret %}
+                                <button type="button" data-action="environment-variables#toggle" data-name="{{ row.name }}" data-reveal="{{ revealLabel|replace({'{name}': row.name}) }}" data-hide="{{ hideLabel|replace({'{name}': row.name}) }}" aria-label="{{ revealLabel|replace({'{name}': row.name}) }}" aria-pressed="false" class="inline-flex size-7 shrink-0 items-center justify-center rounded-md outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">
+                                    <twig:ux:icon name="lucide:eye" class="size-3.5" data-icon="show" />
+                                    <twig:ux:icon name="lucide:eye-off" class="hidden size-3.5" data-icon="hide" />
+                                </button>
+                            {%- endif %}
+                            <button type="button" data-action="environment-variables#copy" aria-label="{{ copyLabel|replace({'{name}': row.name}) }}" class="inline-flex size-7 shrink-0 items-center justify-center rounded-md outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">
+                                <twig:ux:icon name="lucide:copy" class="size-3.5" />
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            {%- endfor %}
+        </tbody>
+    </table>
+    <span class="sr-only" role="status" data-environment-variables-target="status"></span>
+</div>
