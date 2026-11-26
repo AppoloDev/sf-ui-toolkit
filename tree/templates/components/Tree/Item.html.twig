@@ -11,21 +11,22 @@
     checked   checkbox checked by default
     icon      lucide icon name shown before the label (a folder, a file type...)
     expandedIcon  lucide icon name used instead of `icon` while a branch is open (folder-open)
+    lazy      a branch whose children are loaded on first open (the `tree:load` event, see the docs)
 
   The slot holds the children (nested Tree:Item). A node without children is a leaf.
   Block `row`: your own content for the row (avatar, badge...) in place of the label text; `label` stays the
   accessible name.
 #}
-{%- props label, expanded = false, selected = false, href = null, checkbox = false, name = null, value = '1', checked = false, icon = null, expandedIcon = null -%}
+{%- props label, expanded = false, selected = false, href = null, checkbox = false, name = null, value = '1', checked = false, icon = null, expandedIcon = null, lazy = false -%}
 {%- set extra_class = attributes.render('class') -%}
 {%- if false -%}{% block content %}{% endblock %}{%- endif -%}
 {%- if false -%}{% block row %}{% endblock %}{%- endif -%}
 {%- set children = block('content')|trim -%}
 {%- set rowContent = block('row')|trim -%}
-{%- set branch = children is not empty -%}
+{%- set branch = children is not empty or lazy -%}
 <li role="treeitem" tabindex="-1" aria-label="{{ label }}" aria-selected="{{ selected ? 'true' : 'false' }}"{% if branch %} aria-expanded="{{ expanded ? 'true' : 'false' }}"{% endif %}
-    class="{{ ('outline-none ' ~ extra_class)|trim }}" data-tree-target="item"{% if checkbox %} data-slot="checkbox-tree-node"{% endif %} {{ attributes }}>
-    <div class="group/row flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 hover:bg-muted data-[selected=true]:bg-muted data-[selected=true]:font-medium [[role=treeitem]:focus-visible>&]:ring-2 [[role=treeitem]:focus-visible>&]:ring-ring"
+    class="{{ ('outline-none ' ~ extra_class)|trim }}" data-tree-target="item"{% if lazy %} data-tree-lazy="true"{% endif %}{% if checkbox %} data-slot="checkbox-tree-node"{% endif %} {{ attributes }}>
+    <div class="group/row flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 hover:bg-muted data-[selected=true]:bg-muted data-[selected=true]:font-medium data-[dragging=true]:opacity-50 data-[drop=inside]:bg-primary/10 data-[drop=inside]:ring-1 data-[drop=inside]:ring-primary data-[drop=before]:shadow-[0_-2px_0_0_var(--primary)] data-[drop=after]:shadow-[0_2px_0_0_var(--primary)] [[role=treeitem]:focus-visible>&]:ring-2 [[role=treeitem]:focus-visible>&]:ring-ring"
          data-tree-row data-selected="{{ selected ? 'true' : 'false' }}" data-expanded="{{ expanded ? 'true' : 'false' }}" data-action="click->tree#click">
         {%- if branch -%}
             <twig:ux:icon name="lucide:chevron-right" class="size-4 shrink-0 text-muted-foreground transition-transform group-data-[expanded=true]/row:rotate-90 group-data-[indicator=plusminus]/tree:hidden" data-tree-chevron aria-hidden="true" />

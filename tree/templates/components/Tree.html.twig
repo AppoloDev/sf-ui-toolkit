@@ -5,12 +5,18 @@
     label  accessible name of the tree
     lines  draw vertical guide lines to show depth
     indicator  chevron | plusminus: the toggle shown on branches
+    multiple   several nodes can be selected (Ctrl/Cmd+click toggles, Shift+click selects a range)
+    draggable  nodes can be dragged onto another node (inside a branch, before or after a node)
+    search     CSS selector of a text field that filters the tree while typing
+    emptyLabel text shown when the search matches nothing
+    controls   CSS selector of an element holding buttons with data-tree-command (expandAll, collapseAll, reveal)
 
   Nest Tree:Item inside Tree:Item to build branches. The `tree` Stimulus controller adds the
   keyboard navigation (arrows, Home/End, typeahead, Enter) and keeps the ARIA state in sync.
 #}
-{%- props label = null, lines = false, indicator = 'chevron' -%}
+{%- props label = null, lines = false, indicator = 'chevron', multiple = false, draggable = false, search = null, emptyLabel = 'No results', controls = null -%}
 {%- set extra_class = attributes.render('class') -%}
-<ul role="tree" class="{{ ('group/tree m-0 list-none p-0 text-sm ' ~ extra_class)|trim }}" data-indicator="{{ indicator }}" {% if label %}aria-label="{{ label }}" {% endif %}data-controller="tree" data-tree-lines="{{ lines ? 'true' : 'false' }}" data-action="keydown->tree#keydown" {{ attributes }}>
+<ul role="tree" class="{{ ('group/tree m-0 list-none p-0 text-sm ' ~ extra_class)|trim }}" data-indicator="{{ indicator }}"{% if multiple %} aria-multiselectable="true"{% endif %} {% if label %}aria-label="{{ label }}" {% endif %}data-controller="tree" data-tree-lines="{{ lines ? 'true' : 'false' }}" data-tree-multiple="{{ multiple ? 'true' : 'false' }}" data-tree-draggable="{{ draggable ? 'true' : 'false' }}"{% if search %} data-tree-search="{{ search }}"{% endif %}{% if controls %} data-tree-controls="{{ controls }}"{% endif %} data-action="keydown->tree#keydown" {{ attributes }}>
     {%- block content %}{% endblock -%}
+    {%- if search %}<li role="none" class="px-2 py-1 text-muted-foreground" data-tree-empty hidden>{{ emptyLabel }}</li>{% endif -%}
 </ul>
