@@ -452,3 +452,47 @@
     </twig:Menubar>
 </div>
 ```
+
+### Start And End Slots
+
+```twig
+<div style="min-height: 260px">
+    <twig:Menubar class="h-auto w-full max-w-xl gap-2 px-3 py-1.5">
+        <span class="flex items-center gap-2 pe-2 text-sm font-semibold">
+            <twig:ux:icon name="lucide:layers" class="size-4" />
+            Acme
+        </span>
+        <twig:Menubar:Menu>
+            <twig:Menubar:Trigger>
+                <twig:Button variant="ghost" size="sm" {{ ...menubar_trigger_attrs }}>
+                    File
+                </twig:Button>
+            </twig:Menubar:Trigger>
+            <twig:Menubar:Content>
+                <twig:Menubar:Item>
+                    New
+                </twig:Menubar:Item>
+                <twig:Menubar:Item>
+                    Open
+                </twig:Menubar:Item>
+            </twig:Menubar:Content>
+        </twig:Menubar:Menu>
+        <twig:Menubar:Menu>
+            <twig:Menubar:Trigger>
+                <twig:Button variant="ghost" size="sm" {{ ...menubar_trigger_attrs }}>
+                    Edit
+                </twig:Button>
+            </twig:Menubar:Trigger>
+            <twig:Menubar:Content>
+                <twig:Menubar:Item>
+                    Undo
+                </twig:Menubar:Item>
+                <twig:Menubar:Item>
+                    Redo
+                </twig:Menubar:Item>
+            </twig:Menubar:Content>
+        </twig:Menubar:Menu>
+        <twig:Input type="search" placeholder="Search" aria-label="Search" class="ms-auto h-7 w-40" />
+    </twig:Menubar>
+</div>
+```
