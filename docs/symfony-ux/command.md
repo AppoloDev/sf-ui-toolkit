@@ -409,3 +409,1089 @@ Six groups in one scrollable list. Typing filters every group at once and hides 
     </twig:Command:List>
 </twig:Command>
 ```
+
+### Standard Simple
+
+```twig
+<div class="w-full max-w-sm">
+    <twig:Command class="rounded-lg border">
+        <twig:Command:Input placeholder="Type a command or search..." />
+        <twig:Command:List>
+            <twig:Command:Empty>
+                No results found.
+            </twig:Command:Empty>
+            <twig:Command:Group heading="Suggestions">
+                <twig:Command:Item>
+                    <span>
+                        Calendar
+                    </span>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <span>
+                        Search emoji
+                    </span>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <span>
+                        Calculator
+                    </span>
+                </twig:Command:Item>
+            </twig:Command:Group>
+        </twig:Command:List>
+    </twig:Command>
+</div>
+```
+
+### Standard Icons And Shortcuts
+
+```twig
+<div class="w-full max-w-sm">
+    <twig:Command class="rounded-lg border">
+        <twig:Command:Input placeholder="Type a command or search..." />
+        <twig:Command:List>
+            <twig:Command:Empty>
+                No results found.
+            </twig:Command:Empty>
+            <twig:Command:Group heading="Suggestions">
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:calendar" />
+                    <span>
+                        Calendar
+                    </span>
+                    <twig:Command:Shortcut>
+                        ⌘K
+                    </twig:Command:Shortcut>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:smile" />
+                    <span>
+                        Search emoji
+                    </span>
+                    <twig:Command:Shortcut>
+                        ⌘E
+                    </twig:Command:Shortcut>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:calculator" />
+                    <span>
+                        Calculator
+                    </span>
+                    <twig:Command:Shortcut>
+                        ⌘J
+                    </twig:Command:Shortcut>
+                </twig:Command:Item>
+            </twig:Command:Group>
+        </twig:Command:List>
+    </twig:Command>
+</div>
+```
+
+### Standard Separators
+
+```twig
+<div class="w-full max-w-sm">
+    <twig:Command class="rounded-lg border">
+        <twig:Command:Input placeholder="Type a command or search..." />
+        <twig:Command:List>
+            <twig:Command:Empty>
+                No results found.
+            </twig:Command:Empty>
+            <twig:Command:Group heading="Suggestions">
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:calendar" />
+                    <span>
+                        Calendar
+                    </span>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:smile" />
+                    <span>
+                        Search emoji
+                    </span>
+                </twig:Command:Item>
+            </twig:Command:Group>
+            <twig:Command:Separator />
+            <twig:Command:Group heading="Settings">
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:user" />
+                    <span>
+                        Profile
+                    </span>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:credit-card" />
+                    <span>
+                        Billing
+                    </span>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:settings" />
+                    <span>
+                        Settings
+                    </span>
+                </twig:Command:Item>
+            </twig:Command:Group>
+        </twig:Command:List>
+    </twig:Command>
+</div>
+```
+
+### Standard Badges
+
+```twig
+<div class="w-full max-w-sm">
+    <twig:Command class="rounded-lg border">
+        <twig:Command:Input placeholder="Type a command or search..." />
+        <twig:Command:List>
+            <twig:Command:Empty>
+                No results found.
+            </twig:Command:Empty>
+            <twig:Command:Group heading="Projects">
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:folder" />
+                    <span>
+                        Website redesign
+                    </span>
+                    <twig:Badge variant="secondary" class="ms-auto">
+                        Active
+                    </twig:Badge>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:folder" />
+                    <span>
+                        Mobile app
+                    </span>
+                    <twig:Badge variant="secondary" class="ms-auto">
+                        Draft
+                    </twig:Badge>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:folder" />
+                    <span>
+                        API v2
+                    </span>
+                    <twig:Badge variant="secondary" class="ms-auto">
+                        New
+                    </twig:Badge>
+                </twig:Command:Item>
+            </twig:Command:Group>
+        </twig:Command:List>
+    </twig:Command>
+</div>
+```
+
+### Standard Descriptions
+
+```twig
+<div class="w-full max-w-sm">
+    <twig:Command class="rounded-lg border">
+        <twig:Command:Input placeholder="Type a command or search..." />
+        <twig:Command:List>
+            <twig:Command:Empty>
+                No results found.
+            </twig:Command:Empty>
+            <twig:Command:Group heading="Actions">
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:file-plus" />
+                    <div class="grid">
+                        <span>
+                            New file
+                        </span>
+                        <span class="text-xs text-muted-foreground">
+                            Create an empty file
+                        </span>
+                    </div>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:folder-plus" />
+                    <div class="grid">
+                        <span>
+                            New folder
+                        </span>
+                        <span class="text-xs text-muted-foreground">
+                            Group files together
+                        </span>
+                    </div>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:upload" />
+                    <div class="grid">
+                        <span>
+                            Import
+                        </span>
+                        <span class="text-xs text-muted-foreground">
+                            From CSV or JSON
+                        </span>
+                    </div>
+                </twig:Command:Item>
+            </twig:Command:Group>
+        </twig:Command:List>
+    </twig:Command>
+</div>
+```
+
+### Standard Actions Menu
+
+```twig
+<div class="w-full max-w-sm">
+    <twig:Command class="rounded-lg border">
+        <twig:Command:Input placeholder="Type a command or search..." />
+        <twig:Command:List>
+            <twig:Command:Empty>
+                No results found.
+            </twig:Command:Empty>
+            <twig:Command:Group heading="Actions">
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:link" />
+                    <span>
+                        Copy link
+                    </span>
+                    <twig:Command:Shortcut>
+                        ⌘L
+                    </twig:Command:Shortcut>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:copy" />
+                    <span>
+                        Duplicate
+                    </span>
+                    <twig:Command:Shortcut>
+                        ⌘D
+                    </twig:Command:Shortcut>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:archive" />
+                    <span>
+                        Archive
+                    </span>
+                    <twig:Command:Shortcut>
+                        ⌘A
+                    </twig:Command:Shortcut>
+                </twig:Command:Item>
+            </twig:Command:Group>
+            <twig:Command:Separator />
+            <twig:Command:Group heading="Danger zone">
+                <twig:Command:Item>
+                    <twig:ux:icon name="lucide:trash-2" />
+                    <span>
+                        Delete
+                    </span>
+                    <twig:Command:Shortcut>
+                        ⌫
+                    </twig:Command:Shortcut>
+                </twig:Command:Item>
+            </twig:Command:Group>
+        </twig:Command:List>
+    </twig:Command>
+</div>
+```
+
+### Standard Status Indicators
+
+```twig
+<div class="w-full max-w-sm">
+    <twig:Command class="rounded-lg border">
+        <twig:Command:Input placeholder="Type a command or search..." />
+        <twig:Command:List>
+            <twig:Command:Empty>
+                No results found.
+            </twig:Command:Empty>
+            <twig:Command:Group heading="Services">
+                <twig:Command:Item>
+                    <span class="size-2 shrink-0 rounded-full bg-green-500"></span>
+                    <span>
+                        API
+                    </span>
+                    <twig:Badge variant="secondary" class="ms-auto">
+                        Operational
+                    </twig:Badge>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <span class="size-2 shrink-0 rounded-full bg-yellow-500"></span>
+                    <span>
+                        Database
+                    </span>
+                    <twig:Badge variant="secondary" class="ms-auto">
+                        Degraded
+                    </twig:Badge>
+                </twig:Command:Item>
+                <twig:Command:Item>
+                    <span class="size-2 shrink-0 rounded-full bg-red-500"></span>
+                    <span>
+                        Queue
+                    </span>
+                    <twig:Badge variant="secondary" class="ms-auto">
+                        Down
+                    </twig:Badge>
+                </twig:Command:Item>
+            </twig:Command:Group>
+        </twig:Command:List>
+    </twig:Command>
+</div>
+```
+
+### Dialog Simple
+
+```twig
+<div style="min-height: 300px">
+    <twig:Dialog id="cmd-dlg-simple">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Command:Dialog>
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Suggestions">
+                        <twig:Command:Item>
+                            <span>
+                                Calendar
+                            </span>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <span>
+                                Search emoji
+                            </span>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <span>
+                                Calculator
+                            </span>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Command:Dialog>
+    </twig:Dialog>
+</div>
+```
+
+### Dialog Icons And Shortcuts
+
+```twig
+<div style="min-height: 300px">
+    <twig:Dialog id="cmd-dlg-icons-and-shortcuts">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Command:Dialog>
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Suggestions">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:calendar" />
+                            <span>
+                                Calendar
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘K
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:smile" />
+                            <span>
+                                Search emoji
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘E
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:calculator" />
+                            <span>
+                                Calculator
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘J
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Command:Dialog>
+    </twig:Dialog>
+</div>
+```
+
+### Dialog Separators
+
+```twig
+<div style="min-height: 300px">
+    <twig:Dialog id="cmd-dlg-separators">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Command:Dialog>
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Suggestions">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:calendar" />
+                            <span>
+                                Calendar
+                            </span>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:smile" />
+                            <span>
+                                Search emoji
+                            </span>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                    <twig:Command:Separator />
+                    <twig:Command:Group heading="Settings">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:user" />
+                            <span>
+                                Profile
+                            </span>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:credit-card" />
+                            <span>
+                                Billing
+                            </span>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:settings" />
+                            <span>
+                                Settings
+                            </span>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Command:Dialog>
+    </twig:Dialog>
+</div>
+```
+
+### Dialog Badges
+
+```twig
+<div style="min-height: 300px">
+    <twig:Dialog id="cmd-dlg-badges">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Command:Dialog>
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Projects">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:folder" />
+                            <span>
+                                Website redesign
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                Active
+                            </twig:Badge>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:folder" />
+                            <span>
+                                Mobile app
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                Draft
+                            </twig:Badge>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:folder" />
+                            <span>
+                                API v2
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                New
+                            </twig:Badge>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Command:Dialog>
+    </twig:Dialog>
+</div>
+```
+
+### Dialog Descriptions
+
+```twig
+<div style="min-height: 300px">
+    <twig:Dialog id="cmd-dlg-descriptions">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Command:Dialog>
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Actions">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:file-plus" />
+                            <div class="grid">
+                                <span>
+                                    New file
+                                </span>
+                                <span class="text-xs text-muted-foreground">
+                                    Create an empty file
+                                </span>
+                            </div>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:folder-plus" />
+                            <div class="grid">
+                                <span>
+                                    New folder
+                                </span>
+                                <span class="text-xs text-muted-foreground">
+                                    Group files together
+                                </span>
+                            </div>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:upload" />
+                            <div class="grid">
+                                <span>
+                                    Import
+                                </span>
+                                <span class="text-xs text-muted-foreground">
+                                    From CSV or JSON
+                                </span>
+                            </div>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Command:Dialog>
+    </twig:Dialog>
+</div>
+```
+
+### Dialog Actions Menu
+
+```twig
+<div style="min-height: 300px">
+    <twig:Dialog id="cmd-dlg-actions-menu">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Command:Dialog>
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Actions">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:link" />
+                            <span>
+                                Copy link
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘L
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:copy" />
+                            <span>
+                                Duplicate
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘D
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:archive" />
+                            <span>
+                                Archive
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘A
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                    <twig:Command:Separator />
+                    <twig:Command:Group heading="Danger zone">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:trash-2" />
+                            <span>
+                                Delete
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌫
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Command:Dialog>
+    </twig:Dialog>
+</div>
+```
+
+### Dialog Status Indicators
+
+```twig
+<div style="min-height: 300px">
+    <twig:Dialog id="cmd-dlg-status-indicators">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Command:Dialog>
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Services">
+                        <twig:Command:Item>
+                            <span class="size-2 shrink-0 rounded-full bg-green-500"></span>
+                            <span>
+                                API
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                Operational
+                            </twig:Badge>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <span class="size-2 shrink-0 rounded-full bg-yellow-500"></span>
+                            <span>
+                                Database
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                Degraded
+                            </twig:Badge>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <span class="size-2 shrink-0 rounded-full bg-red-500"></span>
+                            <span>
+                                Queue
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                Down
+                            </twig:Badge>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Command:Dialog>
+    </twig:Dialog>
+</div>
+```
+
+### Popover Simple
+
+```twig
+<div style="min-height: 360px">
+    <twig:Popover>
+        <twig:Popover:Trigger>
+            <twig:Button variant="outline" {{ ...popover_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Popover:Trigger>
+        <twig:Popover:Content class="w-72 p-0">
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Suggestions">
+                        <twig:Command:Item>
+                            <span>
+                                Calendar
+                            </span>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <span>
+                                Search emoji
+                            </span>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <span>
+                                Calculator
+                            </span>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Popover:Content>
+    </twig:Popover>
+</div>
+```
+
+### Popover Icons And Shortcuts
+
+```twig
+<div style="min-height: 360px">
+    <twig:Popover>
+        <twig:Popover:Trigger>
+            <twig:Button variant="outline" {{ ...popover_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Popover:Trigger>
+        <twig:Popover:Content class="w-72 p-0">
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Suggestions">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:calendar" />
+                            <span>
+                                Calendar
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘K
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:smile" />
+                            <span>
+                                Search emoji
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘E
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:calculator" />
+                            <span>
+                                Calculator
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘J
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Popover:Content>
+    </twig:Popover>
+</div>
+```
+
+### Popover Separators
+
+```twig
+<div style="min-height: 360px">
+    <twig:Popover>
+        <twig:Popover:Trigger>
+            <twig:Button variant="outline" {{ ...popover_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Popover:Trigger>
+        <twig:Popover:Content class="w-72 p-0">
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Suggestions">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:calendar" />
+                            <span>
+                                Calendar
+                            </span>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:smile" />
+                            <span>
+                                Search emoji
+                            </span>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                    <twig:Command:Separator />
+                    <twig:Command:Group heading="Settings">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:user" />
+                            <span>
+                                Profile
+                            </span>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:credit-card" />
+                            <span>
+                                Billing
+                            </span>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:settings" />
+                            <span>
+                                Settings
+                            </span>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Popover:Content>
+    </twig:Popover>
+</div>
+```
+
+### Popover Badges
+
+```twig
+<div style="min-height: 360px">
+    <twig:Popover>
+        <twig:Popover:Trigger>
+            <twig:Button variant="outline" {{ ...popover_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Popover:Trigger>
+        <twig:Popover:Content class="w-72 p-0">
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Projects">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:folder" />
+                            <span>
+                                Website redesign
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                Active
+                            </twig:Badge>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:folder" />
+                            <span>
+                                Mobile app
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                Draft
+                            </twig:Badge>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:folder" />
+                            <span>
+                                API v2
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                New
+                            </twig:Badge>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Popover:Content>
+    </twig:Popover>
+</div>
+```
+
+### Popover Descriptions
+
+```twig
+<div style="min-height: 360px">
+    <twig:Popover>
+        <twig:Popover:Trigger>
+            <twig:Button variant="outline" {{ ...popover_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Popover:Trigger>
+        <twig:Popover:Content class="w-72 p-0">
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Actions">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:file-plus" />
+                            <div class="grid">
+                                <span>
+                                    New file
+                                </span>
+                                <span class="text-xs text-muted-foreground">
+                                    Create an empty file
+                                </span>
+                            </div>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:folder-plus" />
+                            <div class="grid">
+                                <span>
+                                    New folder
+                                </span>
+                                <span class="text-xs text-muted-foreground">
+                                    Group files together
+                                </span>
+                            </div>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:upload" />
+                            <div class="grid">
+                                <span>
+                                    Import
+                                </span>
+                                <span class="text-xs text-muted-foreground">
+                                    From CSV or JSON
+                                </span>
+                            </div>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Popover:Content>
+    </twig:Popover>
+</div>
+```
+
+### Popover Actions Menu
+
+```twig
+<div style="min-height: 360px">
+    <twig:Popover>
+        <twig:Popover:Trigger>
+            <twig:Button variant="outline" {{ ...popover_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Popover:Trigger>
+        <twig:Popover:Content class="w-72 p-0">
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Actions">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:link" />
+                            <span>
+                                Copy link
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘L
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:copy" />
+                            <span>
+                                Duplicate
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘D
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:archive" />
+                            <span>
+                                Archive
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌘A
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                    <twig:Command:Separator />
+                    <twig:Command:Group heading="Danger zone">
+                        <twig:Command:Item>
+                            <twig:ux:icon name="lucide:trash-2" />
+                            <span>
+                                Delete
+                            </span>
+                            <twig:Command:Shortcut>
+                                ⌫
+                            </twig:Command:Shortcut>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Popover:Content>
+    </twig:Popover>
+</div>
+```
+
+### Popover Status Indicators
+
+```twig
+<div style="min-height: 360px">
+    <twig:Popover>
+        <twig:Popover:Trigger>
+            <twig:Button variant="outline" {{ ...popover_trigger_attrs }}>
+                Open command menu
+            </twig:Button>
+        </twig:Popover:Trigger>
+        <twig:Popover:Content class="w-72 p-0">
+            <twig:Command class="">
+                <twig:Command:Input placeholder="Type a command or search..." />
+                <twig:Command:List>
+                    <twig:Command:Empty>
+                        No results found.
+                    </twig:Command:Empty>
+                    <twig:Command:Group heading="Services">
+                        <twig:Command:Item>
+                            <span class="size-2 shrink-0 rounded-full bg-green-500"></span>
+                            <span>
+                                API
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                Operational
+                            </twig:Badge>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <span class="size-2 shrink-0 rounded-full bg-yellow-500"></span>
+                            <span>
+                                Database
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                Degraded
+                            </twig:Badge>
+                        </twig:Command:Item>
+                        <twig:Command:Item>
+                            <span class="size-2 shrink-0 rounded-full bg-red-500"></span>
+                            <span>
+                                Queue
+                            </span>
+                            <twig:Badge variant="secondary" class="ms-auto">
+                                Down
+                            </twig:Badge>
+                        </twig:Command:Item>
+                    </twig:Command:Group>
+                </twig:Command:List>
+            </twig:Command>
+        </twig:Popover:Content>
+    </twig:Popover>
+</div>
+```
