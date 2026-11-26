@@ -185,3 +185,92 @@ A whole card that toggles the checkbox.
 </div>
 ```
 
+
+### Generated From A List
+
+A group of options that share a name ending in `[]`: the checked values are submitted as a list.
+
+```twig
+<twig:Field:Set>
+    <twig:Field:Legend variant="label">
+        Ingredients
+    </twig:Field:Legend>
+    <twig:Field:Group class="gap-3">
+        <twig:Field orientation="horizontal">
+            <twig:Checkbox id="cb-list-cheese" name="ingredients[]" value="cheese" />
+            <twig:Field:Label for="cb-list-cheese" class="font-normal">
+                Cheese
+            </twig:Field:Label>
+        </twig:Field>
+        <twig:Field orientation="horizontal">
+            <twig:Checkbox id="cb-list-mushroom" name="ingredients[]" value="mushroom" />
+            <twig:Field:Label for="cb-list-mushroom" class="font-normal">
+                Mushroom
+            </twig:Field:Label>
+        </twig:Field>
+        <twig:Field orientation="horizontal">
+            <twig:Checkbox id="cb-list-pepper" name="ingredients[]" value="pepper" />
+            <twig:Field:Label for="cb-list-pepper" class="font-normal">
+                Pepper
+            </twig:Field:Label>
+        </twig:Field>
+        <twig:Field orientation="horizontal">
+            <twig:Checkbox id="cb-list-onion" name="ingredients[]" value="onion" />
+            <twig:Field:Label for="cb-list-onion" class="font-normal">
+                Onion
+            </twig:Field:Label>
+        </twig:Field>
+    </twig:Field:Group>
+</twig:Field:Set>
+```
+
+### Sizes
+
+The checkbox has a fixed size; a wrapper class scales the box and its tick.
+
+```twig
+<div class="flex items-center gap-6">
+    <twig:Field orientation="horizontal" class="w-auto [&_[data-slot=checkbox]]:size-3.5 [&_input]:size-3.5 [&_svg]:size-3">
+        <twig:Checkbox id="cb-size-sm" name="small" checked="1" />
+        <twig:Field:Label for="cb-size-sm" class="font-normal">
+            Small
+        </twig:Field:Label>
+    </twig:Field>
+    <twig:Field orientation="horizontal" class="w-auto">
+        <twig:Checkbox id="cb-size-md" name="medium" checked="1" />
+        <twig:Field:Label for="cb-size-md" class="font-normal">
+            Default
+        </twig:Field:Label>
+    </twig:Field>
+    <twig:Field orientation="horizontal" class="w-auto [&_[data-slot=checkbox]]:size-6 [&_input]:size-6 [&_svg]:size-5">
+        <twig:Checkbox id="cb-size-lg" name="large" checked="1" />
+        <twig:Field:Label for="cb-size-lg" class="font-normal">
+            Large
+        </twig:Field:Label>
+    </twig:Field>
+</div>
+```
+
+### Indeterminate
+
+`indeterminate` is a property of the input, not an attribute: a script sets it, and a CSS rule draws the dash.
+
+```twig
+<style>
+    #cb-indeterminate:indeterminate {
+        border-color: var(--primary);
+        background-color: var(--primary);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8h8' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+    }
+</style>
+<twig:Field orientation="horizontal" class="w-auto">
+    <twig:Checkbox id="cb-indeterminate" name="partial" />
+    <twig:Field:Label for="cb-indeterminate" class="font-normal">
+        Select all (some selected)
+    </twig:Field:Label>
+</twig:Field>
+<script>
+    document.getElementById('cb-indeterminate').indeterminate = true;
+</script>
+```
