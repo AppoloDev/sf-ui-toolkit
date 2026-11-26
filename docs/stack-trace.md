@@ -23,7 +23,7 @@ The exception, its message and the frames; vendor frames are folded.
 <!-- height: 360 -->
 
 ```twig
-<twig:StackTrace exception="App\Exception\PaymentFailed" message="The card was declined." :frames="[{file: "/app/src/Controller/OrderController.php", line: 42, function: "App\\Controller\\OrderController->pay()"}, {file: "/app/vendor/symfony/http-kernel/HttpKernel.php", line: 181, function: "Symfony\\Component\\HttpKernel\\HttpKernel->handleRaw()"}, {file: "/app/vendor/symfony/http-kernel/HttpKernel.php", line: 76, function: "Symfony\\Component\\HttpKernel\\HttpKernel->handle()"}, {file: "/app/public/index.php", line: 12, function: "require_once()"}]" basePath="/app/" />
+<twig:StackTrace exception="App\Exception\PaymentFailed" message="The card was declined." :frames="[{file: '/app/src/Controller/OrderController.php', line: 42, function: 'App\\Controller\\OrderController->pay()'}, {file: '/app/vendor/symfony/http-kernel/HttpKernel.php', line: 181, function: 'Symfony\\Component\\HttpKernel\\HttpKernel->handleRaw()'}, {file: '/app/vendor/symfony/http-kernel/HttpKernel.php', line: 76, function: 'Symfony\\Component\\HttpKernel\\HttpKernel->handle()'}, {file: '/app/public/index.php', line: 12, function: 'require_once()'}]" basePath="/app/" />
 ```
 
 ### Vendor Frames Shown
@@ -33,7 +33,7 @@ The exception, its message and the frames; vendor frames are folded.
 <!-- height: 360 -->
 
 ```twig
-<twig:StackTrace exception="RuntimeException" message="Something broke." :foldVendor="false" :frames="[{file: "/app/src/Controller/OrderController.php", line: 42, function: "App\\Controller\\OrderController->pay()"}, {file: "/app/vendor/symfony/http-kernel/HttpKernel.php", line: 181, function: "Symfony\\Component\\HttpKernel\\HttpKernel->handleRaw()"}, {file: "/app/vendor/symfony/http-kernel/HttpKernel.php", line: 76, function: "Symfony\\Component\\HttpKernel\\HttpKernel->handle()"}, {file: "/app/public/index.php", line: 12, function: "require_once()"}]" />
+<twig:StackTrace exception="RuntimeException" message="Something broke." :foldVendor="false" :frames="[{file: '/app/src/Controller/OrderController.php', line: 42, function: 'App\\Controller\\OrderController->pay()'}, {file: '/app/vendor/symfony/http-kernel/HttpKernel.php', line: 181, function: 'Symfony\\Component\\HttpKernel\\HttpKernel->handleRaw()'}, {file: '/app/vendor/symfony/http-kernel/HttpKernel.php', line: 76, function: 'Symfony\\Component\\HttpKernel\\HttpKernel->handle()'}, {file: '/app/public/index.php', line: 12, function: 'require_once()'}]" />
 ```
 
 ### Without A Message
@@ -43,7 +43,7 @@ Only the exception.
 <!-- height: 320 -->
 
 ```twig
-<twig:StackTrace exception="LogicException" :frames="[{file: "/app/src/Controller/OrderController.php", line: 42, function: "App\\Controller\\OrderController->pay()"}, {file: "/app/vendor/symfony/http-kernel/HttpKernel.php", line: 181, function: "Symfony\\Component\\HttpKernel\\HttpKernel->handleRaw()"}, {file: "/app/vendor/symfony/http-kernel/HttpKernel.php", line: 76, function: "Symfony\\Component\\HttpKernel\\HttpKernel->handle()"}, {file: "/app/public/index.php", line: 12, function: "require_once()"}]" />
+<twig:StackTrace exception="LogicException" :frames="[{file: '/app/src/Controller/OrderController.php', line: 42, function: 'App\\Controller\\OrderController->pay()'}, {file: '/app/vendor/symfony/http-kernel/HttpKernel.php', line: 181, function: 'Symfony\\Component\\HttpKernel\\HttpKernel->handleRaw()'}, {file: '/app/vendor/symfony/http-kernel/HttpKernel.php', line: 76, function: 'Symfony\\Component\\HttpKernel\\HttpKernel->handle()'}, {file: '/app/public/index.php', line: 12, function: 'require_once()'}]" />
 ```
 
 ### Few Frames
@@ -63,7 +63,7 @@ All texts are props.
 <!-- height: 360 -->
 
 ```twig
-<twig:StackTrace exception="Exception" message="Erreur" :frames="[{file: "/app/src/Controller/OrderController.php", line: 42, function: "App\\Controller\\OrderController->pay()"}, {file: "/app/vendor/symfony/http-kernel/HttpKernel.php", line: 181, function: "Symfony\\Component\\HttpKernel\\HttpKernel->handleRaw()"}, {file: "/app/vendor/symfony/http-kernel/HttpKernel.php", line: 76, function: "Symfony\\Component\\HttpKernel\\HttpKernel->handle()"}, {file: "/app/public/index.php", line: 12, function: "require_once()"}]" copyLabel="Copier" copiedLabel="Copié" showVendorLabel="Afficher {count} lignes de dépendances" hideVendorLabel="Masquer les dépendances" label="Pile d'appels" />
+<twig:StackTrace exception="Exception" message="Erreur" :frames="[{file: '/app/src/Controller/OrderController.php', line: 42, function: 'App\\Controller\\OrderController->pay()'}, {file: '/app/vendor/symfony/http-kernel/HttpKernel.php', line: 181, function: 'Symfony\\Component\\HttpKernel\\HttpKernel->handleRaw()'}, {file: '/app/vendor/symfony/http-kernel/HttpKernel.php', line: 76, function: 'Symfony\\Component\\HttpKernel\\HttpKernel->handle()'}, {file: '/app/public/index.php', line: 12, function: 'require_once()'}]" copyLabel="Copier" copiedLabel="Copié" showVendorLabel="Afficher {count} lignes de dépendances" hideVendorLabel="Masquer les dépendances" label="Pile d'appels" />
 ```
 
 ## Accessibility
