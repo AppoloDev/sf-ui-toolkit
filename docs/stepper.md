@@ -2810,6 +2810,131 @@ A colored bar on the left of each step: green when done, amber for the current o
 </twig:Stepper>
 ```
 
+### Loop
+
+The next button wraps from the last step to the first: the script writes the stepper value, which the controller follows.
+
+```twig
+<twig:Stepper :value="1" id="stepper-loop" class="max-w-xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    1
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Details
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    2
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Review
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3">
+            <twig:Stepper:Trigger>
+                <twig:Stepper:Indicator>
+                    3
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Confirm
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+    <twig:Stepper:Content step="1" class="rounded-md border border-border p-4 text-sm">
+        Step one: gather the details.
+    </twig:Stepper:Content>
+    <twig:Stepper:Content step="2" class="rounded-md border border-border p-4 text-sm">
+        Step two: review them.
+    </twig:Stepper:Content>
+    <twig:Stepper:Content step="3" class="rounded-md border border-border p-4 text-sm">
+        Step three: confirm.
+    </twig:Stepper:Content>
+    <div>
+        <twig:Button size="sm" type="button" id="stepper-loop-next">
+            Next, then start over
+        </twig:Button>
+    </div>
+</twig:Stepper>
+<script>
+    document.getElementById('stepper-loop-next').addEventListener('click', () => {
+        const stepper = document.getElementById('stepper-loop');
+        stepper.dataset.stepperValueValue = String(Number(stepper.dataset.stepperValueValue) % 3 + 1);
+    });
+</script>
+```
+
+### Manual
+
+The triggers are disabled: only the buttons move the stepper, so the user cannot skip a step.
+
+```twig
+<twig:Stepper :value="1" class="max-w-xl!">
+    <twig:Stepper:Nav>
+        <twig:Stepper:Item step="1">
+            <twig:Stepper:Trigger disabled>
+                <twig:Stepper:Indicator>
+                    1
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Details
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="2">
+            <twig:Stepper:Trigger disabled>
+                <twig:Stepper:Indicator>
+                    2
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Review
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+        <twig:Stepper:Item step="3">
+            <twig:Stepper:Trigger disabled>
+                <twig:Stepper:Indicator>
+                    3
+                </twig:Stepper:Indicator>
+                <twig:Stepper:Title>
+                    Confirm
+                </twig:Stepper:Title>
+            </twig:Stepper:Trigger>
+            <twig:Stepper:Separator />
+        </twig:Stepper:Item>
+    </twig:Stepper:Nav>
+    <twig:Stepper:Content step="1" class="rounded-md border border-border p-4 text-sm">
+        Step one: gather the details.
+    </twig:Stepper:Content>
+    <twig:Stepper:Content step="2" class="rounded-md border border-border p-4 text-sm">
+        Step two: review them.
+    </twig:Stepper:Content>
+    <twig:Stepper:Content step="3" class="rounded-md border border-border p-4 text-sm">
+        Step three: confirm.
+    </twig:Stepper:Content>
+    <div class="flex gap-2">
+        <twig:Button variant="outline" size="sm" type="button" data-action="click->stepper#prev">
+            Back
+        </twig:Button>
+        <twig:Button size="sm" type="button" data-action="click->stepper#next">
+            Next
+        </twig:Button>
+    </div>
+</twig:Stepper>
+```
+
 ## Accessibility
 
 - `Stepper:Nav` is a `tablist` and each `Stepper:Trigger` a `tab`; the active tab has `aria-selected="true"` and roving focus keeps a single tab stop in the list.
