@@ -1,0 +1,15 @@
+{
+    "type": "component",
+    "name": "Marquee",
+    "description": "Content that scrolls in a loop: logos, quotes, badges. Direction, speed, pause on hover, soft fading edges, vertical mode, and a still version for people who prefer reduced motion.",
+    "copy-files": {
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "twig/html-extra:^3.24.0",
+            "symfony/ux-twig-component:^3.5",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+        ]
+    }
+}

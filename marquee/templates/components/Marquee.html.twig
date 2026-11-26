@@ -1,0 +1,43 @@
+{#
+ # Content that scrolls in a loop. CSS only: the content is repeated once, the second copy is hidden from assistive technology.
+ #
+ # Props: direction, duration, pauseOnHover, gap, fade, vertical, label.
+ #}
+{%- props
+    ## string `left` or `right` (`up` or `down` when `vertical`).
+    direction = 'left',
+    ## integer The time of one full loop, in seconds.
+    duration = 30,
+    ## bool Pause while the pointer is over the marquee or a focus is inside.
+    pauseOnHover = true,
+    ## string A Tailwind gap value: `4`, `8`...
+    gap = '8',
+    ## bool Fade the edges.
+    fade = true,
+    ## bool Scroll vertically.
+    vertical = false,
+    ## string|null The accessible name, for content that means something (logos of clients).
+    label = null
+-%}
+{%- set content %}{% block content %}{% endblock %}{% endset -%}
+{%- set reverse = direction in ['right', 'down'] -%}
+<div
+    data-slot="marquee"
+    {%- if label %} role="group" aria-label="{{ label }}"{% endif %}
+    {{ attributes.defaults({class: ('group relative flex overflow-hidden ' ~ (vertical ? 'flex-col' : 'flex-row'))|tailwind_classes}) }}
+    style="--marquee-duration: {{ duration }}s;{% if fade %} mask-image: linear-gradient(to {{ vertical ? 'bottom' : 'right' }}, transparent, black 10%, black 90%, transparent);{% endif %}"
+>
+    <style>
+        @keyframes marquee-x { from { transform: translateX(0) } to { transform: translateX(-100%) } }
+        @keyframes marquee-y { from { transform: translateY(0) } to { transform: translateY(-100%) } }
+        @media (prefers-reduced-motion: reduce) { [data-slot="marquee"] [data-marquee-track] { animation: none !important } }
+    </style>
+    {%- for copy in 0..1 %}
+        <div
+            data-marquee-track
+            {%- if copy == 1 %} aria-hidden="true"{% endif %}
+            class="flex shrink-0 {{ vertical ? 'flex-col' : 'flex-row' }} items-center justify-around gap-{{ gap }} {{ vertical ? 'py' : 'px' }}-{{ gap }}{% if pauseOnHover %} group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]{% endif %}"
+            style="animation: {{ vertical ? 'marquee-y' : 'marquee-x' }} var(--marquee-duration) linear infinite {{ reverse ? 'reverse' : 'normal' }}; {{ vertical ? 'min-height' : 'min-width' }}: 100%"
+        >{{ content|raw }}</div>
+    {%- endfor %}
+</div>
