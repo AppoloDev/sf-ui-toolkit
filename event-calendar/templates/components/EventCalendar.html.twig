@@ -1,0 +1,105 @@
+{#
+ # A calendar of events: month, week, day and agenda views.
+ #
+ # Props: events, view, views, date, weekStart, locale, resources, editable, creatable, startHour, endHour,
+ # slotMinutes, hourHeight, showToolbar and the texts (todayLabel, previousLabel, nextLabel, monthLabel, weekLabel,
+ # dayLabel, agendaLabel, allDayLabel, noEventsLabel, moreLabel, label).
+ # Slot `chip`: the markup of an event chip, with {title}, {time}, {color}, {resource} and the keys of the event.
+ #}
+{%- props
+    ## array The events: `id`, `title`, `start` and `end` (`YYYY-MM-DDTHH:mm`, or `YYYY-MM-DD` for an all-day event), and optionally `color` (`blue`, `green`, `red`, `amber`, `violet`, `slate`) and `resource`.
+    events = [],
+    ## string The view shown: `month`, `week`, `day` or `agenda`.
+    view = 'month',
+    ## array The views the user can switch to.
+    views = ['month', 'week', 'day', 'agenda'],
+    ## string|null The date shown, as `YYYY-MM-DD`. Without it, today.
+    date = null,
+    ## integer The first day of the week: 0 is Sunday, 1 is Monday.
+    weekStart = 1,
+    ## string The locale of the day and month names.
+    locale = 'en',
+    ## array Rooms or people as columns of the day view: `id` and `title`. Events refer to them with `resource`.
+    resources = [],
+    ## bool Events can be dragged to another day or time.
+    editable = false,
+    ## bool Dragging over free time (week and day views) or clicking a day (month view) fires `event-calendar:create`.
+    creatable = false,
+    ## integer The first hour of the day in the week and day views.
+    startHour = 7,
+    ## integer The end of the last hour shown (exclusive).
+    endHour = 20,
+    ## integer The step of the drag, in minutes.
+    slotMinutes = 30,
+    ## integer The height of one hour, in pixels.
+    hourHeight = 48,
+    ## bool Show the bar with the arrows, today, the title and the view switcher.
+    showToolbar = true,
+    ## string The text of the today button.
+    todayLabel = 'Today',
+    ## string The accessible name of the previous arrow.
+    previousLabel = 'Previous',
+    ## string The accessible name of the next arrow.
+    nextLabel = 'Next',
+    ## string The name of the month view.
+    monthLabel = 'Month',
+    ## string The name of the week view.
+    weekLabel = 'Week',
+    ## string The name of the day view.
+    dayLabel = 'Day',
+    ## string The name of the agenda view.
+    agendaLabel = 'Agenda',
+    ## string The label of the all-day row.
+    allDayLabel = 'All day',
+    ## string The text of an empty agenda.
+    noEventsLabel = 'No events',
+    ## string The text of the link to the events that do not fit a day of the month, with {count}.
+    moreLabel = '+{count} more',
+    ## string The accessible name of the calendar.
+    label = 'Calendar'
+-%}
+{%- set chip %}{% block chip %}{% endblock %}{% endset -%}
+{%- set names = {month: monthLabel, week: weekLabel, day: dayLabel, agenda: agendaLabel} -%}
+<section
+    data-slot="event-calendar"
+    data-controller="event-calendar"
+    data-event-calendar-events-value="{{ events|json_encode|e('html_attr') }}"
+    data-event-calendar-view-value="{{ view }}"
+    data-event-calendar-week-start-value="{{ weekStart }}"
+    data-event-calendar-locale-value="{{ locale }}"
+    data-event-calendar-resources-value="{{ resources|json_encode|e('html_attr') }}"
+    data-event-calendar-editable-value="{{ editable ? 'true' : 'false' }}"
+    data-event-calendar-creatable-value="{{ creatable ? 'true' : 'false' }}"
+    data-event-calendar-start-hour-value="{{ startHour }}"
+    data-event-calendar-end-hour-value="{{ endHour }}"
+    data-event-calendar-slot-minutes-value="{{ slotMinutes }}"
+    data-event-calendar-hour-height-value="{{ hourHeight }}"
+    data-event-calendar-labels-value="{{ {allDay: allDayLabel, noEvents: noEventsLabel, more: moreLabel}|json_encode|e('html_attr') }}"
+    {%- if date %} data-event-calendar-date-value="{{ date }}"{% endif %}
+    aria-label="{{ label }}"
+    {{ attributes.defaults({class: 'grid gap-3'|tailwind_classes}) }}
+>
+    {%- if showToolbar %}
+        <div class="flex flex-wrap items-center gap-2">
+            <div class="flex items-center gap-1">
+                <button type="button" data-action="event-calendar#previous" aria-label="{{ previousLabel }}" class="inline-flex size-8 items-center justify-center rounded-md border bg-background outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">
+                    <twig:ux:icon name="lucide:chevron-left" class="size-4" />
+                </button>
+                <button type="button" data-action="event-calendar#next" aria-label="{{ nextLabel }}" class="inline-flex size-8 items-center justify-center rounded-md border bg-background outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">
+                    <twig:ux:icon name="lucide:chevron-right" class="size-4" />
+                </button>
+                <button type="button" data-action="event-calendar#today" class="inline-flex h-8 items-center rounded-md border bg-background px-3 text-sm font-medium outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">{{ todayLabel }}</button>
+            </div>
+            <h2 data-event-calendar-target="title" aria-live="polite" class="flex-1 text-sm font-semibold"></h2>
+            {%- if views|length > 1 %}
+                <div role="group" aria-label="{{ label }}" class="inline-flex rounded-md border bg-muted p-0.5">
+                    {%- for name in views %}
+                        <button type="button" data-event-calendar-target="viewButton" data-action="event-calendar#setView" data-event-calendar-view-param="{{ name }}" aria-pressed="false" class="h-7 rounded px-2.5 text-xs font-medium text-muted-foreground outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-pressed:bg-background aria-pressed:text-foreground aria-pressed:shadow-sm">{{ names[name] }}</button>
+                    {%- endfor %}
+                </div>
+            {%- endif %}
+        </div>
+    {%- endif %}
+    <div data-event-calendar-target="body" class="overflow-hidden rounded-lg border bg-card"></div>
+    {%- if chip|trim is not empty %}<template data-event-calendar-target="chip">{{ chip|raw }}</template>{% endif %}
+</section>
