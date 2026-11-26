@@ -1,0 +1,52 @@
+{#
+ # Compares two panels (images, screenshots) with a draggable divider.
+ #
+ # Props: position, orientation, label, handleLabel, step.
+ # Slots: `before` and `after`.
+ #}
+{%- props
+    ## number The start position of the divider, from 0 to 100.
+    position = 50,
+    ## string `horizontal` (the divider is vertical) or `vertical` (the divider is horizontal).
+    orientation = 'horizontal',
+    ## string The accessible name of the comparison.
+    label = 'Comparison',
+    ## string The accessible name of the divider.
+    handleLabel = 'Divider',
+    ## number The keyboard step, in percent.
+    step = 5
+-%}
+{%- set before %}{% block before %}{% endblock %}{% endset -%}
+{%- set after %}{% block after %}{% endblock %}{% endset -%}
+{%- set horizontal = orientation == 'horizontal' -%}
+<div
+    data-slot="comparison"
+    data-controller="comparison"
+    data-comparison-position-value="{{ position }}"
+    data-comparison-orientation-value="{{ orientation }}"
+    data-comparison-step-value="{{ step }}"
+    role="group"
+    aria-label="{{ label }}"
+    style="--pos: {{ position }}%"
+    {{ attributes.defaults({class: 'relative isolate touch-none select-none overflow-hidden rounded-lg border'|tailwind_classes}) }}
+>
+    <div class="relative size-full">{{ after|raw }}</div>
+    <div class="absolute inset-0 overflow-hidden" data-comparison-target="before" style="{{ horizontal ? 'clip-path: inset(0 calc(100% - var(--pos)) 0 0)' : 'clip-path: inset(0 0 calc(100% - var(--pos)) 0)' }}">{{ before|raw }}</div>
+    <div
+        role="slider"
+        tabindex="0"
+        aria-label="{{ handleLabel }}"
+        aria-orientation="{{ horizontal ? 'horizontal' : 'vertical' }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="{{ position }}"
+        data-comparison-target="handle"
+        data-action="keydown->comparison#keydown pointerdown->comparison#down"
+        class="{{ (horizontal ? 'absolute inset-y-0 w-0.5 -translate-x-1/2 cursor-ew-resize' : 'absolute inset-x-0 h-0.5 -translate-y-1/2 cursor-ns-resize') ~ ' bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.2)] outline-none focus-visible:ring-[3px] focus-visible:ring-ring' }}"
+        style="{{ horizontal ? 'left: var(--pos)' : 'top: var(--pos)' }}"
+    >
+        <span class="absolute left-1/2 top-1/2 inline-flex size-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border bg-white text-black shadow {{ horizontal ? '' : 'rotate-90' }}">
+            <twig:ux:icon name="lucide:chevrons-left-right" class="size-4" />
+        </span>
+    </div>
+</div>
