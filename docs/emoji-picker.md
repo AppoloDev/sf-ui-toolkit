@@ -210,6 +210,72 @@ A smaller set for a professional tool: only a few categories, and a list of emoj
 />
 ```
 
+### In Form
+
+The picker submits the emoji character under its `name`, like any other field.
+
+<!-- height: 480 -->
+
+```twig
+<form class="grid w-full max-w-sm gap-4" onsubmit="event.preventDefault(); document.getElementById('emoji-form-out').textContent = 'Submitted: ' + new FormData(this).get('mood');">
+    <twig:Field>
+        <twig:Field:Label for="emoji-form-mood">
+            How do you feel today?
+        </twig:Field:Label>
+        <twig:EmojiPicker id="emoji-form-mood" name="mood" label="Mood" recentKey="" />
+        <twig:Field:Description>
+            Pick the emoji that fits your mood.
+        </twig:Field:Description>
+    </twig:Field>
+    <div class="flex items-center gap-3">
+        <twig:Button type="submit">
+            Save
+        </twig:Button>
+        <span id="emoji-form-out" class="text-sm text-muted-foreground"></span>
+    </div>
+</form>
+```
+
+### Text Trigger
+
+Without a value, `placeholder` is the text of the trigger.
+
+<!-- height: 480 -->
+
+```twig
+<twig:EmojiPicker name="reaction" placeholder="Add an emoji" label="Add an emoji" recentKey="" />
+```
+
+### With Display
+
+The chosen emoji and its name are shown next to the picker, read from the `emoji-picker:select` event.
+
+<!-- height: 480 -->
+
+```twig
+<div id="emoji-display" class="flex items-center gap-4">
+    <twig:EmojiPicker name="icon" label="Choose an emoji" recentKey="" />
+    <twig:Item variant="outline" size="sm">
+        <twig:Item:Media>
+            <span class="text-3xl" data-display-emoji>
+                ❔
+            </span>
+        </twig:Item:Media>
+        <twig:Item:Content>
+            <twig:Item:Title data-display-name>
+                Nothing chosen
+            </twig:Item:Title>
+        </twig:Item:Content>
+    </twig:Item>
+</div>
+<script>
+    document.getElementById('emoji-display').addEventListener('emoji-picker:select', (event) => {
+        document.querySelector('#emoji-display [data-display-emoji]').textContent = event.detail.emoji || '❔';
+        document.querySelector('#emoji-display [data-display-name]').textContent = event.detail.name || 'Nothing chosen';
+    });
+</script>
+```
+
 ## Accessibility
 
 - The trigger is a button with `aria-haspopup` and `aria-expanded`; the picker is a dialog (a group when `inline`). `Esc` closes it and returns focus to the trigger.
