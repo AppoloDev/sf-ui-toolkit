@@ -463,3 +463,38 @@ For a wait of unknown length the bar slides in a loop. It is hidden from assisti
     <twig:Progress value="60" class="h-4 rounded-sm" />
 </div>
 ```
+
+### Dynamic Update
+
+The bar follows a value that changes: the script sets `aria-valuenow` and moves the indicator.
+
+```twig
+<twig:Field class="w-full max-w-sm">
+    <div class="flex justify-between text-sm">
+        <span>
+            Uploading
+        </span>
+        <span id="progress-live-value" class="text-muted-foreground">
+            0%
+        </span>
+    </div>
+    <twig:Progress value="0" id="progress-live" aria-label="Upload progress" />
+    <twig:Button variant="outline" size="sm" type="button" id="progress-live-start" class="w-fit">
+        Start
+    </twig:Button>
+</twig:Field>
+<script>
+    document.getElementById('progress-live-start').addEventListener('click', () => {
+        const bar = document.getElementById('progress-live');
+        const indicator = bar.querySelector('[data-slot=progress-indicator]');
+        let value = 0;
+        const timer = setInterval(() => {
+            value = Math.min(100, value + 5);
+            bar.setAttribute('aria-valuenow', value);
+            indicator.style.transform = 'translateX(-' + (100 - value) + '%)';
+            document.getElementById('progress-live-value').textContent = value + '%';
+            if (100 === value) clearInterval(timer);
+        }, 120);
+    });
+</script>
+```
