@@ -1229,3 +1229,33 @@
     </twig:ContextMenu>
 </div>
 ```
+
+### Text Menu
+
+The trigger keeps the native text selection with `select-text`.
+
+```twig
+<twig:ContextMenu id="ctx-text">
+    <twig:ContextMenu:Trigger class="max-w-md rounded-lg border p-4 text-sm select-text">
+        <p>
+            Right click anywhere in this paragraph to open a menu of text actions. The menu is the same wherever the pointer is, so it suits a document that is read more than it is edited.
+        </p>
+    </twig:ContextMenu:Trigger>
+    <twig:ContextMenu:Content class="w-52">
+        <twig:ContextMenu:Item>
+            Copy
+            <twig:ContextMenu:Shortcut>⌘C</twig:ContextMenu:Shortcut>
+        </twig:ContextMenu:Item>
+        <twig:ContextMenu:Item>
+            Highlight
+        </twig:ContextMenu:Item>
+        <twig:ContextMenu:Item>
+            Add a comment
+        </twig:ContextMenu:Item>
+        <twig:ContextMenu:Separator />
+        <twig:ContextMenu:Item>
+            Search the web
+        </twig:ContextMenu:Item>
+    </twig:ContextMenu:Content>
+</twig:ContextMenu>
+```
