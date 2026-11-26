@@ -1,0 +1,15 @@
+{
+    "type": "component",
+    "name": "CircularProgress",
+    "description": "A circular progress ring or a half-circle gauge: determinate or indeterminate, sizes, thickness, colors by threshold, and any content in the middle.",
+    "copy-files": {
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "twig/html-extra:^3.24.0",
+            "symfony/ux-twig-component:^3.5",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+        ]
+    }
+}

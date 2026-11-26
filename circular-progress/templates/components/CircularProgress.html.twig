@@ -1,0 +1,66 @@
+{#
+ # A circular progress ring, or a half-circle gauge. Twig and CSS only.
+ #
+ # Props: value, max, size, thickness, variant, indeterminate, showValue, label, color, thresholds.
+ # Slot `default`: the content in the middle (the percentage by default when `showValue`).
+ #}
+{%- props
+    ## number The current value.
+    value = 0,
+    ## number The value that fills the ring.
+    max = 100,
+    ## integer The width and height of the ring, in pixels.
+    size = 96,
+    ## integer The thickness of the ring, in pixels.
+    thickness = 8,
+    ## string `ring` (a full circle) or `gauge` (a half circle).
+    variant = 'ring',
+    ## bool Spin without a value.
+    indeterminate = false,
+    ## bool Write the percentage in the middle.
+    showValue = false,
+    ## string The accessible name of the progress.
+    label = 'Progress',
+    ## string|null A Tailwind text color class for the ring, such as `text-green-600`. Without it, the primary color.
+    color = null,
+    ## array|null Colors by value, from the lowest: `[{from: 0, color: 'text-red-500'}, {from: 50, color: 'text-amber-500'}, {from: 80, color: 'text-green-600'}]`. The last one reached wins.
+    thresholds = null
+-%}
+{%- set content %}{% block content %}{% endblock %}{% endset -%}
+{%- set ratio = max > 0 ? min(1, max(0, value / max)) : 0 -%}
+{%- set radius = (size - thickness) / 2 -%}
+{%- set circumference = 2 * 3.14159265 * radius -%}
+{%- set arc = variant == 'gauge' ? circumference / 2 : circumference -%}
+{%- set tone = color ?? 'text-primary' -%}
+{%- for step in thresholds ?? [] -%}
+    {%- if value >= step.from %}{% set tone = step.color %}{% endif -%}
+{%- endfor -%}
+{%- set height = variant == 'gauge' ? size / 2 + thickness / 2 : size -%}
+<div
+    data-slot="circular-progress"
+    role="progressbar"
+    aria-label="{{ label }}"
+    aria-valuemin="0"
+    aria-valuemax="{{ max }}"
+    {%- if not indeterminate %} aria-valuenow="{{ value }}"{% endif %}
+    {{ attributes.defaults({class: 'relative inline-flex items-center justify-center'|tailwind_classes}) }}
+    style="width: {{ size }}px; height: {{ height }}px"
+>
+    <svg width="{{ size }}" height="{{ height }}" viewBox="0 0 {{ size }} {{ height }}" class="{{ tone }} {{ indeterminate ? 'animate-spin' : '' }}" aria-hidden="true">
+        {%- set cx = size / 2 -%}
+        {%- set cy = variant == 'gauge' ? size / 2 : size / 2 -%}
+        {%- if variant == 'gauge' %}
+            {%- set path = 'M ' ~ thickness / 2 ~ ' ' ~ cy ~ ' A ' ~ radius ~ ' ' ~ radius ~ ' 0 0 1 ' ~ (size - thickness / 2) ~ ' ' ~ cy -%}
+            <path d="{{ path }}" fill="none" stroke="currentColor" stroke-opacity="0.15" stroke-width="{{ thickness }}" stroke-linecap="round" />
+            <path d="{{ path }}" fill="none" stroke="currentColor" stroke-width="{{ thickness }}" stroke-linecap="round" stroke-dasharray="{{ arc }}" stroke-dashoffset="{{ indeterminate ? arc * 0.75 : arc * (1 - ratio) }}" style="transition: stroke-dashoffset 0.4s ease" />
+        {%- else %}
+            <circle cx="{{ cx }}" cy="{{ cy }}" r="{{ radius }}" fill="none" stroke="currentColor" stroke-opacity="0.15" stroke-width="{{ thickness }}" />
+            <circle cx="{{ cx }}" cy="{{ cy }}" r="{{ radius }}" fill="none" stroke="currentColor" stroke-width="{{ thickness }}" stroke-linecap="round" stroke-dasharray="{{ circumference }}" stroke-dashoffset="{{ indeterminate ? circumference * 0.75 : circumference * (1 - ratio) }}" transform="rotate(-90 {{ cx }} {{ cy }})" style="transition: stroke-dashoffset 0.4s ease" />
+        {%- endif %}
+    </svg>
+    {%- if content|trim is not empty %}
+        <div class="absolute inset-0 flex items-center justify-center {{ variant == 'gauge' ? 'items-end pb-0' : '' }}">{{ content|raw }}</div>
+    {%- elseif showValue and not indeterminate %}
+        <span class="absolute inset-0 flex {{ variant == 'gauge' ? 'items-end' : 'items-center' }} justify-center text-sm font-semibold tabular-nums">{{ (ratio * 100)|round }}%</span>
+    {%- endif %}
+</div>
