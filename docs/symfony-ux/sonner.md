@@ -394,3 +394,37 @@ The controller dispatches `sonner:dismiss` when a toast closes.
     });
 </script>
 ```
+
+### Multiple At Once
+
+One click fires three toasts: the button clicks three hidden triggers.
+
+```twig
+<twig:Sonner>
+    <twig:Button variant="outline" type="button" id="sonner-multi">
+        Fire three toasts
+    </twig:Button>
+    <span hidden>
+        <button type="button" data-action="click->sonner#fire" data-sonner-title-param="Saved" data-sonner-description-param="Your draft is saved." data-sonner-multi></button>
+        <button type="button" data-action="click->sonner#fire" data-sonner-title-param="Uploaded" data-sonner-description-param="3 files are online." data-sonner-multi></button>
+        <button type="button" data-action="click->sonner#fire" data-sonner-title-param="Shared" data-sonner-description-param="Ada can now see it." data-sonner-multi></button>
+    </span>
+</twig:Sonner>
+<script>
+    document.getElementById('sonner-multi').addEventListener('click', () => {
+        document.querySelectorAll('[data-sonner-multi]').forEach((button) => button.click());
+    });
+</script>
+```
+
+### Sticky
+
+A very long duration keeps the toast on screen until the user dismisses it.
+
+```twig
+<twig:Sonner>
+    <twig:Button variant="outline" data-action="click->sonner#fire" data-sonner-title-param="Update available" data-sonner-description-param="This toast stays until you close it." data-sonner-duration-param="3600000">
+        Show sticky toast
+    </twig:Button>
+</twig:Sonner>
+```
