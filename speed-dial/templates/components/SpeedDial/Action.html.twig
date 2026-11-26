@@ -1,0 +1,24 @@
+{#
+ # One action of a SpeedDial: a round button with an icon and a tooltip label, or a link when `href` is given.
+ #
+ # Props: label, icon, href.
+ #}
+{%- props
+    ## string The name of the action (also its tooltip).
+    label,
+    ## string A Symfony UX Icons name.
+    icon,
+    ## string|null A link. Without it, a button.
+    href = null
+-%}
+{%- set tag = href ? 'a' : 'button' -%}
+<{{ tag }}
+    role="menuitem"
+    {%- if href %} href="{{ href }}"{% else %} type="button"{% endif %}
+    aria-label="{{ label }}"
+    title="{{ label }}"
+    data-action="speed-dial#pick"
+    {{ attributes.defaults({class: 'inline-flex size-10 items-center justify-center rounded-full border bg-background text-foreground shadow-md outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50'|tailwind_classes}) }}
+>
+    <twig:ux:icon :name="icon" class="size-4" />
+</{{ tag }}>
