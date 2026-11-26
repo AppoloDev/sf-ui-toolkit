@@ -1,0 +1,31 @@
+{#
+ # A bar of actions: a start, a center and an end area, with the arrow keys moving between the controls.
+ #
+ # Props: label, orientation, variant.
+ # Slots: `start`, `center`, `end` (areas), `default` (controls, when no area is needed).
+ #}
+{%- props
+    ## string The accessible name of the toolbar.
+    label = 'Toolbar',
+    ## string `horizontal` or `vertical`: the direction of the arrow keys.
+    orientation = 'horizontal',
+    ## string `default` (bordered bar) or `plain` (no border, no background).
+    variant = 'default'
+-%}
+{%- set start %}{% block start %}{% endblock %}{% endset -%}
+{%- set center %}{% block center %}{% endblock %}{% endset -%}
+{%- set end %}{% block end %}{% endblock %}{% endset -%}
+<div
+    data-slot="toolbar"
+    data-controller="toolbar"
+    data-toolbar-orientation-value="{{ orientation }}"
+    role="toolbar"
+    aria-label="{{ label }}"
+    aria-orientation="{{ orientation }}"
+    {{ attributes.defaults({class: ('flex gap-2 ' ~ (orientation == 'vertical' ? 'flex-col items-start ' : 'items-center ') ~ (variant == 'plain' ? '' : 'rounded-lg border bg-card p-2'))|tailwind_classes}) }}
+>
+    {%- if start|trim is not empty %}<div data-slot="toolbar-start" class="flex items-center gap-1.5">{{ start|raw }}</div>{% endif %}
+    {%- if center|trim is not empty %}<div data-slot="toolbar-center" class="flex flex-1 items-center justify-center gap-1.5">{{ center|raw }}</div>{% endif %}
+    {%- block content %}{% endblock %}
+    {%- if end|trim is not empty %}<div data-slot="toolbar-end" class="ml-auto flex items-center gap-1.5">{{ end|raw }}</div>{% endif %}
+</div>

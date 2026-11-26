@@ -79,6 +79,7 @@ The props of each component are listed in its documentation.
 | `theme-toggle` | Light, dark and system theme: an icon or labeled button that toggles, a three-way switcher, or a bare controller for your own menu. The choice is stored and applied as the dark class. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/theme-toggle.html) |
 | `time-picker` | Typed time field with a popover of scrollable columns (hours, minutes, seconds, AM/PM), steps, min/max and 12/24h display. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/time-picker.html) |
 | `timeline` | Chronological list of events (activity feed, milestones, roadmap), vertical or horizontal, with completed and active states. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/timeline.html) |
+| `toolbar` | A bar of actions with start, center and end areas and arrow-key navigation (Toolbar), and a floating bar that appears with the number of selected rows and their actions (ActionBar). | [Documentation](https://appolodev.github.io/sf-ui-toolkit/toolbar.html) |
 | `tree` | Expandable hierarchy with WAI-ARIA tree keyboard navigation (arrows, Home/End, typeahead), selection and optional guide lines. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/tree.html) |
 | `value-sync` | Mirrors the value of a slider or a field into texts, an emoji, a progress bar, a bubble that follows the thumb and a number field, while it changes; buttons can step, set or reset it. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/value-sync.html) |
 

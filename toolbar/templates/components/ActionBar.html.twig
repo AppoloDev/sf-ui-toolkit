@@ -1,0 +1,50 @@
+{#
+ # A floating bar with the number of selected items and the actions that apply to them.
+ #
+ # Props: open, count, source, position, fixed, selectedLabel, clearLabel, label.
+ # Slot: the actions (buttons).
+ #}
+{%- props
+    ## bool Show the bar. With `source`, the bar follows the checked boxes instead.
+    open = false,
+    ## integer The number of selected items when the bar is opened by hand.
+    count = 0,
+    ## string|null A CSS selector of checkboxes (such as `[name="rows[]"]`): the bar opens when one is checked and counts the checked ones.
+    source = null,
+    ## string `bottom` or `top`.
+    position = 'bottom',
+    ## bool Pin the bar to the viewport instead of the nearest positioned ancestor.
+    fixed = false,
+    ## string The text of the count, with {count}.
+    selectedLabel = '{count} selected',
+    ## string The accessible name of the button that clears the selection.
+    clearLabel = 'Clear selection',
+    ## string The accessible name of the bar.
+    label = 'Selection actions'
+-%}
+<div
+    data-slot="action-bar"
+    data-controller="action-bar"
+    data-action-bar-count-value="{{ count }}"
+    data-action-bar-open-value="{{ open ? 'true' : 'false' }}"
+    data-action-bar-selected-label-value="{{ selectedLabel }}"
+    {%- if source %} data-action-bar-source-value="{{ source }}"{% endif %}
+    data-state="{{ open or count > 0 ? 'open' : 'closed' }}"
+    role="toolbar"
+    aria-label="{{ label }}"
+    {{ attributes.defaults({class: ((fixed ? 'fixed' : 'absolute') ~ ' left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 rounded-xl border bg-popover px-3 py-2 text-popover-foreground shadow-lg transition-all duration-200 data-[state=closed]:pointer-events-none data-[state=closed]:translate-y-3 data-[state=closed]:opacity-0 ' ~ (position == 'top' ? 'top-4 data-[state=closed]:-translate-y-3' : 'bottom-4'))|tailwind_classes}) }}
+>
+    <span data-action-bar-target="count" class="px-1 text-sm font-medium tabular-nums" aria-live="polite"></span>
+    <button
+        type="button"
+        data-action="action-bar#clear"
+        aria-label="{{ clearLabel }}"
+        class="inline-flex size-7 items-center justify-center rounded-md text-muted-foreground outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50"
+    >
+        <twig:ux:icon name="lucide:x" class="size-4" />
+    </button>
+    <span role="separator" aria-orientation="vertical" class="h-5 w-px bg-border"></span>
+    <div class="flex items-center gap-1.5">
+        {%- block content %}{% endblock %}
+    </div>
+</div>
