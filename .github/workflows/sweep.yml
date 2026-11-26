@@ -2,11 +2,9 @@ name: Sweep
 
 # Opens every docs example in a real browser (mobile, tablet, desktop) and reports overflow, overlays that leave
 # the screen, triggers that do nothing, small touch targets and console errors. Informational: it does not fail
-# the run (set SWEEP_STRICT=1 to fail on findings). Run it by hand from the Actions tab, or on every push to main.
+# the run (set SWEEP_STRICT=1 to fail on findings). Run it by hand from the Actions tab.
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
     inputs:
       only:
@@ -28,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4]
+        shard: [1, 2, 3, 4, 5, 6]
     steps:
       - uses: actions/checkout@v4
 
@@ -60,7 +58,7 @@ jobs:
         working-directory: tests/sweep
 
       - name: Run the sweep
-        run: npx playwright test --shard=${{ matrix.shard }}/4
+        run: npx playwright test --shard=${{ matrix.shard }}/6
         working-directory: tests/sweep
         env:
           SWEEP_ONLY: ${{ github.event.inputs.only }}
@@ -87,7 +85,7 @@ jobs:
       - name: Merge the findings
         working-directory: tests/sweep
         run: |
-          node report.mjs shards/sweep-findings-1 shards/sweep-findings-2 shards/sweep-findings-3 shards/sweep-findings-4
+          node report.mjs shards/sweep-findings-*
           cat report/report.md >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v4

@@ -1,7 +1,9 @@
 // Merges report/findings/*.json into report/report.md (and prints a summary). Usage: node report.mjs [dir ...]
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, globSync } from 'node:fs';
 
-const dirs = process.argv.slice(2).length ? process.argv.slice(2) : ['report/findings'];
+
+const args = process.argv.slice(2).flatMap((a) => (a.includes('*') ? globSync(a) : [a]));
+const dirs = args.length ? args : ['report/findings'];
 const all = [];
 for (const dir of dirs) {
     if (!existsSync(dir)) continue;

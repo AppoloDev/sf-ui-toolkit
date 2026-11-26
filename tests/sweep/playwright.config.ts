@@ -8,7 +8,9 @@ export default defineConfig({
     testDir: '.',
     testMatch: 'sweep.spec.ts',
     // A sweep of every example is long: one test per preview page, several workers, generous timeout.
-    timeout: 120_000,
+    // Without fullyParallel a single spec file runs serially in one worker and lands whole in one shard.
+    fullyParallel: true,
+    timeout: 45_000,
     workers: Number(process.env.SWEEP_WORKERS ?? 4),
     retries: 0,
     reporter: [['line']],
