@@ -146,3 +146,110 @@
     </twig:Popover>
 </div>
 ```
+
+### Appointment Picker
+
+The calendar picks the day, the buttons next to it pick the time; a script keeps one slot pressed.
+
+```twig
+<twig:Card class="w-fit gap-0 p-0">
+    <twig:Card:Content class="flex flex-wrap gap-0 p-0">
+        <div class="p-3">
+            <twig:Calendar mode="single" name="day" month="2026-11-01" today="2026-11-24" selected="2026-11-26" min="2026-11-24" />
+        </div>
+        <div class="grid w-44 content-start gap-2 border-s p-3" id="slots">
+            <twig:Field:Label>
+                Thursday, November 26
+            </twig:Field:Label>
+            <twig:Button variant="outline" size="sm" type="button" aria-pressed="false" data-slot-time="09:00">
+                9:00 AM
+            </twig:Button>
+            <twig:Button variant="outline" size="sm" type="button" aria-pressed="true" data-slot-time="10:30" class="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground">
+                10:30 AM
+            </twig:Button>
+            <twig:Button variant="outline" size="sm" type="button" aria-pressed="false" data-slot-time="13:00">
+                1:00 PM
+            </twig:Button>
+            <twig:Button variant="outline" size="sm" type="button" aria-pressed="false" data-slot-time="15:30" disabled>
+                3:30 PM
+            </twig:Button>
+        </div>
+    </twig:Card:Content>
+</twig:Card>
+<script>
+    document.getElementById('slots').addEventListener('click', (event) => {
+        const slot = event.target.closest('[data-slot-time]');
+        if (!slot) return;
+        document.querySelectorAll('#slots [data-slot-time]').forEach((button) => {
+            const on = button === slot;
+            button.setAttribute('aria-pressed', String(on));
+            button.classList.toggle('bg-primary', on);
+            button.classList.toggle('text-primary-foreground', on);
+        });
+    });
+</script>
+```
+
+### Single Date In A Dialog
+
+The calendar sits in the body of a `Dialog`, with the usual footer actions.
+
+```twig
+<div style="min-height: 120px">
+    <twig:Dialog id="cal-dlg-single">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Single Date
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Dialog:Content class="sm:max-w-fit">
+            <twig:Dialog:Header>
+                <twig:Dialog:Title>
+                    Choose a date
+                </twig:Dialog:Title>
+            </twig:Dialog:Header>
+            <twig:Calendar mode="single" name="dlg-day" month="2026-11-01" today="2026-11-24" selected="2026-11-26" />
+            <twig:Dialog:Footer>
+                <twig:Button variant="outline" {{ ...dialog_close_attrs }}>
+                    Cancel
+                </twig:Button>
+                <twig:Button {{ ...dialog_close_attrs }}>
+                    Confirm
+                </twig:Button>
+            </twig:Dialog:Footer>
+        </twig:Dialog:Content>
+    </twig:Dialog>
+</div>
+```
+
+### Date Range In A Dialog
+
+The range mode in a dialog.
+
+```twig
+<div style="min-height: 120px">
+    <twig:Dialog id="cal-dlg-range">
+        <twig:Dialog:Trigger>
+            <twig:Button variant="outline" {{ ...dialog_trigger_attrs }}>
+                Date Range
+            </twig:Button>
+        </twig:Dialog:Trigger>
+        <twig:Dialog:Content class="sm:max-w-fit">
+            <twig:Dialog:Header>
+                <twig:Dialog:Title>
+                    Choose a date
+                </twig:Dialog:Title>
+            </twig:Dialog:Header>
+            <twig:Calendar mode="range" name="dlg-range" month="2026-11-01" today="2026-11-24" :selected="['2026-11-26', '2026-11-30']" />
+            <twig:Dialog:Footer>
+                <twig:Button variant="outline" {{ ...dialog_close_attrs }}>
+                    Cancel
+                </twig:Button>
+                <twig:Button {{ ...dialog_close_attrs }}>
+                    Confirm
+                </twig:Button>
+            </twig:Dialog:Footer>
+        </twig:Dialog:Content>
+    </twig:Dialog>
+</div>
+```
