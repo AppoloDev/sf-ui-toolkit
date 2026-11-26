@@ -1,0 +1,91 @@
+{#
+ # One control for a day, a week, a month, a year or a custom period.
+ #
+ # Props: name, mode, modes, date, end, weekStart, locale, min, max, todayLabel, previousLabel, nextLabel, dayLabel,
+ # weekLabel, monthLabel, yearLabel, rangeLabel, fromLabel, toLabel, label.
+ #}
+{%- props
+    ## string|null The name of the form fields: `name_start` and `name_end` (`YYYY-MM-DD`) are written.
+    name = null,
+    ## string The mode shown: `day`, `week`, `month`, `year` or `range`.
+    mode = 'month',
+    ## array The modes the user can switch to.
+    modes = ['day', 'week', 'month', 'year', 'range'],
+    ## string|null The date shown (`YYYY-MM-DD`); for a range, its start. Without it, today.
+    date = null,
+    ## string|null The end of a range (`YYYY-MM-DD`).
+    end = null,
+    ## integer The first day of the week: 0 is Sunday, 1 is Monday.
+    weekStart = 1,
+    ## string The locale of the label.
+    locale = 'en',
+    ## string|null The earliest date that can be reached (`YYYY-MM-DD`).
+    min = null,
+    ## string|null The latest date that can be reached (`YYYY-MM-DD`).
+    max = null,
+    ## string The text of the today button.
+    todayLabel = 'Today',
+    ## string The accessible name of the previous arrow.
+    previousLabel = 'Previous',
+    ## string The accessible name of the next arrow.
+    nextLabel = 'Next',
+    ## string The name of the day mode.
+    dayLabel = 'Day',
+    ## string The name of the week mode.
+    weekLabel = 'Week',
+    ## string The name of the month mode.
+    monthLabel = 'Month',
+    ## string The name of the year mode.
+    yearLabel = 'Year',
+    ## string The name of the range mode.
+    rangeLabel = 'Period',
+    ## string The label of the start field of a range.
+    fromLabel = 'From',
+    ## string The label of the end field of a range.
+    toLabel = 'To',
+    ## string The accessible name of the selector.
+    label = 'Date'
+-%}
+{%- set names = {day: dayLabel, week: weekLabel, month: monthLabel, year: yearLabel, range: rangeLabel} -%}
+<div
+    data-slot="date-selector"
+    data-controller="date-selector"
+    data-date-selector-mode-value="{{ mode }}"
+    data-date-selector-week-start-value="{{ weekStart }}"
+    data-date-selector-locale-value="{{ locale }}"
+    {%- if name %} data-date-selector-name-value="{{ name }}"{% endif %}
+    {%- if date %} data-date-selector-date-value="{{ date }}"{% endif %}
+    {%- if end %} data-date-selector-end-value="{{ end }}"{% endif %}
+    {%- if min %} data-date-selector-min-value="{{ min }}"{% endif %}
+    {%- if max %} data-date-selector-max-value="{{ max }}"{% endif %}
+    role="group"
+    aria-label="{{ label }}"
+    {{ attributes.defaults({class: 'flex flex-wrap items-center gap-2'|tailwind_classes}) }}
+>
+    <div class="flex items-center gap-1" data-date-selector-target="navigation">
+        <button type="button" data-action="date-selector#previous" data-date-selector-target="previous" aria-label="{{ previousLabel }}" class="inline-flex size-8 items-center justify-center rounded-md border bg-background outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:opacity-50">
+            <twig:ux:icon name="lucide:chevron-left" class="size-4" />
+        </button>
+        <output data-date-selector-target="text" aria-live="polite" class="min-w-40 px-2 text-center text-sm font-medium"></output>
+        <button type="button" data-action="date-selector#next" data-date-selector-target="next" aria-label="{{ nextLabel }}" class="inline-flex size-8 items-center justify-center rounded-md border bg-background outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:opacity-50">
+            <twig:ux:icon name="lucide:chevron-right" class="size-4" />
+        </button>
+        <button type="button" data-action="date-selector#today" class="inline-flex h-8 items-center rounded-md border bg-background px-3 text-sm font-medium outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">{{ todayLabel }}</button>
+    </div>
+    <div data-date-selector-target="range" hidden class="flex items-center gap-2 text-sm">
+        <label class="flex items-center gap-1.5">{{ fromLabel }}
+            <input type="date" data-date-selector-target="from" data-action="change->date-selector#edit" class="h-8 rounded-md border border-input bg-transparent px-2 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
+        </label>
+        <label class="flex items-center gap-1.5">{{ toLabel }}
+            <input type="date" data-date-selector-target="to" data-action="change->date-selector#edit" class="h-8 rounded-md border border-input bg-transparent px-2 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
+        </label>
+    </div>
+    {%- if modes|length > 1 %}
+        <div class="inline-flex rounded-md border bg-muted p-0.5">
+            {%- for item in modes %}
+                <button type="button" data-date-selector-target="mode" data-action="date-selector#setMode" data-date-selector-mode-param="{{ item }}" aria-pressed="false" class="h-7 rounded px-2.5 text-xs font-medium text-muted-foreground outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-pressed:bg-background aria-pressed:text-foreground aria-pressed:shadow-sm">{{ names[item] }}</button>
+            {%- endfor %}
+        </div>
+    {%- endif %}
+    <span data-date-selector-target="values" hidden></span>
+</div>
