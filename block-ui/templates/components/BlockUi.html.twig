@@ -1,0 +1,40 @@
+{#
+ # A region that can be blocked while something happens.
+ #
+ # Props: blocked, label, blockOnSubmit, message.
+ # Slots: `default` (the content) and `overlay` (replaces the spinner and the message).
+ #}
+{%- props
+    ## bool Start blocked.
+    blocked = false,
+    ## string The text read by screen readers when the region is blocked.
+    label = 'Loading',
+    ## bool Block automatically when a form inside is submitted, until the page is left or `block-ui#unblock` runs.
+    blockOnSubmit = false,
+    ## string|null A visible message under the spinner.
+    message = null
+-%}
+{%- set overlay %}{% block overlay %}{% endblock %}{% endset -%}
+<div
+    data-slot="block-ui"
+    data-controller="block-ui"
+    data-block-ui-blocked-value="{{ blocked ? 'true' : 'false' }}"
+    data-block-ui-on-submit-value="{{ blockOnSubmit ? 'true' : 'false' }}"
+    {% if blockOnSubmit %}data-action="submit->block-ui#block"{% endif %}
+    {{ attributes.defaults({class: 'relative'|tailwind_classes}) }}
+>
+    <div data-block-ui-target="content">{% block content %}{% endblock %}</div>
+    <div
+        data-block-ui-target="layer"
+        hidden
+        class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 rounded-[inherit] bg-background/70 backdrop-blur-[1px]"
+    >
+        {%- if overlay|trim is not empty %}
+            {{ overlay|raw }}
+        {%- else %}
+            <twig:ux:icon name="lucide:loader-circle" class="size-6 animate-spin text-muted-foreground" aria-hidden="true" />
+            {%- if message %}<span class="text-sm text-muted-foreground">{{ message }}</span>{% endif %}
+        {%- endif %}
+        <span class="sr-only" role="status">{{ label }}</span>
+    </div>
+</div>
