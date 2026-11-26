@@ -225,3 +225,139 @@
     </twig:Carousel>
 </div>
 ```
+
+### Hero
+
+```twig
+<div class="mx-auto w-full max-w-xl px-10">
+    <twig:Carousel aria-label="Hero slides">
+        <twig:Carousel:Content>
+            <twig:Carousel:Item>
+                <div class="relative flex aspect-[16/9] flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-sky-500 to-indigo-700 p-6 text-white">
+                    <p class="text-xs uppercase tracking-wide text-white/80">
+                        New
+                    </p>
+                    <p class="text-2xl font-semibold">
+                        Ship faster with Symfony UX
+                    </p>
+                    <p class="mb-3 text-sm text-white/80">
+                        Build interactive pages without leaving Twig.
+                    </p>
+                    <twig:Button as="a" href="#" variant="secondary" size="sm" class="w-fit">
+                        Get started
+                    </twig:Button>
+                </div>
+            </twig:Carousel:Item>
+            <twig:Carousel:Item>
+                <div class="relative flex aspect-[16/9] flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 p-6 text-white">
+                    <p class="text-xs uppercase tracking-wide text-white/80">
+                        Guide
+                    </p>
+                    <p class="text-2xl font-semibold">
+                        Components you own
+                    </p>
+                    <p class="mb-3 text-sm text-white/80">
+                        Copy a recipe, change the markup, keep control.
+                    </p>
+                    <twig:Button as="a" href="#" variant="secondary" size="sm" class="w-fit">
+                        Read the docs
+                    </twig:Button>
+                </div>
+            </twig:Carousel:Item>
+            <twig:Carousel:Item>
+                <div class="relative flex aspect-[16/9] flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br from-rose-500 to-orange-600 p-6 text-white">
+                    <p class="text-xs uppercase tracking-wide text-white/80">
+                        Community
+                    </p>
+                    <p class="text-2xl font-semibold">
+                        Share your recipes
+                    </p>
+                    <p class="mb-3 text-sm text-white/80">
+                        Publish a kit and let others install it.
+                    </p>
+                    <twig:Button as="a" href="#" variant="secondary" size="sm" class="w-fit">
+                        Browse kits
+                    </twig:Button>
+                </div>
+            </twig:Carousel:Item>
+        </twig:Carousel:Content>
+        <twig:Carousel:Previous />
+        <twig:Carousel:Next />
+    </twig:Carousel>
+</div>
+```
+
+### Product Showcase
+
+```twig
+<div class="mx-auto w-full max-w-lg px-10">
+    <twig:Carousel aria-label="Products" :options="{align: 'start'}">
+        <twig:Carousel:Content class="-ml-3">
+            <twig:Carousel:Item class="basis-1/2 pl-3">
+                <twig:Card class="gap-3 py-0">
+                    <div class="aspect-square rounded-t-xl bg-gradient-to-br from-amber-200 to-orange-400"></div>
+                    <twig:Card:Content class="grid gap-1 pb-4">
+                        <span class="text-sm font-medium">
+                            Canvas backpack
+                        </span>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-muted-foreground">
+                                $64
+                            </span>
+                            <twig:Badge variant="secondary">
+                                New
+                            </twig:Badge>
+                        </div>
+                    </twig:Card:Content>
+                </twig:Card>
+            </twig:Carousel:Item>
+            <twig:Carousel:Item class="basis-1/2 pl-3">
+                <twig:Card class="gap-3 py-0">
+                    <div class="aspect-square rounded-t-xl bg-gradient-to-br from-sky-200 to-blue-400"></div>
+                    <twig:Card:Content class="grid gap-1 pb-4">
+                        <span class="text-sm font-medium">
+                            Steel bottle
+                        </span>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-muted-foreground">
+                                $24
+                            </span>
+                            <twig:Badge variant="outline">
+                                Sale
+                            </twig:Badge>
+                        </div>
+                    </twig:Card:Content>
+                </twig:Card>
+            </twig:Carousel:Item>
+            <twig:Carousel:Item class="basis-1/2 pl-3">
+                <twig:Card class="gap-3 py-0">
+                    <div class="aspect-square rounded-t-xl bg-gradient-to-br from-emerald-200 to-green-400"></div>
+                    <twig:Card:Content class="grid gap-1 pb-4">
+                        <span class="text-sm font-medium">
+                            Linen shirt
+                        </span>
+                        <span class="text-sm text-muted-foreground">
+                            $58
+                        </span>
+                    </twig:Card:Content>
+                </twig:Card>
+            </twig:Carousel:Item>
+            <twig:Carousel:Item class="basis-1/2 pl-3">
+                <twig:Card class="gap-3 py-0">
+                    <div class="aspect-square rounded-t-xl bg-gradient-to-br from-rose-200 to-pink-400"></div>
+                    <twig:Card:Content class="grid gap-1 pb-4">
+                        <span class="text-sm font-medium">
+                            Wool beanie
+                        </span>
+                        <span class="text-sm text-muted-foreground">
+                            $29
+                        </span>
+                    </twig:Card:Content>
+                </twig:Card>
+            </twig:Carousel:Item>
+        </twig:Carousel:Content>
+        <twig:Carousel:Previous />
+        <twig:Carousel:Next />
+    </twig:Carousel>
+</div>
+```
