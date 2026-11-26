@@ -3,12 +3,13 @@
 
   Props
     orientation  vertical | horizontal
+    align        start | alternate (vertical only: events alternate on both sides of the line)
 
   Use Timeline:Item for each event. Items must be direct children of Timeline.
   The state of an item is explicit (`completed`, `active` on Timeline:Item).
 #}
-{%- props orientation = 'vertical' -%}
+{%- props orientation = 'vertical', align = 'start' -%}
 {%- set extra_class = attributes.render('class') -%}
-<ol class="{{ ('group/timeline flex list-none p-0 ' ~ (orientation == 'horizontal' ? 'flex-row' : 'flex-col') ~ ' ' ~ extra_class)|trim }}" data-orientation="{{ orientation }}" {{ attributes }}>
+<ol class="{{ ('group/timeline flex list-none p-0 ' ~ (orientation == 'horizontal' ? 'flex-row' : 'flex-col') ~ ' ' ~ extra_class)|trim }}" data-orientation="{{ orientation }}" data-align="{{ align }}" {{ attributes }}>
     {%- block content %}{% endblock -%}
 </ol>

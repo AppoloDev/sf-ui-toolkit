@@ -285,6 +285,27 @@ A small horizontal timeline without descriptions, for a card or a header.
 </twig:Timeline>
 ```
 
+### Alternating
+
+Events alternate on both sides of the line.
+
+<!-- height: 420 -->
+
+```twig
+<twig:Timeline align="alternate" class="max-w-2xl">
+    <twig:Timeline:Item title="Kick-off" date="January" :completed="true">
+        The team agrees on the scope.
+    </twig:Timeline:Item>
+    <twig:Timeline:Item title="Prototype" date="March" :completed="true">
+        A first version is ready to test.
+    </twig:Timeline:Item>
+    <twig:Timeline:Item title="Beta" date="June" :active="true">
+        Early users send their feedback.
+    </twig:Timeline:Item>
+    <twig:Timeline:Item title="Launch" date="September" />
+</twig:Timeline>
+```
+
 ## Accessibility
 
 - The component is an ordered list (`ol` / `li`), so screen readers announce the number of events and their order.
@@ -299,6 +320,7 @@ A small horizontal timeline without descriptions, for a card or a header.
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `orientation` | `vertical`, `horizontal` | `vertical` | Direction of the list. |
+| `align` | `start`, `alternate` | `start` | With `alternate` (vertical only) the events sit on both sides of the line, one after the other. |
 
 | Block | Description |
 |---|---|
