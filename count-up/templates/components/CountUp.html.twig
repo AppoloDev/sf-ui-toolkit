@@ -1,0 +1,39 @@
+{#
+ # A number that counts to its value.
+ #
+ # Props: value, from, duration, decimals, prefix, suffix, locale, startOnView, grouping.
+ #}
+{%- props
+    ## number The final value.
+    value,
+    ## number The starting value.
+    from = 0,
+    ## integer The duration of the count, in milliseconds.
+    duration = 1500,
+    ## integer The number of decimals.
+    decimals = 0,
+    ## string Text before the number, such as a currency sign.
+    prefix = '',
+    ## string Text after the number, such as `%` or `k`.
+    suffix = '',
+    ## string The locale used to format the number.
+    locale = 'en',
+    ## bool Start when the number comes into view (otherwise at once).
+    startOnView = true,
+    ## bool Use thousands separators.
+    grouping = true
+-%}
+<span
+    data-slot="count-up"
+    data-controller="count-up"
+    data-count-up-value-value="{{ value }}"
+    data-count-up-from-value="{{ from }}"
+    data-count-up-duration-value="{{ duration }}"
+    data-count-up-decimals-value="{{ decimals }}"
+    data-count-up-prefix-value="{{ prefix }}"
+    data-count-up-suffix-value="{{ suffix }}"
+    data-count-up-locale-value="{{ locale }}"
+    data-count-up-start-on-view-value="{{ startOnView ? 'true' : 'false' }}"
+    data-count-up-grouping-value="{{ grouping ? 'true' : 'false' }}"
+    {{ attributes.defaults({class: 'tabular-nums'|tailwind_classes}) }}
+>{{ prefix }}{{ value|number_format(decimals) }}{{ suffix }}</span>
