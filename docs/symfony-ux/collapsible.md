@@ -731,3 +731,56 @@
     </twig:Collapsible:Content>
 </twig:Collapsible>
 ```
+
+### Collapsible Fieldset
+
+A fieldset that folds: a titled box with a toggle.
+
+```twig
+<twig:Collapsible class="w-full max-w-sm rounded-lg border" :open="true">
+    <div class="flex items-center justify-between px-4 py-2">
+        <span class="text-sm font-medium">
+            Shipping address
+        </span>
+        <twig:Collapsible:Trigger>
+            <twig:Button variant="ghost" size="icon-sm" aria-label="Toggle shipping address" {{ ...collapsible_trigger_attrs }}>
+                <twig:ux:icon name="lucide:chevrons-up-down" />
+            </twig:Button>
+        </twig:Collapsible:Trigger>
+    </div>
+    <twig:Collapsible:Content class="border-t px-4 py-3">
+        <twig:Field:Group>
+            <twig:Field>
+                <twig:Field:Label for="co-fs-street">
+                    Street
+                </twig:Field:Label>
+                <twig:Input id="co-fs-street" name="street" />
+            </twig:Field>
+            <twig:Field>
+                <twig:Field:Label for="co-fs-city">
+                    City
+                </twig:Field:Label>
+                <twig:Input id="co-fs-city" name="city" />
+            </twig:Field>
+        </twig:Field:Group>
+    </twig:Collapsible:Content>
+</twig:Collapsible>
+```
+
+### Image On Click
+
+A text or a button that turns into content when clicked (the PrimeVue "inplace").
+
+```twig
+<twig:Collapsible class="w-full max-w-sm">
+    <twig:Collapsible:Trigger>
+        <twig:Button variant="outline" {{ ...collapsible_trigger_attrs }}>
+            <twig:ux:icon name="lucide:image" />
+            Show the picture
+        </twig:Button>
+    </twig:Collapsible:Trigger>
+    <twig:Collapsible:Content class="pt-3">
+        <twig:AspectRatio ratio="16 / 9" class="overflow-hidden rounded-lg bg-gradient-to-br from-sky-400 to-indigo-600" />
+    </twig:Collapsible:Content>
+</twig:Collapsible>
+```
