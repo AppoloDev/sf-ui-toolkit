@@ -1,0 +1,74 @@
+{#
+ # A summary of a test run. Twig and native `<details>`.
+ #
+ # Props: suites, duration, title, labels (passedLabel, failedLabel, skippedLabel), durationLabel, openFailed, label.
+ # `suites` is a list of `{name, tests: [{name, status, duration, message}]}`; status is `passed`, `failed` or `skipped`.
+ #}
+{%- props
+    ## array The suites, each with `name` and `tests`.
+    suites = [],
+    ## string|null The title of the run.
+    title = null,
+    ## string|null The total duration, already formatted (such as `1.8 s`). Without it, none is shown.
+    duration = null,
+    ## string The text for passed tests.
+    passedLabel = 'passed',
+    ## string The text for failed tests.
+    failedLabel = 'failed',
+    ## string The text for skipped tests.
+    skippedLabel = 'skipped',
+    ## string The label before the duration.
+    durationLabel = 'Duration',
+    ## bool Open the suites that contain a failure.
+    openFailed = true,
+    ## string The accessible name of the results.
+    label = 'Test results'
+-%}
+{%- set all = suites|reduce((carry, s) => carry|merge(s.tests), []) -%}
+{%- set passed = all|filter(t => t.status == 'passed')|length -%}
+{%- set failed = all|filter(t => t.status == 'failed')|length -%}
+{%- set skipped = all|filter(t => t.status == 'skipped')|length -%}
+{%- set total = all|length -%}
+{%- set icons = {passed: 'lucide:circle-check', failed: 'lucide:circle-x', skipped: 'lucide:circle-minus'} -%}
+{%- set tones = {passed: 'text-green-600 dark:text-green-400', failed: 'text-destructive', skipped: 'text-muted-foreground'} -%}
+<section data-slot="test-results" aria-label="{{ label }}" {{ attributes.defaults({class: 'overflow-hidden rounded-lg border bg-card text-sm text-card-foreground'|tailwind_classes}) }}>
+    <header class="grid gap-2 border-b p-3">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+            {%- if title %}<h3 class="m-0 text-sm font-semibold">{{ title }}</h3>{% endif %}
+            <span class="inline-flex items-center gap-1 {{ tones.passed }}"><twig:ux:icon name="lucide:circle-check" class="size-4" aria-hidden="true" /> {{ passed }} {{ passedLabel }}</span>
+            <span class="inline-flex items-center gap-1 {{ failed > 0 ? tones.failed : 'text-muted-foreground' }}"><twig:ux:icon name="lucide:circle-x" class="size-4" aria-hidden="true" /> {{ failed }} {{ failedLabel }}</span>
+            <span class="inline-flex items-center gap-1 text-muted-foreground"><twig:ux:icon name="lucide:circle-minus" class="size-4" aria-hidden="true" /> {{ skipped }} {{ skippedLabel }}</span>
+            {%- if duration %}<span class="ml-auto text-xs text-muted-foreground">{{ durationLabel }}: {{ duration }}</span>{% endif %}
+        </div>
+        <div class="flex h-1.5 overflow-hidden rounded-full bg-muted" role="img" aria-label="{{ passed }} {{ passedLabel }}, {{ failed }} {{ failedLabel }}, {{ skipped }} {{ skippedLabel }}">
+            {%- if total > 0 %}
+                <span class="bg-green-500" style="width: {{ passed / total * 100 }}%"></span>
+                <span class="bg-destructive" style="width: {{ failed / total * 100 }}%"></span>
+                <span class="bg-muted-foreground/40" style="width: {{ skipped / total * 100 }}%"></span>
+            {%- endif %}
+        </div>
+    </header>
+    {%- for suite in suites %}
+        {%- set suiteFailed = suite.tests|filter(t => t.status == 'failed')|length %}
+        <details class="group border-b last:border-b-0" {% if openFailed and suiteFailed > 0 %}open{% endif %}>
+            <summary class="flex cursor-pointer list-none items-center gap-2 px-3 py-2 outline-none hover:bg-accent/40 focus-visible:ring-[3px] focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden">
+                <twig:ux:icon name="lucide:chevron-right" class="size-4 shrink-0 transition-transform group-open:rotate-90" aria-hidden="true" />
+                <twig:ux:icon :name="suiteFailed > 0 ? icons.failed : icons.passed" class="size-4 shrink-0 {{ suiteFailed > 0 ? tones.failed : tones.passed }}" aria-hidden="true" />
+                <span class="min-w-0 flex-1 truncate font-medium">{{ suite.name }}</span>
+                <span class="text-xs text-muted-foreground">{{ suite.tests|length }}</span>
+            </summary>
+            <ul class="m-0 list-none p-0 pb-1">
+                {%- for test in suite.tests %}
+                    <li class="px-3 py-1 pl-9">
+                        <div class="flex items-center gap-2">
+                            <twig:ux:icon :name="icons[test.status]" class="size-3.5 shrink-0 {{ tones[test.status] }}" aria-label="{{ test.status }}" />
+                            <span class="min-w-0 flex-1 truncate">{{ test.name }}</span>
+                            {%- if test.duration is defined and test.duration %}<span class="text-xs tabular-nums text-muted-foreground">{{ test.duration }}</span>{% endif %}
+                        </div>
+                        {%- if test.message is defined and test.message %}<pre class="mt-1 overflow-x-auto whitespace-pre-wrap rounded-md bg-destructive/5 p-2 font-mono text-xs text-destructive">{{ test.message }}</pre>{% endif %}
+                    </li>
+                {%- endfor %}
+            </ul>
+        </details>
+    {%- endfor %}
+</section>

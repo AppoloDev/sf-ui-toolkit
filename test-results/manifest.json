@@ -1,0 +1,16 @@
+{
+    "type": "component",
+    "name": "TestResults",
+    "description": "A test run summary: passed, failed and skipped counts with a segmented bar, the duration, and suites that open to show each test with its status, time and failure message. Twig and native details, no JavaScript.",
+    "copy-files": {
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "twig/html-extra:^3.24.0",
+            "symfony/ux-icons:^2.0",
+            "symfony/ux-twig-component:^3.5",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+        ]
+    }
+}
