@@ -340,3 +340,102 @@ Fold middle levels into an ellipsis menu.
 </twig:Breadcrumb>
 ```
 
+
+### Select Segment
+
+A `Select` placed in a crumb lets the reader jump to a sibling page.
+
+```twig
+<div style="min-height: 220px">
+    <twig:Breadcrumb>
+        <twig:Breadcrumb:List>
+            <twig:Breadcrumb:Item>
+                <twig:Breadcrumb:Link href="#">
+                    Home
+                </twig:Breadcrumb:Link>
+            </twig:Breadcrumb:Item>
+            <twig:Breadcrumb:Separator />
+            <twig:Breadcrumb:Item>
+                <twig:Select id="breadcrumb-select">
+                    <twig:Select:Trigger size="sm" class="h-7 w-36 border-0 bg-transparent px-1 shadow-none">
+                        <twig:Select:Value placeholder="Section" />
+                    </twig:Select:Trigger>
+                    <twig:Select:Content>
+                        <twig:Select:Group id="breadcrumb-select-list">
+                            <twig:Select:Item value="docs">
+                                Documentation
+                            </twig:Select:Item>
+                            <twig:Select:Item value="blog">
+                                Blog
+                            </twig:Select:Item>
+                            <twig:Select:Item value="changelog">
+                                Changelog
+                            </twig:Select:Item>
+                        </twig:Select:Group>
+                    </twig:Select:Content>
+                </twig:Select>
+            </twig:Breadcrumb:Item>
+            <twig:Breadcrumb:Separator />
+            <twig:Breadcrumb:Item>
+                <twig:Breadcrumb:Page>
+                    Getting started
+                </twig:Breadcrumb:Page>
+            </twig:Breadcrumb:Item>
+        </twig:Breadcrumb:List>
+    </twig:Breadcrumb>
+</div>
+```
+
+### Bordered
+
+```twig
+<twig:Breadcrumb>
+    <twig:Breadcrumb:List class="gap-0 rounded-md border">
+        <twig:Breadcrumb:Item class="px-3 py-1.5">
+            <twig:Breadcrumb:Link href="#">
+                Home
+            </twig:Breadcrumb:Link>
+        </twig:Breadcrumb:Item>
+        <twig:Breadcrumb:Item class="border-l px-3 py-1.5">
+            <twig:Breadcrumb:Link href="#">
+                Components
+            </twig:Breadcrumb:Link>
+        </twig:Breadcrumb:Item>
+        <twig:Breadcrumb:Item class="border-l bg-muted px-3 py-1.5">
+            <twig:Breadcrumb:Page>
+                Breadcrumb
+            </twig:Breadcrumb:Page>
+        </twig:Breadcrumb:Item>
+    </twig:Breadcrumb:List>
+</twig:Breadcrumb>
+```
+
+### Dot Separator
+
+```twig
+<twig:Breadcrumb>
+    <twig:Breadcrumb:List>
+        <twig:Breadcrumb:Item>
+            <twig:Breadcrumb:Link href="#">
+                Home
+            </twig:Breadcrumb:Link>
+        </twig:Breadcrumb:Item>
+        <twig:Breadcrumb:Separator>
+            <twig:ux:icon name="lucide:dot" />
+        </twig:Breadcrumb:Separator>
+        <twig:Breadcrumb:Item>
+            <twig:Breadcrumb:Link href="#">
+                Library
+            </twig:Breadcrumb:Link>
+        </twig:Breadcrumb:Item>
+        <twig:Breadcrumb:Separator>
+            <twig:ux:icon name="lucide:dot" />
+        </twig:Breadcrumb:Separator>
+        <twig:Breadcrumb:Item>
+            <twig:Breadcrumb:Page>
+                Data
+            </twig:Breadcrumb:Page>
+        </twig:Breadcrumb:Item>
+    </twig:Breadcrumb:List>
+</twig:Breadcrumb>
+```
