@@ -133,12 +133,12 @@ The text of a Wi-Fi code: phones offer to join the network.
 
 ### Contact Card
 
-A vCard: scanning it offers to add the contact.
+A vCard, written as a Twig string with line breaks: scanning it offers to add the contact.
 
 <!-- height: 260 -->
 
 ```twig
-<twig:QrCode value="BEGIN:VCARD&#10;VERSION:3.0&#10;FN:Ada Lovelace&#10;ORG:Analytical Engines&#10;TEL:+442012345678&#10;EMAIL:ada@example.com&#10;END:VCARD" level="Q" :size="192" label="QR code of the contact card of Ada Lovelace" />
+<twig:QrCode :value='"BEGIN:VCARD\nVERSION:3.0\nFN:Ada Lovelace\nORG:Analytical Engines\nTEL:+442012345678\nEMAIL:ada@example.com\nEND:VCARD"' level="Q" :size="192" label="QR code of the contact card of Ada Lovelace" />
 ```
 
 ### Equipment Label
