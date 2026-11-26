@@ -1757,6 +1757,1339 @@ A table with a `DropdownMenu` of actions on each row.
 </twig:Card>
 ```
 
+### Striped Rows
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                Invoice
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Status
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Method
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                Amount
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row class="even:bg-muted/50">
+            <twig:Table:Cell class="font-medium">
+                INV001
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $250.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row class="even:bg-muted/50">
+            <twig:Table:Cell class="font-medium">
+                INV002
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Pending
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                PayPal
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $150.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row class="even:bg-muted/50">
+            <twig:Table:Cell class="font-medium">
+                INV003
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Unpaid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Bank Transfer
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $350.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row class="even:bg-muted/50">
+            <twig:Table:Cell class="font-medium">
+                INV004
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $450.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Bordered Cells
+
+```twig
+<twig:Table class="rounded-md border">
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head class="border-s first:border-s-0">
+                Invoice
+            </twig:Table:Head>
+            <twig:Table:Head class="border-s first:border-s-0">
+                Status
+            </twig:Table:Head>
+            <twig:Table:Head class="border-s first:border-s-0">
+                Method
+            </twig:Table:Head>
+            <twig:Table:Head class="border-s first:border-s-0 text-right">
+                Amount
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="border-s first:border-s-0 font-medium">
+                INV001
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s">
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s">
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s text-right">
+                $250.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="border-s first:border-s-0 font-medium">
+                INV002
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s">
+                Pending
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s">
+                PayPal
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s text-right">
+                $150.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="border-s first:border-s-0 font-medium">
+                INV003
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s">
+                Unpaid
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s">
+                Bank Transfer
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s text-right">
+                $350.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="border-s first:border-s-0 font-medium">
+                INV004
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s">
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s">
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="border-s text-right">
+                $450.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Compact
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head class="h-8 text-xs">
+                Invoice
+            </twig:Table:Head>
+            <twig:Table:Head class="h-8 text-xs">
+                Status
+            </twig:Table:Head>
+            <twig:Table:Head class="h-8 text-xs">
+                Method
+            </twig:Table:Head>
+            <twig:Table:Head class="h-8 text-xs text-right">
+                Amount
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="py-1 text-xs font-medium">
+                INV001
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs">
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs">
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs text-right">
+                $250.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="py-1 text-xs font-medium">
+                INV002
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs">
+                Pending
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs">
+                PayPal
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs text-right">
+                $150.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="py-1 text-xs font-medium">
+                INV003
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs">
+                Unpaid
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs">
+                Bank Transfer
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs text-right">
+                $350.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="py-1 text-xs font-medium">
+                INV004
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs">
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs">
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-1 text-xs text-right">
+                $450.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Comfortable
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head class="h-14">
+                Invoice
+            </twig:Table:Head>
+            <twig:Table:Head class="h-14">
+                Status
+            </twig:Table:Head>
+            <twig:Table:Head class="h-14">
+                Method
+            </twig:Table:Head>
+            <twig:Table:Head class="h-14 text-right">
+                Amount
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="py-4 font-medium">
+                INV001
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4">
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4">
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4 text-right">
+                $250.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="py-4 font-medium">
+                INV002
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4">
+                Pending
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4">
+                PayPal
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4 text-right">
+                $150.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="py-4 font-medium">
+                INV003
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4">
+                Unpaid
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4">
+                Bank Transfer
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4 text-right">
+                $350.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="py-4 font-medium">
+                INV004
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4">
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4">
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="py-4 text-right">
+                $450.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### With Avatars
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                Name
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Team
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <div class="flex items-center gap-2">
+                    <twig:Avatar class="size-7">
+                        <twig:Avatar:Fallback>AL</twig:Avatar:Fallback>
+                    </twig:Avatar>
+                    <span class="font-medium">Ada Lovelace</span>
+                </div>
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Engineering
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <div class="flex items-center gap-2">
+                    <twig:Avatar class="size-7">
+                        <twig:Avatar:Fallback>GH</twig:Avatar:Fallback>
+                    </twig:Avatar>
+                    <span class="font-medium">Grace Hopper</span>
+                </div>
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Research
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <div class="flex items-center gap-2">
+                    <twig:Avatar class="size-7">
+                        <twig:Avatar:Fallback>AT</twig:Avatar:Fallback>
+                    </twig:Avatar>
+                    <span class="font-medium">Alan Turing</span>
+                </div>
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Security
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Sortable Headers
+
+The buttons are decoration here: sorting itself belongs to your server or script.
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                <twig:Button variant="ghost" size="sm" type="button" class="-ms-3">
+                Invoice
+                <twig:ux:icon name="lucide:arrow-up-down" />
+            </twig:Button>
+            </twig:Table:Head>
+            <twig:Table:Head>
+                <twig:Button variant="ghost" size="sm" type="button" class="-ms-3">
+                Status
+                <twig:ux:icon name="lucide:arrow-up-down" />
+            </twig:Button>
+            </twig:Table:Head>
+            <twig:Table:Head>
+                <twig:Button variant="ghost" size="sm" type="button" class="-ms-3">
+                Method
+                <twig:ux:icon name="lucide:arrow-up-down" />
+            </twig:Button>
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                <twig:Button variant="ghost" size="sm" type="button" class="-ms-3">
+                Amount
+                <twig:ux:icon name="lucide:arrow-up-down" />
+            </twig:Button>
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV001
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $250.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV002
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Pending
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                PayPal
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $150.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV003
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Unpaid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Bank Transfer
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $350.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV004
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $450.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Selected Row
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head class="w-8"></twig:Table:Head>
+            <twig:Table:Head>
+                Invoice
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Status
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Method
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                Amount
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Checkbox name="pick[]" value="0" aria-label="Select INV001" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                INV001
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $250.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row data-state="selected">
+            <twig:Table:Cell>
+                <twig:Checkbox name="pick[]" value="1" aria-label="Select INV002" checked="1" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                INV002
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Pending
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                PayPal
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $150.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Checkbox name="pick[]" value="2" aria-label="Select INV003" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                INV003
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Unpaid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Bank Transfer
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $350.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                <twig:Checkbox name="pick[]" value="3" aria-label="Select INV004" />
+            </twig:Table:Cell>
+            <twig:Table:Cell class="font-medium">
+                INV004
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $450.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Row Actions
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                Invoice
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Status
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Method
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                Amount
+            </twig:Table:Head>
+            <twig:Table:Head>
+                <span class="sr-only">Actions</span>
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV001
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $250.00
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                <twig:Button variant="ghost" size="icon-sm" aria-label="Open menu for INV001">
+                    <twig:ux:icon name="lucide:ellipsis" />
+                </twig:Button>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV002
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Pending
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                PayPal
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $150.00
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                <twig:Button variant="ghost" size="icon-sm" aria-label="Open menu for INV002">
+                    <twig:ux:icon name="lucide:ellipsis" />
+                </twig:Button>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV003
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Unpaid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Bank Transfer
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $350.00
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                <twig:Button variant="ghost" size="icon-sm" aria-label="Open menu for INV003">
+                    <twig:ux:icon name="lucide:ellipsis" />
+                </twig:Button>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV004
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $450.00
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                <twig:Button variant="ghost" size="icon-sm" aria-label="Open menu for INV004">
+                    <twig:ux:icon name="lucide:ellipsis" />
+                </twig:Button>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Footer Totals
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                Invoice
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Status
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Method
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                Amount
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV001
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $250.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV002
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Pending
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                PayPal
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $150.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV003
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Unpaid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Bank Transfer
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $350.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                INV004
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Paid
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                Credit Card
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $450.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+    <twig:Table:Footer>
+        <twig:Table:Row>
+            <twig:Table:Cell colspan="3">
+                Total
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $1,200.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Footer>
+</twig:Table>
+```
+
+### Sticky Header
+
+The header cells stick to the top of the scrolling box.
+
+```twig
+<div class="max-h-48 w-full max-w-lg overflow-auto rounded-md border">
+    <twig:Table class="[&_[data-slot=table-container]]:overflow-visible">
+        <twig:Table:Header>
+            <twig:Table:Row>
+                <twig:Table:Head class="sticky top-0 bg-background">
+                    Invoice
+                </twig:Table:Head>
+                <twig:Table:Head class="sticky top-0 bg-background">
+                    Status
+                </twig:Table:Head>
+                <twig:Table:Head class="sticky top-0 bg-background">
+                    Method
+                </twig:Table:Head>
+                <twig:Table:Head class="sticky top-0 bg-background text-right">
+                    Amount
+                </twig:Table:Head>
+            </twig:Table:Row>
+        </twig:Table:Header>
+        <twig:Table:Body>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV001
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Pending
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    PayPal
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $137.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV002
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Unpaid
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Bank Transfer
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $174.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV003
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Paid
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Credit Card
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $211.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV004
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Pending
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    PayPal
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $248.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV005
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Unpaid
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Bank Transfer
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $285.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV006
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Paid
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Credit Card
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $322.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV007
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Pending
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    PayPal
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $359.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV008
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Unpaid
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Bank Transfer
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $396.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV009
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Paid
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Credit Card
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $433.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV010
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Pending
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    PayPal
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $470.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV011
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Unpaid
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Bank Transfer
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $507.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV012
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Paid
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Credit Card
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $544.00
+                </twig:Table:Cell>
+            </twig:Table:Row>
+        </twig:Table:Body>
+    </twig:Table>
+</div>
+```
+
+### Empty State
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                Invoice
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Status
+            </twig:Table:Head>
+            <twig:Table:Head>
+                Method
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                Amount
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell colspan="4">
+                <twig:Empty class="border-0 p-6">
+                    <twig:Empty:Header>
+                        <twig:Empty:Media variant="icon">
+                            <twig:ux:icon name="lucide:receipt" />
+                        </twig:Empty:Media>
+                        <twig:Empty:Title>
+                            No invoices yet
+                        </twig:Empty:Title>
+                        <twig:Empty:Description>
+                            Invoices appear here once you send your first one.
+                        </twig:Empty:Description>
+                    </twig:Empty:Header>
+                </twig:Empty>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Progress Cells
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                Task
+            </twig:Table:Head>
+            <twig:Table:Head class="w-48">
+                Progress
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                Write the docs
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:Progress value="80" aria-label="Write the docs progress" />
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                Review the pull request
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:Progress value="45" aria-label="Review the pull request progress" />
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                Ship the release
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:Progress value="10" aria-label="Ship the release progress" />
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Status Badges And Dots
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                Service
+            </twig:Table:Head>
+            <twig:Table:Head>
+                State
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                API
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <span class="inline-flex items-center gap-2">
+                    <span class="size-2 rounded-full bg-green-500"></span>
+                    Operational
+                </span>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                Queue
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <span class="inline-flex items-center gap-2">
+                    <span class="size-2 rounded-full bg-amber-500"></span>
+                    Degraded
+                </span>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                Search
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <span class="inline-flex items-center gap-2">
+                    <span class="size-2 rounded-full bg-red-500"></span>
+                    Down
+                </span>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Numeric Columns
+
+Numbers are right aligned with tabular figures so the digits line up.
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                Item
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                Qty
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                Price
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                Keyboard
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right tabular-nums">
+                2
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right tabular-nums">
+                $129.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                Monitor
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right tabular-nums">
+                1
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right tabular-nums">
+                $349.50
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell class="font-medium">
+                Cable
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right tabular-nums">
+                12
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right tabular-nums">
+                $7.25
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Responsive Scroll
+
+A box narrower than the table scrolls sideways.
+
+```twig
+<div class="w-72 overflow-x-auto rounded-md border">
+    <twig:Table class="min-w-[36rem]">
+        <twig:Table:Header>
+            <twig:Table:Row>
+                <twig:Table:Head class="whitespace-nowrap">
+                    Invoice
+                </twig:Table:Head>
+                <twig:Table:Head class="whitespace-nowrap">
+                    Status
+                </twig:Table:Head>
+                <twig:Table:Head class="whitespace-nowrap">
+                    Method
+                </twig:Table:Head>
+                <twig:Table:Head class="whitespace-nowrap text-right">
+                    Amount
+                </twig:Table:Head>
+                <twig:Table:Head class="whitespace-nowrap">
+                    Reference
+                </twig:Table:Head>
+                <twig:Table:Head class="whitespace-nowrap">
+                    Notes
+                </twig:Table:Head>
+            </twig:Table:Row>
+        </twig:Table:Header>
+        <twig:Table:Body>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV001
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Paid
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Credit Card
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $250.00
+                </twig:Table:Cell>
+                <twig:Table:Cell class="whitespace-nowrap">
+                    REF-001
+                </twig:Table:Cell>
+                <twig:Table:Cell class="whitespace-nowrap">
+                    Net 30
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV002
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Pending
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    PayPal
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $150.00
+                </twig:Table:Cell>
+                <twig:Table:Cell class="whitespace-nowrap">
+                    REF-002
+                </twig:Table:Cell>
+                <twig:Table:Cell class="whitespace-nowrap">
+                    Net 30
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV003
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Unpaid
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Bank Transfer
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $350.00
+                </twig:Table:Cell>
+                <twig:Table:Cell class="whitespace-nowrap">
+                    REF-003
+                </twig:Table:Cell>
+                <twig:Table:Cell class="whitespace-nowrap">
+                    Net 30
+                </twig:Table:Cell>
+            </twig:Table:Row>
+            <twig:Table:Row>
+                <twig:Table:Cell class="font-medium">
+                    INV004
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Paid
+                </twig:Table:Cell>
+                <twig:Table:Cell>
+                    Credit Card
+                </twig:Table:Cell>
+                <twig:Table:Cell class="text-right">
+                    $450.00
+                </twig:Table:Cell>
+                <twig:Table:Cell class="whitespace-nowrap">
+                    REF-004
+                </twig:Table:Cell>
+                <twig:Table:Cell class="whitespace-nowrap">
+                    Net 30
+                </twig:Table:Cell>
+            </twig:Table:Row>
+        </twig:Table:Body>
+    </twig:Table>
+</div>
+```
+
+### Grouped Rows
+
+```twig
+<twig:Table>
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                Item
+            </twig:Table:Head>
+            <twig:Table:Head class="text-right">
+                Price
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row class="bg-muted/50 hover:bg-muted/50">
+            <twig:Table:Cell colspan="2" class="font-medium">
+                Hardware
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                Keyboard
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $129.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                Monitor
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $349.50
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row class="bg-muted/50 hover:bg-muted/50">
+            <twig:Table:Cell colspan="2" class="font-medium">
+                Software
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                Editor licence
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $99.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                Backup plan
+            </twig:Table:Cell>
+            <twig:Table:Cell class="text-right">
+                $49.00
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
 ## Accessibility
 
 - The toggle is a native button: Tab reaches it, Space and Enter use it. It has `aria-expanded`, kept up to date, and `aria-controls` pointing to the detail row.
