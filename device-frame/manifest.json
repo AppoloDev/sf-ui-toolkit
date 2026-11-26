@@ -1,0 +1,15 @@
+{
+    "type": "component",
+    "name": "DeviceFrame",
+    "description": "Frames for screenshots and live previews: a phone (iOS or Android style), a tablet, a laptop and a browser window with an address bar. CSS only.",
+    "copy-files": {
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "twig/html-extra:^3.24.0",
+            "symfony/ux-twig-component:^3.5",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+        ]
+    }
+}
