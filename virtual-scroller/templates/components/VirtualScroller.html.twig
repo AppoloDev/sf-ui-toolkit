@@ -1,0 +1,56 @@
+{#
+ # A scrolling area that keeps only the visible items in the DOM.
+ #
+ # Props: items, count, orientation, itemHeight, itemWidth, columns, overscan, lazy, label, height.
+ # Slots: `default` (the markup of one item, with {index}, {item} and the keys of an object item; {row} and {column} in
+ # a grid) and `loader` (the markup of an item that is still loading).
+ #}
+{%- props
+    ## array|null The items: strings, numbers or objects. Without it, `count` items are generated and `{item}` is their number.
+    items = null,
+    ## integer The number of items (or of rows in a grid) when `items` is not given, and the total with `lazy`.
+    count = 0,
+    ## string `vertical`, `horizontal` or `both` (a grid of `count` rows and `columns` columns).
+    orientation = 'vertical',
+    ## integer The height of an item, in pixels.
+    itemHeight = 40,
+    ## integer The width of an item, in pixels (`horizontal` and `both`).
+    itemWidth = 160,
+    ## integer The number of columns of a grid.
+    columns = 0,
+    ## integer The number of items drawn beyond the visible ones, on each side.
+    overscan = 3,
+    ## bool The items are loaded on demand: an event asks for the missing chunks.
+    lazy = false,
+    ## string The accessible name of the list.
+    label = 'Scrollable list',
+    ## string The height of the area (any CSS length).
+    height = '16rem'
+-%}
+{%- set loader %}{% block loader %}{% endblock %}{% endset -%}
+<div
+    data-slot="virtual-scroller"
+    data-controller="virtual-scroller"
+    data-virtual-scroller-count-value="{{ count }}"
+    data-virtual-scroller-orientation-value="{{ orientation }}"
+    data-virtual-scroller-item-height-value="{{ itemHeight }}"
+    data-virtual-scroller-item-width-value="{{ itemWidth }}"
+    data-virtual-scroller-columns-value="{{ columns }}"
+    data-virtual-scroller-overscan-value="{{ overscan }}"
+    data-virtual-scroller-lazy-value="{{ lazy ? 'true' : 'false' }}"
+    {%- if items is not null %} data-virtual-scroller-items-value="{{ items|json_encode|e('html_attr') }}"{% endif %}
+    {{ attributes.defaults({class: 'rounded-md border'|tailwind_classes}) }}
+>
+    <div
+        data-virtual-scroller-target="viewport"
+        role="list"
+        aria-label="{{ label }}"
+        tabindex="0"
+        class="relative overflow-auto outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+        style="height: {{ height }};"
+    >
+        <div data-virtual-scroller-target="content" class="relative"></div>
+    </div>
+    <template data-virtual-scroller-target="template">{% block content %}{% endblock %}</template>
+    {%- if loader|trim is not empty %}<template data-virtual-scroller-target="loader">{{ loader|raw }}</template>{% endif %}
+</div>

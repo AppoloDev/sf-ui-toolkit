@@ -84,6 +84,7 @@ The props of each component are listed in its documentation.
 | `toolbar` | A bar of actions with start, center and end areas and arrow-key navigation (Toolbar), and a floating bar that appears with the number of selected rows and their actions (ActionBar). | [Documentation](https://appolodev.github.io/sf-ui-toolkit/toolbar.html) |
 | `tree` | Expandable hierarchy with WAI-ARIA tree keyboard navigation (arrows, Home/End, typeahead), selection and optional guide lines. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/tree.html) |
 | `value-sync` | Mirrors the value of a slider or a field into texts, an emoji, a progress bar, a bubble that follows the thumb and a number field, while it changes; buttons can step, set or reset it. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/value-sync.html) |
+| `virtual-scroller` | Scrolls very long lists (and grids) without slowing the page: only the rows in view are in the DOM, with horizontal and grid layouts, lazy loading by chunks and a placeholder while a chunk loads. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/virtual-scroller.html) |
 
 ## Blocks
 
