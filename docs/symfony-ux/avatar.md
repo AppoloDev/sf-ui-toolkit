@@ -659,7 +659,7 @@ A turning conic gradient sits behind the avatar, which keeps a gap in the page c
     <twig:Avatar:Fallback class="rounded-lg!">
         CN
     </twig:Avatar:Fallback>
-    <twig:Avatar:Badge class="bg-destructive text-white size-4! text-[10px]!">
+    <twig:Avatar:Badge class="bg-destructive text-white group-data-[size=default]/avatar:size-4 text-[10px]">
         3
     </twig:Avatar:Badge>
 </twig:Avatar>
@@ -731,7 +731,7 @@ A turning conic gradient sits behind the avatar, which keeps a gap in the page c
     <twig:Avatar:Fallback>
         CN
     </twig:Avatar:Fallback>
-    <twig:Avatar:Badge class="bg-destructive text-white size-4! text-[10px]!">
+    <twig:Avatar:Badge class="bg-destructive text-white group-data-[size=default]/avatar:size-4 text-[10px]">
         3
     </twig:Avatar:Badge>
 </twig:Avatar>
@@ -745,7 +745,7 @@ A turning conic gradient sits behind the avatar, which keeps a gap in the page c
     <twig:Avatar:Fallback>
         CN
     </twig:Avatar:Fallback>
-    <twig:Avatar:Badge class="start-0 end-auto top-0 bottom-auto bg-destructive text-white size-4! text-[10px]!">
+    <twig:Avatar:Badge class="start-0 end-auto top-0 bottom-auto bg-destructive text-white group-data-[size=default]/avatar:size-4 text-[10px]">
         3
     </twig:Avatar:Badge>
 </twig:Avatar>
@@ -759,7 +759,7 @@ A turning conic gradient sits behind the avatar, which keeps a gap in the page c
     <twig:Avatar:Fallback>
         CN
     </twig:Avatar:Fallback>
-    <twig:Avatar:Badge class="start-0 end-auto bg-destructive text-white size-4! text-[10px]!">
+    <twig:Avatar:Badge class="start-0 end-auto bg-destructive text-white group-data-[size=default]/avatar:size-4 text-[10px]">
         3
     </twig:Avatar:Badge>
 </twig:Avatar>
