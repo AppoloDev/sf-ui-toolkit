@@ -581,3 +581,431 @@ A turning conic gradient sits behind the avatar, which keeps a gap in the page c
     </div>
 </div>
 ```
+
+### Square
+
+```twig
+<twig:Avatar class="rounded-lg after:rounded-lg">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" class="rounded-lg!" />
+    <twig:Avatar:Fallback class="rounded-lg!">
+        CN
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Square Initials
+
+```twig
+<twig:Avatar class="rounded-lg after:rounded-lg">
+    <twig:Avatar:Fallback class="rounded-lg!">
+        JD
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Square Placeholder Icon
+
+```twig
+<twig:Avatar class="rounded-lg after:rounded-lg">
+    <twig:Avatar:Fallback class="rounded-lg!">
+        <twig:ux:icon name="lucide:user" class="size-4" />
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Square Online
+
+```twig
+<twig:Avatar class="rounded-lg after:rounded-lg">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" class="rounded-lg!" />
+    <twig:Avatar:Fallback class="rounded-lg!">
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="bg-green-500" />
+</twig:Avatar>
+```
+
+### Square Offline
+
+```twig
+<twig:Avatar class="rounded-lg after:rounded-lg">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" class="rounded-lg!" />
+    <twig:Avatar:Fallback class="rounded-lg!">
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="bg-muted-foreground" />
+</twig:Avatar>
+```
+
+### Square Verified
+
+```twig
+<twig:Avatar class="rounded-lg after:rounded-lg">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" class="rounded-lg!" />
+    <twig:Avatar:Fallback class="rounded-lg!">
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="bg-blue-500 text-white">
+        <twig:ux:icon name="lucide:check" class="size-2.5" />
+    </twig:Avatar:Badge>
+</twig:Avatar>
+```
+
+### Square Count Badge
+
+```twig
+<twig:Avatar class="rounded-lg after:rounded-lg">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" class="rounded-lg!" />
+    <twig:Avatar:Fallback class="rounded-lg!">
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="bg-destructive text-white size-4 text-[10px]">
+        3
+    </twig:Avatar:Badge>
+</twig:Avatar>
+```
+
+### Initials Only
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Fallback>
+        JD
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Placeholder Icon
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Fallback>
+        <twig:ux:icon name="lucide:user" class="size-4" />
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Online Status
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="bg-green-500" />
+</twig:Avatar>
+```
+
+### Offline Status
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="bg-muted-foreground" />
+</twig:Avatar>
+```
+
+### Verified Check
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="bg-blue-500 text-white">
+        <twig:ux:icon name="lucide:check" class="size-2.5" />
+    </twig:Avatar:Badge>
+</twig:Avatar>
+```
+
+### Count Badge
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="bg-destructive text-white size-4 text-[10px]">
+        3
+    </twig:Avatar:Badge>
+</twig:Avatar>
+```
+
+### Count Badge Top Left
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="start-0 end-auto top-0 bottom-auto bg-destructive text-white size-4 text-[10px]">
+        3
+    </twig:Avatar:Badge>
+</twig:Avatar>
+```
+
+### Count Badge Bottom Left
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="start-0 end-auto bg-destructive text-white size-4 text-[10px]">
+        3
+    </twig:Avatar:Badge>
+</twig:Avatar>
+```
+
+### Away Status
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="bg-yellow-500" />
+</twig:Avatar>
+```
+
+### Busy Status
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="bg-red-500" />
+</twig:Avatar>
+```
+
+### Do Not Disturb
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+    <twig:Avatar:Badge class="bg-red-500 text-white">
+        <twig:ux:icon name="lucide:minus" class="size-2.5" />
+    </twig:Avatar:Badge>
+</twig:Avatar>
+```
+
+### Online With Count
+
+```twig
+<div class="relative w-fit">
+    <twig:Avatar>
+        <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+        <twig:Avatar:Fallback>
+            CN
+        </twig:Avatar:Fallback>
+        <twig:Avatar:Badge class="bg-green-500" />
+    </twig:Avatar>
+    <twig:Badge class="absolute -end-2 -top-2 h-4 min-w-4 px-1 text-[10px]" variant="destructive">
+        5
+    </twig:Badge>
+</div>
+```
+
+### Size Extra Small
+
+```twig
+<twig:Avatar class="size-5">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Size Small
+
+```twig
+<twig:Avatar size="sm">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Size Large
+
+```twig
+<twig:Avatar size="lg">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Size 12
+
+```twig
+<twig:Avatar class="size-12">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Size Extra Large
+
+```twig
+<twig:Avatar class="size-20">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback class="text-xl">
+        CN
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Primary Border
+
+```twig
+<twig:Avatar class="ring-2 ring-primary ring-offset-2 ring-offset-background">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Blue Border
+
+```twig
+<twig:Avatar class="ring-2 ring-blue-500 ring-offset-2 ring-offset-background">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Large Shadow
+
+```twig
+<twig:Avatar class="shadow-xl">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Gradient Fallback
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Fallback class="bg-gradient-to-br from-pink-500 to-orange-400 text-white">
+        JD
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Blue Fallback
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Fallback class="bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+        JD
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Error Fallback
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Fallback class="bg-destructive/10 text-destructive">
+        <twig:ux:icon name="lucide:triangle-alert" class="size-4" />
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Hover Scale And Shadow
+
+```twig
+<twig:Avatar class="transition-transform hover:scale-110 hover:shadow-lg">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### Loading Overlay
+
+```twig
+<twig:Avatar>
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+    <span class="absolute inset-0 flex items-center justify-center rounded-full bg-background/70">
+        <twig:Spinner />
+    </span>
+</twig:Avatar>
+```
+
+### Pulsing Green Ring
+
+```twig
+<div class="relative w-fit">
+    <span class="absolute inset-0 animate-ping rounded-full bg-green-500/40"></span>
+    <twig:Avatar class="ring-2 ring-green-500">
+        <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+        <twig:Avatar:Fallback>
+            CN
+        </twig:Avatar:Fallback>
+    </twig:Avatar>
+</div>
+```
+
+### Primary Glow
+
+```twig
+<twig:Avatar class="shadow-[0_0_16px] shadow-primary/60">
+    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+    <twig:Avatar:Fallback>
+        CN
+    </twig:Avatar:Fallback>
+</twig:Avatar>
+```
+
+### With Tooltip
+
+```twig
+<div class="pt-10" style="min-height: 140px">
+    <twig:Tooltip id="tt-avatar">
+        <twig:Tooltip:Trigger>
+            <twig:Button variant="ghost" size="icon" class="rounded-full" aria-label="shadcn" {{ ...tooltip_trigger_attrs }}>
+                <twig:Avatar>
+                    <twig:Avatar:Image src="https://github.com/shadcn.png" alt="shadcn" />
+                    <twig:Avatar:Fallback>
+                        CN
+                    </twig:Avatar:Fallback>
+                </twig:Avatar>
+            </twig:Button>
+        </twig:Tooltip:Trigger>
+        <twig:Tooltip:Content>
+            shadcn
+        </twig:Tooltip:Content>
+    </twig:Tooltip>
+</div>
+```
