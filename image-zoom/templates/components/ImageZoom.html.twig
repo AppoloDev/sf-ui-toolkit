@@ -1,0 +1,50 @@
+{#
+ # An image that opens in a viewer.
+ #
+ # Props: src, alt, fullSrc, group, caption, closeLabel, zoomInLabel, zoomOutLabel, previousLabel, nextLabel, openLabel.
+ # Slot `default`: replaces the thumbnail (any content that is clicked to open the viewer).
+ #}
+{%- props
+    ## string The thumbnail.
+    src,
+    ## string The text alternative of the image.
+    alt = '',
+    ## string|null The image shown in the viewer (the thumbnail when empty).
+    fullSrc = null,
+    ## string|null A name shared by the images that can be browsed together.
+    group = null,
+    ## string|null A caption shown under the image in the viewer.
+    caption = null,
+    ## string The accessible name of the close button.
+    closeLabel = 'Close',
+    ## string The accessible name of the zoom in button.
+    zoomInLabel = 'Zoom in',
+    ## string The accessible name of the zoom out button.
+    zoomOutLabel = 'Zoom out',
+    ## string The accessible name of the previous button.
+    previousLabel = 'Previous image',
+    ## string The accessible name of the next button.
+    nextLabel = 'Next image',
+    ## string The accessible name of the thumbnail button.
+    openLabel = 'Enlarge image'
+-%}
+{%- set content %}{% block content %}{% endblock %}{% endset -%}
+<button
+    type="button"
+    data-slot="image-zoom"
+    data-controller="image-zoom"
+    data-image-zoom-full-value="{{ fullSrc ?? src }}"
+    data-image-zoom-alt-value="{{ alt }}"
+    {%- if group %} data-image-zoom-group-value="{{ group }}"{% endif %}
+    {%- if caption %} data-image-zoom-caption-value="{{ caption }}"{% endif %}
+    data-image-zoom-close-label-value="{{ closeLabel }}"
+    data-image-zoom-zoom-in-label-value="{{ zoomInLabel }}"
+    data-image-zoom-zoom-out-label-value="{{ zoomOutLabel }}"
+    data-image-zoom-previous-label-value="{{ previousLabel }}"
+    data-image-zoom-next-label-value="{{ nextLabel }}"
+    data-action="click->image-zoom#open"
+    aria-label="{{ openLabel }}{% if alt %}: {{ alt }}{% endif %}"
+    {{ attributes.defaults({class: 'block cursor-zoom-in overflow-hidden rounded-lg outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50'|tailwind_classes}) }}
+>
+    {%- if content|trim is not empty %}{{ content|raw }}{% else %}<img src="{{ src }}" alt="" class="size-full object-cover" loading="lazy">{% endif %}
+</button>

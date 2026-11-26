@@ -62,6 +62,7 @@ The props of each component are listed in its documentation.
 | `frame` | Bounded container that groups page regions into bordered panels: settings pages, dashboard sections, status lists. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/frame.html) |
 | `icon-stack` | Layered isometric tile that holds an icon, for empty states and feature highlights. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/icon-stack.html) |
 | `icon-tile` | Square or circular tile giving an icon a fixed size, radius and surface: outline, elevated or frame. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/icon-tile.html) |
+| `image-zoom` | An image that opens in a full-screen viewer on click: zoom in and out, move around, Escape to close, and previous and next buttons to browse a group of images. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/image-zoom.html) |
 | `inline-edit` | A text that turns into an input when clicked, and back to a text when saved or cancelled. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/inline-edit.html) |
 | `input-mask` | Wraps an input to force a format as the user types (phone, date, serial number, with optional parts), or to filter the characters it accepts (digits, letters, hexadecimal, a custom pattern). | [Documentation](https://appolodev.github.io/sf-ui-toolkit/input-mask.html) |
 | `kanban` | Board of columns with draggable cards, moved by pointer or keyboard, with the board carried by the form. | [Documentation](https://appolodev.github.io/sf-ui-toolkit/kanban.html) |
