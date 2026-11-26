@@ -1177,3 +1177,70 @@ A footer under the links, separated by a border, with a button that leads to the
     </twig:NavigationMenu>
 </div>
 ```
+
+### Mega Menu Columns
+
+Columns of links and a promo card in one panel.
+
+```twig
+<div style="min-height: 360px">
+    <twig:NavigationMenu>
+        <twig:NavigationMenu:List>
+            <twig:NavigationMenu:Item>
+                <twig:NavigationMenu:Trigger>
+                    Products
+                </twig:NavigationMenu:Trigger>
+                <twig:NavigationMenu:Content>
+                    <div class="grid w-[34rem] grid-cols-3 gap-4 p-2">
+                        <div class="grid content-start gap-1">
+                            <span class="px-2 text-xs font-medium uppercase text-muted-foreground">
+                                Build
+                            </span>
+                            <twig:NavigationMenu:Link href="#">
+                                Components
+                            </twig:NavigationMenu:Link>
+                            <twig:NavigationMenu:Link href="#">
+                                Templates
+                            </twig:NavigationMenu:Link>
+                            <twig:NavigationMenu:Link href="#">
+                                Icons
+                            </twig:NavigationMenu:Link>
+                        </div>
+                        <div class="grid content-start gap-1">
+                            <span class="px-2 text-xs font-medium uppercase text-muted-foreground">
+                                Ship
+                            </span>
+                            <twig:NavigationMenu:Link href="#">
+                                Hosting
+                            </twig:NavigationMenu:Link>
+                            <twig:NavigationMenu:Link href="#">
+                                Monitoring
+                            </twig:NavigationMenu:Link>
+                        </div>
+                        <twig:Card class="gap-2 bg-muted py-4">
+                            <twig:Card:Header>
+                                <twig:Card:Title>
+                                    What is new
+                                </twig:Card:Title>
+                                <twig:Card:Description>
+                                    A tour of the latest release.
+                                </twig:Card:Description>
+                            </twig:Card:Header>
+                            <twig:Card:Footer>
+                                <twig:Button as="a" href="#" size="sm" variant="outline">
+                                    Read more
+                                </twig:Button>
+                            </twig:Card:Footer>
+                        </twig:Card>
+                    </div>
+                </twig:NavigationMenu:Content>
+            </twig:NavigationMenu:Item>
+            <twig:NavigationMenu:Item>
+                <twig:NavigationMenu:Link href="#">
+                    Pricing
+                </twig:NavigationMenu:Link>
+            </twig:NavigationMenu:Item>
+        </twig:NavigationMenu:List>
+    </twig:NavigationMenu>
+</div>
+```
