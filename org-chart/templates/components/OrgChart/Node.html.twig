@@ -1,0 +1,30 @@
+{#
+ # One node of an OrgChart. Nest nodes in the default block to add people under it.
+ #
+ # Props: label, subtitle.
+ # Slots: `default` (the child nodes) and `card` (replaces the content of the card).
+ #}
+{%- props
+    ## string The title of the node (a name, a team).
+    label,
+    ## string|null A line under the title (a role).
+    subtitle = null
+-%}
+{%- set children %}{% block content %}{% endblock %}{% endset -%}
+{%- set card %}{% block card %}{% endblock %}{% endset -%}
+<li
+    role="treeitem"
+    aria-label="{{ label }}"
+    {%- if children|trim is not empty %} aria-expanded="true"{% endif %}
+    {{ attributes.defaults({class: 'relative flex flex-col items-center px-2 pt-5 before:absolute before:right-1/2 before:top-0 before:h-5 before:w-1/2 before:border-r before:border-t before:border-border after:absolute after:left-1/2 after:top-0 after:h-5 after:w-1/2 after:border-t after:border-border first:before:border-0 last:after:border-0 only:before:border-t-0 only:after:hidden'|tailwind_classes}) }}
+>
+    <div class="relative z-10 min-w-36 rounded-lg border bg-card px-4 py-2 text-center text-card-foreground shadow-xs">
+        {%- if card|trim is not empty %}{{ card|raw }}{% else %}
+            <p class="text-sm font-medium">{{ label }}</p>
+            {%- if subtitle %}<p class="text-xs text-muted-foreground">{{ subtitle }}</p>{% endif %}
+        {%- endif %}
+    </div>
+    {%- if children|trim is not empty %}
+        <ul role="group" class="relative m-0 flex list-none justify-center p-0 pt-5 before:absolute before:left-1/2 before:top-0 before:h-5 before:border-l before:border-border">{{ children|raw }}</ul>
+    {%- endif %}
+</li>

@@ -1,0 +1,16 @@
+{#
+ # An organization chart: nested `OrgChart:Node`. CSS only.
+ #
+ # Props: label.
+ # Slot `default`: the root node(s).
+ #}
+{%- props
+    ## string The accessible name of the chart.
+    label = 'Organization chart'
+-%}
+<ul
+    data-slot="org-chart"
+    role="tree"
+    aria-label="{{ label }}"
+    {{ attributes.defaults({class: 'm-0 flex list-none justify-center overflow-x-auto p-0 [&>li]:pt-0 [&>li]:before:hidden [&>li]:after:hidden'|tailwind_classes}) }}
+>{% block content %}{% endblock %}</ul>

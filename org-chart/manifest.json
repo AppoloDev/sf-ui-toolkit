@@ -1,0 +1,15 @@
+{
+    "type": "component",
+    "name": "OrgChart",
+    "description": "An organization chart drawn with nested nodes: connectors in CSS, cards with a title and a subtitle, custom card content, and no JavaScript.",
+    "copy-files": {
+        "templates/components/": "%COMPONENTS_DIR%/"
+    },
+    "dependencies": {
+        "composer": [
+            "twig/html-extra:^3.24.0",
+            "symfony/ux-twig-component:^3.5",
+            "tales-from-a-dev/twig-tailwind-extra:^1.3.0"
+        ]
+    }
+}
