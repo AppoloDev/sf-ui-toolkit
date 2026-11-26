@@ -199,6 +199,149 @@ With `numeric="auto"` the text can be a word, as in "yesterday". With `always` i
 </ul>
 ```
 
+### Formats
+
+Every length with and without numbers for the same moment, in one table.
+
+```twig
+<twig:Table class="max-w-sm">
+    <twig:Table:Header>
+        <twig:Table:Row>
+            <twig:Table:Head>
+                Style
+            </twig:Table:Head>
+            <twig:Table:Head>
+                auto
+            </twig:Table:Head>
+            <twig:Table:Head>
+                always
+            </twig:Table:Head>
+        </twig:Table:Row>
+    </twig:Table:Header>
+    <twig:Table:Body>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                long
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:RelativeTime datetime="{{ 'now'|date_modify('-1 day')|date('c') }}" style="long" numeric="auto">
+                    yesterday
+                </twig:RelativeTime>
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:RelativeTime datetime="{{ 'now'|date_modify('-1 day')|date('c') }}" style="long" numeric="always">
+                    1 day ago
+                </twig:RelativeTime>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                short
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:RelativeTime datetime="{{ 'now'|date_modify('-1 day')|date('c') }}" style="short" numeric="auto">
+                    yesterday
+                </twig:RelativeTime>
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:RelativeTime datetime="{{ 'now'|date_modify('-1 day')|date('c') }}" style="short" numeric="always">
+                    1 day ago
+                </twig:RelativeTime>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+        <twig:Table:Row>
+            <twig:Table:Cell>
+                narrow
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:RelativeTime datetime="{{ 'now'|date_modify('-1 day')|date('c') }}" style="narrow" numeric="auto">
+                    yesterday
+                </twig:RelativeTime>
+            </twig:Table:Cell>
+            <twig:Table:Cell>
+                <twig:RelativeTime datetime="{{ 'now'|date_modify('-1 day')|date('c') }}" style="narrow" numeric="always">
+                    1d ago
+                </twig:RelativeTime>
+            </twig:Table:Cell>
+        </twig:Table:Row>
+    </twig:Table:Body>
+</twig:Table>
+```
+
+### Prefixed Labels
+
+The text around the component is yours: a verb before the time, or a `Badge` that holds it.
+
+```twig
+<ul class="mx-auto grid max-w-xs gap-3 text-sm">
+    <li>
+        Updated
+        <twig:RelativeTime datetime="{{ 'now'|date_modify('-35 minutes')|date('c') }}">
+            35 minutes ago
+        </twig:RelativeTime>
+    </li>
+    <li>
+        Posted by Ada,
+        <twig:RelativeTime datetime="{{ 'now'|date_modify('-3 days')|date('c') }}">
+            3 days ago
+        </twig:RelativeTime>
+    </li>
+    <li class="flex items-center gap-2">
+        <twig:Badge variant="warning">
+            Due
+            <twig:RelativeTime datetime="{{ 'now'|date_modify('+2 days')|date('c') }}">
+                in 2 days
+            </twig:RelativeTime>
+        </twig:Badge>
+    </li>
+</ul>
+```
+
+### Time Zones
+
+A relative time does not depend on a time zone, but the exact date does: here the same moment is also written in three zones.
+
+```twig
+<twig:Card class="mx-auto max-w-xs">
+    <twig:Card:Header>
+        <twig:Card:Title>
+            Deploy finished
+        </twig:Card:Title>
+        <twig:Card:Description>
+            <twig:RelativeTime datetime="{{ 'now'|date_modify('-2 hours')|date('c') }}">
+                2 hours ago
+            </twig:RelativeTime>
+        </twig:Card:Description>
+    </twig:Card:Header>
+    <twig:Card:Content class="grid gap-1 text-sm">
+        <div class="flex justify-between">
+            <span class="text-muted-foreground">
+                Paris
+            </span>
+            <span>
+                {{ 'now'|date_modify('-2 hours')|date('D H:i', 'Europe/Paris') }}
+            </span>
+        </div>
+        <div class="flex justify-between">
+            <span class="text-muted-foreground">
+                New York
+            </span>
+            <span>
+                {{ 'now'|date_modify('-2 hours')|date('D H:i', 'America/New_York') }}
+            </span>
+        </div>
+        <div class="flex justify-between">
+            <span class="text-muted-foreground">
+                Tokyo
+            </span>
+            <span>
+                {{ 'now'|date_modify('-2 hours')|date('D H:i', 'Asia/Tokyo') }}
+            </span>
+        </div>
+    </twig:Card:Content>
+</twig:Card>
+```
+
 ## Accessibility
 
 - The element is a `<time>` with a `datetime` attribute, so that the exact date stays available to browsers and tools whatever the text says.
