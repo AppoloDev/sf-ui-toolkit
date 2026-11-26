@@ -1,0 +1,12 @@
+{
+    "name": "sf-ui-toolkit-sweep",
+    "private": true,
+    "description": "Browser sweep of every docs example: overflow, overlays, touch targets, console errors.",
+    "scripts": {
+        "test": "playwright test",
+        "report": "node report.mjs"
+    },
+    "devDependencies": {
+        "@playwright/test": "1.49.1"
+    }
+}

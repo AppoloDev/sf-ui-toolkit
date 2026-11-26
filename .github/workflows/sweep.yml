@@ -1,0 +1,96 @@
+name: Sweep
+
+# Opens every docs example in a real browser (mobile, tablet, desktop) and reports overflow, overlays that leave
+# the screen, triggers that do nothing, small touch targets and console errors. Informational: it does not fail
+# the run (set SWEEP_STRICT=1 to fail on findings). Run it by hand from the Actions tab, or on every push to main.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Regex on the preview file name (empty = everything), e.g. "^popover-|^tree-"'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sweep
+  cancel-in-progress: true
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer
+
+      - name: Fetch the shadcn kit
+        run: bin/fetch-shadcn-kit.sh
+        working-directory: docs-site
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+        working-directory: docs-site
+
+      - name: Build the site
+        run: php bin/console app:build-docs
+        working-directory: docs-site
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+        working-directory: tests/sweep
+
+      - name: Run the sweep
+        run: npx playwright test --shard=${{ matrix.shard }}/4
+        working-directory: tests/sweep
+        env:
+          SWEEP_ONLY: ${{ github.event.inputs.only }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sweep-findings-${{ matrix.shard }}
+          path: tests/sweep/report/findings
+          if-no-files-found: ignore
+
+  report:
+    needs: sweep
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: sweep-findings-*
+          path: tests/sweep/shards
+
+      - name: Merge the findings
+        working-directory: tests/sweep
+        run: |
+          node report.mjs shards/sweep-findings-1 shards/sweep-findings-2 shards/sweep-findings-3 shards/sweep-findings-4
+          cat report/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sweep-report
+          path: tests/sweep/report/report.md

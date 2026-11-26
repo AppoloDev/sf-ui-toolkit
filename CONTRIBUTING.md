@@ -45,3 +45,18 @@ Locally: `cd docs-site && composer install && php bin/console app:build-docs`, t
 ## Components with JavaScript dependencies
 
 A recipe that needs a JavaScript package lists it, pinned, in `dependencies.npm` of its `manifest.json` (`"name@version"`). The docs build adds each of them to the import map of the previews (loaded from esm.sh) and shows the matching `importmap:require` command on the component page. Load such packages with a dynamic `import()` inside the Stimulus controller, so pages without the component never download them.
+
+## Browser sweep
+
+`tests/sweep` opens every docs example (`dist/preview/*.html`) in Chromium at mobile (375 px, touch), tablet and desktop sizes and reports: horizontal overflow, overlays (popover, menu, tooltip, dialog) that leave the screen or open far from their trigger, triggers that do nothing when tapped or clicked, touch targets under 24 px, and console errors.
+
+It runs on GitHub Actions (workflow `Sweep`, four shards, informational: the findings are in the job summary and in the `sweep-report` artifact). To run it yourself after building the docs:
+
+```bash
+cd tests/sweep
+npm install && npx playwright install chromium
+SWEEP_ONLY='^popover-' npx playwright test   # SWEEP_ONLY is a regex on the preview file name
+node report.mjs                              # writes report/report.md
+```
+
+`SWEEP_STRICT=1` makes a finding fail the run. A finding is a lead, not a verdict: open the example and look.
