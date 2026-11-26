@@ -164,7 +164,10 @@ final class BuildDocsCommand extends Command
             $page['name'] = $name;
             $page['kind'] = 'ux';
             $page['shadcn'] = [$name];
-            $page['install'] = ['command' => sprintf('php bin/console ux:install %s --kit=shadcn', $name), 'description' => '', 'composer' => [], 'npm' => [], 'files' => []];
+            // The JavaScript packages of the official recipe (Embla for the carousel...) go to the import map of the previews.
+            $officialManifest = dirname($file).'/manifest.json';
+            $officialNpm = is_file($officialManifest) ? (json_decode((string) file_get_contents($officialManifest), true)['dependencies']['npm'] ?? []) : [];
+            $page['install'] = ['command' => sprintf('php bin/console ux:install %s --kit=shadcn', $name), 'description' => '', 'composer' => [], 'npm' => [], 'previewNpm' => $officialNpm, 'files' => []];
 
             $added = $root.'/docs/symfony-ux/'.$name.'.md';
             if (is_file($added)) {
@@ -274,7 +277,7 @@ final class BuildDocsCommand extends Command
     {
         $imports = ['@hotwired/stimulus' => 'https://esm.sh/@hotwired/stimulus@3.2.2'];
         foreach ($pages as $page) {
-            foreach ($page['install']['npm'] as $package) {
+            foreach ([...$page['install']['npm'], ...($page['install']['previewNpm'] ?? [])] as $package) {
                 $at = strrpos($package, '@');
                 $name = false === $at || 0 === $at ? $package : substr($package, 0, $at);
                 $imports[$name] = 'https://esm.sh/'.$package;
