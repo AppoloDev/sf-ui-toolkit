@@ -242,12 +242,21 @@ final class BuildDocsCommand extends Command
         $imports = [];
         $registrations = [];
         // The shadcn kit controllers (popover, ...) are registered too, as in an app that installed them; the ones
-        // importing a package the previews do not load (carousel) are left out.
+        // importing a package that their recipe does not declare (so the previews would not load it) are left out.
         $files = array_merge(
             glob($root.'/*/assets/controllers/*_controller.js') ?: [],
             array_filter(
                 glob($this->projectDir.'/var/ux/src/Toolkit/kits/shadcn/*/assets/controllers/*_controller.js') ?: [],
-                static fn (string $file): bool => 1 === preg_match_all('/^import .* from /m', (string) file_get_contents($file)),
+                static function (string $file): bool {
+                    $manifest = dirname($file, 3).'/manifest.json';
+                    $declared = array_map(
+                        static fn (string $package): string => (false === ($at = strrpos($package, '@')) || 0 === $at) ? $package : substr($package, 0, $at),
+                        is_file($manifest) ? (json_decode((string) file_get_contents($manifest), true)['dependencies']['npm'] ?? []) : [],
+                    );
+                    preg_match_all('/^import .* from [\'"]([^\'"]+)[\'"]/m', (string) file_get_contents($file), $matches);
+
+                    return [] === array_diff($matches[1], ['@hotwired/stimulus'], $declared);
+                },
             ),
         );
         foreach ($files as $file) {
