@@ -1084,3 +1084,23 @@
     </twig:ScrollArea>
 </div>
 ```
+
+### Custom Scrollbar
+
+The scrollbar is styled with the standard `scrollbar-color` and `scrollbar-width` properties.
+
+```twig
+<twig:ScrollArea class="h-48 w-72 rounded-lg border [scrollbar-color:var(--primary)_transparent] [scrollbar-width:thin]">
+    <div class="p-4 text-sm">
+        <p class="mb-2 font-medium">
+            Release notes
+        </p>
+        <p class="mb-2">Version 3.5 adds a carousel with autoplay, a message scroller and a long list of smaller fixes.</p>
+        <p class="mb-2">The Select component now opens above the trigger when there is no room below.</p>
+        <p class="mb-2">Dialogs trap the focus again after a nested dialog closes.</p>
+        <p class="mb-2">Tables gain a sticky header and a caption slot.</p>
+        <p class="mb-2">The command palette remembers the last query for the session.</p>
+        <p>Thanks to everyone who reported an issue.</p>
+    </div>
+</twig:ScrollArea>
+```
