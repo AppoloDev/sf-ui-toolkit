@@ -1,0 +1,47 @@
+{#
+ # A full-width banner for an announcement or a notice.
+ #
+ # Props: variant, icon, dismissible, dismissLabel, storageKey, sticky, role.
+ # Slots: `default` (the message) and `action` (a link or a button, next to the message).
+ #}
+{%- props
+    ## string `default`, `info`, `success`, `warning`, `destructive` or `announcement`.
+    variant = 'default',
+    ## string|null A Symfony UX Icons name shown before the message, such as `lucide:megaphone`.
+    icon = null,
+    ## bool Show a dismiss button.
+    dismissible = false,
+    ## string The accessible name of the dismiss button.
+    dismissLabel = 'Dismiss',
+    ## string|null A key: once dismissed, the banner stays hidden on later visits (kept in localStorage).
+    storageKey = null,
+    ## bool Stay at the top of the page while scrolling.
+    sticky = false,
+    ## string `status` (polite) or `alert` (urgent).
+    role = 'status'
+-%}
+{%- set action %}{% block action %}{% endblock %}{% endset -%}
+{%- set variants = {
+    default: 'bg-muted text-foreground',
+    info: 'bg-blue-50 text-blue-900 dark:bg-blue-950 dark:text-blue-100',
+    success: 'bg-green-50 text-green-900 dark:bg-green-950 dark:text-green-100',
+    warning: 'bg-amber-50 text-amber-900 dark:bg-amber-950 dark:text-amber-100',
+    destructive: 'bg-destructive text-white',
+    announcement: 'bg-primary text-primary-foreground'
+} -%}
+<div
+    data-slot="banner"
+    data-controller="banner"
+    {%- if storageKey %} data-banner-key-value="{{ storageKey }}"{% endif %}
+    role="{{ role }}"
+    {{ attributes.defaults({class: ('flex w-full items-center gap-3 border-b px-4 py-2 text-sm ' ~ variants[variant] ?? variants.default ~ (sticky ? ' sticky top-0 z-40' : ''))|tailwind_classes}) }}
+>
+    {%- if icon %}<twig:ux:icon :name="icon" class="size-4 shrink-0" aria-hidden="true" />{% endif %}
+    <div class="min-w-0 flex-1">{% block content %}{% endblock %}</div>
+    {%- if action|trim is not empty %}<div class="flex shrink-0 items-center gap-2 font-medium">{{ action|raw }}</div>{% endif %}
+    {%- if dismissible %}
+        <button type="button" data-action="banner#dismiss" aria-label="{{ dismissLabel }}" class="inline-flex size-6 shrink-0 items-center justify-center rounded-md opacity-70 outline-none hover:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/50">
+            <twig:ux:icon name="lucide:x" class="size-4" />
+        </button>
+    {%- endif %}
+</div>
