@@ -383,3 +383,151 @@
 </twig:RadioGroup>
 ```
 
+
+### In A Form
+
+```twig
+<form class="grid w-full max-w-sm gap-4" onsubmit="event.preventDefault(); document.getElementById('rg-form-out').textContent = 'Submitted: ' + new FormData(this).get('plan');">
+    <twig:Field:Set>
+        <twig:Field:Legend variant="label">
+            Choose a plan
+        </twig:Field:Legend>
+        <twig:RadioGroup>
+            <twig:Field orientation="horizontal">
+                <twig:RadioGroup:Item id="rg-form-free" name="plan" value="free" checked="" />
+                <twig:Field:Label for="rg-form-free" class="font-normal">
+                    Free
+                </twig:Field:Label>
+            </twig:Field>
+            <twig:Field orientation="horizontal">
+                <twig:RadioGroup:Item id="rg-form-pro" name="plan" value="pro" />
+                <twig:Field:Label for="rg-form-pro" class="font-normal">
+                    Pro
+                </twig:Field:Label>
+            </twig:Field>
+            <twig:Field orientation="horizontal">
+                <twig:RadioGroup:Item id="rg-form-team" name="plan" value="team" />
+                <twig:Field:Label for="rg-form-team" class="font-normal">
+                    Team
+                </twig:Field:Label>
+            </twig:Field>
+        </twig:RadioGroup>
+    </twig:Field:Set>
+    <div class="flex items-center gap-3">
+        <twig:Button type="submit">
+            Continue
+        </twig:Button>
+        <span id="rg-form-out" class="text-sm text-muted-foreground"></span>
+    </div>
+</form>
+```
+
+### Disabled States
+
+```twig
+<div class="grid gap-6 sm:grid-cols-2">
+    <twig:Field:Set>
+        <twig:Field:Legend variant="label">
+            One option disabled
+        </twig:Field:Legend>
+        <twig:RadioGroup>
+            <twig:Field orientation="horizontal">
+                <twig:RadioGroup:Item id="rg-dis-a" name="dis1" value="a" checked="" />
+                <twig:Field:Label for="rg-dis-a" class="font-normal">
+                    Email
+                </twig:Field:Label>
+            </twig:Field>
+            <twig:Field orientation="horizontal">
+                <twig:RadioGroup:Item id="rg-dis-b" name="dis1" value="b" disabled />
+                <twig:Field:Label for="rg-dis-b" class="font-normal">
+                    SMS (unavailable)
+                </twig:Field:Label>
+            </twig:Field>
+        </twig:RadioGroup>
+    </twig:Field:Set>
+    <twig:Field:Set>
+        <twig:Field:Legend variant="label">
+            Whole group disabled
+        </twig:Field:Legend>
+        <twig:RadioGroup>
+            <twig:Field orientation="horizontal">
+                <twig:RadioGroup:Item id="rg-dis-c" name="dis2" value="a" checked="" disabled />
+                <twig:Field:Label for="rg-dis-c" class="font-normal">
+                    Monthly
+                </twig:Field:Label>
+            </twig:Field>
+            <twig:Field orientation="horizontal">
+                <twig:RadioGroup:Item id="rg-dis-d" name="dis2" value="b" disabled />
+                <twig:Field:Label for="rg-dis-d" class="font-normal">
+                    Yearly
+                </twig:Field:Label>
+            </twig:Field>
+        </twig:RadioGroup>
+    </twig:Field:Set>
+</div>
+```
+
+### Generated From A List
+
+A group built from a list of values: every item shares the same `name` and has its own `value`.
+
+```twig
+<twig:Field:Set>
+    <twig:Field:Legend variant="label">
+        Favorite framework
+    </twig:Field:Legend>
+    <twig:RadioGroup>
+        <twig:Field orientation="horizontal">
+            <twig:RadioGroup:Item id="rg-list-symfony" name="framework" value="symfony" checked="" />
+            <twig:Field:Label for="rg-list-symfony" class="font-normal">
+                Symfony
+            </twig:Field:Label>
+        </twig:Field>
+        <twig:Field orientation="horizontal">
+            <twig:RadioGroup:Item id="rg-list-laravel" name="framework" value="laravel" />
+            <twig:Field:Label for="rg-list-laravel" class="font-normal">
+                Laravel
+            </twig:Field:Label>
+        </twig:Field>
+        <twig:Field orientation="horizontal">
+            <twig:RadioGroup:Item id="rg-list-rails" name="framework" value="rails" />
+            <twig:Field:Label for="rg-list-rails" class="font-normal">
+                Rails
+            </twig:Field:Label>
+        </twig:Field>
+        <twig:Field orientation="horizontal">
+            <twig:RadioGroup:Item id="rg-list-django" name="framework" value="django" />
+            <twig:Field:Label for="rg-list-django" class="font-normal">
+                Django
+            </twig:Field:Label>
+        </twig:Field>
+    </twig:RadioGroup>
+</twig:Field:Set>
+```
+
+### Sizes
+
+The item has a fixed size; a `scale-*` class makes it smaller or larger.
+
+```twig
+<div class="flex items-center gap-6">
+    <twig:Field orientation="horizontal" class="w-auto">
+        <twig:RadioGroup:Item id="rg-size-sm" name="rg-size" value="sm" class="scale-75" />
+        <twig:Field:Label for="rg-size-sm" class="font-normal">
+            Small
+        </twig:Field:Label>
+    </twig:Field>
+    <twig:Field orientation="horizontal" class="w-auto">
+        <twig:RadioGroup:Item id="rg-size-md" name="rg-size" value="md" checked="" class="" />
+        <twig:Field:Label for="rg-size-md" class="font-normal">
+            Default
+        </twig:Field:Label>
+    </twig:Field>
+    <twig:Field orientation="horizontal" class="w-auto">
+        <twig:RadioGroup:Item id="rg-size-lg" name="rg-size" value="lg" class="scale-125" />
+        <twig:Field:Label for="rg-size-lg" class="font-normal">
+            Large
+        </twig:Field:Label>
+    </twig:Field>
+</div>
+```
