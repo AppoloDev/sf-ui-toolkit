@@ -1,0 +1,61 @@
+{#
+ # A rotary input.
+ #
+ # Props: name, value, min, max, step, size, thickness, showValue, valueTemplate, label, disabled, readonly.
+ #}
+{%- props
+    ## string|null The name of the hidden field sent with a form.
+    name = null,
+    ## number The current value.
+    value = 0,
+    ## number The smallest value.
+    min = 0,
+    ## number The largest value.
+    max = 100,
+    ## number The step of the value.
+    step = 1,
+    ## integer The width of the knob, in pixels.
+    size = 100,
+    ## integer The thickness of the ring, in pixels.
+    thickness = 10,
+    ## bool Write the value in the middle.
+    showValue = true,
+    ## string The text in the middle, with {value}.
+    valueTemplate = '{value}',
+    ## string The accessible name.
+    label = 'Value',
+    ## bool Disable the knob.
+    disabled = false,
+    ## bool The value is shown but cannot be changed.
+    readonly = false
+-%}
+{%- set radius = (size - thickness) / 2 -%}
+{%- set circumference = 2 * 3.14159265 * radius -%}
+<div
+    data-slot="knob"
+    data-controller="knob"
+    data-knob-min-value="{{ min }}"
+    data-knob-max-value="{{ max }}"
+    data-knob-step-value="{{ step }}"
+    data-knob-value-value="{{ value }}"
+    data-knob-template-value="{{ valueTemplate }}"
+    data-knob-circumference-value="{{ circumference }}"
+    role="slider"
+    tabindex="{{ disabled ? -1 : 0 }}"
+    aria-label="{{ label }}"
+    aria-valuemin="{{ min }}"
+    aria-valuemax="{{ max }}"
+    aria-valuenow="{{ value }}"
+    {%- if disabled %} aria-disabled="true"{% endif %}
+    {%- if readonly %} aria-readonly="true"{% endif %}
+    data-action="keydown->knob#keydown wheel->knob#wheel pointerdown->knob#down"
+    {{ attributes.defaults({class: 'relative inline-flex touch-none select-none items-center justify-center rounded-full outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-disabled:opacity-50 aria-[readonly=true]:cursor-default'|tailwind_classes}) }}
+    style="width: {{ size }}px; height: {{ size }}px"
+>
+    <svg width="{{ size }}" height="{{ size }}" viewBox="0 0 {{ size }} {{ size }}" aria-hidden="true" class="text-primary">
+        <circle cx="{{ size / 2 }}" cy="{{ size / 2 }}" r="{{ radius }}" fill="none" stroke="currentColor" stroke-opacity="0.15" stroke-width="{{ thickness }}" />
+        <circle data-knob-target="ring" cx="{{ size / 2 }}" cy="{{ size / 2 }}" r="{{ radius }}" fill="none" stroke="currentColor" stroke-width="{{ thickness }}" stroke-linecap="round" stroke-dasharray="{{ circumference * 0.75 }} {{ circumference }}" stroke-dashoffset="{{ circumference * 0.75 }}" transform="rotate(135 {{ size / 2 }} {{ size / 2 }})" />
+    </svg>
+    {%- if showValue %}<span data-knob-target="text" class="absolute text-sm font-semibold tabular-nums"></span>{% endif %}
+    {%- if name %}<input type="hidden" name="{{ name }}" value="{{ value }}" data-knob-target="field">{% endif %}
+</div>
