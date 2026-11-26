@@ -395,3 +395,77 @@ The `Card` clips its content, so the two layers behind it are siblings of the ca
     </twig:Card:Footer>
 </twig:Card>
 ```
+
+### Filter Panel
+
+A side panel of filter sections: each section folds, with the count of results next to each option.
+
+```twig
+<twig:Card class="w-72 gap-0 py-0">
+    <twig:Card:Header class="border-b py-3">
+        <twig:Card:Title>
+            Filters
+        </twig:Card:Title>
+        <twig:Card:Action>
+            <twig:Button variant="link" size="sm" type="reset">
+                Clear all
+            </twig:Button>
+        </twig:Card:Action>
+    </twig:Card:Header>
+    <twig:Card:Content class="grid gap-0 p-0">
+        <twig:Collapsible :open="true" class="border-b px-4 py-3">
+            <twig:Collapsible:Trigger>
+                <button type="button" class="flex w-full items-center justify-between text-sm font-medium" {{ ...collapsible_trigger_attrs }}>
+                    Status
+                    <twig:ux:icon name="lucide:chevron-down" class="size-4" />
+                </button>
+            </twig:Collapsible:Trigger>
+            <twig:Collapsible:Content class="grid gap-2 pt-3">
+                <twig:Field orientation="horizontal">
+                    <twig:Checkbox id="fp-open" name="status[]" value="open" checked="1" />
+                    <twig:Field:Label for="fp-open" class="font-normal">
+                        Open
+                    </twig:Field:Label>
+                    <twig:Badge variant="secondary" class="ms-auto">12</twig:Badge>
+                </twig:Field>
+                <twig:Field orientation="horizontal">
+                    <twig:Checkbox id="fp-progress" name="status[]" value="progress" />
+                    <twig:Field:Label for="fp-progress" class="font-normal">
+                        In progress
+                    </twig:Field:Label>
+                    <twig:Badge variant="secondary" class="ms-auto">5</twig:Badge>
+                </twig:Field>
+                <twig:Field orientation="horizontal">
+                    <twig:Checkbox id="fp-done" name="status[]" value="done" />
+                    <twig:Field:Label for="fp-done" class="font-normal">
+                        Done
+                    </twig:Field:Label>
+                    <twig:Badge variant="secondary" class="ms-auto">31</twig:Badge>
+                </twig:Field>
+            </twig:Collapsible:Content>
+        </twig:Collapsible>
+        <twig:Collapsible class="px-4 py-3">
+            <twig:Collapsible:Trigger>
+                <button type="button" class="flex w-full items-center justify-between text-sm font-medium" {{ ...collapsible_trigger_attrs }}>
+                    Assignee
+                    <twig:ux:icon name="lucide:chevron-down" class="size-4" />
+                </button>
+            </twig:Collapsible:Trigger>
+            <twig:Collapsible:Content class="grid gap-2 pt-3">
+                <twig:Field orientation="horizontal">
+                    <twig:Checkbox id="fp-ada" name="assignee[]" value="ada" />
+                    <twig:Field:Label for="fp-ada" class="font-normal">
+                        Ada
+                    </twig:Field:Label>
+                </twig:Field>
+                <twig:Field orientation="horizontal">
+                    <twig:Checkbox id="fp-grace" name="assignee[]" value="grace" />
+                    <twig:Field:Label for="fp-grace" class="font-normal">
+                        Grace
+                    </twig:Field:Label>
+                </twig:Field>
+            </twig:Collapsible:Content>
+        </twig:Collapsible>
+    </twig:Card:Content>
+</twig:Card>
+```
