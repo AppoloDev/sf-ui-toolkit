@@ -33,7 +33,7 @@ Only the days with a count are given; the others are empty.
 <!-- height: 200 -->
 
 ```twig
-<twig:ContributionGraph :weeks="20" :values="{'now'|date('Y-m-d'): 4, ('now -3 days')|date('Y-m-d'): 12, ('now -10 days')|date('Y-m-d'): 2}" />
+<twig:ContributionGraph :weeks="20" :values="{('now'|date('Y-m-d')): 4, (('now -3 days')|date('Y-m-d')): 12, (('now -10 days')|date('Y-m-d')): 2}" />
 ```
 
 ### Sunday First
