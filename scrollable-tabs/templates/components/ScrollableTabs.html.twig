@@ -1,0 +1,29 @@
+{#
+ # Wraps a `Tabs:List` (or any `[role=tablist]`) and scrolls it with arrows when it overflows.
+ #
+ # Props: previousLabel, nextLabel, step.
+ #}
+{%- props
+    ## string The accessible name of the left arrow.
+    previousLabel = 'Scroll tabs left',
+    ## string The accessible name of the right arrow.
+    nextLabel = 'Scroll tabs right',
+    ## integer The scroll distance of an arrow, in pixels.
+    step = 200
+-%}
+<div
+    data-slot="scrollable-tabs"
+    data-controller="scrollable-tabs"
+    data-scrollable-tabs-step-value="{{ step }}"
+    {{ attributes.defaults({class: 'relative flex items-center gap-1'|tailwind_classes}) }}
+>
+    <button type="button" hidden data-scrollable-tabs-target="previous" data-action="scrollable-tabs#previous" aria-label="{{ previousLabel }}" tabindex="-1" class="inline-flex size-8 shrink-0 items-center justify-center rounded-md border bg-background outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">
+        <twig:ux:icon name="lucide:chevron-left" class="size-4" />
+    </button>
+    <div data-scrollable-tabs-target="viewport" class="min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {% block content %}{% endblock %}
+    </div>
+    <button type="button" hidden data-scrollable-tabs-target="next" data-action="scrollable-tabs#next" aria-label="{{ nextLabel }}" tabindex="-1" class="inline-flex size-8 shrink-0 items-center justify-center rounded-md border bg-background outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">
+        <twig:ux:icon name="lucide:chevron-right" class="size-4" />
+    </button>
+</div>
