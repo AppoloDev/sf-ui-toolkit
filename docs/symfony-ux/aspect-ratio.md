@@ -50,3 +50,43 @@ Common ratios from widescreen to portrait.
     </div>
 </div>
 ```
+
+### Vertical Mobile
+
+```twig
+<div class="w-full max-w-xs">
+    <twig:AspectRatio ratio="9 / 16" class="flex items-center justify-center rounded-lg bg-muted text-xs text-muted-foreground">
+        9 / 16
+    </twig:AspectRatio>
+</div>
+```
+
+### Panoramic
+
+```twig
+<div class="w-full max-w-xs">
+    <twig:AspectRatio ratio="2 / 1" class="flex items-center justify-center rounded-lg bg-muted text-xs text-muted-foreground">
+        2 / 1
+    </twig:AspectRatio>
+</div>
+```
+
+### Image Cover
+
+```twig
+<div class="w-full max-w-sm">
+    <twig:AspectRatio ratio="4 / 3" class="overflow-hidden rounded-lg bg-gradient-to-br from-sky-400 to-indigo-600">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600" alt="Mountain lake" class="size-full object-cover" />
+    </twig:AspectRatio>
+</div>
+```
+
+### Video Placeholder
+
+```twig
+<div class="w-full max-w-sm">
+    <twig:AspectRatio ratio="16 / 9" class="flex items-center justify-center rounded-lg bg-black text-white">
+        <twig:ux:icon name="lucide:play" class="size-8" />
+    </twig:AspectRatio>
+</div>
+```
