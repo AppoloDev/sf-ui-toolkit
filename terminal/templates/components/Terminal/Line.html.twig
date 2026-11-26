@@ -1,0 +1,25 @@
+{#
+ # One line of a Terminal.
+ #
+ # Props: type, prompt, copyLabel.
+ # Slot `default`: the text.
+ #}
+{%- props
+    ## string `command`, `output`, `error` or `success`.
+    type = 'output',
+    ## string The prompt before a command.
+    prompt = '$',
+    ## string The accessible name of the copy button of a command.
+    copyLabel = 'Copy command'
+-%}
+{%- set text %}{% block content %}{% endblock %}{% endset -%}
+{%- set tones = {command: 'text-neutral-100', output: 'text-neutral-400', error: 'text-red-400', success: 'text-green-400'} -%}
+<div data-terminal-line data-type="{{ type }}" {{ attributes.defaults({class: 'group/line flex items-start gap-2 ' ~ tones[type]}) }}>
+    {%- if type == 'command' %}<span class="select-none text-green-400" aria-hidden="true">{{ prompt }}</span>{% endif %}
+    <span data-terminal-text class="min-w-0 flex-1 whitespace-pre-wrap break-all">{{ text|trim|raw }}</span>
+    {%- if type == 'command' %}
+        <button type="button" data-action="terminal#copy" aria-label="{{ copyLabel }}" class="inline-flex size-6 shrink-0 items-center justify-center rounded text-neutral-400 opacity-0 outline-none hover:bg-white/10 hover:text-white focus-visible:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/50 group-hover/line:opacity-100">
+            <twig:ux:icon name="lucide:copy" class="size-3.5" />
+        </button>
+    {%- endif %}
+</div>

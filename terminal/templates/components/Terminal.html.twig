@@ -1,0 +1,37 @@
+{#
+ # A terminal window.
+ #
+ # Props: title, typing, speed, copyLabel, copiedLabel, label.
+ # Slot `default`: `Terminal:Line` elements.
+ #}
+{%- props
+    ## string|null The title in the title bar.
+    title = null,
+    ## bool Type the lines one after the other when the terminal comes into view.
+    typing = false,
+    ## integer The delay between characters, in milliseconds.
+    speed = 25,
+    ## string The accessible name of the copy button, with {command}.
+    copyLabel = 'Copy command',
+    ## string The text announced once copied.
+    copiedLabel = 'Copied',
+    ## string The accessible name of the terminal.
+    label = 'Terminal'
+-%}
+<div
+    data-slot="terminal"
+    data-controller="terminal"
+    data-terminal-typing-value="{{ typing ? 'true' : 'false' }}"
+    data-terminal-speed-value="{{ speed }}"
+    data-terminal-copied-value="{{ copiedLabel }}"
+    role="group"
+    aria-label="{{ title ?? label }}"
+    {{ attributes.defaults({class: 'overflow-hidden rounded-lg border bg-neutral-950 text-sm text-neutral-100 shadow-md'|tailwind_classes}) }}
+>
+    <div class="flex items-center gap-2 border-b border-white/10 bg-white/5 px-3 py-2">
+        <span class="flex gap-1.5" aria-hidden="true"><i class="size-2.5 rounded-full bg-red-400"></i><i class="size-2.5 rounded-full bg-amber-400"></i><i class="size-2.5 rounded-full bg-green-400"></i></span>
+        {%- if title %}<span class="flex-1 text-center text-xs text-neutral-400">{{ title }}</span>{% endif %}
+    </div>
+    <div data-terminal-target="body" class="overflow-x-auto p-3 font-mono text-[13px] leading-6">{% block content %}{% endblock %}</div>
+    <span class="sr-only" role="status" data-terminal-target="status"></span>
+</div>
