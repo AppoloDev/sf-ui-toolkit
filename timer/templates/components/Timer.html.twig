@@ -1,0 +1,51 @@
+{#
+ # A countdown or a stopwatch.
+ #
+ # Props: mode, duration, autoStart, controls, format, startLabel, pauseLabel, resetLabel, endLabel, label.
+ # Slot `default`: replaces the built-in display (put `data-timer-target="display"` on the element that shows the time).
+ #}
+{%- props
+    ## string `countdown` or `stopwatch`.
+    mode = 'countdown',
+    ## integer The start of a countdown, in seconds.
+    duration = 60,
+    ## bool Start by itself.
+    autoStart = false,
+    ## bool Show the start, pause and reset buttons.
+    controls = true,
+    ## string `mm:ss`, `hh:mm:ss` or `auto` (hours only when needed).
+    format = 'auto',
+    ## string The text of the start button.
+    startLabel = 'Start',
+    ## string The text of the pause button.
+    pauseLabel = 'Pause',
+    ## string The text of the reset button.
+    resetLabel = 'Reset',
+    ## string The message announced to screen readers when a countdown ends.
+    endLabel = 'Time is up',
+    ## string The accessible name of the timer.
+    label = 'Timer'
+-%}
+{%- set custom %}{% block content %}{% endblock %}{% endset -%}
+<div
+    data-slot="timer"
+    data-controller="timer"
+    data-timer-mode-value="{{ mode }}"
+    data-timer-duration-value="{{ duration }}"
+    data-timer-auto-start-value="{{ autoStart ? 'true' : 'false' }}"
+    data-timer-format-value="{{ format }}"
+    data-timer-start-label-value="{{ startLabel }}"
+    data-timer-pause-label-value="{{ pauseLabel }}"
+    role="group"
+    aria-label="{{ label }}"
+    {{ attributes.defaults({class: 'inline-flex items-center gap-3'|tailwind_classes}) }}
+>
+    {%- if custom|trim is not empty %}{{ custom|raw }}{% else %}<span data-timer-target="display" class="font-mono text-2xl font-semibold tabular-nums" role="timer" aria-live="off"></span>{% endif %}
+    {%- if controls %}
+        <div class="flex items-center gap-1.5">
+            <button type="button" data-timer-target="toggle" data-action="timer#toggle" class="inline-flex h-8 items-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground outline-none hover:bg-primary/90 focus-visible:ring-[3px] focus-visible:ring-ring/50">{{ startLabel }}</button>
+            <button type="button" data-action="timer#reset" class="inline-flex h-8 items-center rounded-md border bg-background px-3 text-sm font-medium outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50">{{ resetLabel }}</button>
+        </div>
+    {%- endif %}
+    <span data-timer-target="status" class="sr-only" role="status" data-end-label="{{ endLabel }}"></span>
+</div>

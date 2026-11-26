@@ -10,7 +10,12 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
     static values = { value: Number, from: Number, duration: { type: Number, default: 1500 }, decimals: Number, prefix: String, suffix: String, locale: { type: String, default: 'en' }, startOnView: { type: Boolean, default: true }, grouping: { type: Boolean, default: true } };
 
+    valueValueChanged() {
+        if (this.ready) this.restart();
+    }
+
     connect() {
+        this.ready = true;
         this.reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (this.reduce) return;
         this.draw(this.fromValue);
