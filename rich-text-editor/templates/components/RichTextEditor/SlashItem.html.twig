@@ -1,0 +1,26 @@
+{#
+  RichTextEditor:SlashItem: a command of the `/` menu of a <twig:RichTextEditor> (block `slash`).
+
+  Props
+    name         tool run when the command is chosen (a built-in tool, or one registered in JS)
+    label        text of the command, also matched while the user types after the `/`
+    description  second line under the label
+    icon         Symfony UX Icon name; built-in tools have one
+    keywords     extra words matched by the search
+#}
+{%- props name, label, description = null, icon = null, keywords = '' -%}
+{%- set controller = inject('rich-text-editor.controller', 'rich-text-editor') -%}
+{%- set icons = {
+    heading2: 'lucide:heading-2', heading3: 'lucide:heading-3', bulletList: 'lucide:list', orderedList: 'lucide:list-ordered',
+    blockquote: 'lucide:quote', codeBlock: 'lucide:square-code', table: 'lucide:table',
+} -%}
+{%- set glyph = icon ?? icons[name] ?? false -%}
+<div role="option" aria-selected="false" tabindex="-1" data-slash-tool="{{ name }}" data-slash-text="{{ label }} {{ keywords }}"
+     class="flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm aria-selected:bg-accent aria-selected:text-accent-foreground hover:bg-accent"
+     data-{{ controller }}-target="slashItem" data-action="mousedown->{{ controller }}#slashPick">
+    {%- if glyph %}<twig:ux:icon :name="glyph" class="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />{% endif -%}
+    <span class="grid min-w-0">
+        <span class="truncate">{{ label }}</span>
+        {%- if description %}<span class="truncate text-xs text-muted-foreground">{{ description }}</span>{% endif -%}
+    </span>
+</div>

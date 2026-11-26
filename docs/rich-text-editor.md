@@ -172,6 +172,101 @@ Every text is a prop: `label` on each tool, and the three texts of the link form
 </twig:RichTextEditor>
 ```
 
+### Bubble menu
+
+The `bubble` block is a small toolbar that appears over the selected text. It holds the same `RichTextEditor:Tool` elements as the main toolbar and stays out of the tab order, so keyboard users keep using the main toolbar.
+
+<!-- height: 360 -->
+
+```twig
+<twig:RichTextEditor name="bubble" value="<p>Select a few words to format them. A bubble menu appears above the selection.</p><p>Select a word, then click Bold or Code.</p>" minHeight="min-h-32">
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
+    <twig:RichTextEditor:Tool name="undo" label="Undo" />
+    <twig:RichTextEditor:Tool name="redo" label="Redo" />
+    <twig:block name="bubble">
+        <twig:RichTextEditor:Tool name="bold" label="Bold" />
+        <twig:RichTextEditor:Tool name="italic" label="Italic" />
+        <twig:RichTextEditor:Tool name="strike" label="Strikethrough" />
+        <twig:RichTextEditor:Tool name="code" label="Inline code" />
+    </twig:block>
+</twig:RichTextEditor>
+```
+
+### Code
+
+Inline code and code blocks, with a starting snippet.
+
+```twig
+<twig:RichTextEditor name="code" value="<p>Install the package with <code>composer require symfony/ux-icons</code>, then render an icon:</p><pre><code>&lt;twig:ux:icon name=&quot;lucide:check&quot; /&gt;</code></pre>" minHeight="min-h-32">
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="code" label="Inline code" />
+    <twig:RichTextEditor:Tool name="codeBlock" label="Code block" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="undo" label="Undo" />
+    <twig:RichTextEditor:Tool name="redo" label="Redo" />
+</twig:RichTextEditor>
+```
+
+### Character limit
+
+`limit` caps the number of characters: typing or pasting past it is refused, and a counter under the editor shows where you are. `limitLabel` is the counter text, with `{count}` and `{max}`.
+
+```twig
+<twig:RichTextEditor name="bio" limit="120" limitLabel="{count} of {max} characters" placeholder="Write a short bio…" value="<p>Backend developer who likes small, readable components.</p>" minHeight="min-h-24">
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
+    <twig:RichTextEditor:Tool name="undo" label="Undo" />
+    <twig:RichTextEditor:Tool name="redo" label="Redo" />
+</twig:RichTextEditor>
+```
+
+### Slash commands
+
+Type `/` at the start of a line or after a space to open a menu of blocks. Typing after the slash filters the list, the arrow keys move, `Enter` or `Tab` runs the command and `Escape` closes the menu. The commands live in the `slash` block, each one running a tool.
+
+<!-- height: 420 -->
+
+```twig
+<twig:RichTextEditor name="slash" id="rte-slash" placeholder="Type / for commands…" minHeight="min-h-40" slashLabel="Blocks" slashEmptyLabel="No block found">
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
+    <twig:RichTextEditor:Tool name="undo" label="Undo" />
+    <twig:RichTextEditor:Tool name="redo" label="Redo" />
+    <twig:block name="slash">
+        <twig:RichTextEditor:SlashItem name="heading2" label="Heading 2" description="Large section title" keywords="title h2" />
+        <twig:RichTextEditor:SlashItem name="heading3" label="Heading 3" description="Smaller section title" keywords="title h3" />
+        <twig:RichTextEditor:SlashItem name="bulletList" label="Bulleted list" description="A simple list" keywords="ul" />
+        <twig:RichTextEditor:SlashItem name="orderedList" label="Numbered list" description="A list with numbers" keywords="ol" />
+        <twig:RichTextEditor:SlashItem name="blockquote" label="Quote" description="Highlight a quotation" />
+        <twig:RichTextEditor:SlashItem name="codeBlock" label="Code block" description="A block of code" keywords="pre" />
+    </twig:block>
+</twig:RichTextEditor>
+```
+
+### Table
+
+The `table` tools insert a table and add columns or rows; `tableDelete` removes it. They are enabled while the cursor is in a table (except `table`, which needs a place to insert). TipTap's table extension is loaded only when the toolbar has one of these tools.
+
+<!-- height: 380 -->
+
+```twig
+<twig:RichTextEditor name="table" value="<p>A table with a header row:</p><table><tbody><tr><th><p>Plan</p></th><th><p>Price</p></th></tr><tr><td><p>Free</p></td><td><p>0</p></td></tr><tr><td><p>Pro</p></td><td><p>12</p></td></tr></tbody></table><p></p>" minHeight="min-h-40">
+    <twig:RichTextEditor:Tool name="bold" label="Bold" />
+    <twig:RichTextEditor:Tool name="italic" label="Italic" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="table" label="Insert table" />
+    <twig:RichTextEditor:Tool name="tableAddColumn" label="Add column" />
+    <twig:RichTextEditor:Tool name="tableAddRow" label="Add row" />
+    <twig:RichTextEditor:Tool name="tableDelete" label="Delete table" />
+    <twig:RichTextEditor:Separator />
+    <twig:RichTextEditor:Tool name="undo" label="Undo" />
+    <twig:RichTextEditor:Tool name="redo" label="Redo" />
+</twig:RichTextEditor>
+```
+
 ## Extending
 
 There are two ways to extend the editor, and every example below shows both. With **Vanilla** JavaScript, the editor announces itself with a `rich-text-editor:configure` event before TipTap creates it; the event bubbles from the editor element and carries a `detail` object that listeners fill in: `detail.extensions` (TipTap extensions to add), `detail.tools` (toolbar behaviors, keyed by tool name) and `detail.starterKit` (options merged into `StarterKit.configure()`). Register the listener before the controller connects, for example at the top of `assets/app.js`, and use `event.target` to target a given editor. With **Stimulus**, you subclass the controller in your app, register it under its own name and point the component at it with the `controller` prop: targets, values and actions are inherited, and the component writes its `data-*` attributes with the identifier you give.
@@ -394,6 +489,8 @@ The events are named after the controller identifier: with a controller register
 - The link field is a labelled `url` input in a popover; `Esc` closes it and returns focus to the editor.
 - `readonly` and `disabled` editors are not editable.
 - TipTap is loaded on first use through a dynamic `import()`, so pages without an editor never download it.
+- The bubble toolbar is for the pointer and is out of the tab order: every tool it shows is also in the main toolbar. The `/` menu is a listbox; the editor keeps the focus and points to the active command with `aria-activedescendant`.
+- A `limit` is announced by the counter text; keep `limitLabel` meaningful when the limit is reached.
 - Events: `rich-text-editor:change` fires on every edit with `detail.html` and `detail.empty`; `rich-text-editor:configure` is the extension point (see Extending).
 
 ## API
@@ -412,23 +509,39 @@ The events are named after the controller identifier: with a controller register
 | `label` | string | `Content` | Accessible name of the writing area. |
 | `toolbarLabel` | string | `Formatting` | Accessible name of the toolbar. |
 | `id` | string | `null` | Id of the writing area, for an external `<label for>`. |
+| `limit` | int | `0` | Maximum number of characters. Typing and pasting past it is refused; `0` means no limit. |
+| `limitLabel` | string | `{count} / {max}` | Counter text under the editor, with `{count}` and `{max}`. Shown only with a `limit`. |
+| `slashLabel` | string | `Commands` | Accessible name of the `/` menu. |
+| `slashEmptyLabel` | string | `No results` | Text of the `/` menu when no command matches. |
 | `controller` | string | `rich-text-editor` | Stimulus identifier. Set it to use a controller that extends this one (see Extending). |
 
 | Block | Description |
 |---|---|
 | `default` | The toolbar: `RichTextEditor:Tool` and `RichTextEditor:Separator` elements, in order. Without any, there is no toolbar. |
+| `bubble` | Optional. `RichTextEditor:Tool` elements shown in a small toolbar over the selected text. |
+| `slash` | Optional. `RichTextEditor:SlashItem` elements, the commands of the `/` menu. |
 
 ### `<twig:RichTextEditor:Tool>`
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `name` | string | | Built-in tool (`bold`, `italic`, `underline`, `strike`, `heading2`, `heading3`, `bulletList`, `orderedList`, `blockquote`, `code`, `codeBlock`, `link`, `undo`, `redo`) or the name of a tool registered in JavaScript. |
+| `name` | string | | Built-in tool (`bold`, `italic`, `underline`, `strike`, `heading2`, `heading3`, `bulletList`, `orderedList`, `blockquote`, `code`, `codeBlock`, `link`, `undo`, `redo`, `table`, `tableAddColumn`, `tableAddRow`, `tableDelete`) or the name of a tool registered in JavaScript. The table tools load `@tiptap/extension-table`. |
 | `icon` | string | `null` | Symfony UX Icon name. Built-in tools have one; a custom tool needs it. |
 | `label` | string | | Accessible name and tooltip. |
 
 | Block | Description |
 |---|---|
 | `default` | Optional. A panel opened in a popover by the button, such as a `RichTextEditor:LinkForm`. |
+
+### `<twig:RichTextEditor:SlashItem>`
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `name` | string | | Tool run when the command is chosen (a built-in tool or one registered in JavaScript). |
+| `label` | string | | Text of the command, also matched while typing after the `/`. |
+| `description` | string | `null` | Second line under the label. |
+| `icon` | string | `null` | Symfony UX Icon name; the block tools have one. |
+| `keywords` | string | `''` | Extra words matched by the search. |
 
 ### `<twig:RichTextEditor:Separator>`
 

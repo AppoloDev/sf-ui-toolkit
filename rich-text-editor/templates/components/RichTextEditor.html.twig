@@ -6,7 +6,10 @@
     (slot)       the toolbar: <twig:RichTextEditor:Tool name label> and <twig:RichTextEditor:Separator />, in order.
                  Without any tool there is no toolbar. Built-in tools: bold, italic, underline, strike, heading2, heading3,
                  bulletList, orderedList, blockquote, code, codeBlock, link, undo, redo. A custom tool needs an icon too,
-                 and its behavior is registered in JS (see the docs, "Extending").
+                 and its behavior is registered in JS (see the docs, "Extending"). Table tools (table, tableAddColumn,
+                 tableAddRow, tableDelete) load `@tiptap/extension-table`.
+    bubble       (named block) tools shown in a small toolbar over the selected text: <twig:RichTextEditor:Tool> elements.
+    slash        (named block) the commands of the `/` menu: <twig:RichTextEditor:SlashItem> elements.
 
   Props
     name         field name; the submitted value is the HTML of the document
@@ -19,13 +22,19 @@
     label        accessible name of the writing area
     toolbarLabel accessible name of the toolbar
     id           id of the writing area (for an external <label for>)
+    limit        maximum number of characters; typing and pasting past it is refused (0: no limit)
+    limitLabel   counter text under the editor, with {count} and {max}
+    slashLabel   accessible name of the `/` command menu
+    slashEmptyLabel text of the `/` menu when no command matches
     controller   Stimulus identifier; set it to the name of a controller that extends this one (see the docs, "Extending")
 
   Requires the shadcn recipes button, input and popover (installed from the shadcn kit).
 #}
-{%- props name = null, value = '', placeholder = '', required = false, readonly = false, disabled = false, minHeight = 'min-h-40', controller = 'rich-text-editor', label = 'Content', toolbarLabel = 'Formatting', id = null -%}
+{%- props name = null, value = '', placeholder = '', required = false, readonly = false, disabled = false, minHeight = 'min-h-40', controller = 'rich-text-editor', label = 'Content', toolbarLabel = 'Formatting', id = null, limit = 0, limitLabel = '{count} / {max}', slashLabel = 'Commands', slashEmptyLabel = 'No results' -%}
 {%- do provide('rich-text-editor.controller', controller) -%}
 {%- set custom_tools -%}{% block content %}{% endblock %}{%- endset -%}
+{%- set bubble_tools -%}{% block bubble %}{% endblock %}{%- endset -%}
+{%- set slash_items -%}{% block slash %}{% endblock %}{%- endset -%}
 {%- set inactive = readonly or disabled -%}
 {%- set data = {
     class: 'relative grid overflow-hidden rounded-lg border border-border bg-background focus-within:ring-2 focus-within:ring-ring data-invalid:border-destructive' ~ (disabled ? ' opacity-50' : ''),
@@ -34,6 +43,8 @@
     ('data-' ~ controller ~ '-editable-value'): inactive ? 'false' : 'true',
     ('data-' ~ controller ~ '-label-value'): label,
     ('data-' ~ controller ~ '-id-value'): id ?? '',
+    ('data-' ~ controller ~ '-limit-value'): limit,
+    ('data-' ~ controller ~ '-limit-label-value'): limitLabel,
 } -%}
 <div {{ attributes.defaults(data) }}>
     {%- if not inactive and custom_tools|trim is not empty %}
@@ -45,7 +56,21 @@
         {%- if placeholder %}
             <span class="pointer-events-none absolute left-3 top-2.5 text-sm text-muted-foreground" data-{{ controller }}-target="placeholder" hidden>{{ placeholder }}</span>
         {%- endif %}
-        <div class="{{ minHeight }} px-3 py-2 text-sm [&_.ProseMirror]:min-h-[inherit] [&_.ProseMirror]:outline-none [&_.ProseMirror_h2]:mt-3 [&_.ProseMirror_h2]:text-xl [&_.ProseMirror_h2]:font-semibold [&_.ProseMirror_h3]:mt-2 [&_.ProseMirror_h3]:text-lg [&_.ProseMirror_h3]:font-semibold [&_.ProseMirror_p]:my-1.5 [&_.ProseMirror_ul]:my-1.5 [&_.ProseMirror_ul]:list-disc [&_.ProseMirror_ul]:pl-6 [&_.ProseMirror_ol]:my-1.5 [&_.ProseMirror_ol]:list-decimal [&_.ProseMirror_ol]:pl-6 [&_.ProseMirror_blockquote]:my-2 [&_.ProseMirror_blockquote]:border-l-2 [&_.ProseMirror_blockquote]:border-border [&_.ProseMirror_blockquote]:pl-3 [&_.ProseMirror_blockquote]:text-muted-foreground [&_.ProseMirror_code]:rounded [&_.ProseMirror_code]:bg-muted [&_.ProseMirror_code]:px-1 [&_.ProseMirror_code]:font-mono [&_.ProseMirror_pre]:my-2 [&_.ProseMirror_pre]:overflow-x-auto [&_.ProseMirror_pre]:rounded-md [&_.ProseMirror_pre]:bg-muted [&_.ProseMirror_pre]:p-3 [&_.ProseMirror_pre_code]:bg-transparent [&_.ProseMirror_pre_code]:p-0 [&_.ProseMirror_a]:text-primary [&_.ProseMirror_a]:underline" data-{{ controller }}-target="editor"></div>
+        <div class="{{ minHeight }} px-3 py-2 text-sm [&_.ProseMirror]:min-h-[inherit] [&_.ProseMirror]:outline-none [&_.ProseMirror_h2]:mt-3 [&_.ProseMirror_h2]:text-xl [&_.ProseMirror_h2]:font-semibold [&_.ProseMirror_h3]:mt-2 [&_.ProseMirror_h3]:text-lg [&_.ProseMirror_h3]:font-semibold [&_.ProseMirror_p]:my-1.5 [&_.ProseMirror_ul]:my-1.5 [&_.ProseMirror_ul]:list-disc [&_.ProseMirror_ul]:pl-6 [&_.ProseMirror_ol]:my-1.5 [&_.ProseMirror_ol]:list-decimal [&_.ProseMirror_ol]:pl-6 [&_.ProseMirror_blockquote]:my-2 [&_.ProseMirror_blockquote]:border-l-2 [&_.ProseMirror_blockquote]:border-border [&_.ProseMirror_blockquote]:pl-3 [&_.ProseMirror_blockquote]:text-muted-foreground [&_.ProseMirror_code]:rounded [&_.ProseMirror_code]:bg-muted [&_.ProseMirror_code]:px-1 [&_.ProseMirror_code]:font-mono [&_.ProseMirror_pre]:my-2 [&_.ProseMirror_pre]:overflow-x-auto [&_.ProseMirror_pre]:rounded-md [&_.ProseMirror_pre]:bg-muted [&_.ProseMirror_pre]:p-3 [&_.ProseMirror_pre_code]:bg-transparent [&_.ProseMirror_pre_code]:p-0 [&_.ProseMirror_a]:text-primary [&_.ProseMirror_a]:underline [&_.ProseMirror_table]:my-2 [&_.ProseMirror_table]:w-full [&_.ProseMirror_table]:table-fixed [&_.ProseMirror_table]:border-collapse [&_.ProseMirror_td]:border [&_.ProseMirror_td]:border-border [&_.ProseMirror_td]:px-2 [&_.ProseMirror_td]:py-1 [&_.ProseMirror_td]:align-top [&_.ProseMirror_th]:border [&_.ProseMirror_th]:border-border [&_.ProseMirror_th]:bg-muted [&_.ProseMirror_th]:px-2 [&_.ProseMirror_th]:py-1 [&_.ProseMirror_th]:text-left [&_.ProseMirror_th]:font-semibold [&_.ProseMirror_.selectedCell]:bg-primary/10" data-{{ controller }}-target="editor"></div>
     </div>
+    {%- if not inactive and limit > 0 %}
+        <p class="px-3 pb-2 text-right text-xs text-muted-foreground data-[full=true]:text-destructive" data-{{ controller }}-target="counter"></p>
+    {%- endif %}
+    {%- if not inactive and bubble_tools|trim is not empty %}
+        <div role="toolbar" aria-label="{{ toolbarLabel }}" hidden data-bubble class="absolute z-20 flex items-center gap-0.5 rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md" data-{{ controller }}-target="bubble" data-action="mousedown->{{ controller }}#keepSelection">
+            {{ bubble_tools }}
+        </div>
+    {%- endif %}
+    {%- if not inactive and slash_items|trim is not empty %}
+        <div role="listbox" id="{{ (id ?? 'rte') ~ '-slash' }}" aria-label="{{ slashLabel }}" hidden class="absolute z-20 grid max-h-64 w-64 gap-0.5 overflow-y-auto rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md" data-{{ controller }}-target="slash">
+            {{ slash_items }}
+            <p class="px-2 py-1.5 text-sm text-muted-foreground" data-{{ controller }}-target="slashEmpty" hidden>{{ slashEmptyLabel }}</p>
+        </div>
+    {%- endif %}
     <input type="text" tabindex="-1" aria-hidden="true" class="sr-only" {% if name %}name="{{ name }}" {% endif %}{{ required ? 'required' }} data-{{ controller }}-target="field">
 </div>

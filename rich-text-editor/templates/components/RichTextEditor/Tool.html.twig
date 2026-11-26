@@ -3,7 +3,7 @@
 
   Props
     name   built-in tool (bold, italic, underline, strike, heading2, heading3, bulletList, orderedList, blockquote,
-           code, codeBlock, link, undo, redo) or the name of a tool registered in JS
+           code, codeBlock, link, undo, redo, table, tableAddColumn, tableAddRow, tableDelete) or the name of a tool registered in JS
     label  accessible name and tooltip
     icon   Symfony UX Icon name; built-in tools have one
 
@@ -16,6 +16,7 @@
     bold: 'lucide:bold', italic: 'lucide:italic', underline: 'lucide:underline', strike: 'lucide:strikethrough', heading2: 'lucide:heading-2', heading3: 'lucide:heading-3',
     bulletList: 'lucide:list', orderedList: 'lucide:list-ordered', blockquote: 'lucide:quote', code: 'lucide:code', codeBlock: 'lucide:square-code',
     link: 'lucide:link', undo: 'lucide:undo-2', redo: 'lucide:redo-2',
+    table: 'lucide:table', tableAddColumn: 'lucide:between-vertical-start', tableAddRow: 'lucide:between-horizontal-start', tableDelete: 'lucide:trash-2',
 } -%}
 {%- set glyph = icon ?? icons[name] ?? null -%}
 {%- set panel -%}{% block content %}{% endblock %}{%- endset -%}
