@@ -1,0 +1,37 @@
+{#
+ # An inline citation: a small numbered chip that opens a popover with its source.
+ #
+ # Props: index, title, url, description, openLabel.
+ # Slot `default`: replaces the content of the popover.
+ #}
+{%- props
+    ## string|integer The number or short mark shown in the chip.
+    index,
+    ## string The title of the source.
+    title,
+    ## string|null The address of the source.
+    url = null,
+    ## string|null A short description or an excerpt.
+    description = null,
+    ## string The accessible name of the chip, with {index} and {title}.
+    openLabel = 'Source {index}: {title}'
+-%}
+{%- set body %}{% block content %}{% endblock %}{% endset -%}
+{%- set uid = 'citation-' ~ random(1000000) -%}
+<span data-slot="citation" data-controller="citation" class="relative inline-block align-baseline">
+    <button
+        type="button"
+        data-citation-target="trigger"
+        data-action="citation#toggle"
+        aria-haspopup="dialog"
+        aria-label="{{ openLabel|replace({'{index}': index, '{title}': title}) }}"
+        {{ attributes.defaults({class: 'mx-0.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-muted px-1 align-super text-[10px] font-medium tabular-nums text-muted-foreground outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50'|tailwind_classes}) }}
+    >{{ index }}</button>
+    <span id="{{ uid }}" popover role="dialog" aria-label="{{ title }}" data-citation-target="panel" class="m-0 w-72 max-w-[calc(100vw-1rem)] rounded-lg border bg-popover p-3 text-sm text-popover-foreground shadow-md">
+        {%- if body|trim is not empty %}{{ body|raw }}{% else %}
+            <span class="block font-medium">{{ title }}</span>
+            {%- if description %}<span class="mt-1 block text-xs text-muted-foreground">{{ description }}</span>{% endif %}
+            {%- if url %}<a href="{{ url }}" class="mt-2 block truncate text-xs text-primary underline underline-offset-4" target="_blank" rel="noopener noreferrer">{{ url }}</a>{% endif %}
+        {%- endif %}
+    </span>
+</span>

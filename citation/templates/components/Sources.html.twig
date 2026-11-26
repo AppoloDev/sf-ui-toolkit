@@ -1,0 +1,20 @@
+{#
+ # A collapsible list of sources.
+ #
+ # Props: label, open.
+ # Slot `default`: `Sources:Item` elements.
+ #}
+{%- props
+    ## string The text of the summary, with {count}.
+    label = 'Used {count} sources',
+    ## bool Start open.
+    open = false
+-%}
+{%- set list %}{% block content %}{% endblock %}{% endset -%}
+<details data-slot="sources" {% if open %}open{% endif %} {{ attributes.defaults({class: 'group rounded-lg border bg-card text-sm text-card-foreground'|tailwind_classes}) }}>
+    <summary class="flex cursor-pointer list-none items-center gap-2 px-3 py-2 font-medium outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden" data-sources-summary data-label="{{ label }}">
+        <twig:ux:icon name="lucide:chevron-right" class="size-4 transition-transform group-open:rotate-90" aria-hidden="true" />
+        <span data-sources-text>{{ label|replace({'{count}': list|split('<li')|length - 1}) }}</span>
+    </summary>
+    <ol class="m-0 grid list-none gap-1 border-t p-2">{{ list|raw }}</ol>
+</details>

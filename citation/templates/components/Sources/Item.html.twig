@@ -1,0 +1,23 @@
+{#
+ # One source of a Sources list.
+ #
+ # Props: index, title, url, description.
+ #}
+{%- props
+    ## string|integer The number of the source.
+    index,
+    ## string The title.
+    title,
+    ## string|null The address.
+    url = null,
+    ## string|null A short description.
+    description = null
+-%}
+<li {{ attributes.defaults({class: 'flex gap-2 rounded-md p-2 hover:bg-accent/50'|tailwind_classes}) }}>
+    <span class="inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-muted text-[10px] font-medium tabular-nums text-muted-foreground">{{ index }}</span>
+    <span class="min-w-0">
+        {%- if url %}<a href="{{ url }}" class="block truncate font-medium underline-offset-4 hover:underline" target="_blank" rel="noopener noreferrer">{{ title }}</a>{% else %}<span class="block truncate font-medium">{{ title }}</span>{% endif %}
+        {%- if url %}<span class="block truncate text-xs text-muted-foreground">{{ url }}</span>{% endif %}
+        {%- if description %}<span class="mt-0.5 block text-xs text-muted-foreground">{{ description }}</span>{% endif %}
+    </span>
+</li>
