@@ -266,3 +266,56 @@ A removable tag.
     </twig:Badge>
 </div>
 ```
+
+### Chip With Image
+
+A `Badge` holding an `Avatar` is a chip with a picture.
+
+```twig
+<div class="flex flex-wrap gap-2">
+    <twig:Badge variant="secondary" size="lg" class="gap-2 ps-1">
+        <twig:Avatar class="size-5">
+            <twig:Avatar:Fallback>AL</twig:Avatar:Fallback>
+        </twig:Avatar>
+        Ada Lovelace
+    </twig:Badge>
+    <twig:Badge variant="outline" size="lg" class="gap-2 ps-1">
+        <twig:Avatar class="size-5">
+            <twig:Avatar:Fallback>GH</twig:Avatar:Fallback>
+        </twig:Avatar>
+        Grace Hopper
+    </twig:Badge>
+</div>
+```
+
+### Removable Chips
+
+A button inside the badge removes the chip.
+
+```twig
+<div id="chips" class="flex flex-wrap gap-2">
+    <twig:Badge variant="secondary" size="lg" class="gap-1 pe-1">
+        Symfony
+        <twig:Button variant="ghost" size="icon-xs" type="button" aria-label="Remove Symfony" data-remove-chip class="size-4 rounded-full">
+            <twig:ux:icon name="lucide:x" class="size-3" />
+        </twig:Button>
+    </twig:Badge>
+    <twig:Badge variant="secondary" size="lg" class="gap-1 pe-1">
+        Twig
+        <twig:Button variant="ghost" size="icon-xs" type="button" aria-label="Remove Twig" data-remove-chip class="size-4 rounded-full">
+            <twig:ux:icon name="lucide:x" class="size-3" />
+        </twig:Button>
+    </twig:Badge>
+    <twig:Badge variant="secondary" size="lg" class="gap-1 pe-1">
+        Stimulus
+        <twig:Button variant="ghost" size="icon-xs" type="button" aria-label="Remove Stimulus" data-remove-chip class="size-4 rounded-full">
+            <twig:ux:icon name="lucide:x" class="size-3" />
+        </twig:Button>
+    </twig:Badge>
+</div>
+<script>
+    document.getElementById('chips').addEventListener('click', (event) => {
+        event.target.closest('[data-remove-chip]')?.closest('[data-slot=badge]').remove();
+    });
+</script>
+```
