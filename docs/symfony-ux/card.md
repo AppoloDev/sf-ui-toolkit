@@ -415,10 +415,10 @@ A side panel of filter sections: each section folds, with the count of results n
     <twig:Card:Content class="grid gap-0 p-0">
         <twig:Collapsible :open="true" class="border-b px-4 py-3">
             <twig:Collapsible:Trigger>
-                <button type="button" class="flex w-full items-center justify-between text-sm font-medium" {{ ...collapsible_trigger_attrs }}>
+                <twig:Button variant="ghost" class="w-full justify-between px-0 font-medium hover:bg-transparent" {{ ...collapsible_trigger_attrs }}>
                     Status
                     <twig:ux:icon name="lucide:chevron-down" class="size-4" />
-                </button>
+                </twig:Button>
             </twig:Collapsible:Trigger>
             <twig:Collapsible:Content class="grid gap-2 pt-3">
                 <twig:Field orientation="horizontal">
@@ -446,10 +446,10 @@ A side panel of filter sections: each section folds, with the count of results n
         </twig:Collapsible>
         <twig:Collapsible class="px-4 py-3">
             <twig:Collapsible:Trigger>
-                <button type="button" class="flex w-full items-center justify-between text-sm font-medium" {{ ...collapsible_trigger_attrs }}>
+                <twig:Button variant="ghost" class="w-full justify-between px-0 font-medium hover:bg-transparent" {{ ...collapsible_trigger_attrs }}>
                     Assignee
                     <twig:ux:icon name="lucide:chevron-down" class="size-4" />
-                </button>
+                </twig:Button>
             </twig:Collapsible:Trigger>
             <twig:Collapsible:Content class="grid gap-2 pt-3">
                 <twig:Field orientation="horizontal">

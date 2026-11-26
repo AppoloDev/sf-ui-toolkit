@@ -1208,9 +1208,11 @@
                 </twig:Dialog:Description>
             </twig:Dialog:Header>
             <twig:Dialog:Footer>
-                <twig:Button {{ ...dialog_close_attrs }}>
-                    Close
-                </twig:Button>
+                <twig:Dialog:Close>
+                    <twig:Button {{ ...dialog_close_attrs }}>
+                        Close
+                    </twig:Button>
+                </twig:Dialog:Close>
             </twig:Dialog:Footer>
         </twig:Dialog:Content>
     </twig:Dialog>
@@ -1237,9 +1239,11 @@
                 </twig:Dialog:Description>
             </twig:Dialog:Header>
             <twig:Dialog:Footer>
-                <twig:Button {{ ...dialog_close_attrs }}>
-                    Close
-                </twig:Button>
+                <twig:Dialog:Close>
+                    <twig:Button {{ ...dialog_close_attrs }}>
+                        Close
+                    </twig:Button>
+                </twig:Dialog:Close>
             </twig:Dialog:Footer>
         </twig:Dialog:Content>
     </twig:Dialog>
@@ -1266,9 +1270,11 @@
                 </twig:Dialog:Description>
             </twig:Dialog:Header>
             <twig:Dialog:Footer>
-                <twig:Button {{ ...dialog_close_attrs }}>
-                    Close
-                </twig:Button>
+                <twig:Dialog:Close>
+                    <twig:Button {{ ...dialog_close_attrs }}>
+                        Close
+                    </twig:Button>
+                </twig:Dialog:Close>
             </twig:Dialog:Footer>
         </twig:Dialog:Content>
     </twig:Dialog>
@@ -1300,9 +1306,11 @@ A button in the header toggles the size classes of the dialog.
                 <twig:ux:icon name="lucide:maximize-2" />
             </twig:Button>
             <twig:Dialog:Footer>
-                <twig:Button {{ ...dialog_close_attrs }}>
-                    Close
-                </twig:Button>
+                <twig:Dialog:Close>
+                    <twig:Button {{ ...dialog_close_attrs }}>
+                        Close
+                    </twig:Button>
+                </twig:Dialog:Close>
             </twig:Dialog:Footer>
         </twig:Dialog:Content>
     </twig:Dialog>

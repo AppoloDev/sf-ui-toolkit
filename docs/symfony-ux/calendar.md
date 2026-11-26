@@ -210,12 +210,16 @@ The calendar sits in the body of a `Dialog`, with the usual footer actions.
             </twig:Dialog:Header>
             <twig:Calendar mode="single" name="dlg-day" month="2026-11-01" today="2026-11-24" selected="2026-11-26" />
             <twig:Dialog:Footer>
-                <twig:Button variant="outline" {{ ...dialog_close_attrs }}>
-                    Cancel
-                </twig:Button>
-                <twig:Button {{ ...dialog_close_attrs }}>
-                    Confirm
-                </twig:Button>
+                <twig:Dialog:Close>
+                    <twig:Button variant="outline" {{ ...dialog_close_attrs }}>
+                        Cancel
+                    </twig:Button>
+                </twig:Dialog:Close>
+                <twig:Dialog:Close>
+                    <twig:Button {{ ...dialog_close_attrs }}>
+                        Confirm
+                    </twig:Button>
+                </twig:Dialog:Close>
             </twig:Dialog:Footer>
         </twig:Dialog:Content>
     </twig:Dialog>
@@ -242,12 +246,16 @@ The range mode in a dialog.
             </twig:Dialog:Header>
             <twig:Calendar mode="range" name="dlg-range" month="2026-11-01" today="2026-11-24" :selected="['2026-11-26', '2026-11-30']" />
             <twig:Dialog:Footer>
-                <twig:Button variant="outline" {{ ...dialog_close_attrs }}>
-                    Cancel
-                </twig:Button>
-                <twig:Button {{ ...dialog_close_attrs }}>
-                    Confirm
-                </twig:Button>
+                <twig:Dialog:Close>
+                    <twig:Button variant="outline" {{ ...dialog_close_attrs }}>
+                        Cancel
+                    </twig:Button>
+                </twig:Dialog:Close>
+                <twig:Dialog:Close>
+                    <twig:Button {{ ...dialog_close_attrs }}>
+                        Confirm
+                    </twig:Button>
+                </twig:Dialog:Close>
             </twig:Dialog:Footer>
         </twig:Dialog:Content>
     </twig:Dialog>
