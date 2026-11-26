@@ -443,3 +443,351 @@ The grid of days is a single element with a dotted background; one cell is circl
     </twig:Empty:Content>
 </twig:Empty>
 ```
+
+### Single Action
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:folder-plus" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            No projects yet
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Create your first project to get started.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+    <twig:Empty:Content>
+        <twig:Button>
+            Create project
+        </twig:Button>
+    </twig:Empty:Content>
+</twig:Empty>
+```
+
+### Two Actions
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:folder-plus" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            No projects yet
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Create a project or import an existing one.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+    <twig:Empty:Content>
+        <div class="flex gap-2">
+            <twig:Button>
+                Create project
+            </twig:Button>
+            <twig:Button variant="outline">
+                Import
+            </twig:Button>
+        </div>
+    </twig:Empty:Content>
+</twig:Empty>
+```
+
+### Link Action
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:folder-plus" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            No projects yet
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Nothing here for now.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+    <twig:Empty:Content>
+        <twig:Button variant="link" as="a" href="#">
+            Learn how projects work
+        </twig:Button>
+    </twig:Empty:Content>
+</twig:Empty>
+```
+
+### Input Action
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:mail" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            Invite your first teammate
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Enter an email to send an invitation.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+    <twig:Empty:Content>
+        <div class="flex w-full max-w-xs gap-2">
+            <twig:Input type="email" placeholder="you@example.com" aria-label="Email" />
+            <twig:Button>
+                Invite
+            </twig:Button>
+        </div>
+    </twig:Empty:Content>
+</twig:Empty>
+```
+
+### Stacked Actions
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:plug" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            No integrations
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Connect a tool to sync your data.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+    <twig:Empty:Content>
+        <div class="flex w-full max-w-xs flex-col gap-2">
+            <twig:Button>
+                Connect Slack
+            </twig:Button>
+            <twig:Button variant="outline">
+                Connect GitHub
+            </twig:Button>
+            <twig:Button variant="ghost">
+                Browse all
+            </twig:Button>
+        </div>
+    </twig:Empty:Content>
+</twig:Empty>
+```
+
+### Empty Table
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:table" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            No records
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Add your first record to fill this table.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+    <twig:Empty:Content>
+        <twig:Button>
+            Add record
+        </twig:Button>
+    </twig:Empty:Content>
+</twig:Empty>
+```
+
+### Not Enough Chart Data
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:chart-no-axes-column" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            Not enough data
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Collect a few more days of activity to draw this chart.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+</twig:Empty>
+```
+
+### Empty Conversations
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:message-square" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            No conversations
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Start a thread with a teammate.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+    <twig:Empty:Content>
+        <twig:Button>
+            New message
+        </twig:Button>
+    </twig:Empty:Content>
+</twig:Empty>
+```
+
+### Empty File Browser
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:folder-open" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            This folder is empty
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Upload a file or create a folder.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+    <twig:Empty:Content>
+        <div class="flex gap-2">
+            <twig:Button variant="outline">
+                Upload
+            </twig:Button>
+            <twig:Button variant="outline">
+                New folder
+            </twig:Button>
+        </div>
+    </twig:Empty:Content>
+</twig:Empty>
+```
+
+### Filters Exclude Everything
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:filter-x" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            No matching items
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Your filters exclude every item.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+    <twig:Empty:Content>
+        <twig:Button variant="outline">
+            Clear filters
+        </twig:Button>
+    </twig:Empty:Content>
+</twig:Empty>
+```
+
+### Typeahead No Match
+
+```twig
+<twig:Empty class="max-w-sm border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:search" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            No suggestions
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Keep typing to refine your search.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+</twig:Empty>
+```
+
+### Try Other Keywords
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:search-x" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            No results for "quartz"
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Try a broader term, such as "stone", or check the spelling.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+</twig:Empty>
+```
+
+### Title Only
+
+```twig
+<twig:Empty class="max-w-sm border">
+    <twig:Empty:Header>
+        <twig:Empty:Title>
+            Nothing here yet
+        </twig:Empty:Title>
+    </twig:Empty:Header>
+</twig:Empty>
+```
+
+### Long Description
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:info" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            Welcome to your workspace
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Projects, tasks and files live here. Once your team starts adding work, you will see a summary of recent activity, upcoming deadlines and shared documents on this page.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+</twig:Empty>
+```
+
+### Two Paragraphs
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Media variant="icon">
+            <twig:ux:icon name="lucide:info" />
+        </twig:Empty:Media>
+        <twig:Empty:Title>
+            Nothing to show
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Records appear here once they are created.
+        </twig:Empty:Description>
+        <twig:Empty:Description>
+            You can also import them from a CSV file.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+</twig:Empty>
+```
+
+### Description With Link
+
+```twig
+<twig:Empty class="max-w-md border">
+    <twig:Empty:Header>
+        <twig:Empty:Title>
+            No API keys
+        </twig:Empty:Title>
+        <twig:Empty:Description>
+            Create a key from settings. <a href="#">Read the setup guide</a>.
+        </twig:Empty:Description>
+    </twig:Empty:Header>
+</twig:Empty>
+```
