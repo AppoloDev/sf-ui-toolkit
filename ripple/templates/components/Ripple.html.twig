@@ -16,6 +16,7 @@
     ## string A Tailwind color utility for the rings or the wave, such as `border-primary` for rings and `bg-primary/30` for a click.
     color = null
 -%}
+{%- set screen %}{% block content %}{% endblock %}{% endset -%}
 {%- if mode == 'click' -%}
     <div
         data-slot="ripple"
@@ -24,7 +25,7 @@
         data-ripple-color-value="{{ color ?? 'bg-current/25' }}"
         data-action="pointerdown->ripple#wave"
         {{ attributes.defaults({class: 'relative inline-block overflow-hidden rounded-[inherit]'|tailwind_classes}) }}
-    >{% block content %}{% endblock %}</div>
+    >{{ screen|raw }}</div>
 {%- else -%}
     <div data-slot="ripple" {{ attributes.defaults({class: 'relative grid place-items-center overflow-hidden'|tailwind_classes}) }}>
         <style>
@@ -36,6 +37,6 @@
                 <span data-ripple-ring class="absolute left-1/2 top-1/2 rounded-full border {{ color ?? 'border-foreground/15' }} bg-foreground/[0.03]" style="width: {{ size + i * 70 }}px; height: {{ size + i * 70 }}px; opacity: {{ 0.5 - i * 0.08 }}; animation: ripple-ring {{ duration }}s ease-in-out {{ i * 0.2 }}s infinite; transform: translate(-50%, -50%)"></span>
             {%- endfor %}
         </div>
-        <div class="relative z-10">{% block content %}{% endblock %}</div>
+        <div class="relative z-10">{{ screen|raw }}</div>
     </div>
 {%- endif -%}

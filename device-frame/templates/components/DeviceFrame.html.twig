@@ -14,6 +14,7 @@
     ## bool Rotate a phone or a tablet.
     landscape = false
 -%}
+{%- set screen %}{% block content %}{% endblock %}{% endset -%}
 {%- set phone = device in ['iphone', 'android'] -%}
 {%- set tablet = device == 'tablet' -%}
 <figure data-slot="device-frame" data-device="{{ device }}" {%- if label %} role="group" aria-label="{{ label }}"{% endif %} {{ attributes.defaults({class: 'm-0 inline-block max-w-full'|tailwind_classes}) }}>
@@ -23,12 +24,12 @@
                 <span class="flex gap-1.5" aria-hidden="true"><i class="size-2.5 rounded-full bg-red-400"></i><i class="size-2.5 rounded-full bg-amber-400"></i><i class="size-2.5 rounded-full bg-green-400"></i></span>
                 <span class="min-w-0 flex-1 truncate rounded-md bg-background px-3 py-0.5 text-center text-xs text-muted-foreground">{{ url ?? '' }}</span>
             </div>
-            <div class="bg-background">{% block content %}{% endblock %}</div>
+            <div class="bg-background">{{ screen|raw }}</div>
         </div>
     {%- elseif device == 'laptop' %}
         <div class="mx-auto w-full">
             <div class="rounded-t-2xl border-[10px] border-b-0 border-neutral-800 bg-neutral-800 shadow-lg dark:border-neutral-700 dark:bg-neutral-700">
-                <div class="overflow-hidden rounded-md bg-background">{% block content %}{% endblock %}</div>
+                <div class="overflow-hidden rounded-md bg-background">{{ screen|raw }}</div>
             </div>
             <div class="mx-auto h-3 w-[110%] -translate-x-[4.5%] rounded-b-xl bg-neutral-300 shadow dark:bg-neutral-600"></div>
         </div>
@@ -36,7 +37,7 @@
         <div class="{{ phone ? (landscape ? 'rounded-[2.2rem] border-[10px]' : 'rounded-[2.5rem] border-[10px]') : 'rounded-[1.5rem] border-[12px]' }} relative overflow-hidden border-neutral-800 bg-neutral-800 shadow-xl dark:border-neutral-700 dark:bg-neutral-700">
             {%- if device == 'iphone' %}<span class="absolute z-10 rounded-full bg-neutral-900 {{ landscape ? 'left-1.5 top-1/2 h-16 w-4 -translate-y-1/2' : 'left-1/2 top-1.5 h-4 w-20 -translate-x-1/2' }}" aria-hidden="true"></span>{% endif %}
             {%- if device == 'android' %}<span class="absolute z-10 rounded-full bg-neutral-900 {{ landscape ? 'left-1.5 top-1/2 size-2.5 -translate-y-1/2' : 'left-1/2 top-2 size-2.5 -translate-x-1/2' }}" aria-hidden="true"></span>{% endif %}
-            <div class="overflow-hidden rounded-[1.6rem] bg-background {{ phone ? (landscape ? 'aspect-[19.5/9] w-[38rem] max-w-full' : 'aspect-[9/19.5] w-64 max-w-full') : (landscape ? 'aspect-[4/3] w-[32rem] max-w-full' : 'aspect-[3/4] w-80 max-w-full') }}">{% block content %}{% endblock %}</div>
+            <div class="overflow-hidden rounded-[1.6rem] bg-background {{ phone ? (landscape ? 'aspect-[19.5/9] w-[38rem] max-w-full' : 'aspect-[9/19.5] w-64 max-w-full') : (landscape ? 'aspect-[4/3] w-[32rem] max-w-full' : 'aspect-[3/4] w-80 max-w-full') }}">{{ screen|raw }}</div>
         </div>
     {%- endif %}
 </figure>
