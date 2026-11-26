@@ -1,0 +1,41 @@
+{#
+ # Ripple effects. `mode="rings"`: concentric rings behind the content. `mode="click"`: a wave from the pointer on click.
+ #
+ # Props: mode, rings, size, duration, color.
+ # Slot `default`: the content.
+ #}
+{%- props
+    ## string `rings` (decorative concentric rings) or `click` (a wave on every click inside).
+    mode = 'rings',
+    ## integer The number of rings.
+    rings = 4,
+    ## integer The size of the first ring, in pixels.
+    size = 160,
+    ## integer The duration of one pulse, in seconds (rings) or milliseconds (click).
+    duration = 3,
+    ## string A Tailwind color utility for the rings or the wave, such as `border-primary` for rings and `bg-primary/30` for a click.
+    color = null
+-%}
+{%- if mode == 'click' -%}
+    <div
+        data-slot="ripple"
+        data-controller="ripple"
+        data-ripple-duration-value="{{ duration > 20 ? duration : 600 }}"
+        data-ripple-color-value="{{ color ?? 'bg-current/25' }}"
+        data-action="pointerdown->ripple#wave"
+        {{ attributes.defaults({class: 'relative inline-block overflow-hidden rounded-[inherit]'|tailwind_classes}) }}
+    >{% block content %}{% endblock %}</div>
+{%- else -%}
+    <div data-slot="ripple" {{ attributes.defaults({class: 'relative grid place-items-center overflow-hidden'|tailwind_classes}) }}>
+        <style>
+            @keyframes ripple-ring { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5 } 50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.2 } }
+            @media (prefers-reduced-motion: reduce) { [data-ripple-ring] { animation: none !important } }
+        </style>
+        <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+            {%- for i in 0..(rings - 1) %}
+                <span data-ripple-ring class="absolute left-1/2 top-1/2 rounded-full border {{ color ?? 'border-foreground/15' }} bg-foreground/[0.03]" style="width: {{ size + i * 70 }}px; height: {{ size + i * 70 }}px; opacity: {{ 0.5 - i * 0.08 }}; animation: ripple-ring {{ duration }}s ease-in-out {{ i * 0.2 }}s infinite; transform: translate(-50%, -50%)"></span>
+            {%- endfor %}
+        </div>
+        <div class="relative z-10">{% block content %}{% endblock %}</div>
+    </div>
+{%- endif -%}
