@@ -1,0 +1,65 @@
+{#
+ # Two lists to move items between (and, optionally, to order the chosen ones).
+ #
+ # Props: name, orderable, sourceLabel, targetLabel, the button labels, emptyLabel, label.
+ # Slots: `source` and `target`: `PickList:Item` elements.
+ #}
+{%- props
+    ## string|null The name of the hidden inputs for the chosen items (`name[]`), in their order.
+    name = null,
+    ## bool Show up and down buttons to order the chosen items.
+    orderable = false,
+    ## string The title of the available list.
+    sourceLabel = 'Available',
+    ## string The title of the chosen list.
+    targetLabel = 'Chosen',
+    ## string The accessible name of the button that moves the selection to the chosen list.
+    moveRightLabel = 'Move selected to chosen',
+    ## string The accessible name of the button that moves everything to the chosen list.
+    moveAllRightLabel = 'Move all to chosen',
+    ## string The accessible name of the button that moves the selection back.
+    moveLeftLabel = 'Move selected back',
+    ## string The accessible name of the button that moves everything back.
+    moveAllLeftLabel = 'Move all back',
+    ## string The accessible name of the move up button.
+    moveUpLabel = 'Move up',
+    ## string The accessible name of the move down button.
+    moveDownLabel = 'Move down',
+    ## string The accessible name of the whole control.
+    label = 'Pick list'
+-%}
+{%- set source %}{% block source %}{% endblock %}{% endset -%}
+{%- set target %}{% block target %}{% endblock %}{% endset -%}
+{%- set button = 'inline-flex size-8 items-center justify-center rounded-md border bg-background outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:opacity-50' -%}
+<div
+    data-slot="pick-list"
+    data-controller="pick-list"
+    {%- if name %} data-pick-list-name-value="{{ name }}"{% endif %}
+    role="group"
+    aria-label="{{ label }}"
+    {{ attributes.defaults({class: 'grid items-stretch gap-3 sm:grid-cols-[1fr_auto_1fr_auto]'|tailwind_classes}) }}
+>
+    <div class="grid min-w-0 gap-1.5">
+        <span id="pick-list-source-{{ random(100000) }}" class="text-sm font-medium">{{ sourceLabel }}</span>
+        <ul role="listbox" aria-multiselectable="true" aria-label="{{ sourceLabel }}" tabindex="0" data-pick-list-target="source" data-action="keydown->pick-list#keydown click->pick-list#click dblclick->pick-list#doubleClick" class="m-0 min-h-40 list-none overflow-auto rounded-md border bg-background p-1 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">{{ source|raw }}</ul>
+    </div>
+    <div class="flex items-center justify-center gap-1.5 sm:flex-col">
+        <button type="button" class="{{ button }}" data-action="pick-list#moveRight" aria-label="{{ moveRightLabel }}"><twig:ux:icon name="lucide:chevron-right" class="size-4" /></button>
+        <button type="button" class="{{ button }}" data-action="pick-list#moveAllRight" aria-label="{{ moveAllRightLabel }}"><twig:ux:icon name="lucide:chevrons-right" class="size-4" /></button>
+        <button type="button" class="{{ button }}" data-action="pick-list#moveLeft" aria-label="{{ moveLeftLabel }}"><twig:ux:icon name="lucide:chevron-left" class="size-4" /></button>
+        <button type="button" class="{{ button }}" data-action="pick-list#moveAllLeft" aria-label="{{ moveAllLeftLabel }}"><twig:ux:icon name="lucide:chevrons-left" class="size-4" /></button>
+    </div>
+    <div class="grid min-w-0 gap-1.5">
+        <span class="text-sm font-medium">{{ targetLabel }}</span>
+        <ul role="listbox" aria-multiselectable="true" aria-label="{{ targetLabel }}" tabindex="0" data-pick-list-target="target" data-action="keydown->pick-list#keydown click->pick-list#click dblclick->pick-list#doubleClick" class="m-0 min-h-40 list-none overflow-auto rounded-md border bg-background p-1 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">{{ target|raw }}</ul>
+    </div>
+    {%- if orderable %}
+        <div class="flex items-center justify-center gap-1.5 sm:flex-col">
+            <button type="button" class="{{ button }}" data-action="pick-list#moveUp" aria-label="{{ moveUpLabel }}"><twig:ux:icon name="lucide:chevron-up" class="size-4" /></button>
+            <button type="button" class="{{ button }}" data-action="pick-list#moveDown" aria-label="{{ moveDownLabel }}"><twig:ux:icon name="lucide:chevron-down" class="size-4" /></button>
+        </div>
+    {%- else %}
+        <div class="hidden"></div>
+    {%- endif %}
+    <span data-pick-list-target="values" hidden></span>
+</div>

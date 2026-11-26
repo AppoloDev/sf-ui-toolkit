@@ -34,7 +34,7 @@
     data-controller="banner"
     {%- if storageKey %} data-banner-key-value="{{ storageKey }}"{% endif %}
     role="{{ role }}"
-    {{ attributes.defaults({class: ('flex w-full items-center gap-3 border-b px-4 py-2 text-sm ' ~ variants[variant] ?? variants.default ~ (sticky ? ' sticky top-0 z-40' : ''))|tailwind_classes}) }}
+    {{ attributes.defaults({class: ('flex w-full items-center gap-3 border-b px-4 py-2 text-sm ' ~ (variants[variant] ?? variants.default) ~ (sticky ? ' sticky top-0 z-40' : ''))|tailwind_classes}) }}
 >
     {%- if icon %}<twig:ux:icon :name="icon" class="size-4 shrink-0" aria-hidden="true" />{% endif %}
     <div class="min-w-0 flex-1">{% block content %}{% endblock %}</div>

@@ -105,7 +105,6 @@ export default class extends Controller {
         const range = this.modeValue === 'range';
         this.rangeTarget.hidden = !range;
         this.textTarget.hidden = range;
-        this.navigationTarget.querySelectorAll('button').forEach((b) => (b.hidden = range && b !== this.previousTarget && b !== this.nextTarget && false));
         this.textTarget.textContent = range ? '' : this.label(period);
         if (range && !keepFields) {
             this.fromTarget.value = iso(start);
